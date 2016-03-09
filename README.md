@@ -1,3 +1,1 @@
-button属性修改在bootstrap.css里面
-button显示修改在-include/footer.html和base.js里面
-
+记录一下，让生活变的有意义。
