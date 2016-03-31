@@ -61,7 +61,7 @@
 Quick">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2015/08/14/hello-world/index.html">
+<meta property="og:url" content="http://cmp-cc.github.com/2015/08/14/hello-world/index.html">
 <meta property="og:site_name" content="cmp-cc 的个人博客">
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
 Quick">
@@ -201,9 +201,39 @@ Quick">
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '5BDj1jDx4kzYMU_X-3kZ','2.0.0');
+</script>
+
+
+
+    </div>
   
 </nav>
 
@@ -378,7 +408,7 @@ Quick">
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2015/08/14/hello-world/"
-           data-title="Hello World" data-url="http://yoursite.com/2015/08/14/hello-world/">
+           data-title="Hello World" data-url="http://cmp-cc.github.com/2015/08/14/hello-world/">
       </div>
     
   </div>
@@ -415,7 +445,7 @@ Quick">
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
+               src="/images/avatar.jpg"
                alt="cmp-cc" />
           <p class="site-author-name" itemprop="name">cmp-cc</p>
           <p class="site-description motion-element" itemprop="description"></p>
@@ -451,6 +481,16 @@ Quick">
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cmp-cc" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
           
         </div>
 
@@ -751,12 +791,51 @@ Quick">
       (document.getElementsByTagName('head')[0]
       || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
+
+
   </script>
 
   
     
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
   
 
+ <script type="text/javascript">
+  window.onload = function(){
+    
+   setTimeout(function(){
+     //无登陆账户
+    if(!document.getElementsByClassName("ds-account-control")[0]){
+     
+        var cmp_cc_blog_user = localStorage.getItem("cmp-cc_blog_user");
+        var author_name_value = cmp_cc_blog_user?'value="'+cmp_cc_blog_user+'"':'';
+
+        var i = '<div class="ds-control-group" style="float:right;padding:6px;"><input type="text" '+author_name_value+'id="author_name_proxy" id="ds-dialog-name"  class="custom_input" style="color:#777;width=80%;font-size:13px;border:1px solid #ccc;height:25px;box-shadow: inset 0 1px 1px;padding: 2px 0px 0px 8px;" placeholder="昵称 or 登陆" required></div>';
+       
+
+        //展开一个回复，再关闭。 多说没有参数配置啊~ 让人觉得不优雅
+        var $last_ds_post_reply = $(".ds-post-reply:last");
+        $last_ds_post_reply.click().click();;
+        $(".ds-post-options.ds-gradient-bg").append(i);
+
+        $(".ds-post-button").click(function(){
+           $(this).submit();
+           $("#ds-wrapper").hide();
+           var author_name = $("#author_name_proxy").val();
+           $("#ds-wrapper #ds-dialog-name").val(author_name);
+           $("#ds-wrapper form").submit();
+           //www.cmp-cc.github.com
+           localStorage.setItem("cmp-cc_blog_user",author_name);
+           $(".custom_input").val(author_name);
+        });
+     }
+    },300);
+  }  
+
+ </script>
+
 
 
 
@@ -768,6 +847,9 @@ Quick">
   
 
   
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
 
 </body>
 </html>
