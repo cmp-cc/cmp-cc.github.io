@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://cmp-cc.github.io/2013/02/12/Java%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E7%AE%80%E7%A7%B0/</loc>
+    <lastmod>2016-04-07T07:10:01.461Z</lastmod>
+    <data>
+        <display>
+        <title>Java项目开发中的简称</title>
+        <pubTime>2013-02-12T06:13:00.000Z</pubTime>
+        
+        <tag>DDD (领域驱动设计)</tag>
+         
+        <tag>Java</tag>
+         
+         
+           
+             
+              <breadCrumb title="架构设计" url="http://cmp-cc.github.io/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://cmp-cc.github.io/2013/12/14/%E8%B4%AB%E8%A1%80%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%85%85%E8%A1%80%E6%A8%A1%E5%9E%8B/</loc>
     <lastmod>2016-04-07T06:24:53.828Z</lastmod>
     <data>
@@ -47,21 +69,6 @@
              
               <breadCrumb title="博客" url="http://cmp-cc.github.io/categories/%E5%8D%9A%E5%AE%A2/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://cmp-cc.github.io/2016/03/30/Java/%E6%96%B0%E7%9A%84%E6%96%87%E7%AB%A0/</loc>
-    <lastmod>2016-03-30T02:14:54.184Z</lastmod>
-    <data>
-        <display>
-        <title>新的文章</title>
-        <pubTime>2016-03-30T02:14:54.000Z</pubTime>
-        
-         
-           
         </display>
     </data>
     </url>
