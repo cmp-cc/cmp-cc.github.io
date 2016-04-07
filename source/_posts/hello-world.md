@@ -1,7 +1,8 @@
 ---
 title: Hello World
 date: 2015-08-14 16:53:00
-categories: 博客
+categories: 
+- 博客
 tags:
 - Blog
 - Hexo

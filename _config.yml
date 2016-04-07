@@ -37,7 +37,7 @@ titlecase: false         # 把标题转换为 title case
 external_link: true      # 在新标签中打开链接
 filename_case: 0         # 把文件名称转换为 (1) 小写或 (2) 大写	
 render_drafts: false     # 显示草稿
-post_asset_folder: false # 启动 Asset 文件夹
+post_asset_folder: true  # 启动 Asset 文件夹   (更有规律地提供图片和其他资源以及想要将他们的资源分布在各个文章上)
 relative_link: false     # 把链接改为与根目录的相对位址
 future: true             # 显示未来的文章
 highlight:               # 代码块的设置
@@ -75,7 +75,7 @@ theme: next              # 当前主题名称。值为false时禁用主题
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:                  #  部署部分的设置
   type: git
-  repo: git@git.avlyun.org:xianzouxiang/blog.git
+  repo: git@github.com:cmp-cc/cmp-cc.github.io.git
   branch: master
  # message: Site updated # 默认消息为Site updated {{titile}}
 
