@@ -51,6 +51,227 @@
   </entry>
   
   <entry>
+    <title>HTML5 语义化标签</title>
+    <link href="http://cmp-cc.github.io/2014/01/03/HTML5%20%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/"/>
+    <id>http://cmp-cc.github.io/2014/01/03/HTML5 语义化标签/</id>
+    <published>2014-01-03T08:43:00.000Z</published>
+    <updated>2016-04-08T08:23:52.427Z</updated>
+    
+    <content type="html">&lt;p&gt;前段时间看了一本《HTML5 实战》 ，也只是为了关注一下HTML5的发展和趋势。&lt;/p&gt;
+&lt;p&gt;看的我头大，这本书只是做个了HTML5的介绍，算不上实战，很多例子含糊不清。&lt;/p&gt;
+&lt;p&gt;HTML5 中新的语义化标签，还是让我眼前一亮。&lt;/p&gt;
+&lt;h2 id=&quot;HTML5-中的新特性&quot;&gt;&lt;a href=&quot;#HTML5-中的新特性&quot; class=&quot;headerlink&quot; title=&quot;HTML5 中的新特性&quot;&gt;&lt;/a&gt;HTML5 中的新特性&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;HTML5 中的核心特性，先记录一下,方便日后查阅&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新的语义化标签&lt;/li&gt;
+&lt;li&gt;表单与表单API&lt;/li&gt;
+&lt;li&gt;Canvas API&lt;/li&gt;
+&lt;li&gt;拖放 API&lt;/li&gt;
+&lt;li&gt;地理位置 API&lt;/li&gt;
+&lt;li&gt;WEB存储 API&lt;/li&gt;
+&lt;li&gt;IndexedDB API&lt;/li&gt;
+&lt;li&gt;文件&lt;/li&gt;
+&lt;li&gt;通信API&lt;/li&gt;
+&lt;li&gt;WEB workers API&lt;/li&gt;
+&lt;li&gt;历史 API&lt;/li&gt;
+&lt;li&gt;脱机 API&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;HTML5-语义化标签&quot;&gt;&lt;a href=&quot;#HTML5-语义化标签&quot; class=&quot;headerlink&quot; title=&quot;HTML5 语义化标签&quot;&gt;&lt;/a&gt;HTML5 语义化标签&lt;/h2&gt;&lt;h3 id=&quot;HTML-结构语义&quot;&gt;&lt;a href=&quot;#HTML-结构语义&quot; class=&quot;headerlink&quot; title=&quot;HTML 结构语义&quot;&gt;&lt;/a&gt;HTML 结构语义&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;HTML 整体结构所需的标签语义&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;标签&lt;/th&gt;
+&lt;th&gt;语义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;header&lt;/td&gt;
+&lt;td&gt;这个元素表示一组介绍性的内容，适用于文档的不同节，他既可以包含节标题，也可以包含索引、搜索表单、logo等&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;nav&lt;/td&gt;
+&lt;td&gt;这个元素表示包含导航链接的节，如菜单或索引，并非所有的网页链接都要加&lt;nav&gt;元素中，只有主要的导航块才需要加到元素中。&lt;/nav&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;section&lt;/td&gt;
+&lt;td&gt;这个元素表示文档中的普通的节，通常，它可用于创建多个内容块（如：列） 从而对具有特定主题的内容进行分组，如图书的章&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;aside&lt;/td&gt;
+&lt;td&gt;这个元素表示与内容相关但不属于它的内容，如：引用，边侧栏，广告&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;footer&lt;/td&gt;
+&lt;td&gt;这个元素表示与父级元素相关的额外信息。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;article&lt;/td&gt;
+&lt;td&gt;这个元素表示重要信息的独立部分–例如，报纸上或博客中的文章，&lt;article&gt;可以嵌套，也可以用于在相关项列表中显示一个&lt;/article&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;hgroup&lt;/td&gt;
+&lt;td&gt;如果有多级标题，请使用。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;figure&lt;/td&gt;
+&lt;td&gt;这个元素表示主内容引用内容独立部分(图像，图表，视频)，这个信息可以从主内容删除，而不会影响其常规流。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;figcaption&lt;/td&gt;
+&lt;td&gt;这个元素可以用于显示表题，或者与figure 一起用，例如： 图形的描述信息。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;mark&lt;/td&gt;
+&lt;td&gt;这个元素可以突出显示特殊情况下的重要文字，或者是对应的用户输入。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;small&lt;/td&gt;
+&lt;td&gt;这个元素表示边侧评论，如附属细则(负责声明，法律限制，版权)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cite&lt;/td&gt;
+&lt;td&gt;这个元素可以用于显示作品标题(图书、电影、诗歌)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;address&lt;/td&gt;
+&lt;td&gt;显示article或者整个文档的合同信息，且应该位于footer中。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;time&lt;/td&gt;
+&lt;td&gt;显示人和机器可读的日期和时间。 datetime属性，pubdate表示出版日期&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;HTML-文档语义&quot;&gt;&lt;a href=&quot;#HTML-文档语义&quot; class=&quot;headerlink&quot; title=&quot;HTML 文档语义&quot;&gt;&lt;/a&gt;HTML 文档语义&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;HTML 作用于文本标签语义&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;标签&lt;/th&gt;
+&lt;th&gt;语义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;time&lt;/td&gt;
+&lt;td&gt;定义日期或时间&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;em&lt;/td&gt;
+&lt;td&gt;强调&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;strong&lt;/td&gt;
+&lt;td&gt;重要&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;small&lt;/td&gt;
+&lt;td&gt;旁注&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cite&lt;/td&gt;
+&lt;td&gt;作品引用 （标题）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;q&lt;/td&gt;
+&lt;td&gt;引用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dfn&lt;/td&gt;
+&lt;td&gt;举例&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;abbr&lt;/td&gt;
+&lt;td&gt;缩写&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;code&lt;/td&gt;
+&lt;td&gt;计算机代码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;var&lt;/td&gt;
+&lt;td&gt;变量&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;samp&lt;/td&gt;
+&lt;td&gt;计算机输出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;kbd&lt;/td&gt;
+&lt;td&gt;用户输入&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;sub&lt;/td&gt;
+&lt;td&gt;下标&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;sup&lt;/td&gt;
+&lt;td&gt;上标&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;i&lt;/td&gt;
+&lt;td&gt;备选项 大部分用于发言、技术短语等情况。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;b&lt;/td&gt;
+&lt;td&gt;关键字 表示在不增加额外重要性的同时将词或短语高亮显示&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;mart&lt;/td&gt;
+&lt;td&gt;高亮&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ruby、rb、rt、rp&lt;/td&gt;
+&lt;td&gt;注释 [一种排版注释系统(位于横排文本上方的简短文字)]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bdi&lt;/td&gt;
+&lt;td&gt;文本方向间离&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bdo&lt;/td&gt;
+&lt;td&gt;文本方向格式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;span&lt;/td&gt;
+&lt;td&gt;其他&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;br&lt;/td&gt;
+&lt;td&gt;换行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;wbr&lt;/td&gt;
+&lt;td&gt;可选折行 [长单词的破择号 (让浏览器决定是否换行)]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;h1 ~ h6&lt;/td&gt;
+&lt;td&gt;一级标题 至 六级标题&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;figure、figcaption&lt;/td&gt;
+&lt;td&gt;figure 独立的流（图片、图像、图表）figcaption 标题&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间看了一本《HTML5 实战》 ，也只是为了关注一下HTML5的发展和趋势。&lt;/p&gt;
+&lt;p&gt;看的我头大，这本书只是做个了HTML5的介绍，算不上实战，很多例子含糊不清。&lt;/p&gt;
+&lt;p&gt;HTML5 中新的语义化标签，还是让我眼前一亮。&lt;/p&gt;
+&lt;h2 id=&quot;HTML5
+    
+    </summary>
+    
+      <category term="Web" scheme="http://cmp-cc.github.io/categories/Web/"/>
+    
+    
+      <category term="HTML5" scheme="http://cmp-cc.github.io/tags/HTML5/"/>
+    
+  </entry>
+  
+  <entry>
     <title>贫血模型和充血模型</title>
     <link href="http://cmp-cc.github.io/2013/12/14/%E8%B4%AB%E8%A1%80%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%85%85%E8%A1%80%E6%A8%A1%E5%9E%8B/"/>
     <id>http://cmp-cc.github.io/2013/12/14/贫血模型和充血模型/</id>
