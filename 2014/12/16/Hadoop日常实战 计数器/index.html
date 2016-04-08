@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="DDD (领域驱动设计),Java," />
+  <meta name="keywords" content="Hadoop," />
 
 
 
@@ -59,31 +59,25 @@
 
 
 
-<meta name="description" content="大多数情况下，我忍不住赋予Model行为，我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己（cmp-cc）的理解：
-模型 （Model）
-无论是贫血模型还是充血模型，他们都符合POJO （也可以认为JavaBean）。Model包含属性的get、set方法
-模型的本质充当数据容器（保存状态，传递状态）。模型是一种特殊的数据结构
-
-失血模型">
+<meta name="description" content="计数器是一种收集作业统计信息的有效有段
+  在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。
+内置计数器控制台视图Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="贫血模型和充血模型">
-<meta property="og:url" content="http://cmp-cc.github.io/2013/12/14/贫血模型和充血模型/index.html">
+<meta property="og:title" content="Hadoop日常实战 计数器">
+<meta property="og:url" content="http://cmp-cc.github.io/2014/12/16/Hadoop日常实战 计数器/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="大多数情况下，我忍不住赋予Model行为，我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己（cmp-cc）的理解：
-模型 （Model）
-无论是贫血模型还是充血模型，他们都符合POJO （也可以认为JavaBean）。Model包含属性的get、set方法
-模型的本质充当数据容器（保存状态，传递状态）。模型是一种特殊的数据结构
-
-失血模型">
-<meta property="og:updated_time" content="2016-04-07T06:24:53.828Z">
+<meta property="og:description" content="计数器是一种收集作业统计信息的有效有段
+  在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。
+内置计数器控制台视图Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的">
+<meta property="og:image" content="http://cmp-cc.github.io/2014/12/16/Hadoop日常实战%20计数器/QQ图片20141211110508.png">
+<meta property="og:image" content="http://cmp-cc.github.io/2014/12/16/Hadoop日常实战%20计数器/c5c20a58-0087-49b2-a5d5-91ca4ae38066.jpg">
+<meta property="og:updated_time" content="2016-04-08T11:51:45.958Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="贫血模型和充血模型">
-<meta name="twitter:description" content="大多数情况下，我忍不住赋予Model行为，我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己（cmp-cc）的理解：
-模型 （Model）
-无论是贫血模型还是充血模型，他们都符合POJO （也可以认为JavaBean）。Model包含属性的get、set方法
-模型的本质充当数据容器（保存状态，传递状态）。模型是一种特殊的数据结构
-
-失血模型">
+<meta name="twitter:title" content="Hadoop日常实战 计数器">
+<meta name="twitter:description" content="计数器是一种收集作业统计信息的有效有段
+  在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。
+内置计数器控制台视图Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的">
+<meta name="twitter:image" content="http://cmp-cc.github.io/2014/12/16/Hadoop日常实战%20计数器/QQ图片20141211110508.png">
 
 
 
@@ -101,7 +95,7 @@
   };
 </script>
 
-  <title> 贫血模型和充血模型 | I am cmp-cc </title>
+  <title> Hadoop日常实战 计数器 | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -241,7 +235,7 @@
             
             
               
-                贫血模型和充血模型
+                Hadoop日常实战 计数器
               
             
           </h1>
@@ -253,8 +247,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-12-14T16:53:00+08:00" content="2013-12-14">
-              2013-12-14
+            <time itemprop="dateCreated" datetime="2014-12-16T17:26:00+08:00" content="2014-12-16">
+              2014-12-16
             </time>
           </span>
 
@@ -267,8 +261,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/架构设计/" itemprop="url" rel="index">
-                    <span itemprop="name">架构设计</span>
+                  <a href="/categories/大数据开发/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据开发</span>
                   </a>
                 </span>
 
@@ -283,8 +277,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/12/14/贫血模型和充血模型/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/12/14/贫血模型和充血模型/" itemprop="commentsCount"></span>
+                <a href="/2014/12/16/Hadoop日常实战 计数器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/16/Hadoop日常实战 计数器/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -306,92 +300,69 @@
       
 
       
-        <p>大多数情况下，我忍不住赋予Model行为，我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己（cmp-cc）的理解：</p>
-<h2 id="模型-（Model）"><a href="#模型-（Model）" class="headerlink" title="模型 （Model）"></a>模型 （Model）</h2><ul>
-<li>无论是贫血模型还是充血模型，他们都符合POJO （也可以认为JavaBean）。<br><strong>Model包含属性的<code>get</code>、<code>set</code>方法</strong></li>
-<li>模型的本质充当数据容器（保存状态，传递状态）。<br><strong>模型是一种特殊的数据结构</strong></li>
+        <p>计数器是一种收集作业统计信息的有效有段</p>
+<p>  <strong>在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。</strong></p>
+<h2 id="内置计数器控制台视图"><a href="#内置计数器控制台视图" class="headerlink" title="内置计数器控制台视图"></a>内置计数器控制台视图</h2><p>Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的具体状体。</p>
+<p>如下是<code>Hadoop 2.0.0-cdh4.7.0</code> Hadoop Mapreudce执行程序控制台显示</p>
+<img src="/2014/12/16/Hadoop日常实战%20计数器/QQ图片20141211110508.png" alt="内置计数器" title="内置计数器">
+<p> <strong>Counter有组（group）的概念，用于表示逻辑上相同范围的所有数值。</strong><br>上图默认输出Counter分为三个组，从中我们可以分析出程序运行使用 CPU、内存、IO读写、网络流量的一个基本情况 </p>
+<p>文章推荐: <a href="http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html</a></p>
+<h2 id="内置计数器的分类："><a href="#内置计数器的分类：" class="headerlink" title="内置计数器的分类："></a>内置计数器的分类：</h2><table>
+<thead>
+<tr>
+<th>分组</th>
+<th>属性名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mapreduce任务计数器</td>
+<td>org.apache.hadoop.mapreduce. TaskCounter</td>
+</tr>
+<tr>
+<td>任务计数器</td>
+<td>org.apache.hadoop.mapreduce. JobCounter</td>
+</tr>
+<tr>
+<td>文件系统计数器</td>
+<td>org.apache.hadoop.mapreduce.FileSystemCounter</td>
+</tr>
+<tr>
+<td>输入文件计数器</td>
+<td>org.apache.hadoop.mapreduce.lib.input. FileInputFormatCounter</td>
+</tr>
+<tr>
+<td>输出文件计数器</td>
+<td>org.apache.hadoop.mapreduce.lib.output. FileOutputFormatCounter</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这些就是hadoop 内置的计数器类（组），均是枚举类型。</strong></p>
+<h2 id="静态计数器和动态计数器"><a href="#静态计数器和动态计数器" class="headerlink" title="静态计数器和动态计数器"></a>静态计数器和动态计数器</h2><ul>
+<li><p>静态计数器<br><strong>定义一个枚举(enum) 枚举的名称即使Counter组的名称。 枚举属性即使要记录的数值名称，Mapreduce框架将跨所有map和reduce聚集这些计数器，并在作业结束时产生一个结果。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static enum ReporInfo&#123;</span><br><span class="line">    // 统计map端读取数据是否按预期。 MISSING输出为0，表示没有输入数据完整或无缺损。</span><br><span class="line">  MISSING</span><br><span class="line">&#125;</span><br><span class="line">//通过Mapper中的context对象进行计数</span><br><span class="line">context.getCounter(Temperature.MISSING).increment(1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态计数器<br><strong>动态计数器使用更加简单,你需要指定两个变量，这个变量均是动态指定。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 组的名称  和  动态计数的字段名称</span><br><span class="line">context.getCounter(&quot;group name&quot;,&quot;dynamic args&quot;).increment(1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较<br><strong>静态类型： 先将java枚举类型转换成String类型，再通过RPC发送计数器，两种创建和访问计数器方法(枚举类型和String类型) 实际是等价的。<br>相比之下，枚举类型易于使用，还提供类型安全，使用与大多数作业，特定场合使用动态计数器。</strong></p>
+</li>
 </ul>
-<h2 id="失血模型"><a href="#失血模型" class="headerlink" title="失血模型"></a>失血模型</h2><p><strong>失血模型就是POJO对象，模型仅仅包含数据的定义和getter/setter方法，业务逻辑和应用逻辑都放到服务层（Service）中。</strong> </p>
-<p>层次表示：</p>
-<blockquote>
-<p>UI(视图层) -&gt; Control(控制层) -&gt; Service（服务层） -&gt; DAO （持久化层） -&gt;domain object （领域对象 Model ）</p>
-</blockquote>
+<h2 id="通过计数器获取Mapreduce的运行情况"><a href="#通过计数器获取Mapreduce的运行情况" class="headerlink" title="通过计数器获取Mapreduce的运行情况"></a>通过计数器获取Mapreduce的运行情况</h2><p>获取计数器：  作业长时间运行，我们需要通过计数器了解运行情况。我们只需要写一个监听类就可以。<br>如下是Mapreduce2.0写法，同样需要引用1.0中的JobClient类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String jobID = args[0];</span><br><span class="line">JobClient jobClient = new JobClient(new JobConf(getConf()));</span><br><span class="line">RunningJob job = jobClient.getJob(JobID.forName(jobID));</span><br><span class="line">Counters counters = job.getCounters();</span><br><span class="line">long missing = counters.getCounter(</span><br><span class="line">MaxTemperatureWithCounters.Temperature.MISSING);</span><br><span class="line">    </span><br><span class="line">long total = counters.getCounter(Task.Counter.MAP_INPUT_RECORDS);</span><br><span class="line"></span><br><span class="line">System.out.printf(&quot;Records with missing temperature fields: %.2f%%\n&quot;,100.0 * missing / total);</span><br></pre></td></tr></table></figure></p>
+<h2 id="计数器原理"><a href="#计数器原理" class="headerlink" title="计数器原理"></a>计数器原理</h2><img src="/2014/12/16/Hadoop日常实战%20计数器/c5c20a58-0087-49b2-a5d5-91ca4ae38066.jpg" alt="计数器原理图" title="计数器原理图">
 <ul>
-<li>领域对象不具备任何行为（仅仅是一个POJO对象），所有的行为都在Service层。</li>
-<li>领域对象的作用。<ul>
-<li>充当数据容器。</li>
-<li>对象关系映射（ORM）</li>
+<li>计数器实质是由JobTracker维护，计数器值会定期传到tasktracker，在由tasktracker传递给jobtracker。也就是说所有的计数器信息都是存在jobTracker的内存中，计数器序列化并状态更新同步到JobTracker。</li>
+<li>TaskTracker中累加计数器 记录单节点中的计数个数。通过“心跳“ 传递信息给JobTracker。</li>
+<li>JobTracker会下运行结束之前最终汇总时剔除掉失败任务计数器。</li>
 </ul>
-</li>
-<li>这种模型很容易理解和掌握。</li>
-<li>优点<ul>
-<li>层次结构清晰，单项依赖，易于维护。</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>Service 层挤压严重。（业务逻辑职责） </li>
-<li>部分与数据操作相关的行为，必须通过Service层进行修改。</li>
-</ul>
-</li>
-</ul>
-<h2 id="贫血模型"><a href="#贫血模型" class="headerlink" title="贫血模型"></a>贫血模型</h2><p><strong>贫血模型中包含了一些业务逻辑，但不包含依赖持久层的业务逻辑。这部分依赖于持久层的业务逻辑将会放到服务层中。</strong></p>
-<p>层次表示：</p>
-<blockquote>
-<p>UI(视图层) -&gt; Control(控制层) -&gt; Service（服务层） -&gt; DAO （持久化层） -&gt;domain object （Model）</p>
-</blockquote>
+<p>Mapreduce1.0中并没有限制计数器的个数，极其影响程序性能。<br>为了不对JobTracker产生印象。计数器数目应当控制到100以下。</p>
+<p>如果你的计数器超过了120个就会报如下错误：<br>org.apache.hadoop.mapreduce.counters.LimitExceededException: Too many counters: 121 max=120</p>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>你可能遇到如下异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">14/12/12 09:56:48 INFO mapred.JobClient: Task Id : attempt_201412091419_0236_m_000028_0, Status : FAILED</span><br><span class="line">Error: Found interface org.apache.hadoop.mapreduce.Counter, but class was expected</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>继承失血模型特性</li>
-<li>领域对象具备简单行为，如下特点。<ul>
-<li>行为不具备持久化特性。（不与数据库打交道，也就是不依赖于DAO层）</li>
-<li>具备与数据相关的业务行为。（部分Service行为 移至 Model）</li>
+<li>原因：<br><strong>你本地的使用的编译环境是Hadoop1.0(MR1) 而你的集群环境为hadoop2.0(MR2) 所以默认没有找到。</strong></li>
+<li>解决方案<br>更改为hadoop2.0(hadoop-mapreduce-client-core-2.0.0-cdh4.7.0.jar，hadoop-common-2.0.0-cdh4.7.0.jar)的jar。和集群环境保持一致。</li>
 </ul>
-</li>
-<li>同样与失血模型同样的痛处<ul>
-<li>系统越复杂，维护成本越高，Service层（业务逻辑）挤压严重。</li>
-</ul>
-</li>
-</ul>
-<h2 id="充血模型"><a href="#充血模型" class="headerlink" title="充血模型"></a>充血模型</h2><p>**充血模型中包含了所有的业务逻辑，包括依赖于持久层的业务逻辑。所以，使用充血模型的领域层是依赖于持久层。</p>
-<p>层次表示：</p>
-<blockquote>
-<p>UI -&gt; Control -&gt; Service -&gt; domain object &lt;–&gt; DAO</p>
-</blockquote>
-<ul>
-<li>Service 层被减轻，不和DAO打交道，只包含业务逻辑。</li>
-<li>领域对象 和 DAO 双向依赖。</li>
-<li>优点<ul>
-<li>减轻了Service层。</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>Service 将直接依赖于领域对象。 领域对象同样具备部分业务，可能会造成职责混乱，或者使领域对象不具备业务I行为</li>
-<li>领域对象与DAO双向依赖，部分职责容易混响。</li>
-</ul>
-</li>
-</ul>
-<h2 id="胀血模型"><a href="#胀血模型" class="headerlink" title="胀血模型"></a>胀血模型</h2><p><strong>胀血模型就是把和业务逻辑不想关的其他应用逻辑（如授权、事务等）都放到领域模型中。我感觉胀血模型反而是另外一种的失血模型，因为服务层消失了，领域层干了服务层的事，到头来还是什么都没变。</strong></p>
-<p>层次表示：</p>
-<blockquote>
-<p>UI -&gt; Control -&gt; domain object &lt;–&gt; DAO</p>
-</blockquote>
-<ul>
-<li>没有了服务层，领域对象包含所有业务逻辑，并双向依赖与持久化层。</li>
-<li>优点<ul>
-<li>分层极其简单</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>领域对象职责过多，挤压严重，极其不稳定，不易维护。</li>
-<li>控制层访问领域对象能够看到不必要的行为。</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>失血模型和胀血模型并不被提倡，主要原因：领域模型内聚职责过少，或者过多。<br>关于贫血模型和充血模型的选型，其实跟语言架构有关（Robin提出）：</p>
-<ul>
-<li>如果使用Spring，必须贫血模型。</li>
-<li>如果使用RoR，直接充血模型。</li>
-</ul>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://blog.csdn.net/always_my_fault/article/details/2063612" target="_blank" rel="external">http://blog.csdn.net/always_my_fault/article/details/2063612</a><br><a href="http://www.oschina.net/question/54100_10400" target="_blank" rel="external">http://www.oschina.net/question/54100_10400</a><br><a href="http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml" target="_blank" rel="external">http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml</a></p>
+<p>推荐Blog：<br><a href="http://langyu.iteye.com/blog/1171091" target="_blank" rel="external">http://langyu.iteye.com/blog/1171091</a></p>
 
       
     </div>
@@ -406,9 +377,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/DDD-领域驱动设计/" rel="tag">#DDD (领域驱动设计)</a>
-          
-            <a href="/tags/Java/" rel="tag">#Java</a>
+            <a href="/tags/Hadoop/" rel="tag">#Hadoop</a>
           
         </div>
       
@@ -417,16 +386,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/10/16/Maven 服务器插件Jetty/" rel="next" title="Maven 服务器插件Jetty">
-                <i class="fa fa-chevron-left"></i> Maven 服务器插件Jetty
+              <a href="/2014/01/03/HTML5 语义化标签/" rel="next" title="HTML5 语义化标签">
+                <i class="fa fa-chevron-left"></i> HTML5 语义化标签
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/01/03/HTML5 语义化标签/" rel="prev" title="HTML5 语义化标签">
-                HTML5 语义化标签 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/08/14/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -453,8 +422,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2013/12/14/贫血模型和充血模型/"
-           data-title="贫血模型和充血模型" data-url="http://cmp-cc.github.io/2013/12/14/贫血模型和充血模型/">
+      <div class="ds-thread" data-thread-key="2014/12/16/Hadoop日常实战 计数器/"
+           data-title="Hadoop日常实战 计数器" data-url="http://cmp-cc.github.io/2014/12/16/Hadoop日常实战 计数器/">
       </div>
     
   </div>
@@ -567,7 +536,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型-（Model）"><span class="nav-number">1.</span> <span class="nav-text">模型 （Model）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#失血模型"><span class="nav-number">2.</span> <span class="nav-text">失血模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贫血模型"><span class="nav-number">3.</span> <span class="nav-text">贫血模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#充血模型"><span class="nav-number">4.</span> <span class="nav-text">充血模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#胀血模型"><span class="nav-number">5.</span> <span class="nav-text">胀血模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">6.0.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内置计数器控制台视图"><span class="nav-number">1.</span> <span class="nav-text">内置计数器控制台视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内置计数器的分类："><span class="nav-number">2.</span> <span class="nav-text">内置计数器的分类：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态计数器和动态计数器"><span class="nav-number">3.</span> <span class="nav-text">静态计数器和动态计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过计数器获取Mapreduce的运行情况"><span class="nav-number">4.</span> <span class="nav-text">通过计数器获取Mapreduce的运行情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计数器原理"><span class="nav-number">5.</span> <span class="nav-text">计数器原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常处理"><span class="nav-number">6.</span> <span class="nav-text">异常处理</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
