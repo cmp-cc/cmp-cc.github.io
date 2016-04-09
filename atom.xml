@@ -51,6 +51,141 @@
   </entry>
   
   <entry>
+    <title>Hadoop 日常实战 文件压缩</title>
+    <link href="http://cmp-cc.github.io/2014/12/28/Hadoop%20%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9/"/>
+    <id>http://cmp-cc.github.io/2014/12/28/Hadoop 日常实战 文件压缩/</id>
+    <published>2014-12-28T11:25:00.000Z</published>
+    <updated>2016-04-09T06:35:52.371Z</updated>
+    
+    <content type="html">&lt;p&gt;Mapreduce 程序执行可以分为三个阶段：&lt;br&gt;1、Mapper 阶段&lt;br&gt;&lt;strong&gt;从HDFS中读取数据源，将计算结果写入HDFS&lt;/strong&gt;&lt;br&gt;2、Suffle与排序阶段&lt;br&gt;&lt;strong&gt;从HDFS中读取Mapper阶段结果数据，并进行混排操作（Suffle与排序），并将结果数据传递给Reducer&lt;/strong&gt;&lt;br&gt;3、Reducer阶段&lt;br&gt;&lt;strong&gt;Reducer接受数据，再将计算结果写入HDFS或其它&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这里我忽略combiner阶段。 因为combiner阶段只是一步优化操作，不属于Mapreduce模型中的核心。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如上可知，执行Mapreduce程序一共需要两次文件的读入和写入。  如果增加文件压缩，将大大提高程序的运行效率。&lt;/p&gt;
+&lt;h2 id=&quot;Hadoop-支持的压缩算法&quot;&gt;&lt;a href=&quot;#Hadoop-支持的压缩算法&quot; class=&quot;headerlink&quot; title=&quot;Hadoop 支持的压缩算法&quot;&gt;&lt;/a&gt;Hadoop 支持的压缩算法&lt;/h2&gt;&lt;h3 id=&quot;内置压缩算法&quot;&gt;&lt;a href=&quot;#内置压缩算法&quot; class=&quot;headerlink&quot; title=&quot;内置压缩算法&quot;&gt;&lt;/a&gt;内置压缩算法&lt;/h3&gt;&lt;p&gt;优势：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;它减少了存储文件所需的空间；&lt;/li&gt;
+&lt;li&gt;加快了数据在网络上或者从磁盘上或到磁盘上的传输速度；&lt;br&gt;hadoop对于压缩格式的是透明识别,我们的MapReduce任务的执行是透明的，hadoop能够自动为我们 将压缩的文件解压，而不用我们去关心。 hadoop就会根据扩展名去选择解码器解压。当压缩文件做为mapreduce的输入时，mapreduce将自动通过扩展名找到相应的codec对其解压。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;主流的压缩格式：&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;压缩格式&lt;/th&gt;
+&lt;th&gt;工具&lt;/th&gt;
+&lt;th&gt;算法&lt;/th&gt;
+&lt;th&gt;文件扩展名&lt;/th&gt;
+&lt;th&gt;多文件&lt;/th&gt;
+&lt;th&gt;是否可切分&lt;/th&gt;
+&lt;th&gt;HadoopCompressionCodec&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;DEFLATE&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;td&gt;DEFLATE&lt;/td&gt;
+&lt;td&gt;.deflate&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;org.apache.hadoop.io.compress.DefaultCodec&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Gzip&lt;/td&gt;
+&lt;td&gt;gzip&lt;/td&gt;
+&lt;td&gt;DEFLATE&lt;/td&gt;
+&lt;td&gt;.gz&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;org.apache.hadoop.io.compress.GzipCodec&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;bzip2&lt;/td&gt;
+&lt;td&gt;bzip2&lt;/td&gt;
+&lt;td&gt;bzip2&lt;/td&gt;
+&lt;td&gt;.bz2&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;org.apache.hadoop.io.compress.BZip2Codec&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LZO&lt;/td&gt;
+&lt;td&gt;lzop&lt;/td&gt;
+&lt;td&gt;LZO&lt;/td&gt;
+&lt;td&gt;.lzo&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;是（需要索引）&lt;/td&gt;
+&lt;td&gt;com.hadoop.compression.lzo.LzopCodec&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Snappy&lt;/td&gt;
+&lt;td&gt;N/A&lt;/td&gt;
+&lt;td&gt;Snappy&lt;/td&gt;
+&lt;td&gt;.Snappy&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;org.apache.hadoop.io.compress.SnappyCodec&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LZ4&lt;/td&gt;
+&lt;td&gt;N/A&lt;/td&gt;
+&lt;td&gt;LZ4&lt;/td&gt;
+&lt;td&gt;.lz4&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;org.apache.hadoop.io.compress.Lz4Codec&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;压缩算法比较&lt;br&gt;    主要是时间比较与空间比较。&lt;/p&gt;
+&lt;p&gt;1）GZIP的压缩率最高，但是其实CPU密集型的，对CPU的消耗比其他算法要多，压缩和解压速度也慢；&lt;br&gt;2）LZO的压缩率居中，比GZIP要低一些，但是压缩和解压速度明显要比GZIP快很多，其中解压速度快的更多；&lt;br&gt;3）Zippy/Snappy的压缩率最低，而压缩和解压速度要稍微比LZO要快一些。&lt;/p&gt;
+&lt;h3 id=&quot;LZO-算法引入Hadoop&quot;&gt;&lt;a href=&quot;#LZO-算法引入Hadoop&quot; class=&quot;headerlink&quot; title=&quot;LZO 算法引入Hadoop&quot;&gt;&lt;/a&gt;LZO 算法引入Hadoop&lt;/h3&gt;&lt;p&gt;上述压缩格式类型。 除lzo 格式需要另外下载。MR2 均内置上述格式。&lt;br&gt;Lzo下载地址： &lt;a href=&quot;https://github.com/twitter/hadoop-lzo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/twitter/hadoop-lzo&lt;/a&gt;&lt;br&gt;Lzo 本身不支持切分(splitable) 但是我们可以增加索引，即可支持切分&lt;br&gt;Hadoop的Lzo代码库中有索引工具。（DistributedLzoIndexer）&lt;br&gt;请参照：&lt;br&gt;&lt;a href=&quot;https://github.com/twitter/hadoop-lzo/blob/master/src/test/java/com/hadoop/mapreduce/TestLzoTextInputFormat.java&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/twitter/hadoop-lzo/blob/master/src/test/java/com/hadoop/mapreduce/TestLzoTextInputFormat.java&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;如果希望reduce输出的是lzo格式的文件，添加下面的语句&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;FileOutputFormat.setCompressOutput(job, true);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;FileOutputFormat.setOutputCompressorClass(job, LzopCodec.class);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;int result = job.waitForCompletion(true) ? 0 : 1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//上面的语句执行完成后，会生成最后的输出文件，需要在此基础上添加lzo的索引&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;LzoIndexer lzoIndexer = new LzoIndexer(conf);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;lzoIndexer.index(new Path(args[1]));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;如果已经存在lzo文件，但没有添加索引，可以采用下面的方法，在输入路径的文件上上添加lzo索引&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;hadoop jar $HADOOP_HOME/lib/hadoop-lzo-0.4.17.jar com.hadoop.compression.lzo.LzoIndexer hdf://inputpath&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;压缩分片的最重要性&quot;&gt;&lt;a href=&quot;#压缩分片的最重要性&quot; class=&quot;headerlink&quot; title=&quot;压缩分片的最重要性&quot;&gt;&lt;/a&gt;压缩分片的最重要性&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;理解分片(splitable)的价值:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持分片是很有用的。&lt;br&gt;&lt;strong&gt;如： 在HDFS上有一个1G的文件。按照HDFS块(block)的设置大小进行文件划分(默认64M)。 那么就会被划分为16个数据块。&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;支持分片：运行这个Mapreduce作业，就会对应16个Map。&lt;/li&gt;
+&lt;li&gt;不支持分片：运行这个Mapreduce作业，只能对应1个Map。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;为什么？Hadoop又是怎么判断文件是否支持分片？对程序有什么影响？&lt;ul&gt;
+&lt;li&gt;1、支持分片，就意味着支持压缩数据流的任意位置读取数据。&lt;/li&gt;
+&lt;li&gt;2、Hadoop 则是通过文件后缀名来判断所属的文件是否支持分片。&lt;/li&gt;
+&lt;li&gt;3、牺牲数据本地性优势： 1个Map任务要处理16个HDFS块，而且损失了数据本地化优化特性(执行Map任务与HDFS数据位于同一个节点上)。 而且map的任务越少，就意味着执行的时间越长。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;MapReduce-中使用压缩。&quot;&gt;&lt;a href=&quot;#MapReduce-中使用压缩。&quot; class=&quot;headerlink&quot; title=&quot;MapReduce 中使用压缩。&quot;&gt;&lt;/a&gt;MapReduce 中使用压缩。&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;在MapReduce中使用压缩是简单的。 我们通常有两种方式。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;代码方式：&quot;&gt;&lt;a href=&quot;#代码方式：&quot; class=&quot;headerlink&quot; title=&quot;代码方式：&quot;&gt;&lt;/a&gt;代码方式：&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// Map端输出压缩：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setBoolean(&amp;quot;mapred.compress.map.output&amp;quot;, true);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setClass(&amp;quot;mapred.map.output.compression.codec&amp;quot;,GzipCodec.class, CompressionCodec.class);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// Reduce 端输出压缩&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setBoolean(&amp;quot;mapred.out.compress&amp;quot;,true);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setClass(&amp;quot;mapred.output.compression.codec&amp;quot;,SnappyCodec.class,CompressionCodec.class);	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/ /或者&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;FileOutputFormat.setCompressOutput(job, true);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;FileOutputFormat.setOutputCompressorClass(job, SnappyCodec.class);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;配置文件：&quot;&gt;&lt;a href=&quot;#配置文件：&quot; class=&quot;headerlink&quot; title=&quot;配置文件：&quot;&gt;&lt;/a&gt;配置文件：&lt;/h3&gt;&lt;p&gt;找到mapred-site.xml文件。  如： 我公司集群环境配置。&lt;br&gt;Map端输出压缩配置：  我希望Map段输出压缩，并使用Snappy算法压缩&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;name&amp;gt;mapred.compress.map.output&amp;lt;/name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;value&amp;gt;true&amp;lt;/value&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &amp;lt;property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;name&amp;gt;mapred.map.output.compression.codec&amp;lt;/name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;value&amp;gt;org.apache.hadoop.io.compress.SnappyCodec&amp;lt;/value&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*Reduce端输出压缩配置： 我不希望Reduce的输出文件进行压缩。所以使用默认*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;name&amp;gt;mapred.output.compress&amp;lt;/name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;value&amp;gt;false&amp;lt;/value&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;name&amp;gt;mapred.output.compression.codec&amp;lt;/name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;value&amp;gt;org.apache.hadoop.io.compress.DefaultCodec&amp;lt;/value&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;提示： 如果使用的CDH版本，按照Cloudera官网的Hadoop配置，默认配置了Mapper阶段进行文件压缩。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;项目实战运用&quot;&gt;&lt;a href=&quot;#项目实战运用&quot; class=&quot;headerlink&quot; title=&quot;项目实战运用&quot;&gt;&lt;/a&gt;项目实战运用&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;如下是参考的一篇博客的介绍，并非个人实战经验，有待验证&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;项目中使用clearspring公司开源的基数估计的概率算法：stream-lib，用于解决去重计算问题，如UV计算等，它的特点在于：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个UV的计算，可以限制在一个固定大小的位图空间内完成（不同大小，对应不同的误差率），如8K，64K；&lt;/li&gt;
+&lt;li&gt;不同的位图可以进行合并操作，得到合并后的UV。&lt;br&gt;当系统中维护的位图越多的时候，不管是在内存中，还是在存储系统（MySQL、HBase等）中，都会占用相当大的存储空间。因此，需要考虑采取合适的算法来压缩位图。这里分为以下两类情况：&lt;/li&gt;
+&lt;li&gt;当位图在内存中时，此时压缩算法的选择，必须有尽可能快的压缩和解压速度，同时不能消耗过多CPU资源，因此，适合使用LZO或Snappy这样的压缩算法，做到快速的压缩和解压；&lt;/li&gt;
+&lt;li&gt;当位图存储到DB中时，更关注的是存储空间的节省，要有尽可能高的压缩率，因此，适合使用GZIP这样的压缩算法，同时在从内存Dump到DB的过程也可以减少网络IO的传输开销。&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Mapreduce 程序执行可以分为三个阶段：&lt;br&gt;1、Mapper 阶段&lt;br&gt;&lt;strong&gt;从HDFS中读取数据源，将计算结果写入HDFS&lt;/strong&gt;&lt;br&gt;2、Suffle与排序阶段&lt;br&gt;&lt;strong&gt;从HDFS中读取Mapper阶段结果数据，并进行混排
+    
+    </summary>
+    
+      <category term="大数据开发" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Hadoop" scheme="http://cmp-cc.github.io/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hadoop日常实战 计数器</title>
     <link href="http://cmp-cc.github.io/2014/12/16/Hadoop%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E8%AE%A1%E6%95%B0%E5%99%A8/"/>
     <id>http://cmp-cc.github.io/2014/12/16/Hadoop日常实战 计数器/</id>
