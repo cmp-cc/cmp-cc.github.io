@@ -719,7 +719,7 @@
     <link href="http://cmp-cc.github.io/2013/02/16/Ajax/"/>
     <id>http://cmp-cc.github.io/2013/02/16/Ajax/</id>
     <published>2013-02-16T05:43:00.000Z</published>
-    <updated>2016-04-11T07:13:17.435Z</updated>
+    <updated>2016-04-11T07:54:28.117Z</updated>
     
     <content type="html">&lt;h2 id=&quot;略略略&quot;&gt;&lt;a href=&quot;#略略略&quot; class=&quot;headerlink&quot; title=&quot;略略略&quot;&gt;&lt;/a&gt;略略略&lt;/h2&gt;&lt;p&gt;随便记录一下。 日后再补充。&lt;/p&gt;
 &lt;h2 id=&quot;XMLHttpRequest-对象&quot;&gt;&lt;a href=&quot;#XMLHttpRequest-对象&quot; class=&quot;headerlink&quot; title=&quot;XMLHttpRequest 对象&quot;&gt;&lt;/a&gt;XMLHttpRequest 对象&lt;/h2&gt;&lt;h3 id=&quot;XMLHttpRequest-对象属性&quot;&gt;&lt;a href=&quot;#XMLHttpRequest-对象属性&quot; class=&quot;headerlink&quot; title=&quot;XMLHttpRequest 对象属性&quot;&gt;&lt;/a&gt;XMLHttpRequest 对象属性&lt;/h3&gt;&lt;table&gt;
@@ -843,6 +843,296 @@
     
     
       <category term="Javascript" scheme="http://cmp-cc.github.io/tags/Javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JSP/Servlet3.0总结</title>
+    <link href="http://cmp-cc.github.io/2013/02/05/JSPServlet3.0%E6%80%BB%E7%BB%93/"/>
+    <id>http://cmp-cc.github.io/2013/02/05/JSPServlet3.0总结/</id>
+    <published>2013-02-05T11:53:00.000Z</published>
+    <updated>2016-04-11T12:01:09.119Z</updated>
+    
+    <content type="html">&lt;p&gt;总结下一JSP/Servlet3.0，记性不好，记录一下，容易反查。&lt;/p&gt;
+&lt;h2 id=&quot;JSP&quot;&gt;&lt;a href=&quot;#JSP&quot; class=&quot;headerlink&quot; title=&quot;JSP&quot;&gt;&lt;/a&gt;JSP&lt;/h2&gt;&lt;h3 id=&quot;JSP-注释&quot;&gt;&lt;a href=&quot;#JSP-注释&quot; class=&quot;headerlink&quot; title=&quot;JSP 注释&quot;&gt;&lt;/a&gt;JSP 注释&lt;/h3&gt;&lt;h4 id=&quot;一种显示注释和三种隐式注释&quot;&gt;&lt;a href=&quot;#一种显示注释和三种隐式注释&quot; class=&quot;headerlink&quot; title=&quot;一种显示注释和三种隐式注释&quot;&gt;&lt;/a&gt;一种显示注释和三种隐式注释&lt;/h4&gt;&lt;p&gt;JSP中有两种注释方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;显示注释&lt;br&gt;&lt;strong&gt;显示注释就是HTML注释方式&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;!-- 注释内容 --&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;隐式注释&lt;br&gt;&lt;strong&gt;JSP 注释方式&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%-- 注释内容 --%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;单行注释&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 注释内容&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;多行注释&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1.注释内容&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2.注释内容&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;显示注释和隐式注释的区别&quot;&gt;&lt;a href=&quot;#显示注释和隐式注释的区别&quot; class=&quot;headerlink&quot; title=&quot;显示注释和隐式注释的区别&quot;&gt;&lt;/a&gt;显示注释和隐式注释的区别&lt;/h4&gt;&lt;p&gt;Servlet渲染页面的过程如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;JSP -&amp;gt; Servlet -&amp;gt; HTML&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;显示注释和隐式注释的区别:&lt;br&gt;&lt;strong&gt;渲染为HTML页面后，显示注释的内容会显示到页面中，而隐式注释不会显示到页面中。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Scriptle-脚本片段&quot;&gt;&lt;a href=&quot;#Scriptle-脚本片段&quot; class=&quot;headerlink&quot; title=&quot;Scriptle 脚本片段&quot;&gt;&lt;/a&gt;Scriptle 脚本片段&lt;/h3&gt;&lt;p&gt;我们将JSP中写Java代码片段（代码块）理解为Scriptle 脚本片段 。Scriptle 脚本片段我们考虑如下三种情况：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;局部代码块&lt;br&gt;&lt;strong&gt;通过&lt;code&gt;&amp;lt;% Java %&amp;gt;&lt;/code&gt; 进行局部代码编写&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;StringBuffer sb = new StringBuffer();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// TODO&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;全局变量和方法&lt;br&gt;&lt;strong&gt;通过&lt;code&gt;&amp;lt;%！ Java %&amp;gt;&lt;/code&gt; 进行全局代码编写&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%!&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;String user = &amp;quot;root&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;String password = &amp;quot;123456&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;输出&lt;br&gt;&lt;strong&gt;这里的输出要理解为渲染，它并不是将内容输出到控制台，而是渲染到页面上。  （特别说明）&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;输出有两种方式&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;通过&lt;code&gt;&amp;lt;%= 内容 %&amp;gt;&lt;/code&gt; 进行内容输出&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;quot;&amp;lt;p&amp;gt;cmp-cc.github.io 是一个Blog &amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;通过&lt;code&gt;&amp;lt;% out.println(&amp;quot;内容&amp;quot;) %&amp;gt;&lt;/code&gt; 进行内容输出&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;% &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;out.println(&amp;quot;cmp-cc.github.io 是一个Blog&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;Scriptlet-标签&quot;&gt;&lt;a href=&quot;#Scriptlet-标签&quot; class=&quot;headerlink&quot; title=&quot;Scriptlet 标签&quot;&gt;&lt;/a&gt;Scriptlet 标签&lt;/h3&gt;&lt;p&gt;HTML 中有Tag标签，每一标签有它特殊的含义和用途，JSP同样可以引入标签，我们称为：Scriptlet 标签 。&lt;br&gt;Scriptlet 标签是用来取代&amp;lt;%%&amp;gt; 这种形式，使得页面展示更加友好。&lt;/p&gt;
+&lt;p&gt;吧啦吧啦！！！！  （一大堆使用Scriptlet 标签 取代 &amp;lt;%%&amp;gt; 的好处）。&lt;/p&gt;
+&lt;p&gt;Scriptlet 标签基本写法：&lt;br&gt;&lt;strong&gt;这里是JSP标签，很多标签的写法是一致的&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;jsp:scriptle&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/jsp:scriptle&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;JSP指令&quot;&gt;&lt;a href=&quot;#JSP指令&quot; class=&quot;headerlink&quot; title=&quot;JSP指令&quot;&gt;&lt;/a&gt;JSP指令&lt;/h3&gt;&lt;p&gt;  JSP指令用来设置与整个JSP页面相关的属性，它并不直接产生任何可见的输出,而只是告诉引擎如何处理其余JSP页面。&lt;/p&gt;
+&lt;p&gt;其一般语法形式为：  &amp;lt;%@ 指令名称 属性=”值” %&amp;gt;&lt;/p&gt;
+&lt;p&gt;三种命令指令分别是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;page&lt;br&gt;&lt;strong&gt;设定整个JSP网页的静态属性&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;include&lt;br&gt;&lt;strong&gt;include指令用来向当前页面插入一个静态文件的内容。这个文件可以是JSP、HTML、文本或是Java程序&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;taglib&lt;br&gt;&lt;strong&gt;使用标签库定义新的自定义标签，在JSP页面中启用定制行为&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;page-指令-（页面指令）&quot;&gt;&lt;a href=&quot;#page-指令-（页面指令）&quot; class=&quot;headerlink&quot; title=&quot;page 指令 （页面指令）&quot;&gt;&lt;/a&gt;page 指令 （页面指令）&lt;/h4&gt;&lt;p&gt;作用： 设定整个JSP网页的静态属性&lt;br&gt;语法：键值对，空格分割。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%@ page language=&amp;quot;java&amp;quot; contentType=&amp;quot;text/html; charset=utf-8&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    pageEncoding=&amp;quot;utf-8&amp;quot;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;page指令属性&lt;/strong&gt;&lt;br&gt;属性 | 说明&lt;br&gt;— | —&lt;br&gt;autoFlush |满缓冲刷新，否异常 默认true&lt;br&gt;buffer |指定输出模式缓冲流，none 无，指定数值，大于此值，与上一起用，默认大于8kb&lt;br&gt;contentType |定义字符编码和页面响应MIME类型：contentType=”text/html;charset=GBK”&lt;br&gt;errorPage |错误跳转页面errorPage=”error.jsp” 与isErrorPage同用&lt;br&gt;extends| 定义JSP页面产生的Servlet 类的扩展， extends=””&lt;br&gt;import |import=”java.util.*”&lt;br&gt;info |此JSP信息 info=”info.exe”&lt;br&gt;isErrorPage| 设置true或false&lt;br&gt;isThreadSafe| 此页面是否是线程安全的，true，表示一个JSP页面可以处理多个用户，false， 一次只能处理一个用户。&lt;br&gt;language |用来定义使用的脚本语言, language=”java”&lt;br&gt;pageEncoding| JSP页面的字节编码 pageEncoding=”utf-8”&lt;br&gt;session |指定所在页面是否参与HTTP对话，默认:true&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实例代码&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;引入ArrayList 和 StringTokenizer&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%@ page language=&amp;quot;java&amp;quot; contentType=&amp;quot;text/html; charset=utf-8&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    pageEncoding=&amp;quot;utf-8&amp;quot;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%@ page import=&amp;quot;java.util.ArrayList,java.util.StringTokenizer;&amp;quot; %&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;include-（包含指令）&quot;&gt;&lt;a href=&quot;#include-（包含指令）&quot; class=&quot;headerlink&quot; title=&quot;include （包含指令）&quot;&gt;&lt;/a&gt;include （包含指令）&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;包含指令的用法非常简单，因为它只有一个属性&lt;/strong&gt;&lt;br&gt;作用： include指令用来向当前页面插入一个静态文件的内容。这个文件可以是JSP、HTML、文本或是Java程序&lt;br&gt;语法：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%@include file=&amp;quot;文件路径&amp;quot;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;br&gt;1、include 属于静态包含。（先包含后处理）&lt;br&gt;2、如果直接以文件名开头,指的是正在使用的JSP文件所在的路径,如果以/开头,指的是正在使用的JSP文件上下的路径关系(相对于WEB应用的根目录。)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实例&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;index.jsp 引入 home.jsp&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%@ include file=&amp;quot;home.jsp&amp;quot;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;taglib-（标签指令）&quot;&gt;&lt;a href=&quot;#taglib-（标签指令）&quot; class=&quot;headerlink&quot; title=&quot;taglib （标签指令）&quot;&gt;&lt;/a&gt;taglib （标签指令）&lt;/h4&gt;&lt;p&gt;当页面引用了用户自定义标签时，taglib指令用于引用自定义标签库，并指定标签的前缀。&lt;br&gt;JSP内置的标签，我们称为JSP标签。&lt;/p&gt;
+&lt;p&gt;作用：使用标签库定义新的自定义标签，在JSP页面中启用定制行为。&lt;br&gt;语法：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%@ taglib uri=&amp;quot;URIToTagLibrary&amp;quot; prefix=&amp;quot;tagPrefix&amp;quot; %&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;taglib 指令属性&lt;/strong&gt;&lt;br&gt;属性 | 说明&lt;br&gt;— | —&lt;br&gt;uri | 定位标签库描述符的位置。唯一标识和前缀相关的标签库描述符，可以使用绝对或相对URL。&lt;br&gt;tagDir | 指示前缀将被用于标识在WEV-INF/tags目录下的标签文件。&lt;br&gt;prefix | 标签的前缀，区分多个自定义标签。不可以使用保留前缀和空前缀，遵循XML命名空间的命名约定。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实例&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;引入JSTL 标签库&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;taglib uri=&amp;quot;http://java.sun.com /jsp/jstl/core&amp;quot; prefix=&amp;quot;c&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;JSP-内置标签&quot;&gt;&lt;a href=&quot;#JSP-内置标签&quot; class=&quot;headerlink&quot; title=&quot;JSP 内置标签&quot;&gt;&lt;/a&gt;JSP 内置标签&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;JSP 一共有13个内置标签，他们用于完成不同的功能&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;JSP-内置对象&quot;&gt;&lt;a href=&quot;#JSP-内置对象&quot; class=&quot;headerlink&quot; title=&quot;JSP 内置对象&quot;&gt;&lt;/a&gt;JSP 内置对象&lt;/h3&gt;&lt;h4 id=&quot;JSP-九种内置对象&quot;&gt;&lt;a href=&quot;#JSP-九种内置对象&quot; class=&quot;headerlink&quot; title=&quot;JSP 九种内置对象&quot;&gt;&lt;/a&gt;JSP 九种内置对象&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;JSP 内置九种内置对象，你并不需要使用include 去引入它&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;对象名称&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;pageContext&lt;/td&gt;
+&lt;td&gt;JSP的页面容器&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;request&lt;/td&gt;
+&lt;td&gt;得到用户的请求信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;response&lt;/td&gt;
+&lt;td&gt;服务器向用户的回应信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;session&lt;/td&gt;
+&lt;td&gt;用来保存内一个用户信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;application&lt;/td&gt;
+&lt;td&gt;表示所有用户的共享信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;config&lt;/td&gt;
+&lt;td&gt;服务器配置，可以去的初始值参数页面输出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;out&lt;/td&gt;
+&lt;td&gt;页面输出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;page&lt;/td&gt;
+&lt;td&gt;表示从页面中表示出来的一个Servlet实例&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;exception&lt;/td&gt;
+&lt;td&gt;表示JSP页面所发生异常，在错误页面才起作用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&quot;JSP-四种属性范围&quot;&gt;&lt;a href=&quot;#JSP-四种属性范围&quot; class=&quot;headerlink&quot; title=&quot;JSP 四种属性范围&quot;&gt;&lt;/a&gt;JSP 四种属性范围&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;这里涉及JSP页面请求的生命周期,  暂略&lt;/strong&gt;&lt;br&gt;作用范围名称 | 说明&lt;br&gt;— | —&lt;br&gt;page    | 只在一个页面中保存属性，跳转之后无效。（使用pageContext表示）&lt;br&gt;request    | 再一次请求中保存属性，服务器跳转后依然有效。&lt;br&gt;session    | 再一次会话范围中保存，无论何种跳转都可以使用，但是新开浏览器无法使用。&lt;br&gt;application    | 在整个服务器上保存，所有用户都可以使用。&lt;/p&gt;
+&lt;h3 id=&quot;JSP-JavaBean&quot;&gt;&lt;a href=&quot;#JSP-JavaBean&quot; class=&quot;headerlink&quot; title=&quot;JSP JavaBean&quot;&gt;&lt;/a&gt;JSP JavaBean&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;JSP 使用使用JavaBean，除了可以使用&amp;lt;%User user = new User();%&amp;gt;的方式，大多数使用&lt;code&gt;&amp;lt;jsp:useBean&amp;gt;&lt;/code&gt;标签&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Servlet&quot;&gt;&lt;a href=&quot;#Servlet&quot; class=&quot;headerlink&quot; title=&quot;Servlet&quot;&gt;&lt;/a&gt;Servlet&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;这里简单总结&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Servlet-基础&quot;&gt;&lt;a href=&quot;#Servlet-基础&quot; class=&quot;headerlink&quot; title=&quot;Servlet 基础&quot;&gt;&lt;/a&gt;Servlet 基础&lt;/h3&gt;&lt;h4 id=&quot;生命周期&quot;&gt;&lt;a href=&quot;#生命周期&quot; class=&quot;headerlink&quot; title=&quot;生命周期&quot;&gt;&lt;/a&gt;生命周期&lt;/h4&gt;&lt;p&gt;Servlet 生命周期如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;加载 -&amp;gt; 初始化 -&amp;gt; 服务 -&amp;gt; 销毁 -&amp;gt; 卸载&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;内置方法&quot;&gt;&lt;a href=&quot;#内置方法&quot; class=&quot;headerlink&quot; title=&quot;内置方法&quot;&gt;&lt;/a&gt;内置方法&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方法名称&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;init()&lt;/td&gt;
+&lt;td&gt;Servlet初始化调用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;init(ServletConfig)&lt;/td&gt;
+&lt;td&gt;Servlet初始化调用，ServletConfig读取配置信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;service()&lt;/td&gt;
+&lt;td&gt;Servlet服务，一般不会直接覆写此方法，而是使用doGet()或doPost()方法&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;destroy()&lt;/td&gt;
+&lt;td&gt;Servlet销毁时调用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&quot;web-xml-配置Servlet，并附加初始值&quot;&gt;&lt;a href=&quot;#web-xml-配置Servlet，并附加初始值&quot; class=&quot;headerlink&quot; title=&quot;web.xml 配置Servlet，并附加初始值&quot;&gt;&lt;/a&gt;web.xml 配置Servlet，并附加初始值&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;servlet&amp;gt;				      				 定义&amp;lt;servlet&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;servlet-name&amp;gt;xxxx&amp;lt;/servlet-name&amp;gt;        与servlet-mapping对应&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;servlet-class&amp;gt;			       			 定义包.类名称&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		com.xxx.xxx.xxxx&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;/servlet-class&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;init-param&amp;gt;							 配置参数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;lt;param-name&amp;gt;ref&amp;lt;/param-name&amp;gt;	     参数名称		可多个&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;lt;param-value&amp;gt;值&amp;lt;/param-value&amp;gt;	     参数内容&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;/init-param&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/servlet&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;servlet-mapping&amp;gt;				             映射路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;servlet-name&amp;gt;xxxx&amp;lt;/servlet-name&amp;gt;	     与servlet相对应&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;url-pattern&amp;gt;/xxx&amp;lt;/url-pattern&amp;gt;		     页面映射路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/servlet-mapping&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;Servlet 获取初始值&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Congif.getinitParameter（&amp;quot;ref&amp;quot;）取出&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;获取HttpSession、ServletContext-实例&quot;&gt;&lt;a href=&quot;#获取HttpSession、ServletContext-实例&quot; class=&quot;headerlink&quot; title=&quot;获取HttpSession、ServletContext 实例&quot;&gt;&lt;/a&gt;获取HttpSession、ServletContext 实例&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;getSession（）					// 返回当前session&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;getSession（boolean）				// 返回当前session，是否新建。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;getServletContext（）				// 取得ServletContext对象&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;请求转发与重定向&quot;&gt;&lt;a href=&quot;#请求转发与重定向&quot; class=&quot;headerlink&quot; title=&quot;请求转发与重定向&quot;&gt;&lt;/a&gt;请求转发与重定向&lt;/h4&gt;&lt;h5 id=&quot;请求转发与重定向的区别&quot;&gt;&lt;a href=&quot;#请求转发与重定向的区别&quot; class=&quot;headerlink&quot; title=&quot;请求转发与重定向的区别&quot;&gt;&lt;/a&gt;请求转发与重定向的区别&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;请求转发&lt;br&gt;&lt;strong&gt;调用者与被调用者之间共享相同的request对象和response对象，他们属于同一个访问请求和响应过程，我们可以称之为&lt;code&gt;服务器跳转&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;重定向&lt;br&gt;&lt;strong&gt;调用者与被调用者,不共享属性和方法，等同于点击一个URL。 我们称之为&lt;code&gt;客户端跳转&lt;/code&gt;&lt;/strong&gt;&lt;h5 id=&quot;请求转发与重定向的用法&quot;&gt;&lt;a href=&quot;#请求转发与重定向的用法&quot; class=&quot;headerlink&quot; title=&quot;请求转发与重定向的用法&quot;&gt;&lt;/a&gt;请求转发与重定向的用法&lt;/h5&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;重定向（客户点跳转）&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;response.sendRedirect（&amp;quot;success.jsp&amp;quot;）;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;请求转发（服务端跳转）&lt;br&gt;&lt;strong&gt;有两个方法用于请求转发&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;forward(req,res);                页面跳转    &lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;request.getRequestDispatcher(&amp;quot;success.jsp&amp;quot;).forward(request,response);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;include(req.res)                页面包含&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;request.getRequestDispatcher(&amp;quot;main.jsp&amp;quot;).include(request, response);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;forward-和-include-区别&quot;&gt;&lt;a href=&quot;#forward-和-include-区别&quot; class=&quot;headerlink&quot; title=&quot;forward 和 include 区别&quot;&gt;&lt;/a&gt;forward 和 include 区别&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;forward方法是把请求的内容转发到另外的一个servlet.&lt;/li&gt;
+&lt;li&gt;include是把另一个servlet处理过后的结果内容拿过来.&lt;h3 id=&quot;Servlet-过滤器&quot;&gt;&lt;a href=&quot;#Servlet-过滤器&quot; class=&quot;headerlink&quot; title=&quot;Servlet 过滤器&quot;&gt;&lt;/a&gt;Servlet 过滤器&lt;/h3&gt;Servlet 自定义过滤器需要两个步骤&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;1、实现Filter接口&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Filter 方法&lt;br&gt;方法名称 | 说明&lt;br&gt;— | —&lt;br&gt;init（FilterConfig）| 过滤器初始化&lt;br&gt;doFilter(req,res)    |  完成过滤操作，然后通过FilterChain传递&lt;br&gt;destroy() | 过滤器消亡，执行方法&lt;/li&gt;
+&lt;li&gt;实例&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;   private String encodeString;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//初始化方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@Override&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public void init(FilterConfig filterConfig) throws ServletException &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	// 获取Web.xml 中配置的属性值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	encodeString=filterConfig.getInitParameter(&amp;quot;encoding&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   //filter 要实现的功能&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@Override&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public void doFilter(ServletRequest request, ServletResponse response,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		FilterChain chain) throws IOException, ServletException &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	System.out.println(&amp;quot;begin&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	// 设置字符集&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	request.setCharacterEncoding(encodeString);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	//继续向下执行，如果还有其他filter继续调用其他filter，没有的话将消息发送给服务器或客户端&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	chain.doFilter(request, response);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	System.out.println(&amp;quot;end&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//Filter注销方法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@Override&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public void destroy() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;2、配置Web.xml&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;filter&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;filter-name&amp;gt;encodeFilter&amp;lt;/filter-name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;filter-class&amp;gt;io.github.cmp-cc.filter.encodeFilter&amp;lt;/filter-class&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/filter&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;filter-mapping&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;filter-name&amp;gt;encodeFilter&amp;lt;/filter-name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;url-pattern&amp;gt;*.jsp&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/filter-mapping&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;url-pattern指定匹配模式&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;Servlet-监听器&quot;&gt;&lt;a href=&quot;#Servlet-监听器&quot; class=&quot;headerlink&quot; title=&quot;Servlet 监听器&quot;&gt;&lt;/a&gt;Servlet 监听器&lt;/h3&gt;&lt;h4 id=&quot;监听器类型&quot;&gt;&lt;a href=&quot;#监听器类型&quot; class=&quot;headerlink&quot; title=&quot;监听器类型&quot;&gt;&lt;/a&gt;监听器类型&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;类型&lt;/th&gt;
+&lt;th&gt;接口名称&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;application&lt;/td&gt;
+&lt;td&gt;ServletContextListener&lt;/td&gt;
+&lt;td&gt;上下文状态监听器：监听应用容器启动和消亡&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;application&lt;/td&gt;
+&lt;td&gt;ServletContextAttributeListener&lt;/td&gt;
+&lt;td&gt;上下文属性监听器：监听增删改变换&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;session&lt;/td&gt;
+&lt;td&gt;HttpSessionListener&lt;/td&gt;
+&lt;td&gt;状态监听器： 监听一次会话（Session）启动和消亡&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;session&lt;/td&gt;
+&lt;td&gt;HttpSessionAttributeListener&lt;/td&gt;
+&lt;td&gt;Session 属性监听：监听增删改变换&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;session&lt;/td&gt;
+&lt;td&gt;HttpSessionBindingListener&lt;/td&gt;
+&lt;td&gt;Session 对象绑定监听：Session绑定对象触发和消亡&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;request&lt;/td&gt;
+&lt;td&gt;ServletRequestListener&lt;/td&gt;
+&lt;td&gt;请求监听器：监听一个请求（Request）启动和消亡&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;request&lt;/td&gt;
+&lt;td&gt;ServletRequestAttributeListener&lt;/td&gt;
+&lt;td&gt;Request 属性监听：监听增删改变换&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&quot;监听器的方法&quot;&gt;&lt;a href=&quot;#监听器的方法&quot; class=&quot;headerlink&quot; title=&quot;监听器的方法&quot;&gt;&lt;/a&gt;监听器的方法&lt;/h4&gt;&lt;p&gt;application 监听&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ServletContextListener&lt;br&gt;方法名称 | 作用&lt;br&gt;— | —&lt;br&gt;contextInitialized(ServletContextEvent) | 容器启动时触发&lt;br&gt;contextDestroyed（ServletContextEvent）| 容器销毁时触发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ServletContextEvent参数 常用方法&lt;br&gt;getServletContext() 取得ServletContext对象&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ServletContextAttributeListener&lt;br&gt;方法名称 | 作用&lt;br&gt;— | —&lt;br&gt;attributeAdded(HttpSessionBindingEvent)| 增加属性触发&lt;br&gt;attributeRemoved(HttpSessionBindingEvent)| 删除属性触发&lt;br&gt;attributeReplaced(HttpSessionBindingEvent) | 替换属性(重复设置)时触发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;session 监听&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HttpSessionListener&lt;br&gt;方法名称 | 作用&lt;br&gt;— | —&lt;br&gt;sessionCreated(HttpSessionEvent)| session创建时调用&lt;br&gt;sessionDestroyed(HttpSessionEvent) | session销毁时调用&lt;/li&gt;
+&lt;li&gt;HttpSessionAttributeListener&lt;br&gt;方法名称 | 作用&lt;br&gt;— | —&lt;br&gt;attributeAdded（ServletContexArribute）| 增加属性触发&lt;br&gt;attributeRemoved(ServletContexArribute)| 删除属性触发&lt;br&gt;attributeReplaced(ServletContexArribute) | 替换属性(重复设置)时触发&lt;/li&gt;
+&lt;li&gt;HttpSessionBindingListener&lt;br&gt;方法名称 | 作用&lt;br&gt;— | —&lt;br&gt;valueBound(HttpSessionBindingEvent) | 绑定对象到session时触发&lt;br&gt;valueUnbound(HttpSessionBindingEvent) | 从session中移除对象时触发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;request 监听&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ServletRequestListener&lt;br&gt;方法名称 | 作用&lt;br&gt;— | —&lt;br&gt;requestInitialized(ServletRequestEvent) | 请求开始时调用&lt;br&gt;requestDestroyed(ServletRequestEvent)| 请求结束时调用&lt;/li&gt;
+&lt;li&gt;ServletRequestAttributeListener&lt;br&gt;方法名称 | 作用&lt;br&gt;— | —&lt;br&gt;attributeAdded(ServletRequestAttributeEvent) | 增加属性触发&lt;br&gt;attributeRemoved(ServletRequestAttributeEvent) | 删除属性触发&lt;br&gt;attributeReplaced(ServletRequestAttributeEvent) | 替换属性(重复设置)时触发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;监听器实例&quot;&gt;&lt;a href=&quot;#监听器实例&quot; class=&quot;headerlink&quot; title=&quot;监听器实例&quot;&gt;&lt;/a&gt;监听器实例&lt;/h4&gt;&lt;h4 id=&quot;web-xml-配置监听器&quot;&gt;&lt;a href=&quot;#web-xml-配置监听器&quot; class=&quot;headerlink&quot; title=&quot;web.xml 配置监听器&quot;&gt;&lt;/a&gt;web.xml 配置监听器&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;如此简单&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;listener&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &amp;lt;listener-class&amp;gt;io.github.cmp-cc.listener.RquestCountListener&amp;lt;/listener-class&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/listener&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;Servlet-1&quot;&gt;&lt;a href=&quot;#Servlet-1&quot; class=&quot;headerlink&quot; title=&quot;Servlet&quot;&gt;&lt;/a&gt;Servlet&lt;/h4&gt;&lt;h2 id=&quot;EL-表达式&quot;&gt;&lt;a href=&quot;#EL-表达式&quot; class=&quot;headerlink&quot; title=&quot;EL 表达式&quot;&gt;&lt;/a&gt;EL 表达式&lt;/h2&gt;&lt;h3 id=&quot;其他&quot;&gt;&lt;a href=&quot;#其他&quot; class=&quot;headerlink&quot; title=&quot;其他&quot;&gt;&lt;/a&gt;其他&lt;/h3&gt;&lt;h4 id=&quot;静态包含-与-动态包含的区别&quot;&gt;&lt;a href=&quot;#静态包含-与-动态包含的区别&quot; class=&quot;headerlink&quot; title=&quot;静态包含 与 动态包含的区别&quot;&gt;&lt;/a&gt;静态包含 与 动态包含的区别&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;写法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;静态包含&lt;br&gt;静态包含就是使用包含指令&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;%@include file=&amp;quot;文件路径&amp;quot;%&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;动态包含&lt;br&gt;使用JSP标签 &lt;jsp:include&gt;&lt;/jsp:include&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注意：include指令元素和行为元素主要有两个方面的不同点。&lt;br&gt;1.include指令是静态包含，执行时间是在编译阶段执行，引入的内容为静态文要，在编译成servlet时就和包含者融合到一起。所以file不能是一个变量，也不能在file后接任何参数。&lt;br&gt;2.include行为是动态包含，执行时间是在请求阶段执行，引入的内容在执行页面时被请求时动态生成再包含到页面中。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;总结下一JSP/Servlet3.0，记性不好，记录一下，容易反查。&lt;/p&gt;
+&lt;h2 id=&quot;JSP&quot;&gt;&lt;a href=&quot;#JSP&quot; class=&quot;headerlink&quot; title=&quot;JSP&quot;&gt;&lt;/a&gt;JSP&lt;/h2&gt;&lt;h3 id=&quot;JSP-注释&quot;&gt;&lt;a href=&quot;#J
+    
+    </summary>
+    
+      <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
+    
+    
+      <category term="JSP/Servlet" scheme="http://cmp-cc.github.io/tags/JSP-Servlet/"/>
     
   </entry>
   
