@@ -714,4 +714,136 @@
     
   </entry>
   
+  <entry>
+    <title>Ajax</title>
+    <link href="http://cmp-cc.github.io/2013/02/16/Ajax/"/>
+    <id>http://cmp-cc.github.io/2013/02/16/Ajax/</id>
+    <published>2013-02-16T05:43:00.000Z</published>
+    <updated>2016-04-11T07:13:17.435Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;略略略&quot;&gt;&lt;a href=&quot;#略略略&quot; class=&quot;headerlink&quot; title=&quot;略略略&quot;&gt;&lt;/a&gt;略略略&lt;/h2&gt;&lt;p&gt;随便记录一下。 日后再补充。&lt;/p&gt;
+&lt;h2 id=&quot;XMLHttpRequest-对象&quot;&gt;&lt;a href=&quot;#XMLHttpRequest-对象&quot; class=&quot;headerlink&quot; title=&quot;XMLHttpRequest 对象&quot;&gt;&lt;/a&gt;XMLHttpRequest 对象&lt;/h2&gt;&lt;h3 id=&quot;XMLHttpRequest-对象属性&quot;&gt;&lt;a href=&quot;#XMLHttpRequest-对象属性&quot; class=&quot;headerlink&quot; title=&quot;XMLHttpRequest 对象属性&quot;&gt;&lt;/a&gt;XMLHttpRequest 对象属性&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性名称&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;onreadystatechange&lt;/td&gt;
+&lt;td&gt;指定当readState状态改变时使用的操作，一般用于指定具体的回调函数&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;readyState&lt;/td&gt;
+&lt;td&gt;返回当前请求的状态，只读&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;responseBody&lt;/td&gt;
+&lt;td&gt;将回应信息正文以unsigned byte数组的形式返回，只读&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;responseStream&lt;/td&gt;
+&lt;td&gt;以Ado Stream对象的形式返回响应信息，只读&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;responseText&lt;/td&gt;
+&lt;td&gt;接收以文本返回的数据，只读&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;responseXML&lt;/td&gt;
+&lt;td&gt;接收以XML文档形式回应的数据，只读&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;status&lt;/td&gt;
+&lt;td&gt;返回当前请求的http状态码，只读&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;statusText&lt;/td&gt;
+&lt;td&gt;返回当前请求的响应行装填，只读&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;statusText 的五种取值状体&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;状体码&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;请求没有发出（在调用open()函数之前）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;请求已经建立但还没有发出（在调用send()函数之前）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;请求已经发出正在处理之中(这里通常可以从响应得到内容头部)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;请求已经处理，正在接受服务器的信息，响应中通常有部分数据可用，但是服务器还有完成响应    &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;请求已完成，可以访问服务器响应并使用它&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;XMLHttpRequest-对象方法&quot;&gt;&lt;a href=&quot;#XMLHttpRequest-对象方法&quot; class=&quot;headerlink&quot; title=&quot;XMLHttpRequest 对象方法&quot;&gt;&lt;/a&gt;XMLHttpRequest 对象方法&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方法名称&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;abort()&lt;/td&gt;
+&lt;td&gt;取消当前所发出的请求&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;getAllRespnseHeaders()&lt;/td&gt;
+&lt;td&gt;取得所有的HTTP头信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;getResponseHeader()&lt;/td&gt;
+&lt;td&gt;取得一个指定的HTTP头信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;open()&lt;/td&gt;
+&lt;td&gt;创建一个HTTP请求，并指定请求模式，如GET请求或POST请求&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;send()&lt;/td&gt;
+&lt;td&gt;将创建的请求发送到服务器，并接受回应信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;setRequestHeader()&lt;/td&gt;
+&lt;td&gt;设置一个指定的请求的HTTP头信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;Ajax-实例&quot;&gt;&lt;a href=&quot;#Ajax-实例&quot; class=&quot;headerlink&quot; title=&quot;Ajax 实例&quot;&gt;&lt;/a&gt;Ajax 实例&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;script type = &amp;quot;text/javascript&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;var getAjax; // 欲初始化ajax函数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;function invidate() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if (window.XMLHttpRequest) &amp;#123; // 判断浏览器类型， N 为IE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		getAjax = new XMLHttpRequest();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		getAjax = new ActiveXObject(&amp;quot;Misrosoft.XMLHTTP&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;function useGetAjax() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	invidate(); // 初始化XMLHttpRequest对象&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	getAjax.open(&amp;quot;POST&amp;quot;, &amp;quot;testAJax&amp;quot;, true);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // 以POST方式发开请求连接&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	getAjax.setRequestHeader(&amp;quot;Content-Type&amp;quot;, &amp;quot;application/x-www-form-urlencoded&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	getAjax.onreadystatechange = function() &amp;#123; // 回调函数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if (getAjax.readyState == 4) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		    if (getAjax.status == 200) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		        var text = getAjax.responseText; // 接收响应信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		        alert(text);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		        document.getElementById(&amp;quot;ajax&amp;quot;).innerHTML = text;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    getAjax.send(&amp;quot;username=1&amp;quot;); // 发送请求体&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;略略略&quot;&gt;&lt;a href=&quot;#略略略&quot; class=&quot;headerlink&quot; title=&quot;略略略&quot;&gt;&lt;/a&gt;略略略&lt;/h2&gt;&lt;p&gt;随便记录一下。 日后再补充。&lt;/p&gt;
+&lt;h2 id=&quot;XMLHttpRequest-对象&quot;&gt;&lt;a href=&quot;#XMLHttpReq
+    
+    </summary>
+    
+      <category term="Web" scheme="http://cmp-cc.github.io/categories/Web/"/>
+    
+    
+      <category term="Javascript" scheme="http://cmp-cc.github.io/tags/Javascript/"/>
+    
+  </entry>
+  
 </feed>
