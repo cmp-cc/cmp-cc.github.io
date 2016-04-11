@@ -8,26 +8,22 @@ tags:
 ----
 
 
-
-
 ##  略略略 
 随便记录一下。 日后再补充。
-
-
 
 ## XMLHttpRequest 对象
 ### XMLHttpRequest 对象属性
 
-属性名称 | 说明
---- | ---
-onreadystatechange	| 指定当readState状态改变时使用的操作，一般用于指定具体的回调函数
-readyState			| 返回当前请求的状态，只读
-responseBody		| 将回应信息正文以unsigned byte数组的形式返回，只读
-responseStream		| 以Ado Stream对象的形式返回响应信息，只读
-responseText		| 接收以文本返回的数据，只读
-responseXML			| 接收以XML文档形式回应的数据，只读
-status				| 返回当前请求的http状态码，只读
-statusText			| 返回当前请求的响应行装填，只读
+| 属性名称 | 说明 |
+| --- | --- |
+| onreadystatechange	| 指定当readState状态改变时使用的操作，一般用于指定具体的回调函数 |
+| readyState			| 返回当前请求的状态，只读 |
+| responseBody		| 将回应信息正文以unsigned byte数组的形式返回，只读 |
+| responseStream		| 以Ado Stream对象的形式返回响应信息，只读 |
+| responseText		| 接收以文本返回的数据，只读 |
+| responseXML			| 接收以XML文档形式回应的数据，只读 |
+| status				| 返回当前请求的http状态码，只读 |
+| statusText			| 返回当前请求的响应行装填，只读 |
 
 **statusText 的五种取值状体**
 

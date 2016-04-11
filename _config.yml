@@ -171,4 +171,9 @@ sitemap:
 baidusitemap:
   path: baidusitemap.xml
 
+# Marked 设置
+# 换行只需要一次回车，而在传统Markdown中，换行需要两次回车。作为临时性的解决方案，可以先关闭breaks功能。
 
+marked:
+  # gfm: true
+  # breaks: false
