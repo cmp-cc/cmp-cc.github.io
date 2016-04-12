@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>I am cmp-cc</title>
-  
+  <subtitle>一直在打杂，从未被超越。</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
@@ -268,6 +268,56 @@
     
     
       <category term="Hadoop" scheme="http://cmp-cc.github.io/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Maven3 setting.xml 设置</title>
+    <link href="http://cmp-cc.github.io/2014/04/13/Maven3%20setting.xml%20%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://cmp-cc.github.io/2014/04/13/Maven3 setting.xml 设置/</id>
+    <published>2014-04-13T08:54:00.000Z</published>
+    <updated>2016-04-12T08:40:58.759Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;不要修改setting-xml地址-和-仓库地址地址&quot;&gt;&lt;a href=&quot;#不要修改setting-xml地址-和-仓库地址地址&quot; class=&quot;headerlink&quot; title=&quot;不要修改setting.xml地址 和 仓库地址地址&quot;&gt;&lt;/a&gt;不要修改setting.xml地址 和 仓库地址地址&lt;/h2&gt;&lt;p&gt;Maven3 默认setting.xml文件地址和仓库地址为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;C:/Users/用户名称/.m2/setting.xml&lt;br&gt;C:/Users/用户名称/.m2/repository&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;你可能觉得仓库地址在C盘有点不合理，它在我指定的目录不是更好吗？  例如：D:/Work-Repository/Maven-Repository&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;于是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;你复制setting.xml 文件到 D:/Work-Repository/Maven-Repository&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改setting.xml Maven仓库&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;localRepository&amp;gt;D:/Work-Repository/Mvn-Repository&amp;lt;/localRepository&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改STS/IDEA/MyEclipse 中的setting.xml 地址&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;OK，你成功。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是：&lt;br&gt;&lt;strong&gt;你可能忘了你有多个工作目录。偶尔你新建一个工作目录，忘了改setting.xml&lt;br&gt;糟糕的事情发生了&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么还要重复下载Jar？&lt;/li&gt;
+&lt;li&gt;八嘎！ 为什么两个仓库都在用啊~~   恍然大悟！！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;修改你的镜像地址&quot;&gt;&lt;a href=&quot;#修改你的镜像地址&quot; class=&quot;headerlink&quot; title=&quot;修改你的镜像地址&quot;&gt;&lt;/a&gt;修改你的镜像地址&lt;/h2&gt;&lt;p&gt;国外的源总是缓慢的，比如：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://my.repository.com/repo/path&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://my.repository.com/repo/path&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用OSChina Maven仓库，如下配置：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;mirrors&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;mirror&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;id&amp;gt;mirrorId&amp;lt;/id&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;mirrorOf&amp;gt;repositoryId&amp;lt;/mirrorOf&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;name&amp;gt;Human Readable Name for this Mirror.&amp;lt;/name&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;url&amp;gt;http://my.repository.com/repo/path&amp;lt;/url&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;/mirror&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/mirrors&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;提示，OSChina源也有不好使的地方，比如：引入嵌入式数据库： H2，它就找不到，这个时候，你需要切换到其他源或在pom.xml 指定下载源地址。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;想到了，日后再更新。&quot;&gt;&lt;a href=&quot;#想到了，日后再更新。&quot; class=&quot;headerlink&quot; title=&quot;想到了，日后再更新。&quot;&gt;&lt;/a&gt;想到了，日后再更新。&lt;/h2&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;不要修改setting-xml地址-和-仓库地址地址&quot;&gt;&lt;a href=&quot;#不要修改setting-xml地址-和-仓库地址地址&quot; class=&quot;headerlink&quot; title=&quot;不要修改setting.xml地址 和 仓库地址地址&quot;&gt;&lt;/a&gt;不要修改sett
+    
+    </summary>
+    
+      <category term="项目构建" scheme="http://cmp-cc.github.io/categories/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"/>
+    
+    
+      <category term="Maven" scheme="http://cmp-cc.github.io/tags/Maven/"/>
     
   </entry>
   
