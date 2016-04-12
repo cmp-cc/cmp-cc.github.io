@@ -87,7 +87,7 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 123&amp;lt;%// 注释内容%&amp;gt;
 多行注释
 123456&amp;lt;%/*1.注释内容2.注">
-<meta property="og:updated_time" content="2016-04-12T04:34:05.506Z">
+<meta property="og:updated_time" content="2016-04-12T07:27:26.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSP/Servlet3.0总结">
 <meta name="twitter:description" content="总结下一JSP/Servlet3.0，记性不好，记录一下，容易反查。
@@ -453,7 +453,24 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 <li>引入JSTL 标签库<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;taglib uri=&quot;http://java.sun.com /jsp/jstl/core&quot; prefix=&quot;c&quot; /&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="JSP-内置标签"><a href="#JSP-内置标签" class="headerlink" title="JSP 内置标签"></a>JSP 内置标签</h3><p><strong>JSP 一共有13个内置标签，他们用于完成不同的功能</strong></p>
+<h3 id="JSP-内置标签"><a href="#JSP-内置标签" class="headerlink" title="JSP 内置标签"></a>JSP 内置标签</h3><p><strong>JSP 一共有13个内置标签，他们用于完成不同的功能</strong><br><strong>暂略</strong></p>
+<h4 id="静态包含和动态包含的区别"><a href="#静态包含和动态包含的区别" class="headerlink" title="静态包含和动态包含的区别"></a>静态包含和动态包含的区别</h4><ul>
+<li><p>写法</p>
+<ul>
+<li><p>静态包含<br>静态包含就是使用包含指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@include file=&quot;文件路径&quot;%&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态包含<br>使用JSP标签 <jsp:include></jsp:include></p>
+</li>
+</ul>
+</li>
+<li><p>区别：</p>
+<ul>
+<li>静态包含<br><strong>执行时间是在编译阶段执行，引入的内容为静态文件，在编译成servlet时就和包含者融合到一起,最后生成HTML</strong></li>
+<li>动态包含<br><strong>执行时间是在请求阶段执行，引入的内容在执行页面时被请求时动态生成再包含到页面中。</strong></li>
+</ul>
+</li>
+</ul>
 <h3 id="JSP-内置对象"><a href="#JSP-内置对象" class="headerlink" title="JSP 内置对象"></a>JSP 内置对象</h3><h4 id="JSP-九种内置对象"><a href="#JSP-九种内置对象" class="headerlink" title="JSP 九种内置对象"></a>JSP 九种内置对象</h4><p><strong>JSP 内置九种内置对象，你并不需要使用include 去引入它</strong></p>
 <table>
 <thead>
@@ -529,6 +546,32 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 </tbody>
 </table>
 <h3 id="JSP-JavaBean"><a href="#JSP-JavaBean" class="headerlink" title="JSP JavaBean"></a>JSP JavaBean</h3><p><strong>JSP 使用使用JavaBean，除了可以使用&lt;%User user = new User();%&gt;的方式，大多数使用<code>&lt;jsp:useBean&gt;</code>标签</strong></p>
+<ul>
+<li><p>写法<br><strong>它会按照按名称完成自动匹配</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=&quot;实例化对象名称&quot; scope=&quot;保存范围&quot; class=&quot;包.类名称&quot;/&gt;</span><br><span class="line">&lt;jsp:setProperty name=&quot;javabean对象&quot; property=&quot;*&quot;/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用参数 <jsp:property></jsp:property></p>
+<ul>
+<li><code>&lt;jsp:setProperty name=&quot;id&quot; property=&quot;*&quot;/&gt;</code>  </li>
+<li><code>&lt;jsp:setProperty name=&quot;id&quot; property=&quot;属性名称&quot;/&gt;</code></li>
+<li><code>&lt;jsp:setProperty name=&quot;id&quot; property=&quot;属性名称&quot; param=&quot;参数名称&quot;/&gt;</code></li>
+<li><code>&lt;jsp:setProperty name=&quot;id&quot; property=&quot;属性名称&quot; param=&quot;参数名称&quot; value=&quot;内容&quot;/&gt;</code></li>
+</ul>
+</li>
+<li><p>获得属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:getProperty name=&quot;实例化对象名称&quot; property=&quot;属性名称&quot;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JavaBean的保存范围</p>
+<ul>
+<li>page </li>
+<li>request </li>
+<li>session </li>
+<li>application</li>
+</ul>
+</li>
+<li>JavaBean删除<br><strong>作用域范围.removeAttribute(JavaBean名称)，必须根据设置的范围删除</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pageContext.removeAttribute(&quot;javabean&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><p><strong>这里简单总结</strong></p>
 <h3 id="Servlet-基础"><a href="#Servlet-基础" class="headerlink" title="Servlet 基础"></a>Servlet 基础</h3><h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>Servlet 生命周期如下：</p>
 <blockquote>
@@ -839,18 +882,140 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 </ul>
 <hr>
 <h4 id="监听器实例"><a href="#监听器实例" class="headerlink" title="监听器实例"></a>监听器实例</h4><h4 id="web-xml-配置监听器"><a href="#web-xml-配置监听器" class="headerlink" title="web.xml 配置监听器"></a>web.xml 配置监听器</h4><p><strong>如此简单</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;listener&gt;</span><br><span class="line">   &lt;listener-class&gt;io.github.cmp-cc.listener.RquestCountListener&lt;/listener-class&gt;</span><br><span class="line">&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="Servlet-1"><a href="#Servlet-1" class="headerlink" title="Servlet"></a>Servlet</h4><h2 id="EL-表达式"><a href="#EL-表达式" class="headerlink" title="EL 表达式"></a>EL 表达式</h2><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="静态包含-与-动态包含的区别"><a href="#静态包含-与-动态包含的区别" class="headerlink" title="静态包含 与 动态包含的区别"></a>静态包含 与 动态包含的区别</h4><ul>
-<li><p>写法</p>
+<h2 id="EL-表达式"><a href="#EL-表达式" class="headerlink" title="EL 表达式"></a>EL 表达式</h2><p><strong>EL表达式可以理解为是JSP的一部分，把EL表达式单独拎出来，说是因为，它只是提供了一种更加简写操作内置对象的一种方式，就简单的总结一下。</strong></p>
+<h3 id="语法结构"><a href="#语法结构" class="headerlink" title="语法结构"></a>语法结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;expression&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="与-运算符"><a href="#与-运算符" class="headerlink" title=".与  []  运算符"></a><code>.</code>与  <code>[]</code>  运算符</h3><p>这两个运算符都是用于取值操作，可能你已经习惯如果取值方式,他更符合你的编程习惯。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;sessionScope.user.username&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是，要取值的key 为 $-3，怎么办?  ，你就需要使用<code>[]</code> 运算符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$&#123;sessionScope.user[$-3]&#125;</span><br><span class="line"></span><br><span class="line">$&#123;sessionScope.user.$-3&#125;   // 这是会报错的。</span><br></pre></td></tr></table></figure></p>
+<p>如果你想忘掉<code>.</code>的方式也是可行的。</p>
+<h3 id="EL表达式隐式对象"><a href="#EL表达式隐式对象" class="headerlink" title="EL表达式隐式对象"></a>EL表达式隐式对象</h3><p><strong>EL表达式有十一个隐式对象</strong></p>
+<p><strong>四大作用域对象</strong></p>
+<table>
+<thead>
+<tr>
+<th>对象名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pageScope</td>
+<td>将页面范围的变量名称映射到其值。</td>
+</tr>
+<tr>
+<td>requestScope</td>
+<td>将请求范围的变量名称映射到其值。</td>
+</tr>
+<tr>
+<td>sessionScope</td>
+<td>将会话范围的变量名称映射到其值。该对象允许访问会话对象的属性。</td>
+</tr>
+<tr>
+<td>applicationScope</td>
+<td>将应用程序范围的变量名称映射到其值。该隐式对象允许访问应用程序范围的对象。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>一个上下文对象</strong></p>
+<table>
+<thead>
+<tr>
+<th>对象名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pageContext</td>
+<td>javax.servlet.jsp.PageContext对象 将页面范围的变量名称映射到其值。用于访问 JSP 隐式对象，如请求、响应、会话、输出、servletContext</td>
+</tr>
+</tbody>
+</table>
+<p><strong>其他六个不同作用的隐式对象</strong></p>
+<table>
+<thead>
+<tr>
+<th>对象名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>param</td>
+<td>接收传递到本页面的参数</td>
+</tr>
+<tr>
+<td>paramValues</td>
+<td>接收传递到本页面的一组参数</td>
+</tr>
+<tr>
+<td>header</td>
+<td>取得一个头信息数据</td>
+</tr>
+<tr>
+<td>headerValues</td>
+<td>取出一组头信息数据</td>
+</tr>
+<tr>
+<td>cookie</td>
+<td>取出cookie中的数据</td>
+</tr>
+<tr>
+<td>initParam</td>
+<td>将上下文初始化参数名称映射到单个值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>算术</td>
+<td>+、- 、*、/、div、%、mod、–</td>
+</tr>
+<tr>
+<td>逻辑</td>
+<td>and、&amp;&amp;、or、ll、!、not</td>
+</tr>
+<tr>
+<td>关系</td>
+<td>==、eq、!=、ne、lt、gt、&lt;=、le、&gt;=、ge</td>
+</tr>
+<tr>
+<td>空</td>
+<td>empty </td>
+</tr>
+<tr>
+<td>三目（条件）</td>
+<td>A ?B :C</td>
+</tr>
+</tbody>
+</table>
+<h3 id="理解EL表达式的查找属性的顺序"><a href="#理解EL表达式的查找属性的顺序" class="headerlink" title="理解EL表达式的查找属性的顺序"></a>理解EL表达式的查找属性的顺序</h3><p><strong>你可以通过如下进行属性查找：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;username&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为没有指定哪一个范围的username，所以它会依序从Page -&gt; Request -&gt; Session -&gt; Application范围查找,没有找到返回null。</p>
+<h3 id="EL-其他"><a href="#EL-其他" class="headerlink" title="EL 其他"></a>EL 其他</h3><ul>
+<li><p>接受请求参数</p>
 <ul>
-<li><p>静态包含<br>静态包含就是使用包含指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@include file=&quot;文件路径&quot;%&gt;</span><br></pre></td></tr></table></figure>
+<li><p>单个参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;param.red&#125;     等价于      &lt;%=request.getparameter(&quot;red&quot;)%&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>动态包含<br>使用JSP标签 <jsp:include></jsp:include></p>
+<li><p>一组参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&#123;paramValues.参数名称&#125;</span><br><span class="line">$&#123;paramValues.inst[0]&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
+<li><p>处理集合</p>
+<ul>
+<li>List   使用<code>${all[0]}</code></li>
+<li>Map  使用<code>${all[&quot;key&quot;]}</code></li>
+<li>Javabean 使用 <code>${all.名称}</code></li>
 </ul>
-<p>注意：include指令元素和行为元素主要有两个方面的不同点。<br>1.include指令是静态包含，执行时间是在编译阶段执行，引入的内容为静态文要，在编译成servlet时就和包含者融合到一起。所以file不能是一个变量，也不能在file后接任何参数。<br>2.include行为是动态包含，执行时间是在请求阶段执行，引入的内容在执行页面时被请求时动态生成再包含到页面中。</p>
+</li>
+</ul>
 
       
     </div>
@@ -1024,7 +1189,7 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP"><span class="nav-number">1.</span> <span class="nav-text">JSP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-注释"><span class="nav-number">1.1.</span> <span class="nav-text">JSP 注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一种显示注释和三种隐式注释"><span class="nav-number">1.1.1.</span> <span class="nav-text">一种显示注释和三种隐式注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示注释和隐式注释的区别"><span class="nav-number">1.1.2.</span> <span class="nav-text">显示注释和隐式注释的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scriptle-脚本片段"><span class="nav-number">1.2.</span> <span class="nav-text">Scriptle 脚本片段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scriptlet-标签"><span class="nav-number">1.3.</span> <span class="nav-text">Scriptlet 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP指令"><span class="nav-number">1.4.</span> <span class="nav-text">JSP指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#page-指令-（页面指令）"><span class="nav-number">1.4.1.</span> <span class="nav-text">page 指令 （页面指令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include-（包含指令）"><span class="nav-number">1.4.2.</span> <span class="nav-text">include （包含指令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#taglib-（标签指令）"><span class="nav-number">1.4.3.</span> <span class="nav-text">taglib （标签指令）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-内置标签"><span class="nav-number">1.5.</span> <span class="nav-text">JSP 内置标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-内置对象"><span class="nav-number">1.6.</span> <span class="nav-text">JSP 内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-九种内置对象"><span class="nav-number">1.6.1.</span> <span class="nav-text">JSP 九种内置对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-四种属性范围"><span class="nav-number">1.6.2.</span> <span class="nav-text">JSP 四种属性范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-JavaBean"><span class="nav-number">1.7.</span> <span class="nav-text">JSP JavaBean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet"><span class="nav-number">2.</span> <span class="nav-text">Servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-基础"><span class="nav-number">2.1.</span> <span class="nav-text">Servlet 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生命周期"><span class="nav-number">2.1.1.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内置方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">内置方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml-配置Servlet，并附加初始值"><span class="nav-number">2.1.3.</span> <span class="nav-text">web.xml 配置Servlet，并附加初始值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取HttpSession、ServletContext-实例"><span class="nav-number">2.1.4.</span> <span class="nav-text">获取HttpSession、ServletContext 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求转发与重定向"><span class="nav-number">2.1.5.</span> <span class="nav-text">请求转发与重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#请求转发与重定向的区别"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">请求转发与重定向的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求转发与重定向的用法"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">请求转发与重定向的用法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forward-和-include-区别"><span class="nav-number">2.1.6.</span> <span class="nav-text">forward 和 include 区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-过滤器"><span class="nav-number">2.2.</span> <span class="nav-text">Servlet 过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-监听器"><span class="nav-number">2.3.</span> <span class="nav-text">Servlet 监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器类型"><span class="nav-number">2.3.1.</span> <span class="nav-text">监听器类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器的方法"><span class="nav-number">2.3.2.</span> <span class="nav-text">监听器的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#application-监听"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">application 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#session-监听"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">session 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#request-监听"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">request 监听</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器实例"><span class="nav-number">2.3.3.</span> <span class="nav-text">监听器实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml-配置监听器"><span class="nav-number">2.3.4.</span> <span class="nav-text">web.xml 配置监听器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet-1"><span class="nav-number">2.3.5.</span> <span class="nav-text">Servlet</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EL-表达式"><span class="nav-number">3.</span> <span class="nav-text">EL 表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">3.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态包含-与-动态包含的区别"><span class="nav-number">3.1.1.</span> <span class="nav-text">静态包含 与 动态包含的区别</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP"><span class="nav-number">1.</span> <span class="nav-text">JSP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-注释"><span class="nav-number">1.1.</span> <span class="nav-text">JSP 注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一种显示注释和三种隐式注释"><span class="nav-number">1.1.1.</span> <span class="nav-text">一种显示注释和三种隐式注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示注释和隐式注释的区别"><span class="nav-number">1.1.2.</span> <span class="nav-text">显示注释和隐式注释的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scriptle-脚本片段"><span class="nav-number">1.2.</span> <span class="nav-text">Scriptle 脚本片段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scriptlet-标签"><span class="nav-number">1.3.</span> <span class="nav-text">Scriptlet 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP指令"><span class="nav-number">1.4.</span> <span class="nav-text">JSP指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#page-指令-（页面指令）"><span class="nav-number">1.4.1.</span> <span class="nav-text">page 指令 （页面指令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include-（包含指令）"><span class="nav-number">1.4.2.</span> <span class="nav-text">include （包含指令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#taglib-（标签指令）"><span class="nav-number">1.4.3.</span> <span class="nav-text">taglib （标签指令）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-内置标签"><span class="nav-number">1.5.</span> <span class="nav-text">JSP 内置标签</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态包含和动态包含的区别"><span class="nav-number">1.5.1.</span> <span class="nav-text">静态包含和动态包含的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-内置对象"><span class="nav-number">1.6.</span> <span class="nav-text">JSP 内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-九种内置对象"><span class="nav-number">1.6.1.</span> <span class="nav-text">JSP 九种内置对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-四种属性范围"><span class="nav-number">1.6.2.</span> <span class="nav-text">JSP 四种属性范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-JavaBean"><span class="nav-number">1.7.</span> <span class="nav-text">JSP JavaBean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet"><span class="nav-number">2.</span> <span class="nav-text">Servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-基础"><span class="nav-number">2.1.</span> <span class="nav-text">Servlet 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生命周期"><span class="nav-number">2.1.1.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内置方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">内置方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml-配置Servlet，并附加初始值"><span class="nav-number">2.1.3.</span> <span class="nav-text">web.xml 配置Servlet，并附加初始值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取HttpSession、ServletContext-实例"><span class="nav-number">2.1.4.</span> <span class="nav-text">获取HttpSession、ServletContext 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求转发与重定向"><span class="nav-number">2.1.5.</span> <span class="nav-text">请求转发与重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#请求转发与重定向的区别"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">请求转发与重定向的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求转发与重定向的用法"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">请求转发与重定向的用法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forward-和-include-区别"><span class="nav-number">2.1.6.</span> <span class="nav-text">forward 和 include 区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-过滤器"><span class="nav-number">2.2.</span> <span class="nav-text">Servlet 过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-监听器"><span class="nav-number">2.3.</span> <span class="nav-text">Servlet 监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器类型"><span class="nav-number">2.3.1.</span> <span class="nav-text">监听器类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器的方法"><span class="nav-number">2.3.2.</span> <span class="nav-text">监听器的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#application-监听"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">application 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#session-监听"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">session 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#request-监听"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">request 监听</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器实例"><span class="nav-number">2.3.3.</span> <span class="nav-text">监听器实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml-配置监听器"><span class="nav-number">2.3.4.</span> <span class="nav-text">web.xml 配置监听器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EL-表达式"><span class="nav-number">3.</span> <span class="nav-text">EL 表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法结构"><span class="nav-number">3.1.</span> <span class="nav-text">语法结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与-运算符"><span class="nav-number">3.2.</span> <span class="nav-text">.与  []  运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EL表达式隐式对象"><span class="nav-number">3.3.</span> <span class="nav-text">EL表达式隐式对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作符"><span class="nav-number">3.4.</span> <span class="nav-text">操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解EL表达式的查找属性的顺序"><span class="nav-number">3.5.</span> <span class="nav-text">理解EL表达式的查找属性的顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EL-其他"><span class="nav-number">3.6.</span> <span class="nav-text">EL 其他</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
