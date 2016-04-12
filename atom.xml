@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-04-06T08:49:38.964Z</updated>
+  <updated>2016-04-12T11:49:16.046Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>H2 DataBase 数据库</title>
+    <link href="http://cmp-cc.github.io/2016/04/12/H2%20DataBase%20%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>http://cmp-cc.github.io/2016/04/12/H2 DataBase 数据库/</id>
+    <published>2016-04-12T09:49:00.000Z</published>
+    <updated>2016-04-12T11:49:16.046Z</updated>
+    
+    <content type="html">&lt;p&gt;H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。&lt;/p&gt;
+&lt;p&gt;H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web内存模式实例。&lt;/p&gt;
+&lt;p&gt;H2 生产环境几乎没有人用，他不适用高并发和大数据，并发越大插入和读取性能越低。&lt;/p&gt;
+&lt;p&gt;H2 应用场景：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;小型内部系统&lt;/li&gt;
+&lt;li&gt;数据缓存&lt;/li&gt;
+&lt;li&gt;监控系统&lt;/li&gt;
+&lt;li&gt;测试环境（如：开启MySql模式）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;以上都是我YY的，没有实战，可信度30%&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;使用H2&quot;&gt;&lt;a href=&quot;#使用H2&quot; class=&quot;headerlink&quot; title=&quot;使用H2&quot;&gt;&lt;/a&gt;使用H2&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Maven 引入H2依赖&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;groupId&amp;gt;com.h2database&amp;lt;/groupId&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;artifactId&amp;gt;h2&amp;lt;/artifactId&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;version&amp;gt;1.4.191&amp;lt;/version&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;H2 数据库驱动&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public static Connection getH2Connection() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         String url = &amp;quot;jdbc:h2:./h2db&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         String name = &amp;quot;root&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         String pass = &amp;quot;123456&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         JdbcDataSource ds = new JdbcDataSource();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         ds.setURL(url);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         ds.setUser(name);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         ds.setPassword(pass);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         Connection connection = DriverManager.getConnection(url, name, pass);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         return connection;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &amp;#125; catch (SQLException e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     return null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。&lt;/p&gt;
+&lt;p&gt;H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web内存模式实例。&lt;/p&gt;
+&lt;p&gt;H2 生产环境几乎没有人用，他不
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
