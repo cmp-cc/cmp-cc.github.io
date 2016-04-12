@@ -73,7 +73,7 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 123456&amp;lt;%/*1.注释内容2.注">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JSP/Servlet3.0总结">
-<meta property="og:url" content="http://cmp-cc.github.io/2013/02/05/JSPServlet3.0总结/index.html">
+<meta property="og:url" content="http://cmp-cc.github.io/2013/03/05/JSPServlet3.0总结/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
 <meta property="og:description" content="总结下一JSP/Servlet3.0，记性不好，记录一下，容易反查。
 JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式：
@@ -87,7 +87,7 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 123&amp;lt;%// 注释内容%&amp;gt;
 多行注释
 123456&amp;lt;%/*1.注释内容2.注">
-<meta property="og:updated_time" content="2016-04-11T12:01:09.119Z">
+<meta property="og:updated_time" content="2016-04-12T04:34:05.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSP/Servlet3.0总结">
 <meta name="twitter:description" content="总结下一JSP/Servlet3.0，记性不好，记录一下，容易反查。
@@ -271,8 +271,8 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-05T19:53:00+08:00" content="2013-02-05">
-              2013-02-05
+            <time itemprop="dateCreated" datetime="2013-03-05T19:53:00+08:00" content="2013-03-05">
+              2013-03-05
             </time>
           </span>
 
@@ -301,8 +301,8 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/02/05/JSPServlet3.0总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/05/JSPServlet3.0总结/" itemprop="commentsCount"></span>
+                <a href="/2013/03/05/JSPServlet3.0总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/05/JSPServlet3.0总结/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -374,7 +374,65 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 <li>taglib<br><strong>使用标签库定义新的自定义标签，在JSP页面中启用定制行为</strong></li>
 </ul>
 <h4 id="page-指令-（页面指令）"><a href="#page-指令-（页面指令）" class="headerlink" title="page 指令 （页面指令）"></a>page 指令 （页面指令）</h4><p>作用： 设定整个JSP网页的静态属性<br>语法：键值对，空格分割。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=utf-8&quot;</span><br><span class="line">    pageEncoding=&quot;utf-8&quot;%&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>page指令属性</strong><br>属性 | 说明<br>— | —<br>autoFlush |满缓冲刷新，否异常 默认true<br>buffer |指定输出模式缓冲流，none 无，指定数值，大于此值，与上一起用，默认大于8kb<br>contentType |定义字符编码和页面响应MIME类型：contentType=”text/html;charset=GBK”<br>errorPage |错误跳转页面errorPage=”error.jsp” 与isErrorPage同用<br>extends| 定义JSP页面产生的Servlet 类的扩展， extends=””<br>import |import=”java.util.*”<br>info |此JSP信息 info=”info.exe”<br>isErrorPage| 设置true或false<br>isThreadSafe| 此页面是否是线程安全的，true，表示一个JSP页面可以处理多个用户，false， 一次只能处理一个用户。<br>language |用来定义使用的脚本语言, language=”java”<br>pageEncoding| JSP页面的字节编码 pageEncoding=”utf-8”<br>session |指定所在页面是否参与HTTP对话，默认:true</p>
+<p><strong>page指令属性</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autoFlush</td>
+<td>满缓冲刷新，否异常 默认true</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td>指定输出模式缓冲流，none 无，指定数值，大于此值，与上一起用，默认大于8kb</td>
+</tr>
+<tr>
+<td>contentType</td>
+<td>定义字符编码和页面响应MIME类型：contentType=”text/html;charset=GBK”</td>
+</tr>
+<tr>
+<td>errorPage</td>
+<td>错误跳转页面errorPage=”error.jsp” 与isErrorPage同用</td>
+</tr>
+<tr>
+<td>extends</td>
+<td>定义JSP页面产生的Servlet 类的扩展， extends=””</td>
+</tr>
+<tr>
+<td>import</td>
+<td>import=”java.util.*”</td>
+</tr>
+<tr>
+<td>info</td>
+<td>此JSP信息 info=”info.exe”</td>
+</tr>
+<tr>
+<td>isErrorPage</td>
+<td>设置true或false</td>
+</tr>
+<tr>
+<td>isThreadSafe</td>
+<td>此页面是否是线程安全的，true，表示一个JSP页面可以处理多个用户，false， 一次只能处理一个用户。</td>
+</tr>
+<tr>
+<td>language</td>
+<td>用来定义使用的脚本语言, language=”java”</td>
+</tr>
+<tr>
+<td>pageEncoding</td>
+<td>JSP页面的字节编码 pageEncoding=”utf-8”</td>
+</tr>
+<tr>
+<td>session</td>
+<td>指定所在页面是否参与HTTP对话，默认:true</td>
+</tr>
+</tbody>
+</table>
 <p><strong>实例代码</strong></p>
 <ul>
 <li>引入ArrayList 和 StringTokenizer<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=utf-8&quot;</span><br><span class="line">    pageEncoding=&quot;utf-8&quot;%&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.ArrayList,java.util.StringTokenizer;&quot; %&gt;</span><br></pre></td></tr></table></figure>
@@ -443,7 +501,33 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 </tr>
 </tbody>
 </table>
-<h4 id="JSP-四种属性范围"><a href="#JSP-四种属性范围" class="headerlink" title="JSP 四种属性范围"></a>JSP 四种属性范围</h4><p><strong>这里涉及JSP页面请求的生命周期,  暂略</strong><br>作用范围名称 | 说明<br>— | —<br>page    | 只在一个页面中保存属性，跳转之后无效。（使用pageContext表示）<br>request    | 再一次请求中保存属性，服务器跳转后依然有效。<br>session    | 再一次会话范围中保存，无论何种跳转都可以使用，但是新开浏览器无法使用。<br>application    | 在整个服务器上保存，所有用户都可以使用。</p>
+<h4 id="JSP-四种属性范围"><a href="#JSP-四种属性范围" class="headerlink" title="JSP 四种属性范围"></a>JSP 四种属性范围</h4><p><strong>这里涉及JSP页面请求的生命周期,  暂略</strong></p>
+<table>
+<thead>
+<tr>
+<th>作用范围名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page</td>
+<td>只在一个页面中保存属性，跳转之后无效。（使用pageContext表示）</td>
+</tr>
+<tr>
+<td>request</td>
+<td>再一次请求中保存属性，服务器跳转后依然有效。</td>
+</tr>
+<tr>
+<td>session</td>
+<td>再一次会话范围中保存，无论何种跳转都可以使用，但是新开浏览器无法使用。</td>
+</tr>
+<tr>
+<td>application</td>
+<td>在整个服务器上保存，所有用户都可以使用。</td>
+</tr>
+</tbody>
+</table>
 <h3 id="JSP-JavaBean"><a href="#JSP-JavaBean" class="headerlink" title="JSP JavaBean"></a>JSP JavaBean</h3><p><strong>JSP 使用使用JavaBean，除了可以使用&lt;%User user = new User();%&gt;的方式，大多数使用<code>&lt;jsp:useBean&gt;</code>标签</strong></p>
 <h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><p><strong>这里简单总结</strong></p>
 <h3 id="Servlet-基础"><a href="#Servlet-基础" class="headerlink" title="Servlet 基础"></a>Servlet 基础</h3><h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>Servlet 生命周期如下：</p>
@@ -476,9 +560,9 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 </tr>
 </tbody>
 </table>
-<h4 id="web-xml-配置Servlet，并附加初始值"><a href="#web-xml-配置Servlet，并附加初始值" class="headerlink" title="web.xml 配置Servlet，并附加初始值"></a>web.xml 配置Servlet，并附加初始值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;				      				 定义&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;xxxx&lt;/servlet-name&gt;        与servlet-mapping对应</span><br><span class="line">    &lt;servlet-class&gt;			       			 定义包.类名称</span><br><span class="line">		com.xxx.xxx.xxxx</span><br><span class="line">	&lt;/servlet-class&gt;</span><br><span class="line">	&lt;init-param&gt;							 配置参数</span><br><span class="line">		&lt;param-name&gt;ref&lt;/param-name&gt;	     参数名称		可多个</span><br><span class="line">		&lt;param-value&gt;值&lt;/param-value&gt;	     参数内容</span><br><span class="line">	&lt;/init-param&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;				             映射路径</span><br><span class="line">	&lt;servlet-name&gt;xxxx&lt;/servlet-name&gt;	     与servlet相对应</span><br><span class="line">	&lt;url-pattern&gt;/xxx&lt;/url-pattern&gt;		     页面映射路径</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="web-xml-配置Servlet，并附加初始值"><a href="#web-xml-配置Servlet，并附加初始值" class="headerlink" title="web.xml 配置Servlet，并附加初始值"></a>web.xml 配置Servlet，并附加初始值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;                                         定义&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;xxxx&lt;/servlet-name&gt;             与servlet-mapping对应</span><br><span class="line">    &lt;servlet-class&gt;                               定义包.类名称</span><br><span class="line">    io.github.cmp-cc.xxxx</span><br><span class="line">  &lt;/servlet-class&gt;</span><br><span class="line">  &lt;init-param&gt;                                    配置参数，可配置多个</span><br><span class="line">    &lt;param-name&gt;ref&lt;/param-name&gt;                  参数名称</span><br><span class="line">    &lt;param-value&gt;值&lt;/param-value&gt;                 参数内容</span><br><span class="line">  &lt;/init-param&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;                                 映射路径</span><br><span class="line">  &lt;servlet-name&gt;xxxx&lt;/servlet-name&gt;               与servlet相对应</span><br><span class="line">  &lt;url-pattern&gt;/xxx&lt;/url-pattern&gt;                 页面映射路径</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>Servlet 获取初始值</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Congif.getinitParameter（&quot;ref&quot;）取出</span><br></pre></td></tr></table></figure></p>
-<h4 id="获取HttpSession、ServletContext-实例"><a href="#获取HttpSession、ServletContext-实例" class="headerlink" title="获取HttpSession、ServletContext 实例"></a>获取HttpSession、ServletContext 实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getSession（）					// 返回当前session</span><br><span class="line">getSession（boolean）				// 返回当前session，是否新建。</span><br><span class="line">getServletContext（）				// 取得ServletContext对象</span><br></pre></td></tr></table></figure>
+<h4 id="获取HttpSession、ServletContext-实例"><a href="#获取HttpSession、ServletContext-实例" class="headerlink" title="获取HttpSession、ServletContext 实例"></a>获取HttpSession、ServletContext 实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getSession（）              // 返回当前session</span><br><span class="line">getSession（boolean）       // 返回当前session，是否新建。</span><br><span class="line">getServletContext（）       // 取得ServletContext对象</span><br></pre></td></tr></table></figure>
 <h4 id="请求转发与重定向"><a href="#请求转发与重定向" class="headerlink" title="请求转发与重定向"></a>请求转发与重定向</h4><h5 id="请求转发与重定向的区别"><a href="#请求转发与重定向的区别" class="headerlink" title="请求转发与重定向的区别"></a>请求转发与重定向的区别</h5><ul>
 <li>请求转发<br><strong>调用者与被调用者之间共享相同的request对象和response对象，他们属于同一个访问请求和响应过程，我们可以称之为<code>服务器跳转</code></strong></li>
 <li>重定向<br><strong>调用者与被调用者,不共享属性和方法，等同于点击一个URL。 我们称之为<code>客户端跳转</code></strong><h5 id="请求转发与重定向的用法"><a href="#请求转发与重定向的用法" class="headerlink" title="请求转发与重定向的用法"></a>请求转发与重定向的用法</h5></li>
@@ -487,10 +571,10 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 </li>
 <li><p>请求转发（服务端跳转）<br><strong>有两个方法用于请求转发</strong></p>
 <ul>
-<li><p>forward(req,res);                页面跳转    </p>
+<li><p>forward(req,res);        页面跳转    </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestDispatcher(&quot;success.jsp&quot;).forward(request,response);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>include(req.res)                页面包含</p>
+<li><p>include(req.res)       页面包含</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestDispatcher(&quot;main.jsp&quot;).include(request, response);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -501,8 +585,10 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 <li>include是把另一个servlet处理过后的结果内容拿过来.<h3 id="Servlet-过滤器"><a href="#Servlet-过滤器" class="headerlink" title="Servlet 过滤器"></a>Servlet 过滤器</h3>Servlet 自定义过滤器需要两个步骤</li>
 <li><p>1、实现Filter接口</p>
 <ul>
-<li>Filter 方法<br>方法名称 | 说明<br>— | —<br>init（FilterConfig）| 过滤器初始化<br>doFilter(req,res)    |  完成过滤操作，然后通过FilterChain传递<br>destroy() | 过滤器消亡，执行方法</li>
-<li>实例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">   private String encodeString;</span><br><span class="line"></span><br><span class="line">//初始化方法</span><br><span class="line">@Override</span><br><span class="line">public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">	// 获取Web.xml 中配置的属性值</span><br><span class="line">	encodeString=filterConfig.getInitParameter(&quot;encoding&quot;);</span><br><span class="line">&#125;</span><br><span class="line">   //filter 要实现的功能</span><br><span class="line">@Override</span><br><span class="line">public void doFilter(ServletRequest request, ServletResponse response,</span><br><span class="line">		FilterChain chain) throws IOException, ServletException &#123;</span><br><span class="line">	System.out.println(&quot;begin&quot;);</span><br><span class="line">	// 设置字符集</span><br><span class="line">	request.setCharacterEncoding(encodeString);</span><br><span class="line">	</span><br><span class="line">	//继续向下执行，如果还有其他filter继续调用其他filter，没有的话将消息发送给服务器或客户端</span><br><span class="line">	chain.doFilter(request, response);</span><br><span class="line">	System.out.println(&quot;end&quot;);</span><br><span class="line">&#125;</span><br><span class="line">//Filter注销方法</span><br><span class="line">@Override</span><br><span class="line">public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>Filter 方法<br>方法名称 | 说明<br>— | —<br>init（FilterConfig）| 过滤器初始化<br>doFilter(req,res)  |  完成过滤操作，然后通过FilterChain传递<br>destroy() | 过滤器消亡，执行方法</p>
+</li>
+<li><p>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">  private String encodeString;</span><br><span class="line"></span><br><span class="line">//初始化方法</span><br><span class="line">@Override</span><br><span class="line">public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">  // 获取Web.xml 中配置的属性值</span><br><span class="line">  encodeString=filterConfig.getInitParameter(&quot;encoding&quot;);</span><br><span class="line">&#125;</span><br><span class="line">  //filter 要实现的功能</span><br><span class="line">@Override</span><br><span class="line">public void doFilter(ServletRequest request, ServletResponse response,</span><br><span class="line">    FilterChain chain) throws IOException, ServletException &#123;</span><br><span class="line">  System.out.println(&quot;begin&quot;);</span><br><span class="line">  // 设置字符集</span><br><span class="line">  request.setCharacterEncoding(encodeString);</span><br><span class="line">  </span><br><span class="line">  //继续向下执行，如果还有其他filter继续调用其他filter，没有的话将消息发送给服务器或客户端</span><br><span class="line">  chain.doFilter(request, response);</span><br><span class="line">  System.out.println(&quot;end&quot;);</span><br><span class="line">&#125;</span><br><span class="line">//Filter注销方法</span><br><span class="line">@Override</span><br><span class="line">public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -559,25 +645,199 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
 </tr>
 </tbody>
 </table>
-<h4 id="监听器的方法"><a href="#监听器的方法" class="headerlink" title="监听器的方法"></a>监听器的方法</h4><p>application 监听</p>
+<h4 id="监听器的方法"><a href="#监听器的方法" class="headerlink" title="监听器的方法"></a>监听器的方法</h4><h5 id="application-监听"><a href="#application-监听" class="headerlink" title="application 监听"></a>application 监听</h5><p><strong>ServletContextListener </strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>contextInitialized(ServletContextEvent)</td>
+<td>容器启动时触发</td>
+</tr>
+<tr>
+<td>contextDestroyed（ServletContextEvent）</td>
+<td>容器销毁时触发</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>ServletContextListener<br>方法名称 | 作用<br>— | —<br>contextInitialized(ServletContextEvent) | 容器启动时触发<br>contextDestroyed（ServletContextEvent）| 容器销毁时触发</li>
+<li>ServletContextEvent<ul>
+<li>getServletContext() 取得ServletContext对象</li>
 </ul>
-<p>ServletContextEvent参数 常用方法<br>getServletContext() 取得ServletContext对象</p>
+</li>
+</ul>
+<hr>
+<p><strong>ServletContextAttributeListener </strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>attributeAdded（ServletContexArribute）</td>
+<td>增加属性触发</td>
+</tr>
+<tr>
+<td>attributeRemoved(ServletContexArribute)</td>
+<td>删除属性触发</td>
+</tr>
+<tr>
+<td>attributeReplaced(ServletContexArribute)</td>
+<td>替换属性(重复设置)时触发</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>ServletContextAttributeListener<br>方法名称 | 作用<br>— | —<br>attributeAdded(HttpSessionBindingEvent)| 增加属性触发<br>attributeRemoved(HttpSessionBindingEvent)| 删除属性触发<br>attributeReplaced(HttpSessionBindingEvent) | 替换属性(重复设置)时触发</li>
+<li>ServletContexArribute <ul>
+<li>getName()取得设置属性名称</li>
+<li>getValue()取得设置属性内容</li>
 </ul>
-<p>session 监听</p>
+</li>
+</ul>
+<hr>
+<h5 id="session-监听"><a href="#session-监听" class="headerlink" title="session 监听"></a>session 监听</h5><p><strong>HttpSessionListener</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sessionCreated(HttpSessionEvent)</td>
+<td>session创建时调用</td>
+</tr>
+<tr>
+<td>sessionDestroyed(HttpSessionEvent)</td>
+<td>session销毁时调用</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>HttpSessionListener<br>方法名称 | 作用<br>— | —<br>sessionCreated(HttpSessionEvent)| session创建时调用<br>sessionDestroyed(HttpSessionEvent) | session销毁时调用</li>
-<li>HttpSessionAttributeListener<br>方法名称 | 作用<br>— | —<br>attributeAdded（ServletContexArribute）| 增加属性触发<br>attributeRemoved(ServletContexArribute)| 删除属性触发<br>attributeReplaced(ServletContexArribute) | 替换属性(重复设置)时触发</li>
-<li>HttpSessionBindingListener<br>方法名称 | 作用<br>— | —<br>valueBound(HttpSessionBindingEvent) | 绑定对象到session时触发<br>valueUnbound(HttpSessionBindingEvent) | 从session中移除对象时触发</li>
+<li>HttpSessionAttributeListener<ul>
+<li>getsession()取得当前session</li>
 </ul>
-<p>request 监听</p>
+</li>
+</ul>
+<hr>
+<p><strong>HttpSessionAttributeListener</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>attributeAdded(HttpSessionBindingEvent)</td>
+<td>增加属性触发</td>
+</tr>
+<tr>
+<td>attributeRemoved(HttpSessionBindingEvent)</td>
+<td>删除属性触发</td>
+</tr>
+<tr>
+<td>attributeReplaced(HttpSessionBindingEvent)</td>
+<td>替换属性时触发</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>ServletRequestListener<br>方法名称 | 作用<br>— | —<br>requestInitialized(ServletRequestEvent) | 请求开始时调用<br>requestDestroyed(ServletRequestEvent)| 请求结束时调用</li>
-<li>ServletRequestAttributeListener<br>方法名称 | 作用<br>— | —<br>attributeAdded(ServletRequestAttributeEvent) | 增加属性触发<br>attributeRemoved(ServletRequestAttributeEvent) | 删除属性触发<br>attributeReplaced(ServletRequestAttributeEvent) | 替换属性(重复设置)时触发</li>
+<li>HttpSessionBindingListener<ul>
+<li>getSession()取得session</li>
+<li>getName()取得属性名称</li>
+<li>getValue()取得属性的内容</li>
 </ul>
+</li>
+</ul>
+<hr>
+<p><strong>HttpSessionBindingListener </strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>valueBound(HttpSessionBindingEvent)</td>
+<td>绑定对象到session时触发</td>
+</tr>
+<tr>
+<td>valueUnbound(HttpSessionBindingEvent)</td>
+<td>从session中移除对象时触发</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h5 id="request-监听"><a href="#request-监听" class="headerlink" title="request 监听"></a>request 监听</h5><p><strong>ServletRequestListener</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>requestInitialized(ServletRequestEvent)</td>
+<td>请求开始时调用</td>
+</tr>
+<tr>
+<td>requestDestroyed(ServletRequestEvent)</td>
+<td>请求结束时调用</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ServletRequestEvent<ul>
+<li>getServletRequest() 取得ServletRequest对象</li>
+<li>getServletContext()取得ServletContext对象</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>ServletRequestAttributeListener</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>attributeAdded(ServletRequestAttributeEvent)</td>
+<td>增加属性触发</td>
+</tr>
+<tr>
+<td>attributeRemoved(ServletRequestAttributeEvent)</td>
+<td>删除属性触发</td>
+</tr>
+<tr>
+<td>attributeReplaced(ServletRequestAttributeEvent)</td>
+<td>替换属性(重复设置)时触发</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ServletRequestAttributeEvent<ul>
+<li>getName()         取得属性名称</li>
+<li>getValue()         取得属性的内容</li>
+</ul>
+</li>
+</ul>
+<hr>
 <h4 id="监听器实例"><a href="#监听器实例" class="headerlink" title="监听器实例"></a>监听器实例</h4><h4 id="web-xml-配置监听器"><a href="#web-xml-配置监听器" class="headerlink" title="web.xml 配置监听器"></a>web.xml 配置监听器</h4><p><strong>如此简单</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;listener&gt;</span><br><span class="line">   &lt;listener-class&gt;io.github.cmp-cc.listener.RquestCountListener&lt;/listener-class&gt;</span><br><span class="line">&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
 <h4 id="Servlet-1"><a href="#Servlet-1" class="headerlink" title="Servlet"></a>Servlet</h4><h2 id="EL-表达式"><a href="#EL-表达式" class="headerlink" title="EL 表达式"></a>EL 表达式</h2><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="静态包含-与-动态包含的区别"><a href="#静态包含-与-动态包含的区别" class="headerlink" title="静态包含 与 动态包含的区别"></a>静态包含 与 动态包含的区别</h4><ul>
 <li><p>写法</p>
@@ -614,12 +874,16 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2013/02/16/Ajax/" rel="next" title="Ajax">
+                <i class="fa fa-chevron-left"></i> Ajax
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/02/16/Ajax/" rel="prev" title="Ajax">
-                Ajax <i class="fa fa-chevron-right"></i>
+              <a href="/2013/08/12/Java项目开发中的简称/" rel="prev" title="Java项目开发中的简称">
+                Java项目开发中的简称 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -646,8 +910,8 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2013/02/05/JSPServlet3.0总结/"
-           data-title="JSP/Servlet3.0总结" data-url="http://cmp-cc.github.io/2013/02/05/JSPServlet3.0总结/">
+      <div class="ds-thread" data-thread-key="2013/03/05/JSPServlet3.0总结/"
+           data-title="JSP/Servlet3.0总结" data-url="http://cmp-cc.github.io/2013/03/05/JSPServlet3.0总结/">
       </div>
     
   </div>
@@ -760,7 +1024,7 @@ JSPJSP 注释一种显示注释和三种隐式注释JSP中有两种注释方式�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP"><span class="nav-number">1.</span> <span class="nav-text">JSP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-注释"><span class="nav-number">1.1.</span> <span class="nav-text">JSP 注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一种显示注释和三种隐式注释"><span class="nav-number">1.1.1.</span> <span class="nav-text">一种显示注释和三种隐式注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示注释和隐式注释的区别"><span class="nav-number">1.1.2.</span> <span class="nav-text">显示注释和隐式注释的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scriptle-脚本片段"><span class="nav-number">1.2.</span> <span class="nav-text">Scriptle 脚本片段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scriptlet-标签"><span class="nav-number">1.3.</span> <span class="nav-text">Scriptlet 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP指令"><span class="nav-number">1.4.</span> <span class="nav-text">JSP指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#page-指令-（页面指令）"><span class="nav-number">1.4.1.</span> <span class="nav-text">page 指令 （页面指令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include-（包含指令）"><span class="nav-number">1.4.2.</span> <span class="nav-text">include （包含指令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#taglib-（标签指令）"><span class="nav-number">1.4.3.</span> <span class="nav-text">taglib （标签指令）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-内置标签"><span class="nav-number">1.5.</span> <span class="nav-text">JSP 内置标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-内置对象"><span class="nav-number">1.6.</span> <span class="nav-text">JSP 内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-九种内置对象"><span class="nav-number">1.6.1.</span> <span class="nav-text">JSP 九种内置对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-四种属性范围"><span class="nav-number">1.6.2.</span> <span class="nav-text">JSP 四种属性范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-JavaBean"><span class="nav-number">1.7.</span> <span class="nav-text">JSP JavaBean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet"><span class="nav-number">2.</span> <span class="nav-text">Servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-基础"><span class="nav-number">2.1.</span> <span class="nav-text">Servlet 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生命周期"><span class="nav-number">2.1.1.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内置方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">内置方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml-配置Servlet，并附加初始值"><span class="nav-number">2.1.3.</span> <span class="nav-text">web.xml 配置Servlet，并附加初始值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取HttpSession、ServletContext-实例"><span class="nav-number">2.1.4.</span> <span class="nav-text">获取HttpSession、ServletContext 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求转发与重定向"><span class="nav-number">2.1.5.</span> <span class="nav-text">请求转发与重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#请求转发与重定向的区别"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">请求转发与重定向的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求转发与重定向的用法"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">请求转发与重定向的用法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forward-和-include-区别"><span class="nav-number">2.1.6.</span> <span class="nav-text">forward 和 include 区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-过滤器"><span class="nav-number">2.2.</span> <span class="nav-text">Servlet 过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-监听器"><span class="nav-number">2.3.</span> <span class="nav-text">Servlet 监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器类型"><span class="nav-number">2.3.1.</span> <span class="nav-text">监听器类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器的方法"><span class="nav-number">2.3.2.</span> <span class="nav-text">监听器的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器实例"><span class="nav-number">2.3.3.</span> <span class="nav-text">监听器实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml-配置监听器"><span class="nav-number">2.3.4.</span> <span class="nav-text">web.xml 配置监听器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet-1"><span class="nav-number">2.3.5.</span> <span class="nav-text">Servlet</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EL-表达式"><span class="nav-number">3.</span> <span class="nav-text">EL 表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">3.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态包含-与-动态包含的区别"><span class="nav-number">3.1.1.</span> <span class="nav-text">静态包含 与 动态包含的区别</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP"><span class="nav-number">1.</span> <span class="nav-text">JSP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-注释"><span class="nav-number">1.1.</span> <span class="nav-text">JSP 注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一种显示注释和三种隐式注释"><span class="nav-number">1.1.1.</span> <span class="nav-text">一种显示注释和三种隐式注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示注释和隐式注释的区别"><span class="nav-number">1.1.2.</span> <span class="nav-text">显示注释和隐式注释的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scriptle-脚本片段"><span class="nav-number">1.2.</span> <span class="nav-text">Scriptle 脚本片段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scriptlet-标签"><span class="nav-number">1.3.</span> <span class="nav-text">Scriptlet 标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP指令"><span class="nav-number">1.4.</span> <span class="nav-text">JSP指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#page-指令-（页面指令）"><span class="nav-number">1.4.1.</span> <span class="nav-text">page 指令 （页面指令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include-（包含指令）"><span class="nav-number">1.4.2.</span> <span class="nav-text">include （包含指令）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#taglib-（标签指令）"><span class="nav-number">1.4.3.</span> <span class="nav-text">taglib （标签指令）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-内置标签"><span class="nav-number">1.5.</span> <span class="nav-text">JSP 内置标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-内置对象"><span class="nav-number">1.6.</span> <span class="nav-text">JSP 内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-九种内置对象"><span class="nav-number">1.6.1.</span> <span class="nav-text">JSP 九种内置对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP-四种属性范围"><span class="nav-number">1.6.2.</span> <span class="nav-text">JSP 四种属性范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-JavaBean"><span class="nav-number">1.7.</span> <span class="nav-text">JSP JavaBean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet"><span class="nav-number">2.</span> <span class="nav-text">Servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-基础"><span class="nav-number">2.1.</span> <span class="nav-text">Servlet 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生命周期"><span class="nav-number">2.1.1.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内置方法"><span class="nav-number">2.1.2.</span> <span class="nav-text">内置方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml-配置Servlet，并附加初始值"><span class="nav-number">2.1.3.</span> <span class="nav-text">web.xml 配置Servlet，并附加初始值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取HttpSession、ServletContext-实例"><span class="nav-number">2.1.4.</span> <span class="nav-text">获取HttpSession、ServletContext 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求转发与重定向"><span class="nav-number">2.1.5.</span> <span class="nav-text">请求转发与重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#请求转发与重定向的区别"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">请求转发与重定向的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求转发与重定向的用法"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">请求转发与重定向的用法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forward-和-include-区别"><span class="nav-number">2.1.6.</span> <span class="nav-text">forward 和 include 区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-过滤器"><span class="nav-number">2.2.</span> <span class="nav-text">Servlet 过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-监听器"><span class="nav-number">2.3.</span> <span class="nav-text">Servlet 监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器类型"><span class="nav-number">2.3.1.</span> <span class="nav-text">监听器类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器的方法"><span class="nav-number">2.3.2.</span> <span class="nav-text">监听器的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#application-监听"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">application 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#session-监听"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">session 监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#request-监听"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">request 监听</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器实例"><span class="nav-number">2.3.3.</span> <span class="nav-text">监听器实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web-xml-配置监听器"><span class="nav-number">2.3.4.</span> <span class="nav-text">web.xml 配置监听器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet-1"><span class="nav-number">2.3.5.</span> <span class="nav-text">Servlet</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EL-表达式"><span class="nav-number">3.</span> <span class="nav-text">EL 表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">3.1.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态包含-与-动态包含的区别"><span class="nav-number">3.1.1.</span> <span class="nav-text">静态包含 与 动态包含的区别</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
