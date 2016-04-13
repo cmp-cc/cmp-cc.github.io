@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="嵌入式数据库,H2," />
 
 
 
@@ -60,7 +60,7 @@
 
 
 <meta name="description" content="H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。
-H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web内存模式实例。
+H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web开发实例。
 H2 生产环境几乎没有人用，他不适用高并发和大数据，并发越大插入和读取性能越低。
 H2 应用场景：
 
@@ -69,13 +69,13 @@ H2 应用场景：
 监控系统
 测试环境（如：开启MySql模式）
 
-以上都是我Y">
+以上都是我YY的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="H2 DataBase 数据库">
 <meta property="og:url" content="http://cmp-cc.github.io/2016/04/12/H2 DataBase 数据库/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
 <meta property="og:description" content="H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。
-H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web内存模式实例。
+H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web开发实例。
 H2 生产环境几乎没有人用，他不适用高并发和大数据，并发越大插入和读取性能越低。
 H2 应用场景：
 
@@ -84,12 +84,12 @@ H2 应用场景：
 监控系统
 测试环境（如：开启MySql模式）
 
-以上都是我Y">
-<meta property="og:updated_time" content="2016-04-12T11:49:16.046Z">
+以上都是我YY的">
+<meta property="og:updated_time" content="2016-04-13T09:00:16.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="H2 DataBase 数据库">
 <meta name="twitter:description" content="H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。
-H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web内存模式实例。
+H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web开发实例。
 H2 生产环境几乎没有人用，他不适用高并发和大数据，并发越大插入和读取性能越低。
 H2 应用场景：
 
@@ -98,7 +98,7 @@ H2 应用场景：
 监控系统
 测试环境（如：开启MySql模式）
 
-以上都是我Y">
+以上都是我YY的">
 
 
 
@@ -274,6 +274,25 @@ H2 应用场景：
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -303,7 +322,7 @@ H2 应用场景：
 
       
         <p>H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。</p>
-<p>H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web内存模式实例。</p>
+<p>H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web开发实例。</p>
 <p>H2 生产环境几乎没有人用，他不适用高并发和大数据，并发越大插入和读取性能越低。</p>
 <p>H2 应用场景：</p>
 <ul>
@@ -313,9 +332,22 @@ H2 应用场景：
 <li>测试环境（如：开启MySql模式）</li>
 </ul>
 <p><strong>以上都是我YY的，没有实战，可信度30%</strong></p>
-<h2 id="使用H2"><a href="#使用H2" class="headerlink" title="使用H2"></a>使用H2</h2><p><strong>Maven 引入H2依赖</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.h2database&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;h2&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.4.191&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>H2 数据库驱动</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public static Connection getH2Connection() &#123;</span><br><span class="line">     try &#123;</span><br><span class="line">         String url = &quot;jdbc:h2:./h2db&quot;;</span><br><span class="line">         String name = &quot;root&quot;;</span><br><span class="line">         String pass = &quot;123456&quot;;</span><br><span class="line">         JdbcDataSource ds = new JdbcDataSource();</span><br><span class="line">         ds.setURL(url);</span><br><span class="line">         ds.setUser(name);</span><br><span class="line">         ds.setPassword(pass);</span><br><span class="line">         Connection connection = DriverManager.getConnection(url, name, pass);</span><br><span class="line">         return connection;</span><br><span class="line">     &#125; catch (SQLException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line">     return null;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="H2-DataBase-数据库"><a href="#H2-DataBase-数据库" class="headerlink" title="H2 DataBase 数据库"></a>H2 DataBase 数据库</h2><h3 id="Maven-引入H2依赖"><a href="#Maven-引入H2依赖" class="headerlink" title="Maven 引入H2依赖"></a>Maven 引入H2依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.h2database&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;h2&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.191&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="H2-实例"><a href="#H2-实例" class="headerlink" title="H2 实例"></a>H2 实例</h3><p><strong>部分实例参考官网</strong></p>
+<h4 id="JDBC-连接"><a href="#JDBC-连接" class="headerlink" title="JDBC 连接"></a>JDBC 连接</h4><ul>
+<li><p>获取JDBC 连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">private static String driver = &quot;org.h2.Driver&quot;;</span><br><span class="line">private static String url = &quot;jdbc:h2:./h2db&quot;;</span><br><span class="line">private static String username = &quot;root&quot;;</span><br><span class="line">private static String password = &quot;123456&quot;;</span><br><span class="line"></span><br><span class="line">public static Connection getConnection() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        Class.forName(driver);</span><br><span class="line">        // 可以不用设置户名和密码</span><br><span class="line">        Connection connection = DriverManager.getConnection(url, username, password);</span><br><span class="line">        return connection;</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">        // TODO Auto-generated catch block</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取JDBC连接池</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">private static final String url = &quot;jdbc:h2:./h2db&quot;;</span><br><span class="line">private static final String username = &quot;root&quot;;</span><br><span class="line">private static final String password = &quot;123456&quot;;</span><br><span class="line"></span><br><span class="line">private static JdbcConnectionPool pool = JdbcConnectionPool.create(url,username,password);</span><br><span class="line"></span><br><span class="line">static &#123;</span><br><span class="line">    pool.setLoginTimeout(1000); // 连接超时时间</span><br><span class="line">    pool.setMaxConnections(50); // 最大连接数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @return 获取H2 JDBC连接池</span><br><span class="line"> */</span><br><span class="line">public static JdbcConnectionPool getJDBCConnectionPool()&#123;  </span><br><span class="line">    return pool;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">public static Connection getConnection()&#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        return pool.getConnection();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">        // TODO Auto-generated catch block</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;finally&#123;</span><br><span class="line">        // 释放空闲连接</span><br><span class="line">        pool.dispose(); </span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>jdbc:h2:./h2db 中h2db表示数据库名称,它会在当前路径中创建h2db.mv.db文件，用于记录数据库数据信息。</strong><br><strong>有了Connection（JDBC链接）我相信你已经无敌了。</strong></p>
+<h3 id="H2-工具"><a href="#H2-工具" class="headerlink" title="H2 工具"></a>H2 工具</h3><p><strong>H2 与众不同的一点（奇葩）的一点，它提供了一些工具操作</strong></p>
+<h4 id="读写CVS"><a href="#读写CVS" class="headerlink" title="读写CVS"></a>读写CVS</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Write a CSV file.</span><br><span class="line"> */</span><br><span class="line">static void write() throws SQLException &#123;</span><br><span class="line">    SimpleResultSet rs = new SimpleResultSet();</span><br><span class="line">    rs.addColumn(&quot;NAME&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addColumn(&quot;EMAIL&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addColumn(&quot;PHONE&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addRow(&quot;Bob Meier&quot;, &quot;bob.meier@abcde.abc&quot;, &quot;+41123456789&quot;);</span><br><span class="line">    rs.addRow(&quot;John Jones&quot;, &quot;john.jones@abcde.abc&quot;, &quot;+41976543210&quot;);</span><br><span class="line">    new Csv().write(&quot;data/test.csv&quot;, rs, null);</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * Read a CSV file.</span><br><span class="line"> */</span><br><span class="line">static void read() throws SQLException &#123;</span><br><span class="line">    ResultSet rs = new Csv().read(&quot;data/test.csv&quot;, null, null);</span><br><span class="line">    ResultSetMetaData meta = rs.getMetaData();</span><br><span class="line">    while (rs.next()) &#123;</span><br><span class="line">        for (int i = 0; i &lt; meta.getColumnCount(); i++) &#123;</span><br><span class="line">            System.out.println(meta.getColumnLabel(i + 1) + &quot;: &quot; + rs.getString(i + 1));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">    rs.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="服务和脚本"><a href="#服务和脚本" class="headerlink" title="服务和脚本"></a>服务和脚本</h4><p><strong>暂略吧，没什么应用场景。</strong></p>
+<h3 id="H2-全文检索"><a href="#H2-全文检索" class="headerlink" title="H2 全文检索"></a>H2 全文检索</h3><p>H2 的全文检索主要使用FullText和FullTextLucene类，使用相对简单，主要使用Search() 和 SearchData()方法。</p>
+<p><strong>使用H2 主要还是使用SQL操作，其他的特性也很少用。</strong></p>
 
       
     </div>
@@ -327,6 +359,14 @@ H2 应用场景：
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/嵌入式数据库/" rel="tag">#嵌入式数据库</a>
+          
+            <a href="/tags/H2/" rel="tag">#H2</a>
+          
+        </div>
       
 
       
@@ -419,7 +459,7 @@ H2 应用场景：
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -428,7 +468,7 @@ H2 应用场景：
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -479,7 +519,7 @@ H2 应用场景：
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用H2"><span class="nav-number">1.</span> <span class="nav-text">使用H2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#H2-DataBase-数据库"><span class="nav-number">1.</span> <span class="nav-text">H2 DataBase 数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven-引入H2依赖"><span class="nav-number">1.1.</span> <span class="nav-text">Maven 引入H2依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H2-实例"><span class="nav-number">1.2.</span> <span class="nav-text">H2 实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDBC-连接"><span class="nav-number">1.2.1.</span> <span class="nav-text">JDBC 连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H2-工具"><span class="nav-number">1.3.</span> <span class="nav-text">H2 工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#读写CVS"><span class="nav-number">1.3.1.</span> <span class="nav-text">读写CVS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务和脚本"><span class="nav-number">1.3.2.</span> <span class="nav-text">服务和脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H2-全文检索"><span class="nav-number">1.4.</span> <span class="nav-text">H2 全文检索</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
