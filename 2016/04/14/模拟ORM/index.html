@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Javascript," />
+  <meta name="keywords" content="Java," />
 
 
 
@@ -59,73 +59,64 @@
 
 
 
-<meta name="description" content="略略略随便记录一下。 日后再补充。
-XMLHttpRequest 对象XMLHttpRequest 对象属性
+<meta name="description" content="有时候做一些展示用的项目，或者是测试项目，可能并不会去引入MyBastis 和 Hibernate 等这里ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。
+SQL Mapping Java整体实体关系映射
 
 
-属性名称
-说明
+类型名称
+显示长度
+数据库类型
+JAVA类型
+JDBC类型索引(int)
 
 
 
 
-onreadystatechange
-指定当readState状态改变时使用的操作，一般用于指定具体的回调函数
-
-
-readyState
-返回当前请求的状态，只读
-
-
-responseBody
-将回应信息正文以unsigned byte数组的形式返回，只读">
+VARCHAR
+L+N
+VARCHAR
+j">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ajax">
-<meta property="og:url" content="http://cmp-cc.github.io/2013/02/16/Ajax/index.html">
+<meta property="og:title" content="模拟ORM">
+<meta property="og:url" content="http://cmp-cc.github.io/2016/04/14/模拟ORM/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="略略略随便记录一下。 日后再补充。
-XMLHttpRequest 对象XMLHttpRequest 对象属性
+<meta property="og:description" content="有时候做一些展示用的项目，或者是测试项目，可能并不会去引入MyBastis 和 Hibernate 等这里ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。
+SQL Mapping Java整体实体关系映射
 
 
-属性名称
-说明
+类型名称
+显示长度
+数据库类型
+JAVA类型
+JDBC类型索引(int)
 
 
 
 
-onreadystatechange
-指定当readState状态改变时使用的操作，一般用于指定具体的回调函数
-
-
-readyState
-返回当前请求的状态，只读
-
-
-responseBody
-将回应信息正文以unsigned byte数组的形式返回，只读">
-<meta property="og:updated_time" content="2016-04-11T07:54:28.117Z">
+VARCHAR
+L+N
+VARCHAR
+j">
+<meta property="og:updated_time" content="2016-04-14T10:45:25.711Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ajax">
-<meta name="twitter:description" content="略略略随便记录一下。 日后再补充。
-XMLHttpRequest 对象XMLHttpRequest 对象属性
+<meta name="twitter:title" content="模拟ORM">
+<meta name="twitter:description" content="有时候做一些展示用的项目，或者是测试项目，可能并不会去引入MyBastis 和 Hibernate 等这里ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。
+SQL Mapping Java整体实体关系映射
 
 
-属性名称
-说明
+类型名称
+显示长度
+数据库类型
+JAVA类型
+JDBC类型索引(int)
 
 
 
 
-onreadystatechange
-指定当readState状态改变时使用的操作，一般用于指定具体的回调函数
-
-
-readyState
-返回当前请求的状态，只读
-
-
-responseBody
-将回应信息正文以unsigned byte数组的形式返回，只读">
+VARCHAR
+L+N
+VARCHAR
+j">
 
 
 
@@ -143,7 +134,7 @@ responseBody
   };
 </script>
 
-  <title> Ajax | I am cmp-cc </title>
+  <title> 模拟ORM | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +274,7 @@ responseBody
             
             
               
-                Ajax
+                模拟ORM
               
             
           </h1>
@@ -295,8 +286,8 @@ responseBody
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-16T13:43:00+08:00" content="2013-02-16">
-              2013-02-16
+            <time itemprop="dateCreated" datetime="2016-04-14T18:34:00+08:00" content="2016-04-14">
+              2016-04-14
             </time>
           </span>
 
@@ -309,8 +300,8 @@ responseBody
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -325,8 +316,8 @@ responseBody
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/02/16/Ajax/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/16/Ajax/" itemprop="commentsCount"></span>
+                <a href="/2016/04/14/模拟ORM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/模拟ORM/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -348,115 +339,324 @@ responseBody
       
 
       
-        <h2 id="略略略"><a href="#略略略" class="headerlink" title="略略略"></a>略略略</h2><p>随便记录一下。 日后再补充。</p>
-<h2 id="XMLHttpRequest-对象"><a href="#XMLHttpRequest-对象" class="headerlink" title="XMLHttpRequest 对象"></a>XMLHttpRequest 对象</h2><h3 id="XMLHttpRequest-对象属性"><a href="#XMLHttpRequest-对象属性" class="headerlink" title="XMLHttpRequest 对象属性"></a>XMLHttpRequest 对象属性</h3><table>
+        <p>有时候做一些展示用的项目，或者是测试项目，可能并不会去引入MyBastis 和 Hibernate 等这里ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。</p>
+<h2 id="SQL-Mapping-Java"><a href="#SQL-Mapping-Java" class="headerlink" title="SQL Mapping Java"></a>SQL Mapping Java</h2><h3 id="整体实体关系映射"><a href="#整体实体关系映射" class="headerlink" title="整体实体关系映射"></a>整体实体关系映射</h3><table>
 <thead>
 <tr>
-<th>属性名称</th>
-<th>说明</th>
+<th>类型名称</th>
+<th>显示长度</th>
+<th>数据库类型</th>
+<th>JAVA类型</th>
+<th>JDBC类型索引(int)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>onreadystatechange</td>
-<td>指定当readState状态改变时使用的操作，一般用于指定具体的回调函数</td>
+<td>VARCHAR</td>
+<td>L+N</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+<td>12     </td>
 </tr>
 <tr>
-<td>readyState</td>
-<td>返回当前请求的状态，只读</td>
+<td>CHAR</td>
+<td>N</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
+<td>1     </td>
 </tr>
 <tr>
-<td>responseBody</td>
-<td>将回应信息正文以unsigned byte数组的形式返回，只读</td>
+<td>BLOB</td>
+<td>L+N</td>
+<td>BLOB</td>
+<td>java.lang.byte[]</td>
+<td>-4     </td>
 </tr>
 <tr>
-<td>responseStream</td>
-<td>以Ado Stream对象的形式返回响应信息，只读</td>
+<td>TEXT</td>
+<td>65535</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+<td>-1      </td>
 </tr>
 <tr>
-<td>responseText</td>
-<td>接收以文本返回的数据，只读</td>
-</tr>
-<tr>
-<td>responseXML</td>
-<td>接收以XML文档形式回应的数据，只读</td>
-</tr>
-<tr>
-<td>status</td>
-<td>返回当前请求的http状态码，只读</td>
-</tr>
-<tr>
-<td>statusText</td>
-<td>返回当前请求的响应行装填，只读</td>
-</tr>
-</tbody>
-</table>
-<p><strong>statusText 的五种取值状体</strong></p>
-<table>
-<thead>
-<tr>
-<th>状体码</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>请求没有发出（在调用open()函数之前）</td>
-</tr>
-<tr>
-<td>1</td>
-<td>请求已经建立但还没有发出（在调用send()函数之前）</td>
-</tr>
-<tr>
-<td>2</td>
-<td>请求已经发出正在处理之中(这里通常可以从响应得到内容头部)</td>
-</tr>
-<tr>
-<td>3</td>
-<td>请求已经处理，正在接受服务器的信息，响应中通常有部分数据可用，但是服务器还有完成响应    </td>
-</tr>
-<tr>
+<td>INTEGER</td>
 <td>4</td>
-<td>请求已完成，可以访问服务器响应并使用它</td>
+<td>INTEGER UNSIGNED</td>
+<td>java.lang.Long</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>TINYINT</td>
+<td>3</td>
+<td>TINYINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>-6     </td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>5</td>
+<td>SMALLINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>5     </td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>8</td>
+<td>MEDIUMINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>BIT</td>
+<td>1</td>
+<td>BIT</td>
+<td>java.lang.Boolean</td>
+<td>-7     </td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>20</td>
+<td>BIGINT UNSIGNED</td>
+<td>java.math.BigInteger</td>
+<td>-5     </td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>4+8</td>
+<td>FLOAT</td>
+<td>java.lang.Float</td>
+<td>7     </td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>22</td>
+<td>DOUBLE</td>
+<td>java.lang.Double</td>
+<td>8     </td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td>11</td>
+<td>DECIMAL</td>
+<td>java.math.BigDecimal</td>
+<td>3     </td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>1</td>
+<td>TINYINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>-6      </td>
+</tr>
+<tr>
+<td>ID</td>
+<td>11</td>
+<td>PK (INTEGER UNSIGNED)</td>
+<td>java.lang.Long</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>10</td>
+<td>DATE</td>
+<td>java.sql.Date</td>
+<td>91     </td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>8</td>
+<td>TIME</td>
+<td>java.sql.Time</td>
+<td>92     </td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>19</td>
+<td>DATETIME</td>
+<td>java.sql.Timestamp</td>
+<td>93     </td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>19</td>
+<td>TIMESTAMP</td>
+<td>java.sql.Timestamp</td>
+<td>93     </td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>4</td>
+<td>YEAR</td>
+<td>java.sql.Date</td>
+<td>91</td>
 </tr>
 </tbody>
 </table>
-<h3 id="XMLHttpRequest-对象方法"><a href="#XMLHttpRequest-对象方法" class="headerlink" title="XMLHttpRequest 对象方法"></a>XMLHttpRequest 对象方法</h3><table>
+<h3 id="MySQL-实体类型映射"><a href="#MySQL-实体类型映射" class="headerlink" title="MySQL 实体类型映射"></a>MySQL 实体类型映射</h3><table>
 <thead>
 <tr>
-<th>方法名称</th>
-<th>作用</th>
+<th>MySQL Type Name</th>
+<th>Return value of GetColumnClassName</th>
+<th>Returned as Java Class</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>abort()</td>
-<td>取消当前所发出的请求</td>
+<td>BIT(1) (new in MySQL-5.0)</td>
+<td>BIT</td>
+<td>java.lang.Boolean</td>
 </tr>
 <tr>
-<td>getAllRespnseHeaders()</td>
-<td>取得所有的HTTP头信息</td>
+<td>BIT( &gt; 1) (new in MySQL-5.0)</td>
+<td>BIT</td>
+<td>byte[]</td>
 </tr>
 <tr>
-<td>getResponseHeader()</td>
-<td>取得一个指定的HTTP头信息</td>
+<td>TINYINT</td>
+<td>TINYINT</td>
+<td>java.lang.Boolean if the configuration property tinyInt1isBit is set to true (the default) and the storage size is 1, or java.lang.Integer if not.</td>
 </tr>
 <tr>
-<td>open()</td>
-<td>创建一个HTTP请求，并指定请求模式，如GET请求或POST请求</td>
+<td>BOOL, BOOLEAN</td>
+<td>TINYINT</td>
+<td>See TINYINT, above as these are aliases for TINYINT(1), currently.</td>
 </tr>
 <tr>
-<td>send()</td>
-<td>将创建的请求发送到服务器，并接受回应信息</td>
+<td>SMALLINT[(M)] [UNSIGNED]</td>
+<td>SMALLINT [UNSIGNED]</td>
+<td>java.lang.Integer (regardless if UNSIGNED or not)</td>
 </tr>
 <tr>
-<td>setRequestHeader()</td>
-<td>设置一个指定的请求的HTTP头信息</td>
+<td>MEDIUMINT[(M)] [UNSIGNED]</td>
+<td>MEDIUMINT [UNSIGNED]</td>
+<td>java.lang.Integer, if UNSIGNED java.lang.Long (C/J 3.1 and earlier), or java.lang.Integer for C/J 5.0 and later</td>
+</tr>
+<tr>
+<td>INT,INTEGER[(M)] [UNSlGNED]</td>
+<td>INTEGER [UNSIGNED]</td>
+<td>java.lang.Integer, if UNSIGNED java.lang.Long</td>
+</tr>
+<tr>
+<td>BIGINT[(M)] [UNSIGNED]</td>
+<td>BIGINT [UNSIGNED]</td>
+<td>java.lang.Long, if UNSIGNED java.math.BigInteger</td>
+</tr>
+<tr>
+<td>FLOAT[(M,D)]</td>
+<td>FLOAT</td>
+<td>java.lang.Float</td>
+</tr>
+<tr>
+<td>DOUBLE[(M,B)]</td>
+<td>DOUBLE</td>
+<td>java.lang.Double</td>
+</tr>
+<tr>
+<td>DECIMAL[(M[,D])]</td>
+<td>DECIMAL</td>
+<td>java.math.BigDecimal</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>DATE</td>
+<td>java.sql.Date</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>DATETIME</td>
+<td>java.sql.Timestamp</td>
+</tr>
+<tr>
+<td>TIMESTAMP[(M)]</td>
+<td>TIMESTAMP</td>
+<td>java.sql.Timestamp</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>TIME</td>
+<td>java.sql.Time</td>
+</tr>
+<tr>
+<td>YEAR[(2l4)]</td>
+<td>YEAR</td>
+<td>If yearIsDateType configuration property is set to false, then the returned object type is java.sql.Short. If set to true (the default), then the returned object is of type java.sql.Date with the date set to January 1st, at midnight.</td>
+</tr>
+<tr>
+<td>CHAR(M)</td>
+<td>CHAR</td>
+<td>java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
+</tr>
+<tr>
+<td>VARCHAR(M)</td>
+<td>[BINARY]</td>
+<td>VARCHAR    java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
+</tr>
+<tr>
+<td>BINARY(M)</td>
+<td>BINARY</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>VARBINARY(M)</td>
+<td>VARBINARY</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TINYBLOB</td>
+<td>TINYBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB</td>
+<td>MEDIUMBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>LONGBLOB</td>
+<td>LONGBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>ENUM(‘value1’,’value2’,…)</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>SET(‘value1’,’value2’,…)</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
 </tr>
 </tbody>
 </table>
-<h3 id="Ajax-实例"><a href="#Ajax-实例" class="headerlink" title="Ajax 实例"></a>Ajax 实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type = &quot;text/javascript&quot;&gt;</span><br><span class="line">var getAjax; // 欲初始化ajax函数</span><br><span class="line">function invidate() &#123;</span><br><span class="line">    if (window.XMLHttpRequest) &#123; // 判断浏览器类型， N 为IE</span><br><span class="line">		getAjax = new XMLHttpRequest();</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		getAjax = new ActiveXObject(&quot;Misrosoft.XMLHTTP&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function useGetAjax() &#123;</span><br><span class="line">	invidate(); // 初始化XMLHttpRequest对象</span><br><span class="line">	getAjax.open(&quot;POST&quot;, &quot;testAJax&quot;, true);</span><br><span class="line">    // 以POST方式发开请求连接</span><br><span class="line">	getAjax.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">	getAjax.onreadystatechange = function() &#123; // 回调函数</span><br><span class="line">		if (getAjax.readyState == 4) &#123;</span><br><span class="line">		    if (getAjax.status == 200) &#123;</span><br><span class="line">		        var text = getAjax.responseText; // 接收响应信息</span><br><span class="line">		        alert(text);</span><br><span class="line">		        document.getElementById(&quot;ajax&quot;).innerHTML = text;</span><br><span class="line"></span><br><span class="line">		    &#125;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    getAjax.send(&quot;username=1&quot;); // 发送请求体</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>参考： <a href="http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html</a></p>
+<h2 id="模拟ORM"><a href="#模拟ORM" class="headerlink" title="模拟ORM"></a>模拟ORM</h2><h3 id="根据实体映射表"><a href="#根据实体映射表" class="headerlink" title="根据实体映射表"></a>根据实体映射表</h3><p><strong>如下只是一个基本实例，想要完成更多特性，还是要下点功夫的。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public class CreateTableORM &#123;</span><br><span class="line">    </span><br><span class="line">    private static Map&lt;String,String&gt; ormField = getJavaMapMysql();</span><br><span class="line">    </span><br><span class="line">    Class&lt;?&gt; clazz;</span><br><span class="line">    </span><br><span class="line">    Connection conn;</span><br><span class="line">    </span><br><span class="line">    // 表名</span><br><span class="line">    String tableName;</span><br><span class="line">    </span><br><span class="line">    public CreateTableORM(Class&lt;?&gt; clazz , Connection conn)&#123;</span><br><span class="line">        this.clazz = clazz;</span><br><span class="line">        this.conn = conn;</span><br><span class="line">        tableName = clazz.getName();</span><br><span class="line">        </span><br><span class="line">        createTable();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void createTable()&#123;</span><br><span class="line">        </span><br><span class="line">         StringBuffer sb = new StringBuffer();</span><br><span class="line">        </span><br><span class="line">         Arrays.asList(clazz.getDeclaredFields()).forEach(field -&gt;&#123;</span><br><span class="line">             </span><br><span class="line">            String fieldType = ormField.get(field.getType().getName());</span><br><span class="line">            String fieldName = field.getName();</span><br><span class="line">            </span><br><span class="line">            sb.append(String.format(&quot;%s %s,&quot;, fieldName,fieldType));</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        String sql = String.format(&quot;Create Table If Not Exists %s (%s)&quot;,this.tableName, sb.deleteCharAt(sb.length()-1).toString());</span><br><span class="line">        </span><br><span class="line">        excuteSQL(sql);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void excuteSQL(String sql) &#123;</span><br><span class="line">        PreparedStatement statement;</span><br><span class="line">        </span><br><span class="line">        try &#123;</span><br><span class="line">            statement = conn.prepareStatement(sql);</span><br><span class="line">            statement.execute();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Map&lt;String,String&gt; getJavaMapMysql()&#123;</span><br><span class="line">        </span><br><span class="line">        /**定义并不标准**/</span><br><span class="line">        Map&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">        map.put(&quot;java.lang.String&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Character&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;char&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Integer&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;int&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;java.util.Date&quot;, &quot;DATE&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        map.put(&quot;boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //测试</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection conn = MysqlJDBCPoolUtil.getConnection();</span><br><span class="line">        new CreateTableORM(Admin.class, conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="暂无需求。"><a href="#暂无需求。" class="headerlink" title="暂无需求。"></a>暂无需求。</h3><p><strong>日后，有需要再完善</strong></p>
 
       
     </div>
@@ -471,7 +671,7 @@ responseBody
       
         <div class="post-tags">
           
-            <a href="/tags/Javascript/" rel="tag">#Javascript</a>
+            <a href="/tags/Java/" rel="tag">#Java</a>
           
         </div>
       
@@ -480,13 +680,13 @@ responseBody
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/04/12/H2 DataBase 数据库/" rel="next" title="H2 DataBase 数据库">
+                <i class="fa fa-chevron-left"></i> H2 DataBase 数据库
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2013/03/05/JSPServlet3.0总结/" rel="prev" title="JSP/Servlet3.0总结">
-                JSP/Servlet3.0总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -512,8 +712,8 @@ responseBody
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2013/02/16/Ajax/"
-           data-title="Ajax" data-url="http://cmp-cc.github.io/2013/02/16/Ajax/">
+      <div class="ds-thread" data-thread-key="2016/04/14/模拟ORM/"
+           data-title="模拟ORM" data-url="http://cmp-cc.github.io/2016/04/14/模拟ORM/">
       </div>
     
   </div>
@@ -626,7 +826,7 @@ responseBody
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#略略略"><span class="nav-number">1.</span> <span class="nav-text">略略略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XMLHttpRequest-对象"><span class="nav-number">2.</span> <span class="nav-text">XMLHttpRequest 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XMLHttpRequest-对象属性"><span class="nav-number">2.1.</span> <span class="nav-text">XMLHttpRequest 对象属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XMLHttpRequest-对象方法"><span class="nav-number">2.2.</span> <span class="nav-text">XMLHttpRequest 对象方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ajax-实例"><span class="nav-number">2.3.</span> <span class="nav-text">Ajax 实例</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-Mapping-Java"><span class="nav-number">1.</span> <span class="nav-text">SQL Mapping Java</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整体实体关系映射"><span class="nav-number">1.1.</span> <span class="nav-text">整体实体关系映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-实体类型映射"><span class="nav-number">1.2.</span> <span class="nav-text">MySQL 实体类型映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟ORM"><span class="nav-number">2.</span> <span class="nav-text">模拟ORM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#根据实体映射表"><span class="nav-number">2.1.</span> <span class="nav-text">根据实体映射表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂无需求。"><span class="nav-number">2.2.</span> <span class="nav-text">暂无需求。</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

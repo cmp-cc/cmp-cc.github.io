@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-04-13T09:04:18.895Z</updated>
+  <updated>2016-04-14T10:45:25.711Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -14,6 +14,347 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>模拟ORM</title>
+    <link href="http://cmp-cc.github.io/2016/04/14/%E6%A8%A1%E6%8B%9FORM/"/>
+    <id>http://cmp-cc.github.io/2016/04/14/模拟ORM/</id>
+    <published>2016-04-14T10:34:00.000Z</published>
+    <updated>2016-04-14T10:45:25.711Z</updated>
+    
+    <content type="html">&lt;p&gt;有时候做一些展示用的项目，或者是测试项目，可能并不会去引入MyBastis 和 Hibernate 等这里ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。&lt;/p&gt;
+&lt;h2 id=&quot;SQL-Mapping-Java&quot;&gt;&lt;a href=&quot;#SQL-Mapping-Java&quot; class=&quot;headerlink&quot; title=&quot;SQL Mapping Java&quot;&gt;&lt;/a&gt;SQL Mapping Java&lt;/h2&gt;&lt;h3 id=&quot;整体实体关系映射&quot;&gt;&lt;a href=&quot;#整体实体关系映射&quot; class=&quot;headerlink&quot; title=&quot;整体实体关系映射&quot;&gt;&lt;/a&gt;整体实体关系映射&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;类型名称&lt;/th&gt;
+&lt;th&gt;显示长度&lt;/th&gt;
+&lt;th&gt;数据库类型&lt;/th&gt;
+&lt;th&gt;JAVA类型&lt;/th&gt;
+&lt;th&gt;JDBC类型索引(int)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;VARCHAR&lt;/td&gt;
+&lt;td&gt;L+N&lt;/td&gt;
+&lt;td&gt;VARCHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;td&gt;12     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CHAR&lt;/td&gt;
+&lt;td&gt;N&lt;/td&gt;
+&lt;td&gt;CHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;td&gt;1     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BLOB&lt;/td&gt;
+&lt;td&gt;L+N&lt;/td&gt;
+&lt;td&gt;BLOB&lt;/td&gt;
+&lt;td&gt;java.lang.byte[]&lt;/td&gt;
+&lt;td&gt;-4     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TEXT&lt;/td&gt;
+&lt;td&gt;65535&lt;/td&gt;
+&lt;td&gt;VARCHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;td&gt;-1      &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;INTEGER&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;INTEGER UNSIGNED&lt;/td&gt;
+&lt;td&gt;java.lang.Long&lt;/td&gt;
+&lt;td&gt;4     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TINYINT&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;TINYINT UNSIGNED&lt;/td&gt;
+&lt;td&gt;java.lang.Integer&lt;/td&gt;
+&lt;td&gt;-6     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SMALLINT&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;SMALLINT UNSIGNED&lt;/td&gt;
+&lt;td&gt;java.lang.Integer&lt;/td&gt;
+&lt;td&gt;5     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MEDIUMINT&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;MEDIUMINT UNSIGNED&lt;/td&gt;
+&lt;td&gt;java.lang.Integer&lt;/td&gt;
+&lt;td&gt;4     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BIT&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;BIT&lt;/td&gt;
+&lt;td&gt;java.lang.Boolean&lt;/td&gt;
+&lt;td&gt;-7     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BIGINT&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;BIGINT UNSIGNED&lt;/td&gt;
+&lt;td&gt;java.math.BigInteger&lt;/td&gt;
+&lt;td&gt;-5     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;FLOAT&lt;/td&gt;
+&lt;td&gt;4+8&lt;/td&gt;
+&lt;td&gt;FLOAT&lt;/td&gt;
+&lt;td&gt;java.lang.Float&lt;/td&gt;
+&lt;td&gt;7     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DOUBLE&lt;/td&gt;
+&lt;td&gt;22&lt;/td&gt;
+&lt;td&gt;DOUBLE&lt;/td&gt;
+&lt;td&gt;java.lang.Double&lt;/td&gt;
+&lt;td&gt;8     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DECIMAL&lt;/td&gt;
+&lt;td&gt;11&lt;/td&gt;
+&lt;td&gt;DECIMAL&lt;/td&gt;
+&lt;td&gt;java.math.BigDecimal&lt;/td&gt;
+&lt;td&gt;3     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BOOLEAN&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;TINYINT UNSIGNED&lt;/td&gt;
+&lt;td&gt;java.lang.Integer&lt;/td&gt;
+&lt;td&gt;-6      &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ID&lt;/td&gt;
+&lt;td&gt;11&lt;/td&gt;
+&lt;td&gt;PK (INTEGER UNSIGNED)&lt;/td&gt;
+&lt;td&gt;java.lang.Long&lt;/td&gt;
+&lt;td&gt;4     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DATE&lt;/td&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;DATE&lt;/td&gt;
+&lt;td&gt;java.sql.Date&lt;/td&gt;
+&lt;td&gt;91     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TIME&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;TIME&lt;/td&gt;
+&lt;td&gt;java.sql.Time&lt;/td&gt;
+&lt;td&gt;92     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DATETIME&lt;/td&gt;
+&lt;td&gt;19&lt;/td&gt;
+&lt;td&gt;DATETIME&lt;/td&gt;
+&lt;td&gt;java.sql.Timestamp&lt;/td&gt;
+&lt;td&gt;93     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TIMESTAMP&lt;/td&gt;
+&lt;td&gt;19&lt;/td&gt;
+&lt;td&gt;TIMESTAMP&lt;/td&gt;
+&lt;td&gt;java.sql.Timestamp&lt;/td&gt;
+&lt;td&gt;93     &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;YEAR&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;YEAR&lt;/td&gt;
+&lt;td&gt;java.sql.Date&lt;/td&gt;
+&lt;td&gt;91&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;MySQL-实体类型映射&quot;&gt;&lt;a href=&quot;#MySQL-实体类型映射&quot; class=&quot;headerlink&quot; title=&quot;MySQL 实体类型映射&quot;&gt;&lt;/a&gt;MySQL 实体类型映射&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;MySQL Type Name&lt;/th&gt;
+&lt;th&gt;Return value of GetColumnClassName&lt;/th&gt;
+&lt;th&gt;Returned as Java Class&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;BIT(1) (new in MySQL-5.0)&lt;/td&gt;
+&lt;td&gt;BIT&lt;/td&gt;
+&lt;td&gt;java.lang.Boolean&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BIT( &amp;gt; 1) (new in MySQL-5.0)&lt;/td&gt;
+&lt;td&gt;BIT&lt;/td&gt;
+&lt;td&gt;byte[]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TINYINT&lt;/td&gt;
+&lt;td&gt;TINYINT&lt;/td&gt;
+&lt;td&gt;java.lang.Boolean if the configuration property tinyInt1isBit is set to true (the default) and the storage size is 1, or java.lang.Integer if not.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BOOL, BOOLEAN&lt;/td&gt;
+&lt;td&gt;TINYINT&lt;/td&gt;
+&lt;td&gt;See TINYINT, above as these are aliases for TINYINT(1), currently.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SMALLINT[(M)] [UNSIGNED]&lt;/td&gt;
+&lt;td&gt;SMALLINT [UNSIGNED]&lt;/td&gt;
+&lt;td&gt;java.lang.Integer (regardless if UNSIGNED or not)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MEDIUMINT[(M)] [UNSIGNED]&lt;/td&gt;
+&lt;td&gt;MEDIUMINT [UNSIGNED]&lt;/td&gt;
+&lt;td&gt;java.lang.Integer, if UNSIGNED java.lang.Long (C/J 3.1 and earlier), or java.lang.Integer for C/J 5.0 and later&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;INT,INTEGER[(M)] [UNSlGNED]&lt;/td&gt;
+&lt;td&gt;INTEGER [UNSIGNED]&lt;/td&gt;
+&lt;td&gt;java.lang.Integer, if UNSIGNED java.lang.Long&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BIGINT[(M)] [UNSIGNED]&lt;/td&gt;
+&lt;td&gt;BIGINT [UNSIGNED]&lt;/td&gt;
+&lt;td&gt;java.lang.Long, if UNSIGNED java.math.BigInteger&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;FLOAT[(M,D)]&lt;/td&gt;
+&lt;td&gt;FLOAT&lt;/td&gt;
+&lt;td&gt;java.lang.Float&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DOUBLE[(M,B)]&lt;/td&gt;
+&lt;td&gt;DOUBLE&lt;/td&gt;
+&lt;td&gt;java.lang.Double&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DECIMAL[(M[,D])]&lt;/td&gt;
+&lt;td&gt;DECIMAL&lt;/td&gt;
+&lt;td&gt;java.math.BigDecimal&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DATE&lt;/td&gt;
+&lt;td&gt;DATE&lt;/td&gt;
+&lt;td&gt;java.sql.Date&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DATETIME&lt;/td&gt;
+&lt;td&gt;DATETIME&lt;/td&gt;
+&lt;td&gt;java.sql.Timestamp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TIMESTAMP[(M)]&lt;/td&gt;
+&lt;td&gt;TIMESTAMP&lt;/td&gt;
+&lt;td&gt;java.sql.Timestamp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TIME&lt;/td&gt;
+&lt;td&gt;TIME&lt;/td&gt;
+&lt;td&gt;java.sql.Time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;YEAR[(2l4)]&lt;/td&gt;
+&lt;td&gt;YEAR&lt;/td&gt;
+&lt;td&gt;If yearIsDateType configuration property is set to false, then the returned object type is java.sql.Short. If set to true (the default), then the returned object is of type java.sql.Date with the date set to January 1st, at midnight.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CHAR(M)&lt;/td&gt;
+&lt;td&gt;CHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;VARCHAR(M)&lt;/td&gt;
+&lt;td&gt;[BINARY]&lt;/td&gt;
+&lt;td&gt;VARCHAR    java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BINARY(M)&lt;/td&gt;
+&lt;td&gt;BINARY&lt;/td&gt;
+&lt;td&gt;byte[]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;VARBINARY(M)&lt;/td&gt;
+&lt;td&gt;VARBINARY&lt;/td&gt;
+&lt;td&gt;byte[]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TINYBLOB&lt;/td&gt;
+&lt;td&gt;TINYBLOB&lt;/td&gt;
+&lt;td&gt;byte[]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TINYTEXT&lt;/td&gt;
+&lt;td&gt;VARCHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;BLOB&lt;/td&gt;
+&lt;td&gt;BLOB&lt;/td&gt;
+&lt;td&gt;byte[]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;TEXT&lt;/td&gt;
+&lt;td&gt;VARCHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MEDIUMBLOB&lt;/td&gt;
+&lt;td&gt;MEDIUMBLOB&lt;/td&gt;
+&lt;td&gt;byte[]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MEDIUMTEXT&lt;/td&gt;
+&lt;td&gt;VARCHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LONGBLOB&lt;/td&gt;
+&lt;td&gt;LONGBLOB&lt;/td&gt;
+&lt;td&gt;byte[]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LONGTEXT&lt;/td&gt;
+&lt;td&gt;VARCHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ENUM(‘value1’,’value2’,…)&lt;/td&gt;
+&lt;td&gt;CHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SET(‘value1’,’value2’,…)&lt;/td&gt;
+&lt;td&gt;CHAR&lt;/td&gt;
+&lt;td&gt;java.lang.String&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;参考： &lt;a href=&quot;http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;模拟ORM&quot;&gt;&lt;a href=&quot;#模拟ORM&quot; class=&quot;headerlink&quot; title=&quot;模拟ORM&quot;&gt;&lt;/a&gt;模拟ORM&lt;/h2&gt;&lt;h3 id=&quot;根据实体映射表&quot;&gt;&lt;a href=&quot;#根据实体映射表&quot; class=&quot;headerlink&quot; title=&quot;根据实体映射表&quot;&gt;&lt;/a&gt;根据实体映射表&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;如下只是一个基本实例，想要完成更多特性，还是要下点功夫的。&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public class CreateTableORM &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    private static Map&amp;lt;String,String&amp;gt; ormField = getJavaMapMysql();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Class&amp;lt;?&amp;gt; clazz;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Connection conn;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    // 表名&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    String tableName;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public CreateTableORM(Class&amp;lt;?&amp;gt; clazz , Connection conn)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        this.clazz = clazz;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        this.conn = conn;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        tableName = clazz.getName();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        createTable();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    private void createTable()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         StringBuffer sb = new StringBuffer();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         Arrays.asList(clazz.getDeclaredFields()).forEach(field -&amp;gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;             &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            String fieldType = ormField.get(field.getType().getName());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            String fieldName = field.getName();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sb.append(String.format(&amp;quot;%s %s,&amp;quot;, fieldName,fieldType));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        String sql = String.format(&amp;quot;Create Table If Not Exists %s (%s)&amp;quot;,this.tableName, sb.deleteCharAt(sb.length()-1).toString());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        excuteSQL(sql);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    private void excuteSQL(String sql) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        PreparedStatement statement;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            statement = conn.prepareStatement(sql);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            statement.execute();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125; catch (SQLException e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public static Map&amp;lt;String,String&amp;gt; getJavaMapMysql()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        /**定义并不标准**/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Map&amp;lt;String,String&amp;gt; map = new HashMap&amp;lt;String,String&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;java.lang.String&amp;quot;, &amp;quot;VARCHAR(255)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;java.lang.Character&amp;quot;, &amp;quot;VARCHAR(255)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;char&amp;quot;, &amp;quot;VARCHAR(255)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;java.lang.Double&amp;quot;, &amp;quot; DOUBLE(5,2)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;double&amp;quot;, &amp;quot; DOUBLE(5,2)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;java.lang.Float&amp;quot;, &amp;quot;FLOAT(5,2)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;float&amp;quot;, &amp;quot;FLOAT(5,2)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;java.lang.Integer&amp;quot;, &amp;quot;INT(11)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;int&amp;quot;, &amp;quot;INT(11)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;java.lang.Long&amp;quot;, &amp;quot;INTEGER(16)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;long&amp;quot;, &amp;quot;INTEGER(16)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;java.util.Date&amp;quot;, &amp;quot;DATE&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;java.lang.Boolean&amp;quot;, &amp;quot;BIT(1)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        map.put(&amp;quot;boolean&amp;quot;, &amp;quot;BIT(1)&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return map;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //测试&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public static void main(String[] args) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Connection conn = MysqlJDBCPoolUtil.getConnection();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        new CreateTableORM(Admin.class, conn);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;暂无需求。&quot;&gt;&lt;a href=&quot;#暂无需求。&quot; class=&quot;headerlink&quot; title=&quot;暂无需求。&quot;&gt;&lt;/a&gt;暂无需求。&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;日后，有需要再完善&lt;/strong&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;有时候做一些展示用的项目，或者是测试项目，可能并不会去引入MyBastis 和 Hibernate 等这里ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。&lt;/p&gt;
+&lt;h2 id=&quot;SQL-Mapping-Ja
+    
+    </summary>
+    
+      <category term="Java" scheme="http://cmp-cc.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://cmp-cc.github.io/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>H2 DataBase 数据库</title>
@@ -329,7 +670,7 @@
     <link href="http://cmp-cc.github.io/2014/11/28/Linux%20sftp%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
     <id>http://cmp-cc.github.io/2014/11/28/Linux sftp 进行文件传输/</id>
     <published>2014-11-28T12:32:00.000Z</published>
-    <updated>2016-04-14T07:43:31.279Z</updated>
+    <updated>2016-04-14T08:01:50.664Z</updated>
     
     <content type="html">&lt;p&gt;使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。&lt;/p&gt;
 &lt;p&gt;Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。&lt;/p&gt;
@@ -353,39 +694,39 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;cd path&lt;/td&gt;
-&lt;td&gt;Change remote directory to ‘path’&lt;/td&gt;
+&lt;td&gt;更改远程目录到”路径”&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;detail remote-path&lt;/td&gt;
-&lt;td&gt;Display system information about remote file or folder&lt;/td&gt;
+&lt;td&gt;显示系统信息关于远程文件或文件夹&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;ldetail local-path&lt;/td&gt;
-&lt;td&gt;Display system information about local file or folder&lt;/td&gt;
+&lt;td&gt;显示系统信息关于本地文件或文件夹&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;lcd path&lt;/td&gt;
-&lt;td&gt;Change local directory to ‘path’&lt;/td&gt;
+&lt;td&gt;更改本地目录到”路径” &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;chgrp group path&lt;/td&gt;
-&lt;td&gt;Change group of file ‘path’ to ‘group’&lt;/td&gt;
+&lt;td&gt;将文件”path”的权限更改为”mode” &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;chmod mode path&lt;/td&gt;
-&lt;td&gt;Change permissions of file ‘path’ to ‘mode’&lt;/td&gt;
+&lt;td&gt;将文件”path”的权限更改为”mode” &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;chown owner path&lt;/td&gt;
-&lt;td&gt;Change owner of file ‘path’ to ‘owner’&lt;/td&gt;
+&lt;td&gt;将文件”path”的属主更改为”owner” &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;exit&lt;/td&gt;
-&lt;td&gt;Quit sftp&lt;/td&gt;
+&lt;td&gt;退出 sftp &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;help&lt;/td&gt;
-&lt;td&gt;Display this help text&lt;/td&gt;
+&lt;td&gt;显示帮助文本&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;include filename&lt;/td&gt;
@@ -393,7 +734,7 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;get [-a l -b] remote-path&lt;/td&gt;
-&lt;td&gt;Download file force ascii (-a) or binary (-b) mode&lt;/td&gt;
+&lt;td&gt;Download file force ascii (-a) or binary (-b) mode 下载文件&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;ln [-s] existingpath linkpath&lt;/td&gt;
@@ -401,59 +742,59 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;ls [options] [path]&lt;/td&gt;
-&lt;td&gt;Display remote directory listing&lt;/td&gt;
+&lt;td&gt;符号链接远程文件 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;lls [options] [path]&lt;/td&gt;
-&lt;td&gt;Display local directory listing&lt;/td&gt;
+&lt;td&gt;显示本地目录列表 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;mkdir path&lt;/td&gt;
-&lt;td&gt;Create remote directory&lt;/td&gt;
+&lt;td&gt;创建远程目录 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;lmkdir path&lt;/td&gt;
-&lt;td&gt;Create local directory&lt;/td&gt;
+&lt;td&gt;创建本地目录&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;mv oldpath newpath&lt;/td&gt;
-&lt;td&gt;Move remote file&lt;/td&gt;
+&lt;td&gt;移动远程文件&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;open [user@]host[:port]&lt;/td&gt;
-&lt;td&gt;Connect to remote host&lt;/td&gt;
+&lt;td&gt;连接到远程主机&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;put [-a l -b] local-path&lt;/td&gt;
-&lt;td&gt;Upload file force ascii (-a) or binary (-b) mode&lt;/td&gt;
+&lt;td&gt;Upload file force ascii (-a) or binary (-b) mode 上传文件&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;pwd&lt;/td&gt;
-&lt;td&gt;Display remote working directory&lt;/td&gt;
+&lt;td&gt;打印本地工作目录&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;lpwd&lt;/td&gt;
-&lt;td&gt;Print local working directory&lt;/td&gt;
+&lt;td&gt;打印本地工作目录&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;quit&lt;/td&gt;
-&lt;td&gt;Quit sftp&lt;/td&gt;
+&lt;td&gt;退出 sftp&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;rmdir path&lt;/td&gt;
-&lt;td&gt;Remove remote directory&lt;/td&gt;
+&lt;td&gt;移除远程目录&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;lrmdir path&lt;/td&gt;
-&lt;td&gt;Remove local directory&lt;/td&gt;
+&lt;td&gt;移除本地目录 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;rm path&lt;/td&gt;
-&lt;td&gt;Delete remote file&lt;/td&gt;
+&lt;td&gt;删除远程文件&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;lrm path&lt;/td&gt;
-&lt;td&gt;Delete local file&lt;/td&gt;
+&lt;td&gt;删除本地文件&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;su username&lt;/td&gt;
@@ -469,7 +810,7 @@
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;version&lt;/td&gt;
-&lt;td&gt;Display protocol version&lt;/td&gt;
+&lt;td&gt;显示协议版本&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -494,7 +835,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&quot;文件下载-从远程主机到本机&quot;&gt;&lt;a href=&quot;#文件下载-从远程主机到本机&quot; class=&quot;headerlink&quot; title=&quot;文件下载(从远程主机到本机)&quot;&gt;&lt;/a&gt;文件下载(从远程主机到本机)&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;使用 get [-Ppr] remote [local]&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;关于get (文件下载)说明 和 实例 略。   参考put (文件上传) 。 两则异曲同工&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关于get (文件下载)说明和实例 略。   参考put (文件上传) 。 两则异曲同工&lt;/strong&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
