@@ -85,7 +85,7 @@ H2 应用场景：
 测试环境（如：开启MySql模式）
 
 以上都是我YY的">
-<meta property="og:updated_time" content="2016-04-13T09:00:16.390Z">
+<meta property="og:updated_time" content="2016-04-13T09:04:18.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="H2 DataBase 数据库">
 <meta name="twitter:description" content="H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。
@@ -343,7 +343,7 @@ H2 应用场景：
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">private static final String url = &quot;jdbc:h2:./h2db&quot;;</span><br><span class="line">private static final String username = &quot;root&quot;;</span><br><span class="line">private static final String password = &quot;123456&quot;;</span><br><span class="line"></span><br><span class="line">private static JdbcConnectionPool pool = JdbcConnectionPool.create(url,username,password);</span><br><span class="line"></span><br><span class="line">static &#123;</span><br><span class="line">    pool.setLoginTimeout(1000); // 连接超时时间</span><br><span class="line">    pool.setMaxConnections(50); // 最大连接数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @return 获取H2 JDBC连接池</span><br><span class="line"> */</span><br><span class="line">public static JdbcConnectionPool getJDBCConnectionPool()&#123;  </span><br><span class="line">    return pool;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">public static Connection getConnection()&#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        return pool.getConnection();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">        // TODO Auto-generated catch block</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;finally&#123;</span><br><span class="line">        // 释放空闲连接</span><br><span class="line">        pool.dispose(); </span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>jdbc:h2:./h2db 中h2db表示数据库名称,它会在当前路径中创建h2db.mv.db文件，用于记录数据库数据信息。</strong><br><strong>有了Connection（JDBC链接）我相信你已经无敌了。</strong></p>
-<h3 id="H2-工具"><a href="#H2-工具" class="headerlink" title="H2 工具"></a>H2 工具</h3><p><strong>H2 与众不同的一点（奇葩）的一点，它提供了一些工具操作</strong></p>
+<h3 id="H2-工具"><a href="#H2-工具" class="headerlink" title="H2 工具"></a>H2 工具</h3><p><strong>H2 与众不同的一点，它提供了一些工具操作</strong></p>
 <h4 id="读写CVS"><a href="#读写CVS" class="headerlink" title="读写CVS"></a>读写CVS</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Write a CSV file.</span><br><span class="line"> */</span><br><span class="line">static void write() throws SQLException &#123;</span><br><span class="line">    SimpleResultSet rs = new SimpleResultSet();</span><br><span class="line">    rs.addColumn(&quot;NAME&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addColumn(&quot;EMAIL&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addColumn(&quot;PHONE&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addRow(&quot;Bob Meier&quot;, &quot;bob.meier@abcde.abc&quot;, &quot;+41123456789&quot;);</span><br><span class="line">    rs.addRow(&quot;John Jones&quot;, &quot;john.jones@abcde.abc&quot;, &quot;+41976543210&quot;);</span><br><span class="line">    new Csv().write(&quot;data/test.csv&quot;, rs, null);</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * Read a CSV file.</span><br><span class="line"> */</span><br><span class="line">static void read() throws SQLException &#123;</span><br><span class="line">    ResultSet rs = new Csv().read(&quot;data/test.csv&quot;, null, null);</span><br><span class="line">    ResultSetMetaData meta = rs.getMetaData();</span><br><span class="line">    while (rs.next()) &#123;</span><br><span class="line">        for (int i = 0; i &lt; meta.getColumnCount(); i++) &#123;</span><br><span class="line">            System.out.println(meta.getColumnLabel(i + 1) + &quot;: &quot; + rs.getString(i + 1));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">    rs.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="服务和脚本"><a href="#服务和脚本" class="headerlink" title="服务和脚本"></a>服务和脚本</h4><p><strong>暂略吧，没什么应用场景。</strong></p>
 <h3 id="H2-全文检索"><a href="#H2-全文检索" class="headerlink" title="H2 全文检索"></a>H2 全文检索</h3><p>H2 的全文检索主要使用FullText和FullTextLucene类，使用相对简单，主要使用Search() 和 SearchData()方法。</p>
@@ -451,7 +451,7 @@ H2 应用场景：
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -459,7 +459,7 @@ H2 应用场景：
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -468,7 +468,7 @@ H2 应用场景：
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

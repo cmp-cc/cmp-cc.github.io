@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-04-13T09:00:16.390Z</updated>
+  <updated>2016-04-13T09:04:18.895Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://cmp-cc.github.io/2016/04/12/H2%20DataBase%20%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     <id>http://cmp-cc.github.io/2016/04/12/H2 DataBase 数据库/</id>
     <published>2016-04-12T09:49:00.000Z</published>
-    <updated>2016-04-13T09:00:16.390Z</updated>
+    <updated>2016-04-13T09:04:18.895Z</updated>
     
     <content type="html">&lt;p&gt;H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。&lt;/p&gt;
 &lt;p&gt;H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web开发实例。&lt;/p&gt;
@@ -44,7 +44,7 @@
 &lt;/ul&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;private static final String url = &amp;quot;jdbc:h2:./h2db&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;private static final String username = &amp;quot;root&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;private static final String password = &amp;quot;123456&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;private static JdbcConnectionPool pool = JdbcConnectionPool.create(url,username,password);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;static &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    pool.setLoginTimeout(1000); // 连接超时时间&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    pool.setMaxConnections(50); // 最大连接数&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * @return 获取H2 JDBC连接池&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public static JdbcConnectionPool getJDBCConnectionPool()&amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return pool;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;public static Connection getConnection()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return pool.getConnection();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125; catch (SQLException e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        // TODO Auto-generated catch block&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;finally&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        // 释放空闲连接&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        pool.dispose(); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;strong&gt;jdbc:h2:./h2db 中h2db表示数据库名称,它会在当前路径中创建h2db.mv.db文件，用于记录数据库数据信息。&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;有了Connection（JDBC链接）我相信你已经无敌了。&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&quot;H2-工具&quot;&gt;&lt;a href=&quot;#H2-工具&quot; class=&quot;headerlink&quot; title=&quot;H2 工具&quot;&gt;&lt;/a&gt;H2 工具&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;H2 与众不同的一点（奇葩）的一点，它提供了一些工具操作&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;H2-工具&quot;&gt;&lt;a href=&quot;#H2-工具&quot; class=&quot;headerlink&quot; title=&quot;H2 工具&quot;&gt;&lt;/a&gt;H2 工具&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;H2 与众不同的一点，它提供了一些工具操作&lt;/strong&gt;&lt;/p&gt;
 &lt;h4 id=&quot;读写CVS&quot;&gt;&lt;a href=&quot;#读写CVS&quot; class=&quot;headerlink&quot; title=&quot;读写CVS&quot;&gt;&lt;/a&gt;读写CVS&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * Write a CSV file.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;static void write() throws SQLException &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    SimpleResultSet rs = new SimpleResultSet();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rs.addColumn(&amp;quot;NAME&amp;quot;, Types.VARCHAR, 255, 0);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rs.addColumn(&amp;quot;EMAIL&amp;quot;, Types.VARCHAR, 255, 0);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rs.addColumn(&amp;quot;PHONE&amp;quot;, Types.VARCHAR, 255, 0);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rs.addRow(&amp;quot;Bob Meier&amp;quot;, &amp;quot;bob.meier@abcde.abc&amp;quot;, &amp;quot;+41123456789&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rs.addRow(&amp;quot;John Jones&amp;quot;, &amp;quot;john.jones@abcde.abc&amp;quot;, &amp;quot;+41976543210&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    new Csv().write(&amp;quot;data/test.csv&amp;quot;, rs, null);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * Read a CSV file.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;static void read() throws SQLException &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ResultSet rs = new Csv().read(&amp;quot;data/test.csv&amp;quot;, null, null);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ResultSetMetaData meta = rs.getMetaData();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    while (rs.next()) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for (int i = 0; i &amp;lt; meta.getColumnCount(); i++) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            System.out.println(meta.getColumnLabel(i + 1) + &amp;quot;: &amp;quot; + rs.getString(i + 1));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        System.out.println();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rs.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h4 id=&quot;服务和脚本&quot;&gt;&lt;a href=&quot;#服务和脚本&quot; class=&quot;headerlink&quot; title=&quot;服务和脚本&quot;&gt;&lt;/a&gt;服务和脚本&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;暂略吧，没什么应用场景。&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&quot;H2-全文检索&quot;&gt;&lt;a href=&quot;#H2-全文检索&quot; class=&quot;headerlink&quot; title=&quot;H2 全文检索&quot;&gt;&lt;/a&gt;H2 全文检索&lt;/h3&gt;&lt;p&gt;H2 的全文检索主要使用FullText和FullTextLucene类，使用相对简单，主要使用Search() 和 SearchData()方法。&lt;/p&gt;
@@ -321,6 +321,194 @@
     
     
       <category term="Hadoop" scheme="http://cmp-cc.github.io/tags/Hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux sftp 进行文件传输</title>
+    <link href="http://cmp-cc.github.io/2014/11/28/Linux%20sftp%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
+    <id>http://cmp-cc.github.io/2014/11/28/Linux sftp 进行文件传输/</id>
+    <published>2014-11-28T12:32:00.000Z</published>
+    <updated>2016-04-14T07:43:31.279Z</updated>
+    
+    <content type="html">&lt;p&gt;使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。&lt;/p&gt;
+&lt;p&gt;Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。&lt;/p&gt;
+&lt;p&gt;这里介绍 sftp 进行文件传输， 我习惯使用SecureCRT（SSH终端仿真程序）进行sftp操作。&lt;/p&gt;
+&lt;p&gt;同样，你可以使用rs、sz 进行文件传输，它只作用于单文件传输。&lt;/p&gt;
+&lt;h2 id=&quot;sftp-基础命令&quot;&gt;&lt;a href=&quot;#sftp-基础命令&quot; class=&quot;headerlink&quot; title=&quot;sftp 基础命令&quot;&gt;&lt;/a&gt;sftp 基础命令&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;ascii&lt;/td&gt;
+&lt;td&gt;Set transfer mode to ASCII&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;binary&lt;/td&gt;
+&lt;td&gt;Set transfer mode to binary&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cd path&lt;/td&gt;
+&lt;td&gt;Change remote directory to ‘path’&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;detail remote-path&lt;/td&gt;
+&lt;td&gt;Display system information about remote file or folder&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ldetail local-path&lt;/td&gt;
+&lt;td&gt;Display system information about local file or folder&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lcd path&lt;/td&gt;
+&lt;td&gt;Change local directory to ‘path’&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;chgrp group path&lt;/td&gt;
+&lt;td&gt;Change group of file ‘path’ to ‘group’&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;chmod mode path&lt;/td&gt;
+&lt;td&gt;Change permissions of file ‘path’ to ‘mode’&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;chown owner path&lt;/td&gt;
+&lt;td&gt;Change owner of file ‘path’ to ‘owner’&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;exit&lt;/td&gt;
+&lt;td&gt;Quit sftp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;help&lt;/td&gt;
+&lt;td&gt;Display this help text&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;include filename&lt;/td&gt;
+&lt;td&gt;Include commands from ‘filename’ Alternate: &amp;lt; filename&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;get [-a l -b] remote-path&lt;/td&gt;
+&lt;td&gt;Download file force ascii (-a) or binary (-b) mode&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ln [-s] existingpath linkpath&lt;/td&gt;
+&lt;td&gt;Hardlink / symlink remote file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ls [options] [path]&lt;/td&gt;
+&lt;td&gt;Display remote directory listing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lls [options] [path]&lt;/td&gt;
+&lt;td&gt;Display local directory listing&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;mkdir path&lt;/td&gt;
+&lt;td&gt;Create remote directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lmkdir path&lt;/td&gt;
+&lt;td&gt;Create local directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;mv oldpath newpath&lt;/td&gt;
+&lt;td&gt;Move remote file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;open [user@]host[:port]&lt;/td&gt;
+&lt;td&gt;Connect to remote host&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;put [-a l -b] local-path&lt;/td&gt;
+&lt;td&gt;Upload file force ascii (-a) or binary (-b) mode&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;pwd&lt;/td&gt;
+&lt;td&gt;Display remote working directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lpwd&lt;/td&gt;
+&lt;td&gt;Print local working directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;quit&lt;/td&gt;
+&lt;td&gt;Quit sftp&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rmdir path&lt;/td&gt;
+&lt;td&gt;Remove remote directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lrmdir path&lt;/td&gt;
+&lt;td&gt;Remove local directory&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rm path&lt;/td&gt;
+&lt;td&gt;Delete remote file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;lrm path&lt;/td&gt;
+&lt;td&gt;Delete local file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;su username&lt;/td&gt;
+&lt;td&gt;Substitutes the current user This is only supported with VShell for Windows 3.5 or later.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;type [transfer-mode]&lt;/td&gt;
+&lt;td&gt;Display or set file transfer mode&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;view remote-path&lt;/td&gt;
+&lt;td&gt;Download and open file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;version&lt;/td&gt;
+&lt;td&gt;Display protocol version&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;进入sftp-模式&quot;&gt;&lt;a href=&quot;#进入sftp-模式&quot; class=&quot;headerlink&quot; title=&quot;进入sftp 模式&quot;&gt;&lt;/a&gt;进入sftp 模式&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;命令行模式下输入 ：&lt;code&gt;sftp 用户名@IP地址&lt;/code&gt; ， 然后会提示你输入密码&lt;/li&gt;
+&lt;li&gt;如果是SecureCRT。 &lt;code&gt;Alt+p&lt;/code&gt; 或者 &lt;code&gt;File -&amp;gt; 链接sftp&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;sftp-基本使用&quot;&gt;&lt;a href=&quot;#sftp-基本使用&quot; class=&quot;headerlink&quot; title=&quot;sftp 基本使用&quot;&gt;&lt;/a&gt;sftp 基本使用&lt;/h2&gt;&lt;p&gt;sftp主要是用来传输文件的，所以我们主要使用两个命令。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;提示 &lt;/p&gt;
+&lt;h3 id=&quot;文件上传-（从本机到远程主机）&quot;&gt;&lt;a href=&quot;#文件上传-（从本机到远程主机）&quot; class=&quot;headerlink&quot; title=&quot;文件上传 （从本机到远程主机）&quot;&gt;&lt;/a&gt;文件上传 （从本机到远程主机）&lt;/h3&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;使用 put [-Ppr] local [remote]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实例1： 上传单个文件&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 查看Window 当前目录&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; lpwd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;C:/Users/root/Documents&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 切换Window 上传目录&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; lcd d:/temp &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 查看roles.csv文件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; lls -l&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 23, 2014 14:30 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 21, 2014 11:21 actors.csv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Nov 10, 2014 11:01 ali&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 21, 2014 11:19 movies.csv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Jan 14, 2014 16:56 neo4j&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 28, 2014 17:40 package.json&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 21, 2014 11:21 roles.csv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Nov 30, 2014 20:54 TV.war&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; // 查看当前终端路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; pwd                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/usr/local/program/server_tool/apache-tomcat-7.0.32/webapps&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 切换到上传路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; cd ~&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; pwd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/home/centos&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 使用put 进行文件上传&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; put roles.csv ./&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Uploading roles.csv to /home/centos/roles.csv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Skipping directory d:/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  100% 367 bytes    367 bytes/s 00:00:00     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;d:/temp/roles.csv: 367 bytes transferred in 0 seconds (367 bytes/s)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 查看，ok 成功的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; ls&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;roles.csv&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实例2： 上传文件目录&lt;/strong&gt;&lt;br&gt;&lt;code&gt;put -r 目录名称 目录名称&lt;/code&gt; &lt;code&gt;-r&lt;/code&gt; 表示文件夹。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 很简单，参考实例1。 默认上传当前路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;put -r download/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实例3： 上传所有文件&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;上传当前所有文件 到 远程目录&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;put *&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;上传当前所有文件及其文件夹 到 远程目录&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;put -r *&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;文件下载-从远程主机到本机&quot;&gt;&lt;a href=&quot;#文件下载-从远程主机到本机&quot; class=&quot;headerlink&quot; title=&quot;文件下载(从远程主机到本机)&quot;&gt;&lt;/a&gt;文件下载(从远程主机到本机)&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;使用 get [-Ppr] remote [local]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关于get (文件下载)说明 和 实例 略。   参考put (文件上传) 。 两则异曲同工&lt;/strong&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。&lt;/p&gt;
+&lt;p&gt;Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。&lt;/p&gt;
+&lt;p&gt;这里介绍 sftp 进行文件传输， 我习惯使用Secu
+    
+    </summary>
+    
+      <category term="操作系统" scheme="http://cmp-cc.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
     
   </entry>
   
