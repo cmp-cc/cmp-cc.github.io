@@ -81,7 +81,7 @@ Java数据库持久化层主要两个部分：
 
 为什么 选择MyBatis ?消除大量JDBC冗余代码
 无需关注重复性JDBC操作 (不再与connection">
-<meta property="og:updated_time" content="2016-04-15T10:11:07.743Z">
+<meta property="og:updated_time" content="2016-04-15T10:13:46.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyBatis 入门">
 <meta name="twitter:description" content="Hibernate 太过于庞大，作为同样的持久化ORM 框架Mybatis 就显得非常小巧灵活。
@@ -397,7 +397,7 @@ Java数据库持久化层主要两个部分：
 <h3 id="它是怎么工作的？"><a href="#它是怎么工作的？" class="headerlink" title="它是怎么工作的？"></a>它是怎么工作的？</h3><ul>
 <li>首先，我们配置了 MyBatis 最主要的配置文件-mybatis-config.xml,里面包含了 JDBC 连接参数；配置了映射器Mapper XML 配置文件文件，里面包含了 SQL 语句的映射。</li>
 <li>我 们 使 用 mybatis-config.xml 内 的 信 息 创 建 了 SqlSessionFactory 对 象 。 每 个 数 据 库 环 境 应 该 就 一 个SqlSessionFactory 对象实例，所以我们使用了单例模式只创建一个 SqlSessionFactory 实例。</li>
-<li>我们创建了一个映射器 Mapper 接口-StudentMapper，其定义的方法签名和在 StudentMapper.xml 中定义的完全一样（即映射器 Mapper 接口中的方法名跟 StudentMapper.xml 中的 id 的值相同）。注意 StudentMapper.xml 中namespace 的值被设置成 com.mybatis3.mappers.StudentMapper，是 StudentMapper 接口的完全限定名。这使我们可以使用接口来调用映射的 SQL 语句。</li>
+<li>我们创建了一个映射器 Mapper 接口-StudentMapper，其定义的方法签名和在 StudentMapper.xml 中定义的完全一样（即映射器 Mapper 接口中的方法名跟 StudentMapper.xml 中的 id 的值相同）。注意 StudentMapper.xml 中namespace 的值被设置成 org.freecode.mappers.StudentMapper，是 StudentMapper 接口的完全限定名。这使我们可以使用接口来调用映射的 SQL 语句。</li>
 <li>在 StudentService.java 中，我们在每一个方法中创建了一个新的 SqlSession，并在方法功能完成后关闭SqlSession。每一个线程应该有它自己的 SqlSession 实例。SqlSession 对象实例不是线程安全的，并且不被共享。所以 SqlSession 的作用域最好就是其所在方法的作用域。从 Web 应用程序角度上看，SqlSession 应该存在于 request 级别作用域上。</li>
 </ul>
 
@@ -431,8 +431,8 @@ Java数据库持久化层主要两个部分：
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/04/13/Maven3 setting.xml 设置/" rel="prev" title="Maven3 setting.xml 设置">
-                Maven3 setting.xml 设置 <i class="fa fa-chevron-right"></i>
+              <a href="/2014/04/02/MyBatis Boostrap/" rel="prev" title="MyBatis Boostrap">
+                MyBatis Boostrap <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -505,7 +505,7 @@ Java数据库持久化层主要两个部分：
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
