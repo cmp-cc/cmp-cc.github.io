@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>http://cmp-cc.github.io/2014/04/01/MyBatis%20%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2016-04-15T10:11:07.743Z</lastmod>
+    <data>
+        <display>
+        <title>MyBatis 入门</title>
+        <pubTime>2014-04-01T15:44:00.000Z</pubTime>
+        
+        <tag>Mybatis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java Web" url="http://cmp-cc.github.io/categories/Java-Web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://cmp-cc.github.io/2016/04/14/%E6%A8%A1%E6%8B%9FORM/</loc>
-    <lastmod>2016-04-14T10:46:53.237Z</lastmod>
+    <lastmod>2016-04-15T07:11:46.908Z</lastmod>
     <data>
         <display>
         <title>模拟ORM</title>
