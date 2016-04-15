@@ -23,36 +23,36 @@ Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即�
 --- | ---
 ascii                          | Set transfer mode to ASCII
 binary                         | Set transfer mode to binary
-cd path                        | Change remote directory to 'path'
-detail remote-path             | Display system information about remote file or folder
-ldetail local-path             | Display system information about local file or folder
-lcd path                       | Change local directory to 'path'
-chgrp group path               | Change group of file 'path' to 'group'
-chmod mode path                | Change permissions of file 'path' to 'mode'
-chown owner path               | Change owner of file 'path' to 'owner'
-exit                           | Quit sftp
-help                           | Display this help text
+cd path                        |更改远程目录到"路径"
+detail remote-path             |  显示系统信息关于远程文件或文件夹
+ldetail local-path             |显示系统信息关于本地文件或文件夹
+lcd path                       |更改本地目录到"路径" 
+chgrp group path               | 将文件"path"的权限更改为"mode" 
+chmod mode path                | 将文件"path"的权限更改为"mode" 
+chown owner path               | 将文件"path"的属主更改为"owner" 
+exit                           | 退出 sftp 
+help                           | 显示帮助文本
 include filename               | Include commands from 'filename' Alternate: < filename
-get [-a l -b] remote-path      | Download file force ascii (-a) or binary (-b) mode
+get [-a l -b] remote-path      | Download file force ascii (-a) or binary (-b) mode 下载文件
 ln [-s] existingpath linkpath  | Hardlink / symlink remote file
-ls [options] [path]            | Display remote directory listing
-lls [options] [path]           | Display local directory listing
-mkdir path                     | Create remote directory
-lmkdir path                    | Create local directory
-mv oldpath newpath             | Move remote file
-open [user@]host[:port]        | Connect to remote host
-put [-a l -b] local-path       | Upload file force ascii (-a) or binary (-b) mode
-pwd                            | Display remote working directory
-lpwd                           | Print local working directory
-quit                           | Quit sftp
-rmdir path                     | Remove remote directory
-lrmdir path                    | Remove local directory
-rm path                        | Delete remote file
-lrm path                       | Delete local file
+ls [options] [path]            |符号链接远程文件 
+lls [options] [path]           |显示本地目录列表 
+mkdir path                     |创建远程目录 
+lmkdir path                    |创建本地目录
+mv oldpath newpath             |移动远程文件
+open [user@]host[:port]        | 连接到远程主机
+put [-a l -b] local-path       | Upload file force ascii (-a) or binary (-b) mode 上传文件
+pwd                            | 打印本地工作目录
+lpwd                           | 打印本地工作目录
+quit                           | 退出 sftp
+rmdir path                     |移除远程目录
+lrmdir path                    |移除本地目录 
+rm path                        | 删除远程文件
+lrm path                       |删除本地文件
 su username                    | Substitutes the current user This is only supported with VShell for Windows 3.5 or later.
 type [transfer-mode]           | Display or set file transfer mode
 view remote-path               | Download and open file
-version                        | Display protocol version
+version                        |显示协议版本
 
 ## 进入sftp 模式
 * 命令行模式下输入 ：`sftp 用户名@IP地址` ， 然后会提示你输入密码
@@ -125,4 +125,4 @@ put -r *
 **使用 get [-Ppr] remote [local]**
 
 
-**关于get (文件下载)说明 和 实例 略。   参考put (文件上传) 。 两则异曲同工**
+**关于get (文件下载)说明和实例 略。   参考put (文件上传) 。 两则异曲同工**
