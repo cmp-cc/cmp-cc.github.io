@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Javascript," />
 
 
 
@@ -59,15 +59,49 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="I am cmp-cc">
-<meta property="og:url" content="http://cmp-cc.github.io/index.html">
+<meta name="description" content="ECMAScript 6 编码规范 来自于 Airbnb
+Airbnb JavaScript 编程规范：https://github.com/airbnb/javascript翻译自 Airbnb JavaScript Style Guide 。
+类型
+1.1  基本类型: 直接存取基本类型。
+
+字符串
+数值
+布尔类型
+null
+undefined
+
+123456const foo = 1;let">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Airbnb JavaScript 编码规范">
+<meta property="og:url" content="http://cmp-cc.github.io/2015/10/08/Airbnb JavaScript 编码规范/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description">
+<meta property="og:description" content="ECMAScript 6 编码规范 来自于 Airbnb
+Airbnb JavaScript 编程规范：https://github.com/airbnb/javascript翻译自 Airbnb JavaScript Style Guide 。
+类型
+1.1  基本类型: 直接存取基本类型。
+
+字符串
+数值
+布尔类型
+null
+undefined
+
+123456const foo = 1;let">
+<meta property="og:updated_time" content="2016-04-18T06:44:12.481Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="I am cmp-cc">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Airbnb JavaScript 编码规范">
+<meta name="twitter:description" content="ECMAScript 6 编码规范 来自于 Airbnb
+Airbnb JavaScript 编程规范：https://github.com/airbnb/javascript翻译自 Airbnb JavaScript Style Guide 。
+类型
+1.1  基本类型: 直接存取基本类型。
+
+字符串
+数值
+布尔类型
+null
+undefined
+
+123456const foo = 1;let">
 
 
 
@@ -85,7 +119,7 @@
   };
 </script>
 
-  <title> I am cmp-cc </title>
+  <title> Airbnb JavaScript 编码规范 | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -116,9 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -205,9 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -227,583 +259,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/04/14/模拟ORM/" itemprop="url">
-                  模拟ORM
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-14T18:34:00+08:00" content="2016-04-14">
-              2016-04-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/14/模拟ORM/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/模拟ORM/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>有时候做一些展示用的项目，或者是测试项目，可能并不会去引入Hibernate 等这类ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。</p>
-<h2 id="SQL-Mapping-Java"><a href="#SQL-Mapping-Java" class="headerlink" title="SQL Mapping Java"></a>SQL Mapping Java</h2><h3 id="整体实体关系映射"><a href="#整体实体关系映射" class="headerlink" title="整体实体关系映射"></a>整体实体关系映射</h3><table>
-<thead>
-<tr>
-<th>类型名称</th>
-<th>显示长度</th>
-<th>数据库类型</th>
-<th>JAVA类型</th>
-<th>JDBC类型索引(int)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>VARCHAR</td>
-<td>L+N</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-<td>12     </td>
-</tr>
-<tr>
-<td>CHAR</td>
-<td>N</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-<td>1     </td>
-</tr>
-<tr>
-<td>BLOB</td>
-<td>L+N</td>
-<td>BLOB</td>
-<td>java.lang.byte[]</td>
-<td>-4     </td>
-</tr>
-<tr>
-<td>TEXT</td>
-<td>65535</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-<td>-1      </td>
-</tr>
-<tr>
-<td>INTEGER</td>
-<td>4</td>
-<td>INTEGER UNSIGNED</td>
-<td>java.lang.Long</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>TINYINT</td>
-<td>3</td>
-<td>TINYINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>-6     </td>
-</tr>
-<tr>
-<td>SMALLINT</td>
-<td>5</td>
-<td>SMALLINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>5     </td>
-</tr>
-<tr>
-<td>MEDIUMINT</td>
-<td>8</td>
-<td>MEDIUMINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>BIT</td>
-<td>1</td>
-<td>BIT</td>
-<td>java.lang.Boolean</td>
-<td>-7     </td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td>20</td>
-<td>BIGINT UNSIGNED</td>
-<td>java.math.BigInteger</td>
-<td>-5     </td>
-</tr>
-<tr>
-<td>FLOAT</td>
-<td>4+8</td>
-<td>FLOAT</td>
-<td>java.lang.Float</td>
-<td>7     </td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td>22</td>
-<td>DOUBLE</td>
-<td>java.lang.Double</td>
-<td>8     </td>
-</tr>
-<tr>
-<td>DECIMAL</td>
-<td>11</td>
-<td>DECIMAL</td>
-<td>java.math.BigDecimal</td>
-<td>3     </td>
-</tr>
-<tr>
-<td>BOOLEAN</td>
-<td>1</td>
-<td>TINYINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>-6      </td>
-</tr>
-<tr>
-<td>ID</td>
-<td>11</td>
-<td>PK (INTEGER UNSIGNED)</td>
-<td>java.lang.Long</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>DATE</td>
-<td>10</td>
-<td>DATE</td>
-<td>java.sql.Date</td>
-<td>91     </td>
-</tr>
-<tr>
-<td>TIME</td>
-<td>8</td>
-<td>TIME</td>
-<td>java.sql.Time</td>
-<td>92     </td>
-</tr>
-<tr>
-<td>DATETIME</td>
-<td>19</td>
-<td>DATETIME</td>
-<td>java.sql.Timestamp</td>
-<td>93     </td>
-</tr>
-<tr>
-<td>TIMESTAMP</td>
-<td>19</td>
-<td>TIMESTAMP</td>
-<td>java.sql.Timestamp</td>
-<td>93     </td>
-</tr>
-<tr>
-<td>YEAR</td>
-<td>4</td>
-<td>YEAR</td>
-<td>java.sql.Date</td>
-<td>91</td>
-</tr>
-</tbody>
-</table>
-<h3 id="MySQL-实体类型映射"><a href="#MySQL-实体类型映射" class="headerlink" title="MySQL 实体类型映射"></a>MySQL 实体类型映射</h3><table>
-<thead>
-<tr>
-<th>MySQL Type Name</th>
-<th>Return value of GetColumnClassName</th>
-<th>Returned as Java Class</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>BIT(1) (new in MySQL-5.0)</td>
-<td>BIT</td>
-<td>java.lang.Boolean</td>
-</tr>
-<tr>
-<td>BIT( &gt; 1) (new in MySQL-5.0)</td>
-<td>BIT</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYINT</td>
-<td>TINYINT</td>
-<td>java.lang.Boolean if the configuration property tinyInt1isBit is set to true (the default) and the storage size is 1, or java.lang.Integer if not.</td>
-</tr>
-<tr>
-<td>BOOL, BOOLEAN</td>
-<td>TINYINT</td>
-<td>See TINYINT, above as these are aliases for TINYINT(1), currently.</td>
-</tr>
-<tr>
-<td>SMALLINT[(M)] [UNSIGNED]</td>
-<td>SMALLINT [UNSIGNED]</td>
-<td>java.lang.Integer (regardless if UNSIGNED or not)</td>
-</tr>
-<tr>
-<td>MEDIUMINT[(M)] [UNSIGNED]</td>
-<td>MEDIUMINT [UNSIGNED]</td>
-<td>java.lang.Integer, if UNSIGNED java.lang.Long (C/J 3.1 and earlier), or java.lang.Integer for C/J 5.0 and later</td>
-</tr>
-<tr>
-<td>INT,INTEGER[(M)] [UNSlGNED]</td>
-<td>INTEGER [UNSIGNED]</td>
-<td>java.lang.Integer, if UNSIGNED java.lang.Long</td>
-</tr>
-<tr>
-<td>BIGINT[(M)] [UNSIGNED]</td>
-<td>BIGINT [UNSIGNED]</td>
-<td>java.lang.Long, if UNSIGNED java.math.BigInteger</td>
-</tr>
-<tr>
-<td>FLOAT[(M,D)]</td>
-<td>FLOAT</td>
-<td>java.lang.Float</td>
-</tr>
-<tr>
-<td>DOUBLE[(M,B)]</td>
-<td>DOUBLE</td>
-<td>java.lang.Double</td>
-</tr>
-<tr>
-<td>DECIMAL[(M[,D])]</td>
-<td>DECIMAL</td>
-<td>java.math.BigDecimal</td>
-</tr>
-<tr>
-<td>DATE</td>
-<td>DATE</td>
-<td>java.sql.Date</td>
-</tr>
-<tr>
-<td>DATETIME</td>
-<td>DATETIME</td>
-<td>java.sql.Timestamp</td>
-</tr>
-<tr>
-<td>TIMESTAMP[(M)]</td>
-<td>TIMESTAMP</td>
-<td>java.sql.Timestamp</td>
-</tr>
-<tr>
-<td>TIME</td>
-<td>TIME</td>
-<td>java.sql.Time</td>
-</tr>
-<tr>
-<td>YEAR[(2l4)]</td>
-<td>YEAR</td>
-<td>If yearIsDateType configuration property is set to false, then the returned object type is java.sql.Short. If set to true (the default), then the returned object is of type java.sql.Date with the date set to January 1st, at midnight.</td>
-</tr>
-<tr>
-<td>CHAR(M)</td>
-<td>CHAR</td>
-<td>java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
-</tr>
-<tr>
-<td>VARCHAR(M)</td>
-<td>[BINARY]</td>
-<td>VARCHAR    java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
-</tr>
-<tr>
-<td>BINARY(M)</td>
-<td>BINARY</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>VARBINARY(M)</td>
-<td>VARBINARY</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYBLOB</td>
-<td>TINYBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>BLOB</td>
-<td>BLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>MEDIUMBLOB</td>
-<td>MEDIUMBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>MEDIUMTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>LONGBLOB</td>
-<td>LONGBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>LONGTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>ENUM(‘value1’,’value2’,…)</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>SET(‘value1’,’value2’,…)</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-</tr>
-</tbody>
-</table>
-<p>参考： <a href="http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html</a></p>
-<h2 id="模拟ORM"><a href="#模拟ORM" class="headerlink" title="模拟ORM"></a>模拟ORM</h2><h3 id="根据实体映射表"><a href="#根据实体映射表" class="headerlink" title="根据实体映射表"></a>根据实体映射表</h3><p><strong>如下只是一个基本实例，想要完成更多特性，还是要下点功夫的。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public class CreateTableORM &#123;</span><br><span class="line">    </span><br><span class="line">    private static Map&lt;String,String&gt; ormField = getJavaMapMysql();</span><br><span class="line">    </span><br><span class="line">    Class&lt;?&gt; clazz;</span><br><span class="line">    </span><br><span class="line">    Connection conn;</span><br><span class="line">    </span><br><span class="line">    // 表名</span><br><span class="line">    String tableName;</span><br><span class="line">    </span><br><span class="line">    public CreateTableORM(Class&lt;?&gt; clazz , Connection conn)&#123;</span><br><span class="line">        this.clazz = clazz;</span><br><span class="line">        this.conn = conn;</span><br><span class="line">        tableName = clazz.getName();</span><br><span class="line">        </span><br><span class="line">        createTable();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void createTable()&#123;</span><br><span class="line">        </span><br><span class="line">         StringBuffer sb = new StringBuffer();</span><br><span class="line">        </span><br><span class="line">         Arrays.asList(clazz.getDeclaredFields()).forEach(field -&gt;&#123;</span><br><span class="line">             </span><br><span class="line">            String fieldType = ormField.get(field.getType().getName());</span><br><span class="line">            String fieldName = field.getName();</span><br><span class="line">            </span><br><span class="line">            sb.append(String.format(&quot;%s %s,&quot;, fieldName,fieldType));</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        String sql = String.format(&quot;Create Table If Not Exists %s (%s)&quot;,this.tableName, sb.deleteCharAt(sb.length()-1).toString());</span><br><span class="line">        </span><br><span class="line">        excuteSQL(sql);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void excuteSQL(String sql) &#123;</span><br><span class="line">        PreparedStatement statement;</span><br><span class="line">        </span><br><span class="line">        try &#123;</span><br><span class="line">            statement = conn.prepareStatement(sql);</span><br><span class="line">            statement.execute();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Map&lt;String,String&gt; getJavaMapMysql()&#123;</span><br><span class="line">        </span><br><span class="line">        /**定义并不标准**/</span><br><span class="line">        Map&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">        map.put(&quot;java.lang.String&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Character&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;char&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Integer&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;int&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;java.util.Date&quot;, &quot;DATE&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        map.put(&quot;boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //测试</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection conn = MysqlJDBCPoolUtil.getConnection();</span><br><span class="line">        new CreateTableORM(Admin.class, conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="暂无需求。"><a href="#暂无需求。" class="headerlink" title="暂无需求。"></a>暂无需求。</h3><p><strong>日后，有需要再完善</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/12/H2 DataBase 数据库/" itemprop="url">
-                  H2 DataBase 数据库
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-12T17:49:00+08:00" content="2016-04-12">
-              2016-04-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/12/H2 DataBase 数据库/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/12/H2 DataBase 数据库/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。</p>
-<p>H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web开发实例。</p>
-<p>H2 生产环境几乎没有人用，他不适用高并发和大数据，并发越大插入和读取性能越低。</p>
-<p>H2 应用场景：</p>
-<ul>
-<li>小型内部系统</li>
-<li>数据缓存</li>
-<li>监控系统</li>
-<li>测试环境（如：开启MySql模式）</li>
-</ul>
-<p><strong>以上都是我YY的，没有实战，可信度30%</strong></p>
-<h2 id="H2-DataBase-数据库"><a href="#H2-DataBase-数据库" class="headerlink" title="H2 DataBase 数据库"></a>H2 DataBase 数据库</h2><h3 id="Maven-引入H2依赖"><a href="#Maven-引入H2依赖" class="headerlink" title="Maven 引入H2依赖"></a>Maven 引入H2依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.h2database&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;h2&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.191&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="H2-实例"><a href="#H2-实例" class="headerlink" title="H2 实例"></a>H2 实例</h3><p><strong>部分实例参考官网</strong></p>
-<h4 id="JDBC-连接"><a href="#JDBC-连接" class="headerlink" title="JDBC 连接"></a>JDBC 连接</h4><ul>
-<li><p>获取JDBC 连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">private static String driver = &quot;org.h2.Driver&quot;;</span><br><span class="line">private static String url = &quot;jdbc:h2:./h2db&quot;;</span><br><span class="line">private static String username = &quot;root&quot;;</span><br><span class="line">private static String password = &quot;123456&quot;;</span><br><span class="line"></span><br><span class="line">public static Connection getConnection() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        Class.forName(driver);</span><br><span class="line">        // 可以不用设置户名和密码</span><br><span class="line">        Connection connection = DriverManager.getConnection(url, username, password);</span><br><span class="line">        return connection;</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">        // TODO Auto-generated catch block</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取JDBC连接池</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">private static final String url = &quot;jdbc:h2:./h2db&quot;;</span><br><span class="line">private static final String username = &quot;root&quot;;</span><br><span class="line">private static final String password = &quot;123456&quot;;</span><br><span class="line"></span><br><span class="line">private static JdbcConnectionPool pool = JdbcConnectionPool.create(url,username,password);</span><br><span class="line"></span><br><span class="line">static &#123;</span><br><span class="line">    pool.setLoginTimeout(1000); // 连接超时时间</span><br><span class="line">    pool.setMaxConnections(50); // 最大连接数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @return 获取H2 JDBC连接池</span><br><span class="line"> */</span><br><span class="line">public static JdbcConnectionPool getJDBCConnectionPool()&#123;  </span><br><span class="line">    return pool;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">public static Connection getConnection()&#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        return pool.getConnection();</span><br><span class="line">    &#125; catch (SQLException e) &#123;</span><br><span class="line">        // TODO Auto-generated catch block</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;finally&#123;</span><br><span class="line">        // 释放空闲连接</span><br><span class="line">        pool.dispose(); </span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>jdbc:h2:./h2db 中h2db表示数据库名称,它会在当前路径中创建h2db.mv.db文件，用于记录数据库数据信息。</strong><br><strong>有了Connection（JDBC链接）我相信你已经无敌了。</strong></p>
-<h3 id="H2-工具"><a href="#H2-工具" class="headerlink" title="H2 工具"></a>H2 工具</h3><p><strong>H2 与众不同的一点，它提供了一些工具操作</strong></p>
-<h4 id="读写CVS"><a href="#读写CVS" class="headerlink" title="读写CVS"></a>读写CVS</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Write a CSV file.</span><br><span class="line"> */</span><br><span class="line">static void write() throws SQLException &#123;</span><br><span class="line">    SimpleResultSet rs = new SimpleResultSet();</span><br><span class="line">    rs.addColumn(&quot;NAME&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addColumn(&quot;EMAIL&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addColumn(&quot;PHONE&quot;, Types.VARCHAR, 255, 0);</span><br><span class="line">    rs.addRow(&quot;Bob Meier&quot;, &quot;bob.meier@abcde.abc&quot;, &quot;+41123456789&quot;);</span><br><span class="line">    rs.addRow(&quot;John Jones&quot;, &quot;john.jones@abcde.abc&quot;, &quot;+41976543210&quot;);</span><br><span class="line">    new Csv().write(&quot;data/test.csv&quot;, rs, null);</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * Read a CSV file.</span><br><span class="line"> */</span><br><span class="line">static void read() throws SQLException &#123;</span><br><span class="line">    ResultSet rs = new Csv().read(&quot;data/test.csv&quot;, null, null);</span><br><span class="line">    ResultSetMetaData meta = rs.getMetaData();</span><br><span class="line">    while (rs.next()) &#123;</span><br><span class="line">        for (int i = 0; i &lt; meta.getColumnCount(); i++) &#123;</span><br><span class="line">            System.out.println(meta.getColumnLabel(i + 1) + &quot;: &quot; + rs.getString(i + 1));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">    rs.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="服务和脚本"><a href="#服务和脚本" class="headerlink" title="服务和脚本"></a>服务和脚本</h4><p><strong>暂略吧，没什么应用场景。</strong></p>
-<h3 id="H2-全文检索"><a href="#H2-全文检索" class="headerlink" title="H2 全文检索"></a>H2 全文检索</h3><p>H2 的全文检索主要使用FullText和FullTextLucene类，使用相对简单，主要使用Search() 和 SearchData()方法。</p>
-<p><strong>使用H2 主要还是使用SQL操作，其他的特性也很少用。</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/08/Airbnb JavaScript 编码规范/" itemprop="url">
-                  Airbnb JavaScript 编码规范
-                </a>
+                Airbnb JavaScript 编码规范
               
             
           </h1>
@@ -868,9 +324,7 @@
       
 
       
-        
-          
-            <p><strong>ECMAScript 6 编码规范 来自于 Airbnb</strong></p>
+        <p><strong>ECMAScript 6 编码规范 来自于 Airbnb</strong></p>
 <p>Airbnb JavaScript 编程规范：<a href="https://github.com/airbnb/javascript" target="_blank" rel="external">https://github.com/airbnb/javascript</a><br>翻译自 <a href="https://github.com/airbnb/javascript" target="_blank" rel="external">Airbnb JavaScript Style Guide</a> 。</p>
 <h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul>
 <li><p><a href="#1.1">1.1</a> <a name="1.1"></a> <strong>基本类型</strong>: 直接存取基本类型。</p>
@@ -1313,1315 +767,55 @@
 </li>
 </ul>
 
-          
-        
       
     </div>
 
     <div>
       
+        
+      
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/08/14/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-14T16:53:00+08:00" content="2015-08-14">
-              2015-08-14
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/博客/" itemprop="url" rel="index">
-                    <span itemprop="name">博客</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
+            <a href="/tags/Javascript/" rel="tag">#Javascript</a>
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/08/14/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/14/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2015/08/14/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2014/12/28/Hadoop 日常实战 文件压缩/" itemprop="url">
-                  Hadoop 日常实战 文件压缩
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-12-28T19:25:00+08:00" content="2014-12-28">
-              2014-12-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/大数据开发/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
+              <a href="/2016/04/12/H2 DataBase 数据库/" rel="prev" title="H2 DataBase 数据库">
+                H2 DataBase 数据库 <i class="fa fa-chevron-right"></i>
+              </a>
             
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/12/28/Hadoop 日常实战 文件压缩/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/28/Hadoop 日常实战 文件压缩/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Mapreduce 程序执行可以分为三个阶段：<br>1、Mapper 阶段<br><strong>从HDFS中读取数据源，将计算结果写入HDFS</strong><br>2、Suffle与排序阶段<br><strong>从HDFS中读取Mapper阶段结果数据，并进行混排操作（Suffle与排序），并将结果数据传递给Reducer</strong><br>3、Reducer阶段<br><strong>Reducer接受数据，再将计算结果写入HDFS或其它</strong></p>
-<blockquote>
-<p>这里我忽略combiner阶段。 因为combiner阶段只是一步优化操作，不属于Mapreduce模型中的核心。</p>
-</blockquote>
-<p>如上可知，执行Mapreduce程序一共需要两次文件的读入和写入。  如果增加文件压缩，将大大提高程序的运行效率。</p>
-<h2 id="Hadoop-支持的压缩算法"><a href="#Hadoop-支持的压缩算法" class="headerlink" title="Hadoop 支持的压缩算法"></a>Hadoop 支持的压缩算法</h2><h3 id="内置压缩算法"><a href="#内置压缩算法" class="headerlink" title="内置压缩算法"></a>内置压缩算法</h3><p>优势：</p>
-<ul>
-<li>它减少了存储文件所需的空间；</li>
-<li>加快了数据在网络上或者从磁盘上或到磁盘上的传输速度；<br>hadoop对于压缩格式的是透明识别,我们的MapReduce任务的执行是透明的，hadoop能够自动为我们 将压缩的文件解压，而不用我们去关心。 hadoop就会根据扩展名去选择解码器解压。当压缩文件做为mapreduce的输入时，mapreduce将自动通过扩展名找到相应的codec对其解压。</li>
-</ul>
-<p><strong>主流的压缩格式：</strong></p>
-<table>
-<thead>
-<tr>
-<th>压缩格式</th>
-<th>工具</th>
-<th>算法</th>
-<th>文件扩展名</th>
-<th>多文件</th>
-<th>是否可切分</th>
-<th>HadoopCompressionCodec</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>DEFLATE</td>
-<td>无</td>
-<td>DEFLATE</td>
-<td>.deflate</td>
-<td>否</td>
-<td>否</td>
-<td>org.apache.hadoop.io.compress.DefaultCodec</td>
-</tr>
-<tr>
-<td>Gzip</td>
-<td>gzip</td>
-<td>DEFLATE</td>
-<td>.gz</td>
-<td>否</td>
-<td>否</td>
-<td>org.apache.hadoop.io.compress.GzipCodec</td>
-</tr>
-<tr>
-<td>bzip2</td>
-<td>bzip2</td>
-<td>bzip2</td>
-<td>.bz2</td>
-<td>否</td>
-<td>是</td>
-<td>org.apache.hadoop.io.compress.BZip2Codec</td>
-</tr>
-<tr>
-<td>LZO</td>
-<td>lzop</td>
-<td>LZO</td>
-<td>.lzo</td>
-<td>否</td>
-<td>是（需要索引）</td>
-<td>com.hadoop.compression.lzo.LzopCodec</td>
-</tr>
-<tr>
-<td>Snappy</td>
-<td>N/A</td>
-<td>Snappy</td>
-<td>.Snappy</td>
-<td>否</td>
-<td>否</td>
-<td>org.apache.hadoop.io.compress.SnappyCodec</td>
-</tr>
-<tr>
-<td>LZ4</td>
-<td>N/A</td>
-<td>LZ4</td>
-<td>.lz4</td>
-<td>否</td>
-<td>否</td>
-<td>org.apache.hadoop.io.compress.Lz4Codec</td>
-</tr>
-</tbody>
-</table>
-<p>压缩算法比较<br>    主要是时间比较与空间比较。</p>
-<p>1）GZIP的压缩率最高，但是其实CPU密集型的，对CPU的消耗比其他算法要多，压缩和解压速度也慢；<br>2）LZO的压缩率居中，比GZIP要低一些，但是压缩和解压速度明显要比GZIP快很多，其中解压速度快的更多；<br>3）Zippy/Snappy的压缩率最低，而压缩和解压速度要稍微比LZO要快一些。</p>
-<h3 id="LZO-算法引入Hadoop"><a href="#LZO-算法引入Hadoop" class="headerlink" title="LZO 算法引入Hadoop"></a>LZO 算法引入Hadoop</h3><p>上述压缩格式类型。 除lzo 格式需要另外下载。MR2 均内置上述格式。<br>Lzo下载地址： <a href="https://github.com/twitter/hadoop-lzo" target="_blank" rel="external">https://github.com/twitter/hadoop-lzo</a><br>Lzo 本身不支持切分(splitable) 但是我们可以增加索引，即可支持切分<br>Hadoop的Lzo代码库中有索引工具。（DistributedLzoIndexer）<br>请参照：<br><a href="https://github.com/twitter/hadoop-lzo/blob/master/src/test/java/com/hadoop/mapreduce/TestLzoTextInputFormat.java" target="_blank" rel="external">https://github.com/twitter/hadoop-lzo/blob/master/src/test/java/com/hadoop/mapreduce/TestLzoTextInputFormat.java</a></p>
-<p><strong>如果希望reduce输出的是lzo格式的文件，添加下面的语句</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FileOutputFormat.setCompressOutput(job, true);</span><br><span class="line">FileOutputFormat.setOutputCompressorClass(job, LzopCodec.class);</span><br><span class="line">int result = job.waitForCompletion(true) ? 0 : 1;</span><br><span class="line">//上面的语句执行完成后，会生成最后的输出文件，需要在此基础上添加lzo的索引</span><br><span class="line">LzoIndexer lzoIndexer = new LzoIndexer(conf);</span><br><span class="line">lzoIndexer.index(new Path(args[1]));</span><br></pre></td></tr></table></figure></p>
-<p>如果已经存在lzo文件，但没有添加索引，可以采用下面的方法，在输入路径的文件上上添加lzo索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar $HADOOP_HOME/lib/hadoop-lzo-0.4.17.jar com.hadoop.compression.lzo.LzoIndexer hdf://inputpath</span><br></pre></td></tr></table></figure></p>
-<h2 id="压缩分片的最重要性"><a href="#压缩分片的最重要性" class="headerlink" title="压缩分片的最重要性"></a>压缩分片的最重要性</h2><p><strong>理解分片(splitable)的价值:</strong></p>
-<ul>
-<li>支持分片是很有用的。<br><strong>如： 在HDFS上有一个1G的文件。按照HDFS块(block)的设置大小进行文件划分(默认64M)。 那么就会被划分为16个数据块。</strong><ul>
-<li>支持分片：运行这个Mapreduce作业，就会对应16个Map。</li>
-<li>不支持分片：运行这个Mapreduce作业，只能对应1个Map。</li>
-</ul>
-</li>
-<li>为什么？Hadoop又是怎么判断文件是否支持分片？对程序有什么影响？<ul>
-<li>1、支持分片，就意味着支持压缩数据流的任意位置读取数据。</li>
-<li>2、Hadoop 则是通过文件后缀名来判断所属的文件是否支持分片。</li>
-<li>3、牺牲数据本地性优势： 1个Map任务要处理16个HDFS块，而且损失了数据本地化优化特性(执行Map任务与HDFS数据位于同一个节点上)。 而且map的任务越少，就意味着执行的时间越长。</li>
-</ul>
-</li>
-</ul>
-<h2 id="MapReduce-中使用压缩。"><a href="#MapReduce-中使用压缩。" class="headerlink" title="MapReduce 中使用压缩。"></a>MapReduce 中使用压缩。</h2><p><strong>在MapReduce中使用压缩是简单的。 我们通常有两种方式。</strong></p>
-<h3 id="代码方式："><a href="#代码方式：" class="headerlink" title="代码方式："></a>代码方式：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// Map端输出压缩：</span><br><span class="line">conf.setBoolean(&quot;mapred.compress.map.output&quot;, true);  </span><br><span class="line">conf.setClass(&quot;mapred.map.output.compression.codec&quot;,GzipCodec.class, CompressionCodec.class);</span><br><span class="line">// Reduce 端输出压缩</span><br><span class="line">conf.setBoolean(&quot;mapred.out.compress&quot;,true);</span><br><span class="line">conf.setClass(&quot;mapred.output.compression.codec&quot;,SnappyCodec.class,CompressionCodec.class);	</span><br><span class="line"></span><br><span class="line">/ /或者</span><br><span class="line"></span><br><span class="line">FileOutputFormat.setCompressOutput(job, true);  </span><br><span class="line">FileOutputFormat.setOutputCompressorClass(job, SnappyCodec.class);</span><br></pre></td></tr></table></figure>
-<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p>找到mapred-site.xml文件。  如： 我公司集群环境配置。<br>Map端输出压缩配置：  我希望Map段输出压缩，并使用Snappy算法压缩<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.compress.map.output&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.map.output.compression.codec&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;org.apache.hadoop.io.compress.SnappyCodec&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">/*Reduce端输出压缩配置： 我不希望Reduce的输出文件进行压缩。所以使用默认*/</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.output.compress&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.output.compression.codec&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;org.apache.hadoop.io.compress.DefaultCodec&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>提示： 如果使用的CDH版本，按照Cloudera官网的Hadoop配置，默认配置了Mapper阶段进行文件压缩。</p>
-</blockquote>
-<h2 id="项目实战运用"><a href="#项目实战运用" class="headerlink" title="项目实战运用"></a>项目实战运用</h2><p><strong>如下是参考的一篇博客的介绍，并非个人实战经验，有待验证</strong></p>
-<p>项目中使用clearspring公司开源的基数估计的概率算法：stream-lib，用于解决去重计算问题，如UV计算等，它的特点在于：</p>
-<ul>
-<li>一个UV的计算，可以限制在一个固定大小的位图空间内完成（不同大小，对应不同的误差率），如8K，64K；</li>
-<li>不同的位图可以进行合并操作，得到合并后的UV。<br>当系统中维护的位图越多的时候，不管是在内存中，还是在存储系统（MySQL、HBase等）中，都会占用相当大的存储空间。因此，需要考虑采取合适的算法来压缩位图。这里分为以下两类情况：</li>
-<li>当位图在内存中时，此时压缩算法的选择，必须有尽可能快的压缩和解压速度，同时不能消耗过多CPU资源，因此，适合使用LZO或Snappy这样的压缩算法，做到快速的压缩和解压；</li>
-<li>当位图存储到DB中时，更关注的是存储空间的节省，要有尽可能高的压缩率，因此，适合使用GZIP这样的压缩算法，同时在从内存Dump到DB的过程也可以减少网络IO的传输开销。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/12/16/Hadoop日常实战 计数器/" itemprop="url">
-                  Hadoop日常实战 计数器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-12-16T17:26:00+08:00" content="2014-12-16">
-              2014-12-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/大数据开发/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/12/16/Hadoop日常实战 计数器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/16/Hadoop日常实战 计数器/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>计数器是一种收集作业统计信息的有效有段</p>
-<p>  <strong>在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。</strong></p>
-<h2 id="内置计数器控制台视图"><a href="#内置计数器控制台视图" class="headerlink" title="内置计数器控制台视图"></a>内置计数器控制台视图</h2><p>Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的具体状体。</p>
-<p>如下是<code>Hadoop 2.0.0-cdh4.7.0</code> Hadoop Mapreudce执行程序控制台显示</p>
-<img src="/2014/12/16/Hadoop日常实战%20计数器/QQ图片20141211110508.png" alt="内置计数器" title="内置计数器">
-<p> <strong>Counter有组（group）的概念，用于表示逻辑上相同范围的所有数值。</strong><br>上图默认输出Counter分为三个组，从中我们可以分析出程序运行使用 CPU、内存、IO读写、网络流量的一个基本情况 </p>
-<p>文章推荐: <a href="http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html</a></p>
-<h2 id="内置计数器的分类："><a href="#内置计数器的分类：" class="headerlink" title="内置计数器的分类："></a>内置计数器的分类：</h2><table>
-<thead>
-<tr>
-<th>分组</th>
-<th>属性名</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Mapreduce任务计数器</td>
-<td>org.apache.hadoop.mapreduce. TaskCounter</td>
-</tr>
-<tr>
-<td>任务计数器</td>
-<td>org.apache.hadoop.mapreduce. JobCounter</td>
-</tr>
-<tr>
-<td>文件系统计数器</td>
-<td>org.apache.hadoop.mapreduce.FileSystemCounter</td>
-</tr>
-<tr>
-<td>输入文件计数器</td>
-<td>org.apache.hadoop.mapreduce.lib.input. FileInputFormatCounter</td>
-</tr>
-<tr>
-<td>输出文件计数器</td>
-<td>org.apache.hadoop.mapreduce.lib.output. FileOutputFormatCounter</td>
-</tr>
-</tbody>
-</table>
-<p><strong>这些就是hadoop 内置的计数器类（组），均是枚举类型。</strong></p>
-<h2 id="静态计数器和动态计数器"><a href="#静态计数器和动态计数器" class="headerlink" title="静态计数器和动态计数器"></a>静态计数器和动态计数器</h2><ul>
-<li><p>静态计数器<br><strong>定义一个枚举(enum) 枚举的名称即使Counter组的名称。 枚举属性即使要记录的数值名称，Mapreduce框架将跨所有map和reduce聚集这些计数器，并在作业结束时产生一个结果。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static enum ReporInfo&#123;</span><br><span class="line">    // 统计map端读取数据是否按预期。 MISSING输出为0，表示没有输入数据完整或无缺损。</span><br><span class="line">  MISSING</span><br><span class="line">&#125;</span><br><span class="line">//通过Mapper中的context对象进行计数</span><br><span class="line">context.getCounter(Temperature.MISSING).increment(1);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>动态计数器<br><strong>动态计数器使用更加简单,你需要指定两个变量，这个变量均是动态指定。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 组的名称  和  动态计数的字段名称</span><br><span class="line">context.getCounter(&quot;group name&quot;,&quot;dynamic args&quot;).increment(1);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>比较<br><strong>静态类型： 先将java枚举类型转换成String类型，再通过RPC发送计数器，两种创建和访问计数器方法(枚举类型和String类型) 实际是等价的。<br>相比之下，枚举类型易于使用，还提供类型安全，使用与大多数作业，特定场合使用动态计数器。</strong></p>
-</li>
-</ul>
-<h2 id="通过计数器获取Mapreduce的运行情况"><a href="#通过计数器获取Mapreduce的运行情况" class="headerlink" title="通过计数器获取Mapreduce的运行情况"></a>通过计数器获取Mapreduce的运行情况</h2><p>获取计数器：  作业长时间运行，我们需要通过计数器了解运行情况。我们只需要写一个监听类就可以。<br>如下是Mapreduce2.0写法，同样需要引用1.0中的JobClient类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String jobID = args[0];</span><br><span class="line">JobClient jobClient = new JobClient(new JobConf(getConf()));</span><br><span class="line">RunningJob job = jobClient.getJob(JobID.forName(jobID));</span><br><span class="line">Counters counters = job.getCounters();</span><br><span class="line">long missing = counters.getCounter(</span><br><span class="line">MaxTemperatureWithCounters.Temperature.MISSING);</span><br><span class="line">    </span><br><span class="line">long total = counters.getCounter(Task.Counter.MAP_INPUT_RECORDS);</span><br><span class="line"></span><br><span class="line">System.out.printf(&quot;Records with missing temperature fields: %.2f%%\n&quot;,100.0 * missing / total);</span><br></pre></td></tr></table></figure></p>
-<h2 id="计数器原理"><a href="#计数器原理" class="headerlink" title="计数器原理"></a>计数器原理</h2><img src="/2014/12/16/Hadoop日常实战%20计数器/c5c20a58-0087-49b2-a5d5-91ca4ae38066.jpg" alt="计数器原理图" title="计数器原理图">
-<ul>
-<li>计数器实质是由JobTracker维护，计数器值会定期传到tasktracker，在由tasktracker传递给jobtracker。也就是说所有的计数器信息都是存在jobTracker的内存中，计数器序列化并状态更新同步到JobTracker。</li>
-<li>TaskTracker中累加计数器 记录单节点中的计数个数。通过“心跳“ 传递信息给JobTracker。</li>
-<li>JobTracker会下运行结束之前最终汇总时剔除掉失败任务计数器。</li>
-</ul>
-<p>Mapreduce1.0中并没有限制计数器的个数，极其影响程序性能。<br>为了不对JobTracker产生印象。计数器数目应当控制到100以下。</p>
-<p>如果你的计数器超过了120个就会报如下错误：<br>org.apache.hadoop.mapreduce.counters.LimitExceededException: Too many counters: 121 max=120</p>
-<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>你可能遇到如下异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">14/12/12 09:56:48 INFO mapred.JobClient: Task Id : attempt_201412091419_0236_m_000028_0, Status : FAILED</span><br><span class="line">Error: Found interface org.apache.hadoop.mapreduce.Counter, but class was expected</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>原因：<br><strong>你本地的使用的编译环境是Hadoop1.0(MR1) 而你的集群环境为hadoop2.0(MR2) 所以默认没有找到。</strong></li>
-<li>解决方案<br>更改为hadoop2.0(hadoop-mapreduce-client-core-2.0.0-cdh4.7.0.jar，hadoop-common-2.0.0-cdh4.7.0.jar)的jar。和集群环境保持一致。</li>
-</ul>
-<p>推荐Blog：<br><a href="http://langyu.iteye.com/blog/1171091" target="_blank" rel="external">http://langyu.iteye.com/blog/1171091</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/11/28/Linux sftp 进行文件传输/" itemprop="url">
-                  Linux sftp 进行文件传输
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-11-28T20:32:00+08:00" content="2014-11-28">
-              2014-11-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/操作系统/" itemprop="url" rel="index">
-                    <span itemprop="name">操作系统</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/11/28/Linux sftp 进行文件传输/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/28/Linux sftp 进行文件传输/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。</p>
-<p>Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。</p>
-<p>这里介绍 sftp 进行文件传输， 我习惯使用SecureCRT（SSH终端仿真程序）进行sftp操作。</p>
-<p>同样，你可以使用rs、sz 进行文件传输，它只作用于单文件传输。</p>
-<h2 id="sftp-基础命令"><a href="#sftp-基础命令" class="headerlink" title="sftp 基础命令"></a>sftp 基础命令</h2><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ascii</td>
-<td>Set transfer mode to ASCII</td>
-</tr>
-<tr>
-<td>binary</td>
-<td>Set transfer mode to binary</td>
-</tr>
-<tr>
-<td>cd path</td>
-<td>更改远程目录到”路径”</td>
-</tr>
-<tr>
-<td>detail remote-path</td>
-<td>显示系统信息关于远程文件或文件夹</td>
-</tr>
-<tr>
-<td>ldetail local-path</td>
-<td>显示系统信息关于本地文件或文件夹</td>
-</tr>
-<tr>
-<td>lcd path</td>
-<td>更改本地目录到”路径” </td>
-</tr>
-<tr>
-<td>chgrp group path</td>
-<td>将文件”path”的权限更改为”mode” </td>
-</tr>
-<tr>
-<td>chmod mode path</td>
-<td>将文件”path”的权限更改为”mode” </td>
-</tr>
-<tr>
-<td>chown owner path</td>
-<td>将文件”path”的属主更改为”owner” </td>
-</tr>
-<tr>
-<td>exit</td>
-<td>退出 sftp </td>
-</tr>
-<tr>
-<td>help</td>
-<td>显示帮助文本</td>
-</tr>
-<tr>
-<td>include filename</td>
-<td>Include commands from ‘filename’ Alternate: &lt; filename</td>
-</tr>
-<tr>
-<td>get [-a l -b] remote-path</td>
-<td>Download file force ascii (-a) or binary (-b) mode 下载文件</td>
-</tr>
-<tr>
-<td>ln [-s] existingpath linkpath</td>
-<td>Hardlink / symlink remote file</td>
-</tr>
-<tr>
-<td>ls [options] [path]</td>
-<td>符号链接远程文件 </td>
-</tr>
-<tr>
-<td>lls [options] [path]</td>
-<td>显示本地目录列表 </td>
-</tr>
-<tr>
-<td>mkdir path</td>
-<td>创建远程目录 </td>
-</tr>
-<tr>
-<td>lmkdir path</td>
-<td>创建本地目录</td>
-</tr>
-<tr>
-<td>mv oldpath newpath</td>
-<td>移动远程文件</td>
-</tr>
-<tr>
-<td>open [user@]host[:port]</td>
-<td>连接到远程主机</td>
-</tr>
-<tr>
-<td>put [-a l -b] local-path</td>
-<td>Upload file force ascii (-a) or binary (-b) mode 上传文件</td>
-</tr>
-<tr>
-<td>pwd</td>
-<td>打印本地工作目录</td>
-</tr>
-<tr>
-<td>lpwd</td>
-<td>打印本地工作目录</td>
-</tr>
-<tr>
-<td>quit</td>
-<td>退出 sftp</td>
-</tr>
-<tr>
-<td>rmdir path</td>
-<td>移除远程目录</td>
-</tr>
-<tr>
-<td>lrmdir path</td>
-<td>移除本地目录 </td>
-</tr>
-<tr>
-<td>rm path</td>
-<td>删除远程文件</td>
-</tr>
-<tr>
-<td>lrm path</td>
-<td>删除本地文件</td>
-</tr>
-<tr>
-<td>su username</td>
-<td>Substitutes the current user This is only supported with VShell for Windows 3.5 or later.</td>
-</tr>
-<tr>
-<td>type [transfer-mode]</td>
-<td>Display or set file transfer mode</td>
-</tr>
-<tr>
-<td>view remote-path</td>
-<td>Download and open file</td>
-</tr>
-<tr>
-<td>version</td>
-<td>显示协议版本</td>
-</tr>
-</tbody>
-</table>
-<h2 id="进入sftp-模式"><a href="#进入sftp-模式" class="headerlink" title="进入sftp 模式"></a>进入sftp 模式</h2><ul>
-<li>命令行模式下输入 ：<code>sftp 用户名@IP地址</code> ， 然后会提示你输入密码</li>
-<li>如果是SecureCRT。 <code>Alt+p</code> 或者 <code>File -&gt; 链接sftp</code></li>
-</ul>
-<h2 id="sftp-基本使用"><a href="#sftp-基本使用" class="headerlink" title="sftp 基本使用"></a>sftp 基本使用</h2><p>sftp主要是用来传输文件的，所以我们主要使用两个命令。</p>
-<blockquote>
-<p>提示 </p>
-<h3 id="文件上传-（从本机到远程主机）"><a href="#文件上传-（从本机到远程主机）" class="headerlink" title="文件上传 （从本机到远程主机）"></a>文件上传 （从本机到远程主机）</h3></blockquote>
-<p><strong>使用 put [-Ppr] local [remote]</strong></p>
-<p><strong>实例1： 上传单个文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 查看Window 当前目录</span><br><span class="line">sftp&gt; lpwd</span><br><span class="line">C:/Users/root/Documents</span><br><span class="line"></span><br><span class="line">// 切换Window 上传目录</span><br><span class="line">sftp&gt; lcd d:/temp </span><br><span class="line">// 查看roles.csv文件</span><br><span class="line">sftp&gt; lls -l</span><br><span class="line"> Oct 23, 2014 14:30 </span><br><span class="line"> Oct 21, 2014 11:21 actors.csv</span><br><span class="line"> Nov 10, 2014 11:01 ali</span><br><span class="line"> Oct 21, 2014 11:19 movies.csv</span><br><span class="line"> Jan 14, 2014 16:56 neo4j</span><br><span class="line"> Oct 28, 2014 17:40 package.json</span><br><span class="line"> Oct 21, 2014 11:21 roles.csv</span><br><span class="line"> Nov 30, 2014 20:54 TV.war</span><br><span class="line"> // 查看当前终端路径</span><br><span class="line">sftp&gt; pwd                </span><br><span class="line">/usr/local/program/server_tool/apache-tomcat-7.0.32/webapps</span><br><span class="line"></span><br><span class="line">// 切换到上传路径</span><br><span class="line">sftp&gt; cd ~</span><br><span class="line">sftp&gt; pwd</span><br><span class="line">/home/centos</span><br><span class="line"></span><br><span class="line">// 使用put 进行文件上传</span><br><span class="line">sftp&gt; put roles.csv ./</span><br><span class="line">Uploading roles.csv to /home/centos/roles.csv</span><br><span class="line">Skipping directory d:/temp</span><br><span class="line">  100% 367 bytes    367 bytes/s 00:00:00     </span><br><span class="line">d:/temp/roles.csv: 367 bytes transferred in 0 seconds (367 bytes/s)</span><br><span class="line"></span><br><span class="line">// 查看，ok 成功的。</span><br><span class="line">sftp&gt; ls</span><br><span class="line">roles.csv</span><br></pre></td></tr></table></figure></p>
-<p><strong>实例2： 上传文件目录</strong><br><code>put -r 目录名称 目录名称</code> <code>-r</code> 表示文件夹。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 很简单，参考实例1。 默认上传当前路径</span><br><span class="line">put -r download/</span><br></pre></td></tr></table></figure></p>
-<p><strong>实例3： 上传所有文件</strong></p>
-<ul>
-<li><p>上传当前所有文件 到 远程目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put *</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上传当前所有文件及其文件夹 到 远程目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put -r *</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="文件下载-从远程主机到本机"><a href="#文件下载-从远程主机到本机" class="headerlink" title="文件下载(从远程主机到本机)"></a>文件下载(从远程主机到本机)</h3><p><strong>使用 get [-Ppr] remote [local]</strong></p>
-<p><strong>关于get (文件下载)说明和实例 略。   参考put (文件上传) 。 两则异曲同工</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/13/Maven3 setting.xml 设置/" itemprop="url">
-                  Maven3 setting.xml 设置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-13T16:54:00+08:00" content="2014-04-13">
-              2014-04-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/项目构建/" itemprop="url" rel="index">
-                    <span itemprop="name">项目构建</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/13/Maven3 setting.xml 设置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/13/Maven3 setting.xml 设置/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="不要修改setting-xml地址-和-仓库地址地址"><a href="#不要修改setting-xml地址-和-仓库地址地址" class="headerlink" title="不要修改setting.xml地址 和 仓库地址地址"></a>不要修改setting.xml地址 和 仓库地址地址</h2><p>Maven3 默认setting.xml文件地址和仓库地址为：</p>
-<blockquote>
-<p>C:/Users/用户名称/.m2/setting.xml<br>C:/Users/用户名称/.m2/repository</p>
-</blockquote>
-<p><strong>你可能觉得仓库地址在C盘有点不合理，它在我指定的目录不是更好吗？  例如：D:/Work-Repository/Maven-Repository</strong></p>
-<p>于是：</p>
-<ul>
-<li>你复制setting.xml 文件到 D:/Work-Repository/Maven-Repository</li>
-<li><p>修改setting.xml Maven仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;localRepository&gt;D:/Work-Repository/Mvn-Repository&lt;/localRepository&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改STS/IDEA/MyEclipse 中的setting.xml 地址</p>
-</li>
-<li>OK，你成功。</li>
-</ul>
-<p>但是：<br><strong>你可能忘了你有多个工作目录。偶尔你新建一个工作目录，忘了改setting.xml<br>糟糕的事情发生了</strong></p>
-<ul>
-<li>为什么还要重复下载Jar？</li>
-<li>八嘎！ 为什么两个仓库都在用啊~~   恍然大悟！！</li>
-</ul>
-<h2 id="修改你的镜像地址"><a href="#修改你的镜像地址" class="headerlink" title="修改你的镜像地址"></a>修改你的镜像地址</h2><p>国外的源总是缓慢的，比如：</p>
-<blockquote>
-<p><a href="http://my.repository.com/repo/path" target="_blank" rel="external">http://my.repository.com/repo/path</a></p>
-</blockquote>
-<p>使用OSChina Maven仓库，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line"></span><br><span class="line">  &lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;mirrorId&lt;/id&gt;</span><br><span class="line">    &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;</span><br><span class="line">    &lt;name&gt;Human Readable Name for this Mirror.&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;</span><br><span class="line">  &lt;/mirror&gt;</span><br><span class="line">  </span><br><span class="line">&lt;/mirrors&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>提示，OSChina源也有不好使的地方，比如：引入嵌入式数据库： H2，它就找不到，这个时候，你需要切换到其他源或在pom.xml 指定下载源地址。</p>
-</blockquote>
-<h2 id="想到了，日后再更新。"><a href="#想到了，日后再更新。" class="headerlink" title="想到了，日后再更新。"></a>想到了，日后再更新。</h2>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/02/MyBatis Boostrap/" itemprop="url">
-                  MyBatis Boostrap
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-02T10:44:00+08:00" content="2014-04-02">
-              2014-04-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/02/MyBatis Boostrap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/MyBatis Boostrap/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>SqlSessionFactory 是MyBatis的核心对象，用于获取SqlSession，并执行映射的 SQL 语句。<br>可以通过基于 XML 的配置信息或者 Java API 创建。</p>
-<p>我们将探索各种 MaBatis 配置元素，如 dataSource，environments,全局参数设置,typeAlias，typeHandlers，<br>SQL 映射；接着我们将实例化 SqlSessionFactory。</p>
-<ul>
-<li>使用 XML 配置 MyBatis</li>
-<li>使用 Java API 配置 MyBatis</li>
-<li>自定义 MyBatis 日志</li>
-</ul>
-<h2 id="使用-XML-配置-MyBatis"><a href="#使用-XML-配置-MyBatis" class="headerlink" title="使用 XML 配置 MyBatis"></a>使用 XML 配置 MyBatis</h2><p><strong>构建 SqlSessionFactory 最常见的方式是基于 XML 配置（的构造方式）。下面的 mybatis-config.xml 展示了一个<br>典型的 MyBatis 配置文件的样子：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;properties resource=&quot;application.properties&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;username&quot; value=&quot;db_user&quot; /&gt;</span><br><span class="line">		&lt;property name=&quot;password&quot; value=&quot;verysecurepwd&quot; /&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line">	&lt;settings&gt;</span><br><span class="line">		&lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">	&lt;/settings&gt;</span><br><span class="line">	&lt;typeAliases&gt;</span><br><span class="line">		&lt;typeAlias alias=&quot;Tutor&quot; type=&quot;com.mybatis3.domain.Tutor&quot; /&gt;</span><br><span class="line">		&lt;package name=&quot;com.mybatis3.domain&quot; /&gt;</span><br><span class="line">	&lt;/typeAliases&gt;</span><br><span class="line">	&lt;typeHandlers&gt;</span><br><span class="line">		&lt;typeHandler handler=&quot;com.mybatis3.typehandlers. PhoneTypeHandler&quot; /&gt;</span><br><span class="line">		&lt;package name=&quot;com.mybatis3.typehandlers&quot; /&gt;</span><br><span class="line">	&lt;/typeHandlers&gt;</span><br><span class="line">	&lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">		&lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">			&lt;transactionManager type=&quot;JDBC&quot; /&gt;</span><br><span class="line">			&lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">				&lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driverClassName&#125;&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot; /&gt;</span><br><span class="line">			&lt;/dataSource&gt;</span><br><span class="line">		&lt;/environment&gt;</span><br><span class="line">		&lt;environment id=&quot;production&quot;&gt;</span><br><span class="line">			&lt;transactionManager type=&quot;MANAGED&quot; /&gt;</span><br><span class="line">			&lt;dataSource type=&quot;JNDI&quot;&gt;</span><br><span class="line">				&lt;property name=&quot;data_source&quot; value=&quot;java:comp/jdbc/MyBatisDemoDS&quot; /&gt;</span><br><span class="line">			&lt;/dataSource&gt;</span><br><span class="line">		&lt;/environment&gt;</span><br><span class="line">	&lt;/environments&gt;</span><br><span class="line">	&lt;mappers&gt;</span><br><span class="line">		&lt;mapper resource=&quot;com/mybatis3/mappers/StudentMapper.xml&quot; /&gt;</span><br><span class="line">		&lt;mapper url=&quot;file:///D:/mybatisdemo/mappers/TutorMapper.xml&quot; /&gt;</span><br><span class="line">		&lt;mapper class=&quot;com.mybatis3.mappers.TutorMapper&quot; /&gt;</span><br><span class="line">	&lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>下面让我们逐个讨论上述配置文件的组成部分</strong></p>
-<h3 id="environment-环境"><a href="#environment-环境" class="headerlink" title="environment (环境)"></a>environment (环境)</h3><p>MyBatis 支持配置多个 dataSource 环境，可以将应用部署到不同的环境上， DEV(开发环境)，如TEST（测试换将），<br>QA（质量评估环境）,UAT(用户验收环境),PRODUCTION（生产环境），可以通过将默认 environment 值设置成想要的<br>environment id 值。<br>在上述的配置中，默认的环境 environment 被设置成 development。当需要将程序部署到生产服务器上时，你不需<br>要修改什么配置，只需要将默认环境 environment 值设置成生产环境的<br>明细；使用 REPORTS 数据库存储订单明细的合计，用作报告。<br>如果你的应用需要连接多个数据库，你需要将每个数据库配置成独立的环境，并且为每一个数据库创建一个<br>SqlSessionFactory。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;environments default=&quot;shoppingcart&quot;&gt;</span><br><span class="line">	&lt;environment id=&quot;shoppingcart&quot;&gt;</span><br><span class="line">		&lt;transactionManager type=&quot;MANAGED&quot; /&gt;</span><br><span class="line">		&lt;dataSource type=&quot;JNDI&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;data_source&quot; value=&quot;java:comp/jdbc/ ShoppingcartDS&quot; /&gt;</span><br><span class="line">		&lt;/dataSource&gt;</span><br><span class="line">	&lt;/environment&gt;</span><br><span class="line">	&lt;environment id=&quot;reports&quot;&gt;</span><br><span class="line">		&lt;transactionManager type=&quot;MANAGED&quot; /&gt;</span><br><span class="line">		&lt;dataSource type=&quot;JNDI&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;data_source&quot; value=&quot;java:comp/jdbc/ReportsDS&quot; /&gt;</span><br><span class="line">		&lt;/dataSource&gt;</span><br><span class="line">	&lt;/environment&gt;</span><br><span class="line">&lt;/environments&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>我们可以通过如下，为每一个环境创建一个SqlSessionFactory</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inputStream = Resources.getResourceAsStream(&quot;mybatis-config.xml&quot;);</span><br><span class="line">defaultSqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">cartSqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, &quot;shoppingcart&quot;);</span><br><span class="line">reportSqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, &quot;reports&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>创建 SqlSessionFactory 时，如果没有明确指定环境 environment id，则会使用默认的环境 environment 来创<br>建。在上述的源码中，默认的 SqlSessionFactory 便是使用 shoppingcart 环境设置创建的。<br>对于每个环境 environment,我们需要配置 dataSource 和 transactionManager 元素。</p>
-<h3 id="DataSource-数据源"><a href="#DataSource-数据源" class="headerlink" title="DataSource (数据源)"></a>DataSource (数据源)</h3><p>dataSource 元素被用来配置数据库连接属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driverClassName&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot; /&gt;</span><br><span class="line">&lt;/dataSource&gt;</span><br></pre></td></tr></table></figure></p>
-<p>dataSource 的类型可以配置成其内置类型之一，如 UNPOOLED，POOLED，JNDI。</p>
-<ul>
-<li>如果将类型设置成 UNPOOLED，MyBatis 会为每一个数据库操作创建一个新的连接，并关闭它。该方式适用于只有小规模数量并发用户的简单应用程序上。</li>
-<li>如果将属性设置成 POOLED，MyBatis 会创建一个数据库连接池，连接池中的一个连接将会被用作数据库操作。一旦数据库操作完成，MyBatis 会将此连接返回给连接池。在开发或测试环境中，经常使用此种方式。</li>
-<li>如果将类型设置成 JNDI，MyBatis 从在应用服务器向配置好的 JNDI 数据源 dataSource 获取数据库连接。在生产环境中，优先考虑这种方式。</li>
-</ul>
-<h3 id="TransactionManager-事务管理器"><a href="#TransactionManager-事务管理器" class="headerlink" title="TransactionManager(事务管理器)"></a>TransactionManager(事务管理器)</h3>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/01/MyBatis 入门/" itemprop="url">
-                  MyBatis 入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-01T23:44:00+08:00" content="2014-04-01">
-              2014-04-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/01/MyBatis 入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/01/MyBatis 入门/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Hibernate 太过于庞大，作为同样的持久化ORM 框架Mybatis 就显得非常小巧灵活。</p>
-<p>MyBatis 同样是简单易用的。</p>
-<p>Java数据库持久化层主要两个部分：</p>
-<ul>
-<li>将从数据库查询到的数据生成所需要的 Java 对象</li>
-<li>将 Java 对象中的数据通过 SQL 持久化到数据库中。</li>
-</ul>
-<h2 id="为什么-选择MyBatis"><a href="#为什么-选择MyBatis" class="headerlink" title="为什么 选择MyBatis ?"></a>为什么 选择MyBatis ?</h2><h3 id="消除大量JDBC冗余代码"><a href="#消除大量JDBC冗余代码" class="headerlink" title="消除大量JDBC冗余代码"></a>消除大量JDBC冗余代码</h3><ul>
-<li>无需关注重复性JDBC操作 (不再与connection，statement，resultSet 重复性对象打交道)，MyBatis 会处理这些底层工作<blockquote>
-<p>创建 Connection 连接，创建一个 Statement 对象，设置输入参数，关闭资源</p>
-</blockquote>
-</li>
-<li>需要配置数据库连接属性和 SQL 语句。 （POJO &lt;–&gt; SQL Table）<ul>
-<li>Mybatis 准备需要被执行的 SQL statement 对象并且将 Java 对象作为输入数据传递给 statement 对象的任务</li>
-<li>MyBatis 自动化了将从输入的 Java 对象中的属性设置成查询参数、从 SQL 结果集上生成 Java 对象</li>
-</ul>
-</li>
-</ul>
-<p><strong>实例说明</strong><br><strong>1. 在 SQL Mapper 映射配置文件中配置 SQL 语句，假定为 StudentMapper.xml</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">     SELECT STUD_ID AS studId, NAME, EMAIL, DOB FROM STUDENTS WHERE STUD_ID=#&#123;Id&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">     INSERT INTO STUDENTS(STUD_ID,NAME,EMAIL,DOB) VALUES(#&#123;studId&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;dob&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>2. 创建一个 StudentMapper 接口</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface StudentMapper &#123;</span><br><span class="line">           Student findStudentById(Integer id);</span><br><span class="line">           void insertStudent(Student student);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>3. 在 Java 代码中，你可以使用如下代码触发 SQL 语句：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SqlSession session = getSqlSessionFactory().openSession();</span><br><span class="line">StudentMapper mapper = session.getMapper(StudentMapper.class);</span><br><span class="line"><span class="comment">// Select Student by Id</span></span><br><span class="line">Student student = mapper.selectStudentById(<span class="number">1</span>);</span><br><span class="line"><span class="comment">//To insert a Student record</span></span><br><span class="line">mapper.insertStudent(student);</span><br></pre></td></tr></table></figure>
-<p><strong>编码完成</strong></p>
-<h3 id="低学习曲线"><a href="#低学习曲线" class="headerlink" title="低学习曲线"></a>低学习曲线</h3><p><strong>你需要熟悉Java 和 SQL 即可</strong></p>
-<h3 id="能够很好地与传统数据库协同工作"><a href="#能够很好地与传统数据库协同工作" class="headerlink" title="能够很好地与传统数据库协同工作"></a>能够很好地与传统数据库协同工作</h3><p>Hibernate将 Java 对象静态地映射到数据库的表上<br>MyBatis 是将查询的结果与 Java 对象映射起来。你可以根据面相对象的模型创建 Java 域对象，执行传统数据库的查询，然后将结果映射到对应的 Java 对象上。</p>
-<h3 id="接受-SQL"><a href="#接受-SQL" class="headerlink" title="接受 SQL"></a>接受 SQL</h3><p>Hibernate鼓励使用实体对象（Entity Objects）和在其底层自动产生 SQL 语句。这种<br>的 SQL 生成方式，我们有可能不能够利用到数据库的一些特有的特性。Hibernate 允许执行本地 SQL，但是这样会打破持<br>久层和数据库独立的原则。</p>
-<p>MyBatis 框架接受 SQL 语句，而不是将其对开发人员隐藏起来。由于 MyBatis 不会产生任何的 SQL 语句，所以开发<br>人员就要准备 SQL 语句，这样就可以充分利用数据库特有的特性并且可以准备自定义的查询。另外，MyBatis 对存储过程<br>也提供了支持。</p>
-<h3 id="与Spring-集成"><a href="#与Spring-集成" class="headerlink" title="与Spring 集成"></a>与Spring 集成</h3><p>MyBatis 提供了与 流行的依赖注入框架 Spring 和 Guice 的开包即用的集成支持，这将进一步简化 MyBatis 的使用</p>
-<h3 id="与第三方缓存类库的集成支持"><a href="#与第三方缓存类库的集成支持" class="headerlink" title="与第三方缓存类库的集成支持"></a>与第三方缓存类库的集成支持</h3><p>MyBatis 有内建的 SqlSession 级别的缓存机制，用于缓存 Select 语句查询出来的结果。除此之外，MyBatis 提供<br>了与多种第三方缓存类库的集成支持，如 EHCache，OSCache，Hazelcast。</p>
-<h3 id="良好的性能"><a href="#良好的性能" class="headerlink" title="良好的性能"></a>良好的性能</h3><ul>
-<li>MyBatis 支持数据库连接池，消除了为每一个请求创建一个数据库连接的开销</li>
-<li>MyBatis 提供了内建的缓存机制，在 SqlSession 级别提供了对 SQL 查询结果的缓存。即:如果你调用了相同的select 查询，MyBatis会将放在缓存的结果返回，而不会去再查询数据库。</li>
-<li>MyBatis 框架并没有大量地使用代理机制2，因此对于其他的过度地使用代理的 ORM 框架而言，MyBatis 可以获得更<br>好的性能。</li>
-</ul>
-<p><strong>如果你的应用是以面向对象模型，并且向动态生成 SQL 语句，那么 MyBatis可能就不符合你的要求。另外，如果你想让你的应用有一个传递性的缓存机制的话（保存父对象时也应该保存关联的子对象），Hibernate 会更适合你。</strong></p>
-<h2 id="Mybatis-入门"><a href="#Mybatis-入门" class="headerlink" title="Mybatis 入门"></a>Mybatis 入门</h2><ul>
-<li>Mybatis 入门   <ul>
-<li>新建表 STUDENTS，插入样本数据</li>
-<li>新建一个 Maven 项目，pom.xml 添加相关依赖</li>
-<li>新建建 MyBatisSqlSessionFactory 单例模式类</li>
-<li>新建映射器 StudentMapper 接口和 StudentService 类</li>
-<li>新建一个 JUnit 测试类来测试 StudentService</li>
-</ul>
-</li>
-</ul>
-<h3 id="新建表-STUDENTS，插入样本数据"><a href="#新建表-STUDENTS，插入样本数据" class="headerlink" title="新建表 STUDENTS，插入样本数据"></a>新建表 STUDENTS，插入样本数据</h3><p><strong>使用以下 SQL 脚本往 MySQL 数据库中创建 STUDENTS 表插入样本数据：</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENTS</span><br><span class="line">(</span><br><span class="line">stud_id <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line"><span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">email <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">dob <span class="built_in">date</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (stud_id)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">1</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=latin1;</span><br><span class="line"><span class="comment">/*Sample Data for the students table */</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> students(stud_id,<span class="keyword">name</span>,email,dob)</span><br><span class="line"><span class="keyword">values</span> (<span class="number">1</span>,<span class="string">'Student1'</span>,<span class="string">'student1@gmail.com'</span>,<span class="string">'1983-06-25'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> students(stud_id,<span class="keyword">name</span>,email,dob)</span><br><span class="line"><span class="keyword">values</span> (<span class="number">2</span>,<span class="string">'Student2'</span>,<span class="string">'student2@gmail.com'</span>,<span class="string">'1983-06-25'</span>);</span><br></pre></td></tr></table></figure></p>
-<h3 id="新建一个-Maven-项目，pom-xml-添加相关依赖"><a href="#新建一个-Maven-项目，pom-xml-添加相关依赖" class="headerlink" title="新建一个 Maven 项目，pom.xml 添加相关依赖"></a>新建一个 Maven 项目，pom.xml 添加相关依赖</h3><ul>
-<li>创建一个名为 mybatis-demo的Maven 项目</li>
-<li><p>在 pom.xml 中添加以下依赖：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.mybatis&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;mybatis&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;3.2.6&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;5.1.30&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.7.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.7.5&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;runtime&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;log4j&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;log4j&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.2.17&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;runtime&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;4.11&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建 log4j.properties 文件，添加到 <code>src/main/resources</code> (classpath下) 中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">log4j.rootLogger=DEBUG, stdout</span><br><span class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern=%d [%-5p] %c - %m%n</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="新建-mybatis-config-xml-和映射器-StudentMapper-xml-配置文件"><a href="#新建-mybatis-config-xml-和映射器-StudentMapper-xml-配置文件" class="headerlink" title="新建 mybatis-config.xml 和映射器 StudentMapper.xml 配置文件"></a>新建 mybatis-config.xml 和映射器 StudentMapper.xml 配置文件</h3><ul>
-<li><p><strong><code>mybatis-config.xml</code> 为MyBatis的主要配置文件，其中包括数据库连接信息、类型别名等,创建并添加classpath下</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;typeAliases&gt;</span><br><span class="line">		&lt;typeAlias alias=&quot;Student&quot; type=&quot;org.freecode.domain.Student&quot; /&gt;</span><br><span class="line">	&lt;/typeAliases&gt;</span><br><span class="line">	&lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">		&lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">			&lt;transactionManager type=&quot;JDBC&quot; /&gt;</span><br><span class="line">			&lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">				&lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/test&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;username&quot; value=&quot;root&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;password&quot; value=&quot;123456&quot; /&gt;</span><br><span class="line">			&lt;/dataSource&gt;</span><br><span class="line">		&lt;/environment&gt;</span><br><span class="line">	&lt;/environments&gt;</span><br><span class="line">	&lt;mappers&gt;</span><br><span class="line">		&lt;mapper resource=&quot;or/freecode/mappers/StudentMapper.xml&quot; /&gt;</span><br><span class="line">	&lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>StudentMapper.xml</code> 实体映射SQL语句文件，并将其放入自定义mapper目录下。（org.freecode.mappers）</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;org.freecode.mappers.StudentMapper&quot;&gt;</span><br><span class="line">	&lt;resultMap type=&quot;Student&quot; id=&quot;StudentResult&quot;&gt;</span><br><span class="line">		&lt;id property=&quot;studId&quot; column=&quot;stud_id&quot; /&gt;</span><br><span class="line">		&lt;result property=&quot;name&quot; column=&quot;name&quot; /&gt;</span><br><span class="line">		&lt;result property=&quot;email&quot; column=&quot;email&quot; /&gt;</span><br><span class="line">		&lt;result property=&quot;dob&quot; column=&quot;dob&quot; /&gt;</span><br><span class="line">	&lt;/resultMap&gt;</span><br><span class="line">	&lt;select id=&quot;findAllStudents&quot; resultMap=&quot;StudentResult&quot;&gt;</span><br><span class="line">		SELECT * FROM STUDENTS</span><br><span class="line">	&lt;/select&gt;</span><br><span class="line">	&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">		SELECT STUD_ID AS STUDID, NAME, EMAIL, DOB</span><br><span class="line">		FROM STUDENTS WHERE STUD_ID=#&#123;Id&#125;</span><br><span class="line">	&lt;/select&gt;</span><br><span class="line">	&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">		INSERT INTO STUDENTS(STUD_ID,NAME,EMAIL,DOB)</span><br><span class="line">		VALUES(#&#123;studId &#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;dob&#125;)</span><br><span class="line">	&lt;/insert&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="新建-MyBatisSqlSessionFactory-单例类"><a href="#新建-MyBatisSqlSessionFactory-单例类" class="headerlink" title="新建 MyBatisSqlSessionFactory 单例类"></a>新建 MyBatisSqlSessionFactory 单例类</h3><p><strong>新建 MyBatisSqlSessionFactory.java 类文件，实例化它，使其持有一个 SqlSessionFactory 单例对象：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.util;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">public class MyBatisSqlSessionFactory &#123;</span><br><span class="line"></span><br><span class="line">	private static SqlSessionFactory sqlSessionFactory;</span><br><span class="line">	public static SqlSessionFactory getSqlSessionFactory()&#123;</span><br><span class="line">		if(sqlSessionFactory == null)&#123;</span><br><span class="line">			InputStream inputStream;</span><br><span class="line">			try&#123;</span><br><span class="line">				inputStream = Resources.getResourceAsStream(&quot;mybatis-config.xml&quot;);</span><br><span class="line">				</span><br><span class="line">				sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">			&#125;catch(IOException e)&#123;</span><br><span class="line">				throw new RuntimeException(e.getCause());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return sqlSessionFactory;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static SqlSession openSession()&#123;</span><br><span class="line">		return getSqlSessionFactory().openSession();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>上述的代码段中，我们创建了一个 SqlSessionFactory 对象，我们将使用它来获得 SqlSession 对象和执行映射的SQL 语句。</strong></p>
-<h3 id="新建-StudentMapper-接口和-StudentService-类"><a href="#新建-StudentMapper-接口和-StudentService-类" class="headerlink" title="新建 StudentMapper 接口和 StudentService 类"></a>新建 StudentMapper 接口和 StudentService 类</h3><p>让我们创建一个 StudentMapper 接口，其定义的方法名和在 Mapper XML 配置文件定义的 SQL 映射语句名称相同；<br>在创建一个 StudentService.java 类，包含了一些业务操作的实现。</p>
-<ul>
-<li><p>首先，创建JavaBean Student.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.domain;</span><br><span class="line"></span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line">	private Integer studId;</span><br><span class="line">	private String name;</span><br><span class="line">	private String email;</span><br><span class="line">	private Date dob;</span><br><span class="line">	public Integer getStudId() &#123;</span><br><span class="line">		return studId;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setStudId(Integer studId) &#123;</span><br><span class="line">		this.studId = studId;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getName() &#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getEmail() &#123;</span><br><span class="line">		return email;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setEmail(String email) &#123;</span><br><span class="line">		this.email = email;</span><br><span class="line">	&#125;</span><br><span class="line">	public Date getDob() &#123;</span><br><span class="line">		return dob;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setDob(Date dob) &#123;</span><br><span class="line">		this.dob = dob;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return &quot;Student [studId=&quot; + studId + &quot;, name=&quot; + name + &quot;, email=&quot;</span><br><span class="line">				+ email + &quot;, dob=&quot; + dob + &quot;]&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建映射器 Mapper 接口 StudentMapper.java 其方法签名和 StudentMapper.xml 中定义的 SQL 映射定义名相同</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.mappers;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line">import org.freecode.domain.Student;</span><br><span class="line"></span><br><span class="line">public interface StudentMapper &#123;</span><br><span class="line">	List&lt;Student&gt; findAllStudents();</span><br><span class="line">	Student findStudentById(Integer id);</span><br><span class="line">	void insertStudent(Student student);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建 StudentService.java 实现对表 STUDENTS 的数据库操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.services;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.freecode.domain.Student;</span><br><span class="line">import org.freecode.mappers.StudentMapper;</span><br><span class="line">import org.freecode.util.MyBatisSqlSessionFactory;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class StudentService &#123;</span><br><span class="line">	private Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line">	</span><br><span class="line">	public List&lt;Student&gt; findAllStudents()&#123;</span><br><span class="line">		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();</span><br><span class="line">		</span><br><span class="line">		try&#123;</span><br><span class="line">			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">			return studentMapper.findAllStudents();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			// 如果sqlSession 没有关闭， 数据库连接不会返回到连接池(pool)中</span><br><span class="line">			sqlSession.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public Student findStudentById(Integer studId)&#123;</span><br><span class="line">		logger.debug(&quot;Select Student By ID :&#123;&#125;&quot;,studId);</span><br><span class="line">		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();</span><br><span class="line">		try&#123;</span><br><span class="line">			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">			return studentMapper.findStudentById(studId);</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			sqlSession.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void createStudent(Student student)&#123;</span><br><span class="line">		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();</span><br><span class="line">		try&#123;</span><br><span class="line">			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">			studentMapper.insertStudent(student);</span><br><span class="line">			sqlSession.commit();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			sqlSession.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 * 你也可以不通过Mapper接口执行映射的SQL语句,如下。（并不推荐）</span><br><span class="line">	 * @param studId</span><br><span class="line">	 * @return</span><br><span class="line">	 */</span><br><span class="line">	public Student findStudentById2(Integer studId)&#123;</span><br><span class="line">		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();</span><br><span class="line">		try&#123;</span><br><span class="line">			return (Student)sqlSession.selectOne(&quot;org.freecode.mappers.StudentMapper.findStudentById&quot;,studId);</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			sqlSession.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="新建一个-JUnit-测试类来测试-StudentService"><a href="#新建一个-JUnit-测试类来测试-StudentService" class="headerlink" title="新建一个 JUnit 测试类来测试 StudentService"></a>新建一个 JUnit 测试类来测试 StudentService</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.services;</span><br><span class="line"></span><br><span class="line">import java.util.Date;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import org.freecode.domain.Student;</span><br><span class="line">import org.junit.AfterClass;</span><br><span class="line">import org.junit.Assert;</span><br><span class="line">import org.junit.BeforeClass;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">public class StudentServiceTest &#123;</span><br><span class="line"></span><br><span class="line">	private static StudentService studentService;</span><br><span class="line">	</span><br><span class="line">	@BeforeClass</span><br><span class="line">	public static void setup()&#123;</span><br><span class="line">		studentService = new StudentService();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@AfterClass</span><br><span class="line">	public static void teardown()&#123;</span><br><span class="line">		studentService = null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testFindAllStudents()&#123;</span><br><span class="line">		List&lt;Student&gt; students = studentService.findAllStudents();</span><br><span class="line">		Assert.assertNotNull(students);</span><br><span class="line">		for (Student student : students)&#123;</span><br><span class="line">			System.out.println(student);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testFindStudentById()&#123;</span><br><span class="line">		Student student = studentService.findStudentById(3);</span><br><span class="line">		Assert.assertNotNull(student);</span><br><span class="line">		System.out.println(student);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testCreateStudent()&#123;</span><br><span class="line">		Student student = new Student();</span><br><span class="line">		int id = 3;</span><br><span class="line">		student.setStudId(id);</span><br><span class="line">		student.setName(&quot;student_&quot; + id);</span><br><span class="line">		student.setEmail(&quot;student_&quot; + id + &quot;gmail.com&quot;);</span><br><span class="line">		student.setDob(new Date());</span><br><span class="line">		studentService.createStudent(student);</span><br><span class="line">		Student newStudent = studentService.findStudentById(id);</span><br><span class="line">		Assert.assertNotNull(newStudent);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="它是怎么工作的？"><a href="#它是怎么工作的？" class="headerlink" title="它是怎么工作的？"></a>它是怎么工作的？</h3><ul>
-<li>首先，我们配置了 MyBatis 最主要的配置文件-mybatis-config.xml,里面包含了 JDBC 连接参数；配置了映射器Mapper XML 配置文件文件，里面包含了 SQL 语句的映射。</li>
-<li>我 们 使 用 mybatis-config.xml 内 的 信 息 创 建 了 SqlSessionFactory 对 象 。 每 个 数 据 库 环 境 应 该 就 一 个SqlSessionFactory 对象实例，所以我们使用了单例模式只创建一个 SqlSessionFactory 实例。</li>
-<li>我们创建了一个映射器 Mapper 接口-StudentMapper，其定义的方法签名和在 StudentMapper.xml 中定义的完全一样（即映射器 Mapper 接口中的方法名跟 StudentMapper.xml 中的 id 的值相同）。注意 StudentMapper.xml 中namespace 的值被设置成 org.freecode.mappers.StudentMapper，是 StudentMapper 接口的完全限定名。这使我们可以使用接口来调用映射的 SQL 语句。</li>
-<li>在 StudentService.java 中，我们在每一个方法中创建了一个新的 SqlSession，并在方法功能完成后关闭SqlSession。每一个线程应该有它自己的 SqlSession 实例。SqlSession 对象实例不是线程安全的，并且不被共享。所以 SqlSession 的作用域最好就是其所在方法的作用域。从 Web 应用程序角度上看，SqlSession 应该存在于 request 级别作用域上。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -2629,6 +823,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/10/08/Airbnb JavaScript 编码规范/"
+           data-title="Airbnb JavaScript 编码规范" data-url="http://cmp-cc.github.io/2015/10/08/Airbnb JavaScript 编码规范/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -2648,8 +850,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -2718,6 +929,23 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型"><span class="nav-number">1.</span> <span class="nav-text">类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">2.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">3.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">4.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解构"><span class="nav-number">5.</span> <span class="nav-text">解构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strings"><span class="nav-number">6.</span> <span class="nav-text">Strings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">7.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-number">8.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造器"><span class="nav-number">9.</span> <span class="nav-text">构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">10.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterators-and-Generators"><span class="nav-number">11.</span> <span class="nav-text">Iterators and Generators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">12.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">13.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hoisting"><span class="nav-number">14.</span> <span class="nav-text">Hoisting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较运算符-amp-等号"><span class="nav-number">15.</span> <span class="nav-text">比较运算符 & 等号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码块"><span class="nav-number">16.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">17.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空白"><span class="nav-number">18.</span> <span class="nav-text">空白</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逗号"><span class="nav-number">19.</span> <span class="nav-text">逗号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分号"><span class="nav-number">20.</span> <span class="nav-text">分号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">21.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名规则"><span class="nav-number">22.</span> <span class="nav-text">命名规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存取器"><span class="nav-number">23.</span> <span class="nav-text">存取器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件"><span class="nav-number">24.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jQuery"><span class="nav-number">25.</span> <span class="nav-text">jQuery</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
       
 
     </div>
@@ -2802,6 +1030,167 @@
   
 
   
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
 
   
 
