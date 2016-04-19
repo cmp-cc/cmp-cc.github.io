@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://cmp-cc.github.io/2014/04/02/MyBatis%20Boostrap/</loc>
+    
+    <lastmod>2016-04-19T10:48:45.744Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://cmp-cc.github.io/2015/04/28/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%84%9A%E6%9C%AC/</loc>
     
     <lastmod>2016-04-19T07:09:17.839Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://cmp-cc.github.io/2015/10/08/Airbnb%20JavaScript%20%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</loc>
     
     <lastmod>2016-04-18T06:44:12.481Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://cmp-cc.github.io/2014/04/02/MyBatis%20Boostrap/</loc>
-    
-    <lastmod>2016-04-15T11:27:36.571Z</lastmod>
     
   </url>
   
