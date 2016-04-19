@@ -64,6 +64,8 @@ git push -u origin master
 ### 错误信息
 **如下，处于不可打开状态，如果你把整个项目clone下来，你会发现文件为空**
 
+{% asset_img 4D44727A1CED48A6AF27443A6F1A36D7.png 文件显示状态 %}
+
 ### 解决方案
 你可能需要了解一下`git submodule`的使用,就知道问题所在了。(git项目中的子目录存在一个git仓库)
 * 将子目录中的`.git`目录删掉
