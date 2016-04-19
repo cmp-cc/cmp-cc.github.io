@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Maven," />
+  <meta name="keywords" content="系统与效率," />
 
 
 
@@ -59,19 +59,19 @@
 
 
 
-<meta name="description" content="一个常规的Java Web 你需要部署到Tomcat中，使用Maven构建Web项目使用Jetty 容器，使运行Java Web项目更加方便。
-Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;gt;8083&amp;lt;/webapp.port&amp;gt;    &amp;lt;webapp.stopPort&amp;gt;9090&amp;lt;/webapp.stop">
+<meta name="description" content="经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率
+Window 环境下自动化配置各种环境变量1、修改注册表的方法，重启永久有效reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%p">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Maven 服务器插件Jetty">
-<meta property="og:url" content="http://cmp-cc.github.io/2013/10/16/Maven 服务器插件Jetty/index.html">
+<meta property="og:title" content="配置环境变量脚本">
+<meta property="og:url" content="http://cmp-cc.github.io/2015/04/28/配置环境变量脚本/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="一个常规的Java Web 你需要部署到Tomcat中，使用Maven构建Web项目使用Jetty 容器，使运行Java Web项目更加方便。
-Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;gt;8083&amp;lt;/webapp.port&amp;gt;    &amp;lt;webapp.stopPort&amp;gt;9090&amp;lt;/webapp.stop">
-<meta property="og:updated_time" content="2016-04-07T09:38:42.001Z">
+<meta property="og:description" content="经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率
+Window 环境下自动化配置各种环境变量1、修改注册表的方法，重启永久有效reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%p">
+<meta property="og:updated_time" content="2016-04-19T07:09:17.839Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Maven 服务器插件Jetty">
-<meta name="twitter:description" content="一个常规的Java Web 你需要部署到Tomcat中，使用Maven构建Web项目使用Jetty 容器，使运行Java Web项目更加方便。
-Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;gt;8083&amp;lt;/webapp.port&amp;gt;    &amp;lt;webapp.stopPort&amp;gt;9090&amp;lt;/webapp.stop">
+<meta name="twitter:title" content="配置环境变量脚本">
+<meta name="twitter:description" content="经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率
+Window 环境下自动化配置各种环境变量1、修改注册表的方法，重启永久有效reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%p">
 
 
 
@@ -89,7 +89,7 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
   };
 </script>
 
-  <title> Maven 服务器插件Jetty | I am cmp-cc </title>
+  <title> 配置环境变量脚本 | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -229,7 +229,7 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
             
             
               
-                Maven 服务器插件Jetty
+                配置环境变量脚本
               
             
           </h1>
@@ -241,8 +241,8 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-10-16T08:54:00+08:00" content="2013-10-16">
-              2013-10-16
+            <time itemprop="dateCreated" datetime="2015-04-28T21:54:00+08:00" content="2015-04-28">
+              2015-04-28
             </time>
           </span>
 
@@ -255,8 +255,8 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/项目构建/" itemprop="url" rel="index">
-                    <span itemprop="name">项目构建</span>
+                  <a href="/categories/效率/" itemprop="url" rel="index">
+                    <span itemprop="name">效率</span>
                   </a>
                 </span>
 
@@ -271,8 +271,8 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/10/16/Maven 服务器插件Jetty/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/10/16/Maven 服务器插件Jetty/" itemprop="commentsCount"></span>
+                <a href="/2015/04/28/配置环境变量脚本/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/28/配置环境变量脚本/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,19 +294,16 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
       
 
       
-        <p>一个常规的Java Web 你需要部署到Tomcat中，使用Maven构建Web项目使用Jetty 容器，使运行Java Web项目更加方便。</p>
-<h2 id="Jetty-完整性配置"><a href="#Jetty-完整性配置" class="headerlink" title="Jetty 完整性配置"></a>Jetty 完整性配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;webapp.port&gt;8083&lt;/webapp.port&gt;</span><br><span class="line">    &lt;webapp.stopPort&gt;9090&lt;/webapp.stopPort&gt;</span><br><span class="line">    &lt;webapp.path&gt;/&lt;/webapp.path&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;8.1.13.v20130916&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;webAppConfig&gt;</span><br><span class="line">            &lt;contextPath&gt;$&#123;webapp.path&#125;&lt;/contextPath&gt;</span><br><span class="line">            &lt;defaultsDescriptor&gt;webdefault.xml&lt;/defaultsDescriptor&gt;</span><br><span class="line">        &lt;/webAppConfig&gt;</span><br><span class="line">        &lt;connectors&gt;</span><br><span class="line">            &lt;connector implementation=&quot;org.eclipse.jetty.server.nio.SelectChannelConnector&quot;&gt;</span><br><span class="line">                &lt;port&gt;$&#123;webapp.port&#125;&lt;/port&gt;</span><br><span class="line">                &lt;maxIdleTime&gt;60000&lt;/maxIdleTime&gt;</span><br><span class="line">            &lt;/connector&gt;</span><br><span class="line">        &lt;/connectors&gt;</span><br><span class="line">        &lt;reload&gt;automatic&lt;/reload&gt;</span><br><span class="line">        &lt;scanIntervalSeconds&gt;0&lt;/scanIntervalSeconds&gt;</span><br><span class="line">        &lt;!-- stopPort&gt;$&#123;webapp.stopPort&#125;&lt;/stopPort --&gt;</span><br><span class="line">        &lt;systemProperties&gt;</span><br><span class="line">            &lt;systemProperty&gt;</span><br><span class="line">                &lt;name&gt;org.mortbay.util.URI.charset&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;UTF-8&lt;/value&gt;</span><br><span class="line">            &lt;/systemProperty&gt;</span><br><span class="line">        &lt;/systemProperties&gt;</span><br><span class="line">        &lt;jvmArgs&gt;-Xmx512m -XX:PermSize=128m -XX:MaxPermSize=256m</span><br><span class="line">            -Dfile.encoding=UTF-8&lt;/jvmArgs&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">    &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">            &lt;id&gt;start-jetty&lt;/id&gt;</span><br><span class="line">            &lt;phase&gt;pre-integration-test&lt;/phase&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">                &lt;goal&gt;run&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">            &lt;configuration&gt;</span><br><span class="line">                &lt;scanIntervalSeconds&gt;0&lt;/scanIntervalSeconds&gt;</span><br><span class="line">                &lt;daemon&gt;true&lt;/daemon&gt;</span><br><span class="line">            &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">            &lt;id&gt;stop-jetty&lt;/id&gt;</span><br><span class="line">            &lt;phase&gt;post-integration-test&lt;/phase&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">                &lt;goal&gt;stop&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">    &lt;/executions&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>运行命令 <code>jetty:run</code></li>
-<li>停止运行<code>jetty:stop</code></li>
+        <p><strong>经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率</strong></p>
+<h2 id="Window-环境下自动化配置各种环境变量"><a href="#Window-环境下自动化配置各种环境变量" class="headerlink" title="Window 环境下自动化配置各种环境变量"></a>Window 环境下自动化配置各种环境变量</h2><h3 id="1、修改注册表的方法，重启永久有效"><a href="#1、修改注册表的方法，重启永久有效" class="headerlink" title="1、修改注册表的方法，重启永久有效"></a>1、修改注册表的方法，重启永久有效</h3><p>reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%path%;C:\”  /f</p>
+<hr>
+<h3 id="2、setx-命令-（永久）"><a href="#2、setx-命令-（永久）" class="headerlink" title="2、setx 命令 （永久）"></a>2、setx 命令 （永久）</h3><ul>
+<li>setx 默认写入的是用户变量，想写入环境变量，加 /M<br>&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setx JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="Jetty-可配置参数"><a href="#Jetty-可配置参数" class="headerlink" title="Jetty 可配置参数"></a>Jetty 可配置参数</h2><ul>
-<li>scanIntervalSeconds 表示扫时间，避免重复运行，它会自动检测是否修改项目文件</li>
-<li>jvmArgs JVM 堆栈大小</li>
-<li>port 端口号</li>
-<li>contextPath 项目路径</li>
-</ul>
+<hr>
+<h3 id="3、set-命令（非永久，只针对于当前命令行）"><a href="#3、set-命令（非永久，只针对于当前命令行）" class="headerlink" title="3、set 命令（非永久，只针对于当前命令行）"></a>3、set 命令（非永久，只针对于当前命令行）</h3><p>同上 (setx命令)</p>
+<h2 id="自动环境配置脚本"><a href="#自动环境配置脚本" class="headerlink" title="自动环境配置脚本"></a>自动环境配置脚本</h2><p><strong>参考如下 EnvironmentConfiguration.bat 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF </span><br><span class="line">IF EXIST %systemroot%\system32\setx.exe ( </span><br><span class="line"></span><br><span class="line">@ECHO 开始配置JAVA环境</span><br><span class="line">@SETX JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br><span class="line">@SETX CLASSPATH &quot;.;%%JAVA_HOME%%\lib&quot;</span><br><span class="line">@SETX PATH &quot;%%PATH%%;%%JAVA_HOME%%\bin&quot;</span><br><span class="line">@ECHO JDK配置完成</span><br><span class="line"></span><br><span class="line">) else (</span><br><span class="line"></span><br><span class="line">@ECHO ON</span><br><span class="line">@ECHO 未能找到%systemroot%\system32\setx.exe，请下载setx.exe程序 </span><br><span class="line"></span><br><span class="line">)</span><br><span class="line">@PAUSE</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -321,7 +318,7 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
       
         <div class="post-tags">
           
-            <a href="/tags/Maven/" rel="tag">#Maven</a>
+            <a href="/tags/系统与效率/" rel="tag">#系统与效率</a>
           
         </div>
       
@@ -330,16 +327,16 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/08/12/Java项目开发中的简称/" rel="next" title="Java项目开发中的简称">
-                <i class="fa fa-chevron-left"></i> Java项目开发中的简称
+              <a href="/2014/12/28/Hadoop 日常实战 文件压缩/" rel="next" title="Hadoop 日常实战 文件压缩">
+                <i class="fa fa-chevron-left"></i> Hadoop 日常实战 文件压缩
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/12/14/贫血模型和充血模型/" rel="prev" title="贫血模型和充血模型">
-                贫血模型和充血模型 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/08/14/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -366,8 +363,8 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2013/10/16/Maven 服务器插件Jetty/"
-           data-title="Maven 服务器插件Jetty" data-url="http://cmp-cc.github.io/2013/10/16/Maven 服务器插件Jetty/">
+      <div class="ds-thread" data-thread-key="2015/04/28/配置环境变量脚本/"
+           data-title="配置环境变量脚本" data-url="http://cmp-cc.github.io/2015/04/28/配置环境变量脚本/">
       </div>
     
   </div>
@@ -480,7 +477,7 @@ Jetty 完整性配置12345&amp;lt;properties&amp;gt;    &amp;lt;webapp.port&amp;
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jetty-完整性配置"><span class="nav-number">1.</span> <span class="nav-text">Jetty 完整性配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jetty-可配置参数"><span class="nav-number">2.</span> <span class="nav-text">Jetty 可配置参数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Window-环境下自动化配置各种环境变量"><span class="nav-number">1.</span> <span class="nav-text">Window 环境下自动化配置各种环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、修改注册表的方法，重启永久有效"><span class="nav-number">1.1.</span> <span class="nav-text">1、修改注册表的方法，重启永久有效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、setx-命令-（永久）"><span class="nav-number">1.2.</span> <span class="nav-text">2、setx 命令 （永久）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、set-命令（非永久，只针对于当前命令行）"><span class="nav-number">1.3.</span> <span class="nav-text">3、set 命令（非永久，只针对于当前命令行）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动环境配置脚本"><span class="nav-number">2.</span> <span class="nav-text">自动环境配置脚本</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

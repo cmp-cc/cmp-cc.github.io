@@ -910,6 +910,39 @@
   </entry>
   
   <entry>
+    <title>配置环境变量脚本</title>
+    <link href="http://cmp-cc.github.io/2015/04/28/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%84%9A%E6%9C%AC/"/>
+    <id>http://cmp-cc.github.io/2015/04/28/配置环境变量脚本/</id>
+    <published>2015-04-28T13:54:00.000Z</published>
+    <updated>2016-04-19T07:09:17.839Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Window-环境下自动化配置各种环境变量&quot;&gt;&lt;a href=&quot;#Window-环境下自动化配置各种环境变量&quot; class=&quot;headerlink&quot; title=&quot;Window 环境下自动化配置各种环境变量&quot;&gt;&lt;/a&gt;Window 环境下自动化配置各种环境变量&lt;/h2&gt;&lt;h3 id=&quot;1、修改注册表的方法，重启永久有效&quot;&gt;&lt;a href=&quot;#1、修改注册表的方法，重启永久有效&quot; class=&quot;headerlink&quot; title=&quot;1、修改注册表的方法，重启永久有效&quot;&gt;&lt;/a&gt;1、修改注册表的方法，重启永久有效&lt;/h3&gt;&lt;p&gt;reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%path%;C:\”  /f&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;2、setx-命令-（永久）&quot;&gt;&lt;a href=&quot;#2、setx-命令-（永久）&quot; class=&quot;headerlink&quot; title=&quot;2、setx 命令 （永久）&quot;&gt;&lt;/a&gt;2、setx 命令 （永久）&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;setx 默认写入的是用户变量，想写入环境变量，加 /M&lt;br&gt;&amp;gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;setx JAVA_HOME &amp;quot;D:\Program Software\Programming Language\Java\jdk1.8.0&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;3、set-命令（非永久，只针对于当前命令行）&quot;&gt;&lt;a href=&quot;#3、set-命令（非永久，只针对于当前命令行）&quot; class=&quot;headerlink&quot; title=&quot;3、set 命令（非永久，只针对于当前命令行）&quot;&gt;&lt;/a&gt;3、set 命令（非永久，只针对于当前命令行）&lt;/h3&gt;&lt;p&gt;同上 (setx命令)&lt;/p&gt;
+&lt;h2 id=&quot;自动环境配置脚本&quot;&gt;&lt;a href=&quot;#自动环境配置脚本&quot; class=&quot;headerlink&quot; title=&quot;自动环境配置脚本&quot;&gt;&lt;/a&gt;自动环境配置脚本&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;参考如下 EnvironmentConfiguration.bat 配置&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@ECHO OFF &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;IF EXIST %systemroot%\system32\setx.exe ( &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@ECHO 开始配置JAVA环境&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@SETX JAVA_HOME &amp;quot;D:\Program Software\Programming Language\Java\jdk1.8.0&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@SETX CLASSPATH &amp;quot;.;%%JAVA_HOME%%\lib&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@SETX PATH &amp;quot;%%PATH%%;%%JAVA_HOME%%\bin&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@ECHO JDK配置完成&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;) else (&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@ECHO ON&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@ECHO 未能找到%systemroot%\system32\setx.exe，请下载setx.exe程序 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@PAUSE&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Window-环境下自动化配置各种环境变量&quot;&gt;&lt;a href=&quot;#Win
+    
+    </summary>
+    
+      <category term="效率" scheme="http://cmp-cc.github.io/categories/%E6%95%88%E7%8E%87/"/>
+    
+    
+      <category term="系统与效率" scheme="http://cmp-cc.github.io/tags/%E7%B3%BB%E7%BB%9F%E4%B8%8E%E6%95%88%E7%8E%87/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hadoop 日常实战 文件压缩</title>
     <link href="http://cmp-cc.github.io/2014/12/28/Hadoop%20%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9/"/>
     <id>http://cmp-cc.github.io/2014/12/28/Hadoop 日常实战 文件压缩/</id>
