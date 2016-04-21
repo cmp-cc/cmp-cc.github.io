@@ -1083,6 +1083,224 @@
             
               
                 
+                <a class="post-title-link" href="/2013/11/25/Linux iptable 防火墙/" itemprop="url">
+                  Linux iptable 防火墙
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-11-25T23:23:00+08:00" content="2013-11-25">
+              2013-11-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/系统与效率/" itemprop="url" rel="index">
+                    <span itemprop="name">系统与效率</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/11/25/Linux iptable 防火墙/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/11/25/Linux iptable 防火墙/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Linux 环境下，默认使用的防火墙都是用iptable，同样也是服务器名称</strong></p>
+<h2 id="iptable-服务"><a href="#iptable-服务" class="headerlink" title="iptable 服务"></a>iptable 服务</h2><p><strong>iptable 基本服务命令</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service  iptables  start           开启防火墙</span><br><span class="line">service  iptables  stop           关闭防火墙</span><br><span class="line">service  iptables  restart        重启防火墙</span><br><span class="line">service  iptables save            保持iptable 配置</span><br><span class="line">service  iptables  status        查看防火墙状态</span><br></pre></td></tr></table></figure></p>
+<h2 id="iptable-基本语法"><a href="#iptable-基本语法" class="headerlink" title="iptable 基本语法"></a>iptable 基本语法</h2><h3 id="防火墙处理数据4中方式"><a href="#防火墙处理数据4中方式" class="headerlink" title="防火墙处理数据4中方式"></a>防火墙处理数据4中方式</h3><ul>
+<li>ACCEPT<br>允许数据包通过</li>
+<li>DROP<br>直接丢弃数据包，不给予响应</li>
+<li>REJECT<br>拒绝数据包通过，给予响应</li>
+<li>LOG<br><code>/var/log/messages</code>文件记录日志信息</li>
+</ul>
+<h3 id="iptable-参数"><a href="#iptable-参数" class="headerlink" title="iptable 参数"></a>iptable 参数</h3><table>
+<thead>
+<tr>
+<th>参数缩写</th>
+<th>参数全称</th>
+<th>参数解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-A</td>
+<td>–append</td>
+<td>在指定链的末尾添加一条新的规则</td>
+</tr>
+<tr>
+<td>-D</td>
+<td>–delete</td>
+<td>删除指定链中的某一条规则，可以按规则序号和内容删除</td>
+</tr>
+<tr>
+<td>-I</td>
+<td>–insert</td>
+<td>在指定链中插入一条新的规则，默认在第一行添加</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>–replace</td>
+<td>修改、替换指定链中的某一条规则，可以按规则序号和内容替换</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>–list</td>
+<td>列出指定链中所有的规则进行查看</td>
+</tr>
+<tr>
+<td>-E</td>
+<td>–rename-chain</td>
+<td>重命名用户定义的链，不改变链本身</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>–flush</td>
+<td>清空</td>
+</tr>
+<tr>
+<td>-N</td>
+<td>–new-chain</td>
+<td>新建一条用户自己定义的规则链</td>
+</tr>
+<tr>
+<td>-X</td>
+<td>–delete-chain</td>
+<td>删除指定表中用户自定义的规则链</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>–policy</td>
+<td>设置指定链的默认策略</td>
+</tr>
+<tr>
+<td>-Z</td>
+<td>–zero</td>
+<td>将所有表的所有链的字节和数据包计数器清零</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>–numeric</td>
+<td>使用数字形式显示输出结果</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>–verbose</td>
+<td>查看规则表详细信息的信息</td>
+</tr>
+<tr>
+<td>-V</td>
+<td>–version</td>
+<td>查看版本</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>help</td>
+<td>获取帮助</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n    // 查看防火墙配置</span><br><span class="line">iptables -nL --line-number  // 查看iptables规则及编号</span><br></pre></td></tr></table></figure>
+<h3 id="开放一个端口"><a href="#开放一个端口" class="headerlink" title="开放一个端口"></a>开放一个端口</h3><p><strong>开启8000端口</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp --dport 8000 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除一个规则"><a href="#删除一个规则" class="headerlink" title="删除一个规则"></a>删除一个规则</h3><p>删除一个开放的端口规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n --line-number     // 查看规则编号</span><br><span class="line"></span><br><span class="line">iptables -D INPUT 2  // 删除指定规则编号，如 2</span><br></pre></td></tr></table></figure></p>
+<h3 id="只开放某个端口"><a href="#只开放某个端口" class="headerlink" title="只开放某个端口"></a>只开放某个端口</h3><p><strong>只开放80端口</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp –dport 80 -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp –sport 80 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<h3 id="禁止某个IP地址"><a href="#禁止某个IP地址" class="headerlink" title="禁止某个IP地址"></a>禁止某个IP地址</h3><p><strong>禁止192.168.12.13访问</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -s 192.168.12.13 -j DROP</span><br></pre></td></tr></table></figure></p>
+<h3 id="关闭所有的-INPUT-FORWARD-OUTPUT"><a href="#关闭所有的-INPUT-FORWARD-OUTPUT" class="headerlink" title="关闭所有的 INPUT FORWARD OUTPUT"></a>关闭所有的 INPUT FORWARD OUTPUT</h3><p>关闭所有的INPUT FORWARD、 OUTPUT的所有端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -P INPUT DROP</span><br><span class="line">iptables -P FORWARD DROP</span><br><span class="line">iptables -P OUTPUT DROP</span><br></pre></td></tr></table></figure></p>
+<h2 id="手工配置iptable"><a href="#手工配置iptable" class="headerlink" title="手工配置iptable"></a>手工配置iptable</h2><h3 id="iptable-配置文件"><a href="#iptable-配置文件" class="headerlink" title="iptable 配置文件"></a>iptable 配置文件</h3><p>iptable配置文件默认地址为：<code>/etc/sysconfig/iptables</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure></p>
+<p>执行如上命令显示如下iptables配置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Firewall configuration written by system-config-firewall</span><br><span class="line"># Manual customization of this file is not recommended.</span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [0:0]</span><br><span class="line">:FORWARD ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT</span><br><span class="line">-A INPUT -p icmp -j ACCEPT</span><br><span class="line">-A INPUT -i lo -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 6379 -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 7474 -j ACCEPT</span><br><span class="line">-A INPUT -j REJECT --reject-with icmp-host-prohibited</span><br><span class="line">-A FORWARD -j REJECT --reject-with icmp-host-prohibited</span><br><span class="line">COMMIT</span><br></pre></td></tr></table></figure></p>
+<h3 id="开放特定端口"><a href="#开放特定端口" class="headerlink" title="开放特定端口"></a>开放特定端口</h3><p>如下开放1517端口，将其复制到iptable 配置文件中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 1517 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>然后执行如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">serivce iptables save       保持防火墙设置</span><br><span class="line">service iptables restart     重启防火墙</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/10/16/Maven 服务器插件Jetty/" itemprop="url">
                   Maven 服务器插件Jetty
                 </a>
@@ -2428,7 +2646,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2436,7 +2654,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

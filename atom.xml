@@ -2010,6 +2010,133 @@
   </entry>
   
   <entry>
+    <title>Linux iptable 防火墙</title>
+    <link href="http://cmp-cc.github.io/2013/11/25/Linux%20iptable%20%E9%98%B2%E7%81%AB%E5%A2%99/"/>
+    <id>http://cmp-cc.github.io/2013/11/25/Linux iptable 防火墙/</id>
+    <published>2013-11-25T15:23:00.000Z</published>
+    <updated>2016-04-21T10:16:38.991Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;Linux 环境下，默认使用的防火墙都是用iptable，同样也是服务器名称&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;iptable-服务&quot;&gt;&lt;a href=&quot;#iptable-服务&quot; class=&quot;headerlink&quot; title=&quot;iptable 服务&quot;&gt;&lt;/a&gt;iptable 服务&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;iptable 基本服务命令&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;service  iptables  start           开启防火墙&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service  iptables  stop           关闭防火墙&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service  iptables  restart        重启防火墙&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service  iptables save            保持iptable 配置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service  iptables  status        查看防火墙状态&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;iptable-基本语法&quot;&gt;&lt;a href=&quot;#iptable-基本语法&quot; class=&quot;headerlink&quot; title=&quot;iptable 基本语法&quot;&gt;&lt;/a&gt;iptable 基本语法&lt;/h2&gt;&lt;h3 id=&quot;防火墙处理数据4中方式&quot;&gt;&lt;a href=&quot;#防火墙处理数据4中方式&quot; class=&quot;headerlink&quot; title=&quot;防火墙处理数据4中方式&quot;&gt;&lt;/a&gt;防火墙处理数据4中方式&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;ACCEPT&lt;br&gt;允许数据包通过&lt;/li&gt;
+&lt;li&gt;DROP&lt;br&gt;直接丢弃数据包，不给予响应&lt;/li&gt;
+&lt;li&gt;REJECT&lt;br&gt;拒绝数据包通过，给予响应&lt;/li&gt;
+&lt;li&gt;LOG&lt;br&gt;&lt;code&gt;/var/log/messages&lt;/code&gt;文件记录日志信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;iptable-参数&quot;&gt;&lt;a href=&quot;#iptable-参数&quot; class=&quot;headerlink&quot; title=&quot;iptable 参数&quot;&gt;&lt;/a&gt;iptable 参数&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数缩写&lt;/th&gt;
+&lt;th&gt;参数全称&lt;/th&gt;
+&lt;th&gt;参数解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;-A&lt;/td&gt;
+&lt;td&gt;–append&lt;/td&gt;
+&lt;td&gt;在指定链的末尾添加一条新的规则&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-D&lt;/td&gt;
+&lt;td&gt;–delete&lt;/td&gt;
+&lt;td&gt;删除指定链中的某一条规则，可以按规则序号和内容删除&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-I&lt;/td&gt;
+&lt;td&gt;–insert&lt;/td&gt;
+&lt;td&gt;在指定链中插入一条新的规则，默认在第一行添加&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-R&lt;/td&gt;
+&lt;td&gt;–replace&lt;/td&gt;
+&lt;td&gt;修改、替换指定链中的某一条规则，可以按规则序号和内容替换&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-L&lt;/td&gt;
+&lt;td&gt;–list&lt;/td&gt;
+&lt;td&gt;列出指定链中所有的规则进行查看&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-E&lt;/td&gt;
+&lt;td&gt;–rename-chain&lt;/td&gt;
+&lt;td&gt;重命名用户定义的链，不改变链本身&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-F&lt;/td&gt;
+&lt;td&gt;–flush&lt;/td&gt;
+&lt;td&gt;清空&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-N&lt;/td&gt;
+&lt;td&gt;–new-chain&lt;/td&gt;
+&lt;td&gt;新建一条用户自己定义的规则链&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-X&lt;/td&gt;
+&lt;td&gt;–delete-chain&lt;/td&gt;
+&lt;td&gt;删除指定表中用户自定义的规则链&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-P&lt;/td&gt;
+&lt;td&gt;–policy&lt;/td&gt;
+&lt;td&gt;设置指定链的默认策略&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-Z&lt;/td&gt;
+&lt;td&gt;–zero&lt;/td&gt;
+&lt;td&gt;将所有表的所有链的字节和数据包计数器清零&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-n&lt;/td&gt;
+&lt;td&gt;–numeric&lt;/td&gt;
+&lt;td&gt;使用数字形式显示输出结果&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-v&lt;/td&gt;
+&lt;td&gt;–verbose&lt;/td&gt;
+&lt;td&gt;查看规则表详细信息的信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-V&lt;/td&gt;
+&lt;td&gt;–version&lt;/td&gt;
+&lt;td&gt;查看版本&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-h&lt;/td&gt;
+&lt;td&gt;help&lt;/td&gt;
+&lt;td&gt;获取帮助&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;常用命令&quot;&gt;&lt;a href=&quot;#常用命令&quot; class=&quot;headerlink&quot; title=&quot;常用命令&quot;&gt;&lt;/a&gt;常用命令&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -L -n    // 查看防火墙配置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -nL --line-number  // 查看iptables规则及编号&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;开放一个端口&quot;&gt;&lt;a href=&quot;#开放一个端口&quot; class=&quot;headerlink&quot; title=&quot;开放一个端口&quot;&gt;&lt;/a&gt;开放一个端口&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;开启8000端口&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -I INPUT -p tcp --dport 8000 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;删除一个规则&quot;&gt;&lt;a href=&quot;#删除一个规则&quot; class=&quot;headerlink&quot; title=&quot;删除一个规则&quot;&gt;&lt;/a&gt;删除一个规则&lt;/h3&gt;&lt;p&gt;删除一个开放的端口规则&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -L -n --line-number     // 查看规则编号&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -D INPUT 2  // 删除指定规则编号，如 2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;只开放某个端口&quot;&gt;&lt;a href=&quot;#只开放某个端口&quot; class=&quot;headerlink&quot; title=&quot;只开放某个端口&quot;&gt;&lt;/a&gt;只开放某个端口&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;只开放80端口&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -A INPUT -p tcp –dport 80 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -A OUTPUT -p tcp –sport 80 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;禁止某个IP地址&quot;&gt;&lt;a href=&quot;#禁止某个IP地址&quot; class=&quot;headerlink&quot; title=&quot;禁止某个IP地址&quot;&gt;&lt;/a&gt;禁止某个IP地址&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;禁止192.168.12.13访问&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -A INPUT -p tcp -s 192.168.12.13 -j DROP&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;关闭所有的-INPUT-FORWARD-OUTPUT&quot;&gt;&lt;a href=&quot;#关闭所有的-INPUT-FORWARD-OUTPUT&quot; class=&quot;headerlink&quot; title=&quot;关闭所有的 INPUT FORWARD OUTPUT&quot;&gt;&lt;/a&gt;关闭所有的 INPUT FORWARD OUTPUT&lt;/h3&gt;&lt;p&gt;关闭所有的INPUT FORWARD、 OUTPUT的所有端口&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -P INPUT DROP&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -P FORWARD DROP&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -P OUTPUT DROP&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;手工配置iptable&quot;&gt;&lt;a href=&quot;#手工配置iptable&quot; class=&quot;headerlink&quot; title=&quot;手工配置iptable&quot;&gt;&lt;/a&gt;手工配置iptable&lt;/h2&gt;&lt;h3 id=&quot;iptable-配置文件&quot;&gt;&lt;a href=&quot;#iptable-配置文件&quot; class=&quot;headerlink&quot; title=&quot;iptable 配置文件&quot;&gt;&lt;/a&gt;iptable 配置文件&lt;/h3&gt;&lt;p&gt;iptable配置文件默认地址为：&lt;code&gt;/etc/sysconfig/iptables&lt;/code&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/sysconfig/iptables&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;执行如上命令显示如下iptables配置信息：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Firewall configuration written by system-config-firewall&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Manual customization of this file is not recommended.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*filter&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;:INPUT ACCEPT [0:0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;:FORWARD ACCEPT [0:0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;:OUTPUT ACCEPT [0:0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -p icmp -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -i lo -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -m state --state NEW -m tcp -p tcp --dport 6379 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -m state --state NEW -m tcp -p tcp --dport 7474 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -j REJECT --reject-with icmp-host-prohibited&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A FORWARD -j REJECT --reject-with icmp-host-prohibited&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;COMMIT&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;开放特定端口&quot;&gt;&lt;a href=&quot;#开放特定端口&quot; class=&quot;headerlink&quot; title=&quot;开放特定端口&quot;&gt;&lt;/a&gt;开放特定端口&lt;/h3&gt;&lt;p&gt;如下开放1517端口，将其复制到iptable 配置文件中。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 1517 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;然后执行如下&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;serivce iptables save       保持防火墙设置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service iptables restart     重启防火墙&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;Linux 环境下，默认使用的防火墙都是用iptable，同样也是服务器名称&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;iptable-服务&quot;&gt;&lt;a href=&quot;#iptable-服务&quot; class=&quot;headerlink&quot; title=&quot;iptable 服
+    
+    </summary>
+    
+      <category term="系统与效率" scheme="http://cmp-cc.github.io/categories/%E7%B3%BB%E7%BB%9F%E4%B8%8E%E6%95%88%E7%8E%87/"/>
+    
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Maven 服务器插件Jetty</title>
     <link href="http://cmp-cc.github.io/2013/10/16/Maven%20%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8F%92%E4%BB%B6Jetty/"/>
     <id>http://cmp-cc.github.io/2013/10/16/Maven 服务器插件Jetty/</id>
