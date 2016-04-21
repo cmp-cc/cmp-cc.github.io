@@ -67,7 +67,7 @@ iptable 服务iptable 基本服务命令12345service  iptables  start           
 <meta property="og:site_name" content="I am cmp-cc">
 <meta property="og:description" content="Linux 环境下，默认使用的防火墙都是用iptable，同样也是服务器名称
 iptable 服务iptable 基本服务命令12345service  iptables  start           开启防火墙service  iptables  stop           关闭防火墙service  iptables  restart        重启防火墙service  iptab">
-<meta property="og:updated_time" content="2016-04-21T10:19:20.331Z">
+<meta property="og:updated_time" content="2016-04-21T12:43:04.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux iptable 防火墙">
 <meta name="twitter:description" content="Linux 环境下，默认使用的防火墙都是用iptable，同样也是服务器名称
@@ -383,7 +383,7 @@ iptable 服务iptable 基本服务命令12345service  iptables  start           
 </tr>
 <tr>
 <td>-h</td>
-<td>help</td>
+<td>–help</td>
 <td>获取帮助</td>
 </tr>
 </tbody>
@@ -397,7 +397,7 @@ iptable 服务iptable 基本服务命令12345service  iptables  start           
 <h2 id="手工配置iptable"><a href="#手工配置iptable" class="headerlink" title="手工配置iptable"></a>手工配置iptable</h2><h3 id="iptable-配置文件"><a href="#iptable-配置文件" class="headerlink" title="iptable 配置文件"></a>iptable 配置文件</h3><p>iptable配置文件默认地址为：<code>/etc/sysconfig/iptables</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure></p>
 <p>执行如上命令显示如下iptables配置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Firewall configuration written by system-config-firewall</span><br><span class="line"># Manual customization of this file is not recommended.</span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [0:0]</span><br><span class="line">:FORWARD ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT</span><br><span class="line">-A INPUT -p icmp -j ACCEPT</span><br><span class="line">-A INPUT -i lo -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 6379 -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 7474 -j ACCEPT</span><br><span class="line">-A INPUT -j REJECT --reject-with icmp-host-prohibited</span><br><span class="line">-A FORWARD -j REJECT --reject-with icmp-host-prohibited</span><br><span class="line">COMMIT</span><br></pre></td></tr></table></figure></p>
 <h3 id="开放特定端口"><a href="#开放特定端口" class="headerlink" title="开放特定端口"></a>开放特定端口</h3><p>如下开放1517端口，将其复制到iptable 配置文件中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 1517 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
-<p>然后执行如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">serivce iptables save       保持防火墙设置</span><br><span class="line">service iptables restart     重启防火墙</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
+<p>然后执行如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serivce iptables save       保持防火墙设置</span><br><span class="line">service iptables restart     重启防火墙</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
