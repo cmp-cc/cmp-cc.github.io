@@ -2428,8 +2428,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/04/02/Mybatis #{} 和 ${} 区别/" itemprop="url">
-                  Mybatis
+                <a class="post-title-link" href="/2014/04/02/Mybatis井号和$的区别/" itemprop="url">
+                  Mybatis ${}和#{} 区别
                 </a>
               
             
@@ -2472,8 +2472,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/04/02/Mybatis #{} 和 ${} 区别/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/Mybatis #{} 和 ${} 区别/" itemprop="commentsCount"></span>
+                <a href="/2014/04/02/Mybatis井号和$的区别/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/Mybatis井号和$的区别/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -2501,13 +2501,13 @@
 <ul>
 <li>参照理解：<ul>
 <li><code>#{}</code>  相当于 PrepareStatement 类<br><strong>以占位符的形式进行数值传递，有效的防止SQL注入</strong></li>
-<li><code>${}</code> 相当于 Statement 类<br><strong>值传递，不能能防止SQL注入</strong><blockquote>
+<li><code>${}</code> 相当于 Statement 类<br><strong>值传递，不能能防止SQL注入</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
 <p>需要理解JDBC中的PrepareStatement 和 Statement 的关系。</p>
 </blockquote>
-</li>
-</ul>
-</li>
-</ul>
 <h2 id="占位符替换，能够防止SQL-注入问题。"><a href="#占位符替换，能够防止SQL-注入问题。" class="headerlink" title="#{} 占位符替换，能够防止SQL 注入问题。"></a><code>#{}</code> 占位符替换，能够防止SQL 注入问题。</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES(#&#123;Id&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
 <p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES ?,?,?,?</span><br></pre></td></tr></table></figure></p>
 <p><strong>?会对应顺序的数值进行赋值传递，并检查数值的合法性.(这里有个预编译阶段，用于检验SQL)</strong></p>
@@ -2598,7 +2598,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

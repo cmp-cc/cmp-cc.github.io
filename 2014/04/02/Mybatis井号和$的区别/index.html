@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="系统与效率," />
+  <meta name="keywords" content="Mybatis," />
 
 
 
@@ -59,19 +59,49 @@
 
 
 
-<meta name="description" content="经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率
-Window 环境下自动化配置各种环境变量1、修改注册表的方法，重启永久有效reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%p">
+<meta name="description" content="这两个标示符均会出现在MyBatis XML SQL 映射文件中。
+
+参照理解：
+#{}  相当于 PrepareStatement 类以占位符的形式进行数值传递，有效的防止SQL注入
+${} 相当于 Statement 类值传递，不能能防止SQL注入
+
+
+
+
+需要理解JDBC中的PrepareStatement 和 Statement 的关系。
+
+#{} 占位符替换，能够防止SQL 注入问题。如">
 <meta property="og:type" content="article">
-<meta property="og:title" content="配置环境变量脚本">
-<meta property="og:url" content="http://cmp-cc.github.io/2015/04/28/配置环境变量脚本/index.html">
+<meta property="og:title" content="Mybatis ${}和#{} 区别">
+<meta property="og:url" content="http://cmp-cc.github.io/2014/04/02/Mybatis井号和$的区别/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率
-Window 环境下自动化配置各种环境变量1、修改注册表的方法，重启永久有效reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%p">
-<meta property="og:updated_time" content="2016-04-19T07:09:17.839Z">
+<meta property="og:description" content="这两个标示符均会出现在MyBatis XML SQL 映射文件中。
+
+参照理解：
+#{}  相当于 PrepareStatement 类以占位符的形式进行数值传递，有效的防止SQL注入
+${} 相当于 Statement 类值传递，不能能防止SQL注入
+
+
+
+
+需要理解JDBC中的PrepareStatement 和 Statement 的关系。
+
+#{} 占位符替换，能够防止SQL 注入问题。如">
+<meta property="og:updated_time" content="2016-04-22T09:33:31.367Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="配置环境变量脚本">
-<meta name="twitter:description" content="经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率
-Window 环境下自动化配置各种环境变量1、修改注册表的方法，重启永久有效reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%p">
+<meta name="twitter:title" content="Mybatis ${}和#{} 区别">
+<meta name="twitter:description" content="这两个标示符均会出现在MyBatis XML SQL 映射文件中。
+
+参照理解：
+#{}  相当于 PrepareStatement 类以占位符的形式进行数值传递，有效的防止SQL注入
+${} 相当于 Statement 类值传递，不能能防止SQL注入
+
+
+
+
+需要理解JDBC中的PrepareStatement 和 Statement 的关系。
+
+#{} 占位符替换，能够防止SQL 注入问题。如">
 
 
 
@@ -89,7 +119,7 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
   };
 </script>
 
-  <title> 配置环境变量脚本 | I am cmp-cc </title>
+  <title> Mybatis ${}和#{} 区别 | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -229,7 +259,7 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
             
             
               
-                配置环境变量脚本
+                Mybatis ${}和#{} 区别
               
             
           </h1>
@@ -241,8 +271,8 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-28T21:54:00+08:00" content="2015-04-28">
-              2015-04-28
+            <time itemprop="dateCreated" datetime="2014-04-02T12:53:00+08:00" content="2014-04-02">
+              2014-04-02
             </time>
           </span>
 
@@ -255,8 +285,8 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/效率/" itemprop="url" rel="index">
-                    <span itemprop="name">效率</span>
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
                   </a>
                 </span>
 
@@ -271,8 +301,8 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/04/28/配置环境变量脚本/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/28/配置环境变量脚本/" itemprop="commentsCount"></span>
+                <a href="/2014/04/02/Mybatis井号和$的区别/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/Mybatis井号和$的区别/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,16 +324,30 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
       
 
       
-        <p><strong>经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率</strong></p>
-<h2 id="Window-环境下自动化配置各种环境变量"><a href="#Window-环境下自动化配置各种环境变量" class="headerlink" title="Window 环境下自动化配置各种环境变量"></a>Window 环境下自动化配置各种环境变量</h2><h3 id="1、修改注册表的方法，重启永久有效"><a href="#1、修改注册表的方法，重启永久有效" class="headerlink" title="1、修改注册表的方法，重启永久有效"></a>1、修改注册表的方法，重启永久有效</h3><p>reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%path%;C:\”  /f</p>
-<hr>
-<h3 id="2、setx-命令-（永久）"><a href="#2、setx-命令-（永久）" class="headerlink" title="2、setx 命令 （永久）"></a>2、setx 命令 （永久）</h3><ul>
-<li>setx 默认写入的是用户变量，想写入环境变量，加 /M<br>&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setx JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br></pre></td></tr></table></figure>
+        <p>这两个标示符均会出现在MyBatis XML SQL 映射文件中。</p>
+<ul>
+<li>参照理解：<ul>
+<li><code>#{}</code>  相当于 PrepareStatement 类<br><strong>以占位符的形式进行数值传递，有效的防止SQL注入</strong></li>
+<li><code>${}</code> 相当于 Statement 类<br><strong>值传递，不能能防止SQL注入</strong></li>
+</ul>
 </li>
 </ul>
-<hr>
-<h3 id="3、set-命令（非永久，只针对于当前命令行）"><a href="#3、set-命令（非永久，只针对于当前命令行）" class="headerlink" title="3、set 命令（非永久，只针对于当前命令行）"></a>3、set 命令（非永久，只针对于当前命令行）</h3><p>同上 (setx命令)</p>
-<h2 id="自动环境配置脚本"><a href="#自动环境配置脚本" class="headerlink" title="自动环境配置脚本"></a>自动环境配置脚本</h2><p><strong>参考如下 EnvironmentConfiguration.bat 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF </span><br><span class="line">IF EXIST %systemroot%\system32\setx.exe ( </span><br><span class="line"></span><br><span class="line">@ECHO 开始配置JAVA环境</span><br><span class="line">@SETX JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br><span class="line">@SETX CLASSPATH &quot;.;%%JAVA_HOME%%\lib&quot;</span><br><span class="line">@SETX PATH &quot;%%PATH%%;%%JAVA_HOME%%\bin&quot;</span><br><span class="line">@ECHO JDK配置完成</span><br><span class="line"></span><br><span class="line">) else (</span><br><span class="line"></span><br><span class="line">@ECHO ON</span><br><span class="line">@ECHO 未能找到%systemroot%\system32\setx.exe，请下载setx.exe程序 </span><br><span class="line"></span><br><span class="line">)</span><br><span class="line">@PAUSE</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>需要理解JDBC中的PrepareStatement 和 Statement 的关系。</p>
+</blockquote>
+<h2 id="占位符替换，能够防止SQL-注入问题。"><a href="#占位符替换，能够防止SQL-注入问题。" class="headerlink" title="#{} 占位符替换，能够防止SQL 注入问题。"></a><code>#{}</code> 占位符替换，能够防止SQL 注入问题。</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES(#&#123;Id&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
+<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES ?,?,?,?</span><br></pre></td></tr></table></figure></p>
+<p><strong>?会对应顺序的数值进行赋值传递，并检查数值的合法性.(这里有个预编译阶段，用于检验SQL)</strong></p>
+<h2 id="值传递，不能防止SQL注入"><a href="#值传递，不能防止SQL注入" class="headerlink" title="${} 值传递，不能防止SQL注入"></a><code>${}</code> 值传递，不能防止SQL注入</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES($&#123;Id&#125;,$&#123;name&#125;,$&#123;email&#125;,$&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
+<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES 4,飞车,baiwoyidao@163.com,游戏</span><br></pre></td></tr></table></figure></p>
+<p><strong>直接的SQL生成，没有预编译阶段。</strong></p>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><ul>
+<li>使用<code>#{}</code>替代<code>${}</code><ul>
+<li><code>#{}</code>更加安全</li>
+<li><code>#{}</code> 性能好一些（部分数据库会对预编译语句进行性能优化）</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -318,7 +362,7 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
       
         <div class="post-tags">
           
-            <a href="/tags/系统与效率/" rel="tag">#系统与效率</a>
+            <a href="/tags/Mybatis/" rel="tag">#Mybatis</a>
           
         </div>
       
@@ -327,16 +371,16 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/12/28/Hadoop 日常实战 文件压缩/" rel="next" title="Hadoop 日常实战 文件压缩">
-                <i class="fa fa-chevron-left"></i> Hadoop 日常实战 文件压缩
+              <a href="/2014/04/02/MyBatis Boostrap/" rel="next" title="MyBatis Boostrap">
+                <i class="fa fa-chevron-left"></i> MyBatis Boostrap
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/14/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2014/04/13/Maven3 setting.xml 设置/" rel="prev" title="Maven3 setting.xml 设置">
+                Maven3 setting.xml 设置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -363,8 +407,8 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/04/28/配置环境变量脚本/"
-           data-title="配置环境变量脚本" data-url="http://cmp-cc.github.io/2015/04/28/配置环境变量脚本/">
+      <div class="ds-thread" data-thread-key="2014/04/02/Mybatis井号和$的区别/"
+           data-title="Mybatis ${}和#{} 区别" data-url="http://cmp-cc.github.io/2014/04/02/Mybatis井号和$的区别/">
       </div>
     
   </div>
@@ -477,7 +521,7 @@ Window 环境下自动化配置各种环境变量1、修改注册表的方法，
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Window-环境下自动化配置各种环境变量"><span class="nav-number">1.</span> <span class="nav-text">Window 环境下自动化配置各种环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、修改注册表的方法，重启永久有效"><span class="nav-number">1.1.</span> <span class="nav-text">1、修改注册表的方法，重启永久有效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、setx-命令-（永久）"><span class="nav-number">1.2.</span> <span class="nav-text">2、setx 命令 （永久）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、set-命令（非永久，只针对于当前命令行）"><span class="nav-number">1.3.</span> <span class="nav-text">3、set 命令（非永久，只针对于当前命令行）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动环境配置脚本"><span class="nav-number">2.</span> <span class="nav-text">自动环境配置脚本</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#占位符替换，能够防止SQL-注入问题。"><span class="nav-number">1.</span> <span class="nav-text">#{} 占位符替换，能够防止SQL 注入问题。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值传递，不能防止SQL注入"><span class="nav-number">2.</span> <span class="nav-text">${} 值传递，不能防止SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建议"><span class="nav-number">3.</span> <span class="nav-text">建议</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
