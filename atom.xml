@@ -1402,6 +1402,55 @@
   </entry>
   
   <entry>
+    <title>Mybatis</title>
+    <link href="http://cmp-cc.github.io/2014/04/02/Mybatis%20#%7B%7D%20%E5%92%8C%20$%7B%7D%20%E5%8C%BA%E5%88%AB/"/>
+    <id>http://cmp-cc.github.io/2014/04/02/Mybatis #{} 和 ${} 区别/</id>
+    <published>2014-04-02T04:53:00.000Z</published>
+    <updated>2016-04-22T08:29:41.629Z</updated>
+    
+    <content type="html">&lt;p&gt;这两个标示符均会出现在MyBatis XML SQL 映射文件中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参照理解：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;#{}&lt;/code&gt;  相当于 PrepareStatement 类&lt;br&gt;&lt;strong&gt;以占位符的形式进行数值传递，有效的防止SQL注入&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;${}&lt;/code&gt; 相当于 Statement 类&lt;br&gt;&lt;strong&gt;值传递，不能能防止SQL注入&lt;/strong&gt;&lt;blockquote&gt;
+&lt;p&gt;需要理解JDBC中的PrepareStatement 和 Statement 的关系。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;占位符替换，能够防止SQL-注入问题。&quot;&gt;&lt;a href=&quot;#占位符替换，能够防止SQL-注入问题。&quot; class=&quot;headerlink&quot; title=&quot;#{} 占位符替换，能够防止SQL 注入问题。&quot;&gt;&lt;/a&gt;&lt;code&gt;#{}&lt;/code&gt; 占位符替换，能够防止SQL 注入问题。&lt;/h2&gt;&lt;p&gt;如下Mapper.xml SQL映射语句。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;insert id=&amp;quot;insertSample&amp;quot; parameterType=&amp;quot;Sample&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES(#&amp;#123;Id&amp;#125;,#&amp;#123;name&amp;#125;,#&amp;#123;email&amp;#125;,#&amp;#123;type&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/insert&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;它将会翻译为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES ?,?,?,?&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;?会对应顺序的数值进行赋值传递，并检查数值的合法性.(这里有个预编译阶段，用于检验SQL)&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;值传递，不能防止SQL注入&quot;&gt;&lt;a href=&quot;#值传递，不能防止SQL注入&quot; class=&quot;headerlink&quot; title=&quot;${} 值传递，不能防止SQL注入&quot;&gt;&lt;/a&gt;&lt;code&gt;${}&lt;/code&gt; 值传递，不能防止SQL注入&lt;/h2&gt;&lt;p&gt;如下Mapper.xml SQL映射语句。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;insert id=&amp;quot;insertSample&amp;quot; parameterType=&amp;quot;Sample&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES($&amp;#123;Id&amp;#125;,$&amp;#123;name&amp;#125;,$&amp;#123;email&amp;#125;,$&amp;#123;type&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/insert&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;它将会翻译为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES 4,飞车,baiwoyidao@163.com,游戏&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;直接的SQL生成，没有预编译阶段。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;建议&quot;&gt;&lt;a href=&quot;#建议&quot; class=&quot;headerlink&quot; title=&quot;建议&quot;&gt;&lt;/a&gt;建议&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;使用&lt;code&gt;#{}&lt;/code&gt;替代&lt;code&gt;${}&lt;/code&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;#{}&lt;/code&gt;更加安全&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;#{}&lt;/code&gt; 性能好一些（部分数据库会对预编译语句进行性能优化）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这两个标示符均会出现在MyBatis XML SQL 映射文件中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参照理解：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;#{}&lt;/code&gt;  相当于 PrepareStatement 类&lt;br&gt;&lt;strong&gt;以占位符的形式进行数值传递，有效的防止SQL注入
+    
+    </summary>
+    
+      <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
+    
+    
+      <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MyBatis Boostrap</title>
     <link href="http://cmp-cc.github.io/2014/04/02/MyBatis%20Boostrap/"/>
     <id>http://cmp-cc.github.io/2014/04/02/MyBatis Boostrap/</id>
