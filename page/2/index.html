@@ -228,6 +228,144 @@
             
               
                 
+                <a class="post-title-link" href="/2014/04/02/Mybatis井号和$的区别/" itemprop="url">
+                  Mybatis ${}和#{} 区别
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-04-02T12:53:00+08:00" content="2014-04-02">
+              2014-04-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/04/02/Mybatis井号和$的区别/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/Mybatis井号和$的区别/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这两个标示符均会出现在MyBatis XML SQL 映射文件中。</p>
+<ul>
+<li>参照理解：<ul>
+<li><code>#{}</code>  相当于 PrepareStatement 类<br><strong>以占位符的形式进行数值传递，有效的防止SQL注入</strong></li>
+<li><code>${}</code> 相当于 Statement 类<br><strong>值传递，不能能防止SQL注入</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>需要理解JDBC中的PrepareStatement 和 Statement 的关系。</p>
+</blockquote>
+<h2 id="占位符替换，能够防止SQL-注入问题。"><a href="#占位符替换，能够防止SQL-注入问题。" class="headerlink" title="#{} 占位符替换，能够防止SQL 注入问题。"></a><code>#{}</code> 占位符替换，能够防止SQL 注入问题。</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES(#&#123;Id&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
+<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES ?,?,?,?</span><br></pre></td></tr></table></figure></p>
+<p><strong>?会对应顺序的数值进行赋值传递，并检查数值的合法性.(这里有个预编译阶段，用于检验SQL)</strong></p>
+<h2 id="值传递，不能防止SQL注入"><a href="#值传递，不能防止SQL注入" class="headerlink" title="${} 值传递，不能防止SQL注入"></a><code>${}</code> 值传递，不能防止SQL注入</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES($&#123;Id&#125;,$&#123;name&#125;,$&#123;email&#125;,$&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
+<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES 4,飞车,baiwoyidao@163.com,游戏</span><br></pre></td></tr></table></figure></p>
+<p><strong>直接的SQL生成，没有预编译阶段。</strong></p>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><ul>
+<li>使用<code>#{}</code>替代<code>${}</code><ul>
+<li><code>#{}</code>更加安全</li>
+<li><code>#{}</code> 性能好一些（部分数据库会对预编译语句进行性能优化）</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/04/02/MyBatis Boostrap/" itemprop="url">
                   MyBatis Boostrap
                 </a>
@@ -2578,234 +2716,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/02/16/Ajax/" itemprop="url">
-                  Ajax
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-16T13:43:00+08:00" content="2013-02-16">
-              2013-02-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/02/16/Ajax/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/16/Ajax/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="略略略"><a href="#略略略" class="headerlink" title="略略略"></a>略略略</h2><p>随便记录一下。 日后再补充。</p>
-<h2 id="XMLHttpRequest-对象"><a href="#XMLHttpRequest-对象" class="headerlink" title="XMLHttpRequest 对象"></a>XMLHttpRequest 对象</h2><h3 id="XMLHttpRequest-对象属性"><a href="#XMLHttpRequest-对象属性" class="headerlink" title="XMLHttpRequest 对象属性"></a>XMLHttpRequest 对象属性</h3><table>
-<thead>
-<tr>
-<th>属性名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>onreadystatechange</td>
-<td>指定当readState状态改变时使用的操作，一般用于指定具体的回调函数</td>
-</tr>
-<tr>
-<td>readyState</td>
-<td>返回当前请求的状态，只读</td>
-</tr>
-<tr>
-<td>responseBody</td>
-<td>将回应信息正文以unsigned byte数组的形式返回，只读</td>
-</tr>
-<tr>
-<td>responseStream</td>
-<td>以Ado Stream对象的形式返回响应信息，只读</td>
-</tr>
-<tr>
-<td>responseText</td>
-<td>接收以文本返回的数据，只读</td>
-</tr>
-<tr>
-<td>responseXML</td>
-<td>接收以XML文档形式回应的数据，只读</td>
-</tr>
-<tr>
-<td>status</td>
-<td>返回当前请求的http状态码，只读</td>
-</tr>
-<tr>
-<td>statusText</td>
-<td>返回当前请求的响应行装填，只读</td>
-</tr>
-</tbody>
-</table>
-<p><strong>statusText 的五种取值状体</strong></p>
-<table>
-<thead>
-<tr>
-<th>状体码</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>请求没有发出（在调用open()函数之前）</td>
-</tr>
-<tr>
-<td>1</td>
-<td>请求已经建立但还没有发出（在调用send()函数之前）</td>
-</tr>
-<tr>
-<td>2</td>
-<td>请求已经发出正在处理之中(这里通常可以从响应得到内容头部)</td>
-</tr>
-<tr>
-<td>3</td>
-<td>请求已经处理，正在接受服务器的信息，响应中通常有部分数据可用，但是服务器还有完成响应    </td>
-</tr>
-<tr>
-<td>4</td>
-<td>请求已完成，可以访问服务器响应并使用它</td>
-</tr>
-</tbody>
-</table>
-<h3 id="XMLHttpRequest-对象方法"><a href="#XMLHttpRequest-对象方法" class="headerlink" title="XMLHttpRequest 对象方法"></a>XMLHttpRequest 对象方法</h3><table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>abort()</td>
-<td>取消当前所发出的请求</td>
-</tr>
-<tr>
-<td>getAllRespnseHeaders()</td>
-<td>取得所有的HTTP头信息</td>
-</tr>
-<tr>
-<td>getResponseHeader()</td>
-<td>取得一个指定的HTTP头信息</td>
-</tr>
-<tr>
-<td>open()</td>
-<td>创建一个HTTP请求，并指定请求模式，如GET请求或POST请求</td>
-</tr>
-<tr>
-<td>send()</td>
-<td>将创建的请求发送到服务器，并接受回应信息</td>
-</tr>
-<tr>
-<td>setRequestHeader()</td>
-<td>设置一个指定的请求的HTTP头信息</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Ajax-实例"><a href="#Ajax-实例" class="headerlink" title="Ajax 实例"></a>Ajax 实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type = &quot;text/javascript&quot;&gt;</span><br><span class="line">var getAjax; // 欲初始化ajax函数</span><br><span class="line">function invidate() &#123;</span><br><span class="line">    if (window.XMLHttpRequest) &#123; // 判断浏览器类型， N 为IE</span><br><span class="line">		getAjax = new XMLHttpRequest();</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		getAjax = new ActiveXObject(&quot;Misrosoft.XMLHTTP&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function useGetAjax() &#123;</span><br><span class="line">	invidate(); // 初始化XMLHttpRequest对象</span><br><span class="line">	getAjax.open(&quot;POST&quot;, &quot;testAJax&quot;, true);</span><br><span class="line">    // 以POST方式发开请求连接</span><br><span class="line">	getAjax.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">	getAjax.onreadystatechange = function() &#123; // 回调函数</span><br><span class="line">		if (getAjax.readyState == 4) &#123;</span><br><span class="line">		    if (getAjax.status == 200) &#123;</span><br><span class="line">		        var text = getAjax.responseText; // 接收响应信息</span><br><span class="line">		        alert(text);</span><br><span class="line">		        document.getElementById(&quot;ajax&quot;).innerHTML = text;</span><br><span class="line"></span><br><span class="line">		    &#125;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    getAjax.send(&quot;username=1&quot;); // 发送请求体</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2846,7 +2761,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
