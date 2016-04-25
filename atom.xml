@@ -1406,7 +1406,7 @@
     <link href="http://cmp-cc.github.io/2014/04/04/MyBatis%20%E4%B8%8E%20%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90/"/>
     <id>http://cmp-cc.github.io/2014/04/04/MyBatis 与 第三方框架集成/</id>
     <published>2014-04-04T14:09:00.000Z</published>
-    <updated>2016-04-25T13:02:56.528Z</updated>
+    <updated>2016-04-25T13:05:04.212Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;MyBatis 集成第三方框架应用集成&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;与Spring-集成&quot;&gt;&lt;a href=&quot;#与Spring-集成&quot; class=&quot;headerlink&quot; title=&quot;与Spring 集成&quot;&gt;&lt;/a&gt;与Spring 集成&lt;/h2&gt;&lt;h3 id=&quot;Spring-介绍&quot;&gt;&lt;a href=&quot;#Spring-介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring 介绍&quot;&gt;&lt;/a&gt;Spring 介绍&lt;/h3&gt;&lt;p&gt;   Spring 框 架 是 一 个 基 于 依 赖 注 入 （ Dependency Injection ） 和 面 向 切 面 编 程 (Aspect Oriented Programming,AOP)的 Java 框架，鼓励使用基于 POJO 的编程模型。另外，Spring 提供了声明式和编程式的事务管理能力，可以很大程度上简化应用程序的数据访问层（data access layer）的实现。&lt;/p&gt;
@@ -1464,7 +1464,7 @@
 &lt;ul&gt;
 &lt;li&gt;MyBatis-Spring-1.2.0 介绍了两种新的扫描映射器 Mapper 接口的方法：&lt;ul&gt;
 &lt;li&gt;使用&lt;mybatis:scan&gt;元素&lt;/mybatis:scan&gt;&lt;/li&gt;
-&lt;li&gt;使用@MapperScan 注解（需 Spring3.1+版本）&lt;h5 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;mybatis:scan&gt;&lt;/mybatis:scan&gt;&lt;/h5&gt;&lt;mybatis:scan&gt;元素将在特定的以逗号分隔的包名列表中搜索映射器 Mapper 接口。使用这个新的 MyBatis-Spring 名空间你需要添加以下的 schema 声明：&lt;/mybatis:scan&gt;&lt;/li&gt;
+&lt;li&gt;使用@MapperScan 注解（需 Spring3.1+版本）&lt;h4 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;mybatis:scan&gt;&lt;/mybatis:scan&gt;&lt;/h4&gt;&lt;mybatis:scan&gt;元素将在特定的以逗号分隔的包名列表中搜索映射器 Mapper 接口。使用这个新的 MyBatis-Spring 名空间你需要添加以下的 schema 声明：&lt;/mybatis:scan&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
