@@ -1402,11 +1402,11 @@
   </entry>
   
   <entry>
-    <title>MyBatis 使用XML配置SQL 映射器</title>
+    <title>MyBatis 与 第三方框架集成</title>
     <link href="http://cmp-cc.github.io/2014/04/04/MyBatis%20%E4%B8%8E%20%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90/"/>
     <id>http://cmp-cc.github.io/2014/04/04/MyBatis 与 第三方框架集成/</id>
     <published>2014-04-04T14:09:00.000Z</published>
-    <updated>2016-04-25T12:58:23.737Z</updated>
+    <updated>2016-04-25T13:02:56.528Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;MyBatis 集成第三方框架应用集成&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;与Spring-集成&quot;&gt;&lt;a href=&quot;#与Spring-集成&quot; class=&quot;headerlink&quot; title=&quot;与Spring 集成&quot;&gt;&lt;/a&gt;与Spring 集成&lt;/h2&gt;&lt;h3 id=&quot;Spring-介绍&quot;&gt;&lt;a href=&quot;#Spring-介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring 介绍&quot;&gt;&lt;/a&gt;Spring 介绍&lt;/h3&gt;&lt;p&gt;   Spring 框 架 是 一 个 基 于 依 赖 注 入 （ Dependency Injection ） 和 面 向 切 面 编 程 (Aspect Oriented Programming,AOP)的 Java 框架，鼓励使用基于 POJO 的编程模型。另外，Spring 提供了声明式和编程式的事务管理能力，可以很大程度上简化应用程序的数据访问层（data access layer）的实现。&lt;/p&gt;
