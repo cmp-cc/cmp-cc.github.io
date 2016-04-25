@@ -228,6 +228,446 @@
             
               
                 
+                <a class="post-title-link" href="/2014/04/03/MyBatis 使用XML配置SQL 映射器/" itemprop="url">
+                  MyBatis 使用XML配置SQL 映射器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-04-03T11:09:00+08:00" content="2014-04-03">
+              2014-04-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/04/03/MyBatis 使用XML配置SQL 映射器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/03/MyBatis 使用XML配置SQL 映射器/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>关系型数据库和 SQL 是经受时间考验和验证的数据存储机制。和其他的 ORM 框架如 Hibernate 不同，MyBatis鼓励开发者可以直接使用数据库，而不是将其对开发者隐藏，因为这样可以充分发挥数据库服务器所提供的 SQL 语句的巨大威力。与此同时，MyBaits 消除了书写大量冗余代码的痛苦，它使使用 SQL 更容易。</p>
+<p>  在代码里直接嵌套 SQL 语句是很差的编码实践，并且维护起来困难。MyBaits 使用了映射器配置文件或注解来配置 SQL语句。</p>
+<p>我们会看到具体怎样使用映射器配置文件来配置映射 SQL 语句。</p>
+<p>理解如下概念：</p>
+<ul>
+<li>映射器配置文件 和 映射器接口</li>
+<li>映射语句<ul>
+<li>配置 INSERT, UPDATE, DELETE, and SELECT 语句</li>
+</ul>
+</li>
+<li>结果映射 ResultMaps<ul>
+<li>简单 ResultMaps</li>
+<li>使用内嵌 select 语句子查询的一对一映射</li>
+<li>使用内嵌的结果集查询的一对一映射</li>
+<li>使用内嵌 select 语句子查询的一对多映射</li>
+<li>使用内嵌的结果集查询的一对一映射</li>
+</ul>
+</li>
+<li>动态 SQL 语句<ul>
+<li>If 条件</li>
+<li>choose (when, otherwise) 条件</li>
+<li>trim (where, set) 条件</li>
+<li>foreach 循环</li>
+</ul>
+</li>
+<li>MyBatis 菜谱</li>
+</ul>
+<h2 id="映射器配置文件和映射器接口"><a href="#映射器配置文件和映射器接口" class="headerlink" title="映射器配置文件和映射器接口"></a>映射器配置文件和映射器接口</h2><p>映射器配置文件中配置映射语句，然后使用SqlSession对象调用他们。如下:<br>StudentMapper.xml 配置文件内，是如何配置 id 为“findStudentById”的 SQL 语句的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;org.freecode.mappers.StudentMapper&quot;&gt;</span><br><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">select stud_id as studId, name, email, dob</span><br><span class="line">from Students where stud_id=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>我们可以通过下列代码调用 findStudentById 映射的 SQL 语句:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public Student findStudentById2(Integer studId)&#123;</span><br><span class="line">		SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();</span><br><span class="line">		try&#123;</span><br><span class="line">			return (Student)sqlSession.selectOne(&quot;org.freecode.mappers.StudentMapper.findStudentById&quot;,studId);</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			sqlSession.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>我们可以通过字符串（字符串形式为：映射器配置文件所在的包名 namespace + 在文件内定义的语句 id，如上，即包名 org.freecode.mappers.StudentMapper 和语句 id findStudentById 组成）调用映射的 SQL 语句，但是这种方式容易出错。你需要检查映射器配置文件中的定义，以保证你的输入参数类型和结果返回类型是有效的。</p>
+</blockquote>
+<p>MyBatis 通过使用映射器 Mapper 接口提供了更好的调用映射语句的方法。一旦我们通过映射器配置文件配置了映射语句，我们可以创建一个完全对应的一个映射器接口，接口名跟配置文件名相同，接口所在包名也跟配置文件所在包名完全一样(如StudentMapper.xml所在的包名是org.freecode.mappers ， 对 应 的 接 口 名 就 是org.freecode.mappers.StudentMapper.java ）。映射器接口中的方法签名也跟映射器配置文件中完全对应：方法名为配置文件中 id 值；方法参数类型为 parameterType 对应值；方法返回值类型为 returnType 对应值。</p>
+<p>对于上述的 StudentMapper.xml 文件，我们可以创建一个映射器接口 StudentMapper.java 如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.mappers;</span><br><span class="line">public interface StudentMapper&#123;</span><br><span class="line">    Student findStudentById(Integer id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 StudentMapper.xml 映射器配置文件中，其名空间 namespace 应该跟 StudentMapper 接口的完全限定名保持一致。另外，StudentMapper.xml 中语句 id，parameterType，returnType 应该分别和 StudentMapper 接口中的方法名，参数类型，返回值相对应。</p>
+<p>使用映射器接口我们可以以类型安全的形式调用调用映射语句。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public Student findStudentById(Integer studId)&#123;</span><br><span class="line">		SqlSession sqlSession = MyBatisUtil.getSqlSession();</span><br><span class="line">		try&#123;</span><br><span class="line">			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">			return studentMapper.findStudentById(studId);</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			sqlSession.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>即使映射器 Mapper 接口可以以类型安全的方式调用映射语句，但是我们我负责书写正确的，匹配方法名、参数类型、和返回值的映射器 Mapper 接口。 如果映射器 Mapper 接口中的方法和 XML 中的映射语句不能匹配，会在运行期 抛出一个异常。实际上，指定 parameterType 是可选的；MyBatis 可以使用反 射机制来决定 parameterType。但是，从配置可读性的角度来看，最好指定 parameterType 属性。如果 parameterType 没有被提及，开发者必须查看 Mapper XML 配置和 Java 代码了解传递给语句的输入参数的数据类型。</p>
+</blockquote>
+<h2 id="映射语句"><a href="#映射语句" class="headerlink" title="映射语句"></a>映射语句</h2><p><strong>MyBatis 提供了多种元素来配置不同类型的语句，如 SELECT，INSERT，UPDATE，DELETE。接下来让我们看看如何具体配置映射语句</strong></p>
+<h3 id="INSERT-语句"><a href="#INSERT-语句" class="headerlink" title="INSERT 语句"></a>INSERT 语句</h3><p>一个 INSERT SQL 语句可以在<insert>元素在映射器 XML 配置文件中配置，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">     INSERT INTO STUDENTS(STUD_ID,NAME,EMAIL, PHONE) VALUES(#&#123;studId&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;phone&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></insert></p>
+<p>这里我们使用一个 ID insertStudent，可以在名空间 org.freecode.mappers.StudentMapper.insertStudent 中唯一标识。parameterType 属性应该是一个完全限定类名或者是一个类型别名（alias）。</p>
+<p>我们可以如下调用这个语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int count = sqlSession.insert(&quot;org.freecode.mappers.StudentMapper.insertStudent&quot;, student);</span><br></pre></td></tr></table></figure></p>
+<p>sqlSession.insert() 方法返回执行 INSERT 语句后所影响的行数。</p>
+<p>如果不使用名空间（namespace）和语句 id 来调用映射语句，你可以通过创建一个映射器 Mapper 接口，并以类型安全的方式调用方法，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.mappers;</span><br><span class="line">public interface StudentMapper &#123;</span><br><span class="line">  int insertStudent(Student student);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你可以如下调用 insertStudent 映射语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">int count = mapper.insertStudent(student);</span><br></pre></td></tr></table></figure></p>
+<p><strong>自动生成主键</strong></p>
+<p>在上述的 INSERT 语句中，我们为可以自动生成（auto-generated）主键的列 STUD_ID 插入值。我们可以使用useGeneratedKeys 和 keyProperty 属性让数据库生成 auto_increment 列的值，并将生成的值设置到其中一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;studId&quot;&gt;</span><br><span class="line">    INSERT INTO STUDENTS(NAME, EMAIL, PHONE) VALUES(#&#123;name&#125;,#&#123;email&#125;,#&#123;phone&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+<p>这里 STUD_ID 列值将会被 MySQL 数据库自动生成，并且生成的值会被设置到 student 对象的 studId 属性上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">mapper.insertStudent(student);</span><br></pre></td></tr></table></figure></p>
+<p>现在可以如下获取插入的 STUDENT 记录的 STUD_ID 的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int studentId = student.getStudId();</span><br></pre></td></tr></table></figure></p>
+<p>有些数据库如 Oracle 并不支持 AUTO_INCREMENT 列，其使用序列（SEQUENCE）来生成主键值。<br>假设我们有一个名为 STUD_ID_SEQ 的序列来生成 SUTD_ID 主键值。使用如下代码来生成主键：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">    &lt;selectKey keyProperty=&quot;studId&quot; resultType=&quot;int&quot; order=&quot;BEFORE&quot;&gt;</span><br><span class="line">        SELECT ELEARNING.STUD_ID_SEQ.NEXTVAL FROM DUAL</span><br><span class="line">    &lt;/selectKey&gt;</span><br><span class="line">    INSERT INTO STUDENTS(STUD_ID,NAME,EMAIL, PHONE) VALUES(#&#123;studId&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;phone&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
+<p>   这里我们使用了<selectkey>子元素来生成主键值，并将值保存到 Student 对象的 studId 属性上。 属性order=“before”表示 MyBatis 将取得序列的下一个值作为主键值，并且在执行 INSERT SQL 语句之前将值设置到studId 属性上。</selectkey></p>
+<p>   我们也可以在获取序列的下一个值时，使用触发器（trigger）来设置主键值，并且在执行 INSERT SQL 语句之<br>前将值设置到主键列上。如果你采取这样的方式，则对应的 INSERT 映射语句如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">    INSERT INTO STUDENTS(NAME,EMAIL, PHONE) VALUES(#&#123;name&#125;,#&#123;email&#125;,#&#123;phone&#125;)</span><br><span class="line">    &lt;selectKey keyProperty=&quot;studId&quot; resultType=&quot;int&quot; order=&quot;AFTER&quot;&gt;</span><br><span class="line">        SELECT ELEARNING.STUD_ID_SEQ.CURRVAL FROM DUAL</span><br><span class="line">    &lt;/selectKey&gt;</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="UPDATE-语句"><a href="#UPDATE-语句" class="headerlink" title="UPDATE 语句"></a>UPDATE 语句</h3><p>一个 UPDATE SQL 语句可以在<update>元素在映射器 XML 配置文件中配置，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">     UPDATE STUDENTS SET NAME=#&#123;name&#125;, EMAIL=#&#123;email&#125;, PHONE=#&#123;phone&#125; WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure></update></p>
+<p>我们可以如下调用此语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int noOfRowsUpdated = sqlSession.update(&quot;org.freecode.mappers.StudentMapper.updateStudent&quot;, student);</span><br></pre></td></tr></table></figure>
+<p>sqlSession.update() 方法返回执行 UPDATE 语句之后影响的行数。</p>
+<p>  如果不使用名空间（namespace）和语句 id 来调用映射语句，你可以通过创建一个映射器 Mapper 接口，并以类型安全的方式调用方法，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package org.freecode.mappers;</span><br><span class="line">public interface StudentMapper</span><br><span class="line">&#123;</span><br><span class="line">	int updateStudent(Student student);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以使用映射器 Mapper 接口来调用 updateStudent 语句，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">int noOfRowsUpdated = mapper.updateStudent(student);</span><br></pre></td></tr></table></figure>
+<h3 id="DELETE-语句"><a href="#DELETE-语句" class="headerlink" title="DELETE 语句"></a>DELETE 语句</h3><p>一个 UPDATE SQL 语句可以在<update>元素在映射器 XML 配置文件中配置，如下所示：</update></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;delete id=&quot;deleteStudent&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">   DELETE FROM STUDENTS WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/delete&gt;</span><br></pre></td></tr></table></figure>
+<p>我们可以如下调用此语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int studId = 1;</span><br><span class="line">int noOfRowsDeleted = sqlSession.delete(&quot;org.freecode.mappers.StudentMapper.deleteStudent&quot;, studId);</span><br></pre></td></tr></table></figure></p>
+<p>sqlSession.delete() 方法返回 delete 语句执行后影响的行数。</p>
+<p>   如果不使用名空间（namespace）和语句 id 来调用映射语句，你可以通过创建一个映射器 Mapper 接口，并以类型安全的方式调用方法，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.mappers;</span><br><span class="line">public interface StudentMapper &#123;</span><br><span class="line">	int deleteStudent(int studId); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以使用映射器 Mapper 接口来调用 updateStudent 语句，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">int noOfRowsDeleted = mapper.deleteStudent(studId);</span><br></pre></td></tr></table></figure>
+<h3 id="SELECT-语句"><a href="#SELECT-语句" class="headerlink" title="SELECT 语句"></a>SELECT 语句</h3><p>MyBatis 真正强大的功能，在于映射 SELECT 查询结果到 JavaBeans 方面的极大灵活性。<br>让我们看看一个简单的 select 查询是如何（在 MyBatis 中）配置的，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">	SELECT STUD_ID, NAME, EMAIL, PHONE FROM STUDENTS WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以如下调用此语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int studId =1;</span><br><span class="line">Student student = sqlSession.selectOne(&quot;org.freecode.mappers.</span><br><span class="line">StudentMapper.findStudentById&quot;, studId);</span><br></pre></td></tr></table></figure></p>
+<p>  如果不使用名空间（namespace）和语句 id 来调用映射语句，你可以通过创建一个映射器 Mapper 接口，并以类型安全的方式调用方法，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.mappers;</span><br><span class="line">public interface StudentMapper &#123;</span><br><span class="line">	Student findStudentById(Integer studId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以使用映射器 Mapper 接口来调用 updateStudent 语句，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">Student student = mapper.findStudentById(studId);</span><br></pre></td></tr></table></figure></p>
+<p>如果你检查 Student 对象的属性值，你会发现 studId 属性值并没有被 stud_id 列值填充。这是因为 MyBatis 自动对JavaBean 中和列名匹配的属性进行填充。这就是为什么 name ,email,和 phone 属性被填充，而 studId 属性没有被填充。</p>
+<p>  为了解决这一问题，我们可以为列名起一个可以与 JavaBean 中属性名匹配的别名，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">SELECT STUD_ID AS studId, NAME,EMAIL, PHONE FROM STUDENTS WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>现在，Student 这个 Bean 对象中的值将会恰当地被 stud_id,name,email,phone 列填充了。<br>现在，让我们看一下如何执行返回多条结果的 SELECT 语句查询，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findAllStudents&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">	SELECT STUD_ID AS studId, NAME,EMAIL, PHONE FROM STUDENTS</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Student&gt; students = sqlSession.selectList(&quot;org.freecode.mappers.StudentMapper.findAllStudents&quot;);</span><br></pre></td></tr></table></figure>
+<p>映射器 Mapper 接口 StudentMapper 可以如下定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package org.freecode.mappers;</span><br><span class="line">public interface StudentMapper</span><br><span class="line">&#123;</span><br><span class="line">	List&lt;Student&gt; findAllStudents();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用上述代码，我们可以如下调用 findAllStudents 语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">List&lt;Student&gt; students = mapper.findAllStudents();</span><br></pre></td></tr></table></figure></p>
+<p>如果你注意到上述的 SELECT 映射定义，你可以看到，我们为所有的映射语句中的 stud_id 起了别名。<br>我们可以使用 ResultMaps，来避免上述的到处重复别名。我们稍后会继续讨论。<br>除了 java.util.List，你也可以是由其他类型的集合类，如 Set,Map，以及（SortedSet）。MyBatis 根据集合的类型，会采用适当的集合实现，如下所示：</p>
+<ul>
+<li>对于 List，Collection，Iterable 类型，MyBatis 将返回 java.util.ArrayList</li>
+<li>对于 Map 类型，MyBatis 将返回 java.util.HashMap</li>
+<li>对于 Set 类型，MyBatis 将返回 java.util.HashSet</li>
+<li>对于 SortedSet 类型，MyBatis 将返回 java.util.TreeSet</li>
+</ul>
+<h2 id="结果集映射-ResultMaps"><a href="#结果集映射-ResultMaps" class="headerlink" title="结果集映射 ResultMaps"></a>结果集映射 ResultMaps</h2><p>ResultMaps 被用来 将 SQL SELECT 语句的结果集映射到 JavaBeans 的属性中。我们可以定义结果集映射 ResultMaps并且在一些 SELECT 语句上引用 resultMap。MyBatis 的结果集映射 ResultMaps 特性非常强大，你可以使用它将简单的SELECT 语句映射到复杂的一对一和一对多关系的 SELECT 语句上。</p>
+<h3 id="简单-ResultMap"><a href="#简单-ResultMap" class="headerlink" title="简单 ResultMap"></a>简单 ResultMap</h3><p>一个映射了查询结果和 Student JavaBean 的简单的 resultMap 定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap id=&quot;StudentResult&quot; type=&quot;org.freecode.domain.Student&quot;&gt;</span><br><span class="line">	&lt;id property=&quot;studId&quot; column=&quot;stud_id&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;name&quot; column=&quot;name&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;email&quot; column=&quot;email&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;phone&quot; column=&quot;phone&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultMap=&quot;StudentResult&quot;&gt;</span><br><span class="line">	SELECT * FROM STUDENTS WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;select id=&quot;findAllStudents&quot; resultMap=&quot;StudentResult&quot;&gt;</span><br><span class="line">	SELECT * FROM STUDENTS</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>表示 resultMap 的 StudentResult id 值应该在此名空间内是唯一的。并且 type 属性应该是完全限定类名或者是返回类型的别名。<br><code>&lt;result&gt;</code>子元素被用来将一个 resultset 列映射到 JavaBean 的一个属性中。</p>
+<p>  <code>&lt;id&gt;</code>元素和<code>&lt;result&gt;</code>元素功能相同，不过它被用来映射到唯一标识属性，用来区分和比较对象（一般和主键列相对应）。</p>
+<p>在<code>&lt;select&gt;</code>语句中，我们使用了 resultMap 属性，而不是 resultType 来引用 StudentResult 映射。当<code>&lt;select&gt;</code>语句中配置了 resutlMap 属性，MyBatis 会使用此数据库列名与对象属性映射关系来填充 JavaBean 中的属性。</p>
+<blockquote>
+<p>resultType 和 resultMap 二者只能用其一，不能同时使用。</p>
+</blockquote>
+<p>让我们来看另外一个<code>&lt;select&gt;</code>映射语句定义的例子，怎样将查询结果填充到 HashMap 中。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultType=&quot;map&quot;&gt;</span><br><span class="line">	SELECT * FROM STUDENTS WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在上述的<code>&lt;select&gt;</code>语句中，我们将 resultType 配置成 map，即 java.util.HashMap 的别名。在这种情况下，结果集<br>的列名将会作为 Map 中的 key 值，而列值将作为 Map 的 value 值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String,Object&gt; studentMap = sqlSession.selectOne(&quot;org.freecode.mappers.StudentMapper.findStudentById&quot;, studId);</span><br><span class="line">System.out.println(&quot;stud_id :&quot;+studentMap.get(&quot;stud_id&quot;));</span><br><span class="line">System.out.println(&quot;name :&quot;+studentMap.get(&quot;name&quot;));</span><br><span class="line">System.out.println(&quot;email :&quot;+studentMap.get(&quot;email&quot;));</span><br><span class="line">System.out.println(&quot;phone :&quot;+studentMap.get(&quot;phone&quot;));</span><br></pre></td></tr></table></figure>
+<p>让我们再看一个 使用 resultType=”map”,返回多行结果的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findAllStudents&quot; resultType=&quot;map&quot;&gt;</span><br><span class="line">	SELECT STUD_ID, NAME, EMAIL, PHONE FROM STUDENTS</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>由于 resultType=”map”和语句返回多行，则最终返回的数据类型应该是<code>List&lt;HashMap&lt;String,Object&gt;&gt;</code>，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;HashMap&lt;String, Object&gt;&gt; studentMapList =</span><br><span class="line">sqlSession.selectList(&quot;org.freecode.mappers.StudentMapper.findAllStudents&quot;);</span><br><span class="line">for(HashMap&lt;String, Object&gt; studentMap : studentMapList)&#123;</span><br><span class="line">	System.out.println(&quot;studId :&quot; + studentMap.get(&quot;stud_id&quot;));</span><br><span class="line">	System.out.println(&quot;name :&quot; + studentMap.get(&quot;name&quot;));</span><br><span class="line">	System.out.println(&quot;email :&quot; + studentMap.get(&quot;email&quot;));</span><br><span class="line">	System.out.println(&quot;phone :&quot; + studentMap.get(&quot;phone&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="拓展-ResultMap"><a href="#拓展-ResultMap" class="headerlink" title="拓展 ResultMap"></a>拓展 ResultMap</h3><p>我们可以从从另外一个<code>&lt;resultMap&gt;</code>，拓展出一个新的<code>&lt;resultMap&gt;</code>，这样，原先的属性映射可以继承过来，以实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;Student&quot; id=&quot;StudentResult&quot;&gt;</span><br><span class="line">	&lt;id property=&quot;studId&quot; column=&quot;stud_id&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;name&quot; column=&quot;name&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;email&quot; column=&quot;email&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;phone&quot; column=&quot;phone&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line">&lt;resultMap type=&quot;Student&quot; id=&quot;StudentWithAddressResult&quot; extends=&quot;StudentResult&quot;&gt;</span><br><span class="line">	&lt;result property=&quot;address.addrId&quot; column=&quot;addr_id&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;address.street&quot; column=&quot;street&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;address.city&quot; column=&quot;city&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;address.state&quot; column=&quot;state&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;address.zip&quot; column=&quot;zip&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;address.country&quot; column=&quot;country&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure></p>
+<p>id 为 StudentWithAddressResult 的 resultMap 拓展了 id 为 StudentResult 的 resultMap。</p>
+<p>如果你只想映射 Student 数据，你可以使用 id 为 StudentResult 的 resultMap,如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultMap=&quot;StudentResult&quot;&gt;</span><br><span class="line">	SELECT * FROM STUDENTS WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果你想将映射 Student 数据和 Address 数据，你可以使用 id 为 StudentWithAddressResult 的 resultMap：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectStudentWithAddress&quot; parameterType=&quot;int&quot; resultMap=&quot;StudentWithAddressResult&quot;&gt;</span><br><span class="line">	SELECT STUD_ID, NAME, EMAIL, PHONE, A.ADDR_ID, STREET, CITY, STATE, ZIP, COUNTRY</span><br><span class="line">		FROM STUDENTS S LEFT OUTER JOIN ADDRESSES A ON</span><br><span class="line">		S.ADDR_ID=A.ADDR_ID</span><br><span class="line">		WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="一对一映射"><a href="#一对一映射" class="headerlink" title="一对一映射"></a>一对一映射</h2><p>在我们的域模型样例中，每一个学生都有一个与之关联的地址信息。表 STUDENTS 有一个 ADDR_ID 列，是 ADDRESSES表的外键。<br>STUDENTS 表的样例数据如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>STUD_ID</th>
+<th>NAME</th>
+<th>EMAIL</th>
+<th>PHONE</th>
+<th>ADDR_ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>John</td>
+<td>john@gmail.com</td>
+<td>123-456-7890</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Paul</td>
+<td>paul@gmail.com</td>
+<td>111-222-3333</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>ADDRESSES 表的样例输入如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>ADDR_ID</th>
+<th>STREET</th>
+<th>CITY</th>
+<th>STATE</th>
+<th>ZIP</th>
+<th>COUNTRY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Naperville</td>
+<td>CHICAGO</td>
+<td>IL</td>
+<td>60515</td>
+<td>USA</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Paul</td>
+<td>CHICAGO</td>
+<td>IL</td>
+<td>60515</td>
+<td>USA</td>
+</tr>
+</tbody>
+</table>
+<p>下面让我们看一下怎样取 Student 明细和其 Address 明细。</p>
+<p>Student 和 Address 的 JavaBean 以及映射器 Mapper XML 文件定义如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Address &#123;</span><br><span class="line">	private Integer addrId;</span><br><span class="line">	private String street;</span><br><span class="line">	private String city;</span><br><span class="line">	private String state;</span><br><span class="line">	private String zip;</span><br><span class="line">	private String country;</span><br><span class="line">	// setters &amp; getters</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Student &#123;</span><br><span class="line">	private Integer studId;</span><br><span class="line">	private String name;</span><br><span class="line">	private String email;</span><br><span class="line">	private PhoneNumber phone;</span><br><span class="line">	private Address address;</span><br><span class="line">	//setters &amp; getters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;Student&quot; id=&quot;StudentWithAddressResult&quot;&gt;</span><br><span class="line">    &lt;id property=&quot;studId&quot; column=&quot;stud_id&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;name&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;email&quot; column=&quot;email&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;phone&quot; column=&quot;phone&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;address.addrId&quot; column=&quot;addr_id&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;address.street&quot; column=&quot;street&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;address.city&quot; column=&quot;city&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;address.state&quot; column=&quot;state&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;address.zip&quot; column=&quot;zip&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;address.country&quot; column=&quot;country&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;selectStudentWithAddress&quot; parameterType=&quot;int&quot; resultMap=&quot;StudentWithAddressResult&quot;&gt;</span><br><span class="line">SELECT STUD_ID, NAME, EMAIL, A.ADDR_ID, STREET, CITY, STATE,</span><br><span class="line">ZIP, COUNTRY</span><br><span class="line">FROM STUDENTS S LEFT OUTER JOIN ADDRESSES A ON</span><br><span class="line">S.ADDR_ID=A.ADDR_ID WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>我们可以使用圆点记法为内嵌的对象的属性赋值。在上述的 resultMap 中，Student 的 address 属性使用了圆点记法被赋上了 address 对应列的值。同样地，我们可以访问任意深度的内嵌对象的属性。我们可以如下访问内嵌对象属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//接口定义</span><br><span class="line">public interface StudentMapper&#123;</span><br><span class="line">	Student selectStudentWithAddress(int studId);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用</span><br><span class="line">int studId = 1;</span><br><span class="line"> </span><br><span class="line">StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">Student student = studentMapper.selectStudentWithAddress(studId);</span><br><span class="line">System.out.println(&quot;Student :&quot; + student);</span><br><span class="line">System.out.println(&quot;Address :&quot; + student.getAddress());</span><br></pre></td></tr></table></figure></p>
+<p>上述样例展示了一对一关联映射的一种方法。然而，使用这种方式映射，如果 address 结果需要在其他的 SELECT 映射语句中映射成 Address 对象，我们需要为每一个语句重复这种映射关系。MyBatis 提供了更好地实现一对一关联映射的方法：嵌套结果 ResultMap 和嵌套 select 查询语句。接下来，我们将讨论这两种方式。</p>
+<h3 id="使用嵌套结果-ResultMap-实现一对一关系映射"><a href="#使用嵌套结果-ResultMap-实现一对一关系映射" class="headerlink" title="使用嵌套结果 ResultMap 实现一对一关系映射"></a>使用嵌套结果 ResultMap 实现一对一关系映射</h3><p>我们可以使用一个嵌套结果 ResultMap 方式来获取 Student 及其 Address 信息，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;resultMap type=&quot;Address&quot; id=&quot;AddressResult&quot;&gt;</span><br><span class="line">    &lt;id property=&quot;addrId&quot; column=&quot;addr_id&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;street&quot; column=&quot;street&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;city&quot; column=&quot;city&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;state&quot; column=&quot;state&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;zip&quot; column=&quot;zip&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;country&quot; column=&quot;country&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap type=&quot;Student&quot; id=&quot;StudentWithAddressResult&quot;&gt;</span><br><span class="line">    &lt;id property=&quot;studId&quot; column=&quot;stud_id&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;name&quot; column=&quot;name&quot; /&gt;</span><br><span class="line">    &lt;result property=&quot;email&quot; column=&quot;email&quot; /&gt;</span><br><span class="line">    &lt;association property=&quot;address&quot; resultMap=&quot;AddressResult&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;findStudentWithAddress&quot; parameterType=&quot;int&quot; resultMap=&quot;StudentWithAddressResult&quot;&gt;</span><br><span class="line">SELECT STUD_ID, NAME, EMAIL, A.ADDR_ID, STREET, CITY, STATE,</span><br><span class="line">ZIP, COUNTRY</span><br><span class="line">FROM STUDENTS S LEFT OUTER JOIN ADDRESSES A ON</span><br><span class="line">S.ADDR_ID=A.ADDR_ID WHERE STUD_ID=#&#123;studId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>  元素<association>被用来导入“有一个”(has-one)类型的关联。在上述的例子中，我们使用了<association>元素引用了另外的在同一个 XML 文件中定义的<resultmap>。</resultmap></association></association></p>
+<p>我们也可以使用&lt;association 定义内联的 resultMap，代码如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;Student&quot; id=&quot;StudentWithAddressResult&quot;&gt;</span><br><span class="line">	&lt;id property=&quot;studId&quot; column=&quot;stud_id&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;name&quot; column=&quot;name&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;email&quot; column=&quot;email&quot; /&gt;</span><br><span class="line">	&lt;association property=&quot;address&quot; javaType=&quot;Address&quot;&gt;</span><br><span class="line">		&lt;id property=&quot;addrId&quot; column=&quot;addr_id&quot; /&gt;</span><br><span class="line">		&lt;result property=&quot;street&quot; column=&quot;street&quot; /&gt;</span><br><span class="line">		&lt;result property=&quot;city&quot; column=&quot;city&quot; /&gt;</span><br><span class="line">		&lt;result property=&quot;state&quot; column=&quot;state&quot; /&gt;</span><br><span class="line">		&lt;result property=&quot;zip&quot; column=&quot;zip&quot; /&gt;</span><br><span class="line">		&lt;result property=&quot;country&quot; column=&quot;country&quot; /&gt;</span><br><span class="line">	&lt;/association&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br></pre></td></tr></table></figure>
+<p>使用嵌套结果 ResultMap 方式，关联的数据可以通过简单的查询语句（如果需要的话，需要与 joins 连接操作配合）<br>进行加载。</p>
+<h3 id="使用嵌套查询实现一对一关系映射"><a href="#使用嵌套查询实现一对一关系映射" class="headerlink" title="使用嵌套查询实现一对一关系映射"></a>使用嵌套查询实现一对一关系映射</h3><p>我们可以通过使用嵌套 select 查询来获取 Student 及其 Address 信息，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;Address&quot; id=&quot;AddressResult&quot;&gt;</span><br><span class="line">	&lt;id property=&quot;addrId&quot; column=&quot;addr_id&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;street&quot; column=&quot;street&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;city&quot; column=&quot;city&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;state&quot; column=&quot;state&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;zip&quot; column=&quot;zip&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;country&quot; column=&quot;country&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;findAddressById&quot; parameterType=&quot;int&quot; resultMap=&quot;AddressResult&quot;&gt;</span><br><span class="line">	SELECT * FROM ADDRESSES WHERE ADDR_ID=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap type=&quot;Student&quot; id=&quot;StudentWithAddressResult&quot;&gt;</span><br><span class="line">	&lt;id property=&quot;studId&quot; column=&quot;stud_id&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;name&quot; column=&quot;name&quot; /&gt;</span><br><span class="line">	&lt;result property=&quot;email&quot; column=&quot;email&quot; /&gt;</span><br><span class="line">	&lt;association property=&quot;address&quot; column=&quot;addr_id&quot; select=&quot;findAddressById&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;findStudentWithAddress&quot; parameterType=&quot;int&quot; resultMap=&quot;StudentWithAddressResult&quot;&gt;</span><br><span class="line">	SELECT * FROM STUDENTS WHERE STUD_ID=#&#123;Id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>在此方式中，<association>元素的 select 属性被设置成了 id 为 findAddressById 的语句。这里，两个分开的SQL 语句将会在数据库中执行，第一个调用 findStudentById 加载 student 信息，而第二个调用 findAddressById 来加载 address 信息。</association></p>
+<p>Addr_id 列的值将会被作为输入参数传递给 selectAddressById 语句。</p>
+<p>我们可以如下调用 findStudentWithAddress 映射语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">Student student = mapper.selectStudentWithAddress(studId);</span><br><span class="line">System.out.println(student);</span><br><span class="line">System.out.println(student.getAddress());</span><br></pre></td></tr></table></figure></p>
+<h2 id="一对多映射"><a href="#一对多映射" class="headerlink" title="一对多映射"></a>一对多映射</h2><p>在我们的域模型样例中，一个讲师可以教授一个或者多个课程。这意味着讲师和课程之间存在一对多的映射关系。<br>我们可以使用<collection>元素将 一对多类型的结果 映射到 一个对象集合上。<br>TUTORS 表的样例数据如下：<br>TUTOR_ID | NAME | EMAIL | PHONE |   ADDR_ID<br>— | — | — |—|—<br>1 | John| john@gmail.com| 123-456-7890| 1<br>2 |Ying |ying@gmail.com |111-222-3333 |2 </collection></p>
+<p>COURSE 表的样例数据如下：</p>
+<table>
+<thead>
+<tr>
+<th>COURSE_ID</th>
+<th>NAME</th>
+<th>DESCRIPTION</th>
+<th>START_DATE</th>
+<th>END_DATE</th>
+<th>TUTOR_ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>JavaSE</td>
+<td>Java SE</td>
+<td>2013-01-10</td>
+<td>2013-02-10</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>JavaEE</td>
+<td>Java EE 6</td>
+<td>2013-01-10</td>
+<td>2013-03-10</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MyBatis</td>
+<td>MyBatis</td>
+<td>2013-01-10</td>
+<td>2013-02-20</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>在上述的表数据中，John 讲师教授一个课程，而 Ying 讲师教授两个课程。</p>
+<p>Course 和 Tutor 的 JavaBean 定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Tutor &#123;</span><br><span class="line">	private Integer tutorId;</span><br><span class="line">	private String name;</span><br><span class="line">	private String email;</span><br><span class="line">	private Address address;</span><br><span class="line">	private List&lt;Course&gt; courses;</span><br><span class="line">	// setters &amp; getters</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Course &#123;</span><br><span class="line">	private Integer courseId;</span><br><span class="line">	private String name;</span><br><span class="line">	private String description;</span><br><span class="line">	private Date startDate;</span><br><span class="line">	private Date endDate;</span><br><span class="line">	private Integer tutorId;</span><br><span class="line">	//setters &amp; getters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在让我们看看如何获取讲师信息以及其所教授的课程列表信息。<collection>元素被用来将多行课程结果映射成一个课程 Course 对象的一个集合。和一对一映射一样，我们可以使用嵌套结果 ResultMap 和嵌套 Select 语句两种方式映射实现一对多映射。</collection></p>
+<h3 id="使用内嵌结果-ResultMap-实现一对多映射"><a href="#使用内嵌结果-ResultMap-实现一对多映射" class="headerlink" title="使用内嵌结果 ResultMap 实现一对多映射"></a>使用内嵌结果 ResultMap 实现一对多映射</h3><p>我们可以使用嵌套结果 resultMap 方式获得讲师及其课程信息，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;Course&quot; id=&quot;CourseResult&quot;&gt;</span><br><span class="line">	&lt;id column=&quot;course_id&quot; property=&quot;courseId&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;name&quot; property=&quot;name&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;description&quot; property=&quot;description&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;start_date&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;end_date&quot; property=&quot;endDate&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;resultMap type=&quot;Tutor&quot; id=&quot;TutorResult&quot;&gt;</span><br><span class="line">	&lt;id column=&quot;tutor_id&quot; property=&quot;tutorId&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;tutor_name&quot; property=&quot;name&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;email&quot; property=&quot;email&quot; /&gt;</span><br><span class="line">	&lt;collection property=&quot;courses&quot; resultMap=&quot;CourseResult&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;findTutorById&quot; parameterType=&quot;int&quot; resultMap=&quot;TutorResult&quot;&gt;</span><br><span class="line">	SELECT T.TUTOR_ID, T.NAME AS TUTOR_NAME, EMAIL, C.COURSE_ID,</span><br><span class="line">	C.NAME, DESCRIPTION, START_DATE, END_DATE</span><br><span class="line">	FROM TUTORS T LEFT OUTER JOIN ADDRESSES A ON T.ADDR_ID=A.ADDR_ID</span><br><span class="line">	LEFT OUTER JOIN COURSES C ON T.TUTOR_ID=C.TUTOR_ID</span><br><span class="line">	WHERE T.TUTOR_ID=#&#123;tutorId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<p>这里我们使用了一个简单的使用了 JOINS 连接的 Select 语句获取讲师及其所教课程信息。<collection>元素的<br>resultMap 属性设置成了 CourseResult，CourseResult 包含了 Course 对象属性与表列名之间的映射。</collection></p>
+<h3 id="使用嵌套-Select-语句实现一对多映射"><a href="#使用嵌套-Select-语句实现一对多映射" class="headerlink" title="使用嵌套 Select 语句实现一对多映射"></a>使用嵌套 Select 语句实现一对多映射</h3><p>我们可以使用嵌套 Select 语句方式获得讲师及其课程信息，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap type=&quot;Course&quot; id=&quot;CourseResult&quot;&gt;</span><br><span class="line">	&lt;id column=&quot;course_id&quot; property=&quot;courseId&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;name&quot; property=&quot;name&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;description&quot; property=&quot;description&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;start_date&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;end_date&quot; property=&quot;endDate&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;resultMap type=&quot;Tutor&quot; id=&quot;TutorResult&quot;&gt;</span><br><span class="line">	&lt;id column=&quot;tutor_id&quot; property=&quot;tutorId&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;tutor_name&quot; property=&quot;name&quot; /&gt;</span><br><span class="line">	&lt;result column=&quot;email&quot; property=&quot;email&quot; /&gt;</span><br><span class="line">	&lt;association property=&quot;address&quot; resultMap=&quot;AddressResult&quot; /&gt;</span><br><span class="line">	&lt;collection property=&quot;courses&quot; column=&quot;tutor_id&quot; select=&quot;findCoursesByTutor&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;findTutorById&quot; parameterType=&quot;int&quot; resultMap=&quot;TutorResult&quot;&gt;</span><br><span class="line">	SELECT T.TUTOR_ID, T.NAME AS TUTOR_NAME, EMAIL FROM TUTORS T WHERE T.TUTOR_ID=#&#123;tutorId&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;findCoursesByTutor&quot; parameterType=&quot;int&quot; resultMap=&quot;CourseResult&quot;&gt;</span><br><span class="line">	SELECT * FROM COURSES WHERE TUTOR_ID=#&#123;tutorId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在这种方式中，<aossication>元素的 select 属性被设置为 id 为 findCourseByTutor 的语句，用来触发单独的 SQL 查询加载课程信息。tutor_id 这一列值将会作为输入参数传递给 findCouresByTutor 语句。</aossication></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public interface TutorMapper &#123;</span><br><span class="line">	Tutor findTutorById(int tutorId);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TutorMapper mapper = sqlSession.getMapper(TutorMapper.class);</span><br><span class="line">Tutor tutor = mapper.findTutorById(tutorId);</span><br><span class="line">System.out.println(tutor);</span><br><span class="line">List&lt;Course&gt; courses = tutor.getCourses();</span><br><span class="line">for (Course course : courses)</span><br><span class="line">&#123;</span><br><span class="line">	System.out.println(course);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>嵌套 Select 语句查询会导致 N+1 选择问题。首先，主查询将会执行（1 次），对于主查询返回的每一行，另外一个查询将会被执行（主查询 N 行，则此查询 N 次）。对于大型数据库而言，这会导致很差的性能问题。</p>
+<h2 id="动态-SQL"><a href="#动态-SQL" class="headerlink" title="动态 SQL"></a>动态 SQL</h2><p>有时候，静态的 SQL 语句并不能满足应用程序的需求。我们可以根据一些条件，来动态地构建 SQL 语句。</p>
+</blockquote>
+<p>例如，在 Web 应用程序中，有可能有一些搜索界面，需要输入一个或多个选项，然后根据这些已选择的条件去执行检索操作。在实现这种类型的搜索功能，我们可能需要根据这些条件 来构建动态的 SQL 语句。如果用户提供了任何输入条件，我们需要将那个条件 添加到 SQL 语句的 WHERE 子句中。MyBatis 通过使用<code>&lt;if&gt;</code>,<code>&lt;choose&gt;</code>,<code>&lt;where&gt;</code>,<code>&lt;foreach&gt;</code>,<code>&lt;trim&gt;</code>元素提供了对构造动态 SQL 语句的高级别支持。</p>
+<h3 id="If-条件"><a href="#If-条件" class="headerlink" title="If 条件"></a>If 条件</h3><p>   <code>&lt;if&gt;</code>元素被用来有条件地嵌入 SQL 片段，如果测试条件被赋值为 true，则相应地 SQL 片段将会被添加到 SQL 语<br>句中。<br>   假定我们有一个课程搜索界面，设置了 讲师（Tutor）下拉列表框，课程名称（CourseName）文本输入框，开始<br>时间（StartDate）输入框，结束时间（EndDate）输入框，作为搜索条件。假定课讲师下拉列表是必须选的，其他的都是可选的。</p>
+<p>当用户点击 搜索 按钮时，我们需要显示符合以下条件的成列表：</p>
+<ul>
+<li>特定讲师的课程</li>
+<li>课程名 包含输入的课程名称关键字的课程；如果课程名称输入为空，则取所有课程</li>
+<li>在开始时间和结束时间段内的课程</li>
+</ul>
+<p>我们可以对应的映射语句，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;resultMap type=&quot;Course&quot; id=&quot;CourseResult&quot;&gt;</span><br><span class="line">&lt;id column=&quot;course_id&quot; property=&quot;courseId&quot; /&gt;</span><br><span class="line">&lt;result column=&quot;name&quot; property=&quot;name&quot; /&gt;</span><br><span class="line">&lt;result column=&quot;description&quot; property=&quot;description&quot; /&gt;</span><br><span class="line">&lt;result column=&quot;start_date&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">&lt;result column=&quot;end_date&quot; property=&quot;endDate&quot; /&gt;</span><br><span class="line">&lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">&lt;select id=&quot;searchCourses&quot; parameterType=&quot;hashmap&quot; resultMap=&quot;CourseResult&quot;&gt;&lt;/select&gt;</span><br><span class="line">	SELECT * FROM COURSES WHERE TUTOR_ID= #&#123;tutorId&#125;</span><br><span class="line">	&lt;if test=&quot;courseName != null&quot;&gt;</span><br><span class="line">		AND NAME LIKE #&#123;courseName&#125;</span><br><span class="line">	&lt;/if&gt;</span><br><span class="line">	&lt;if test=&quot;startDate != null&quot;&gt;</span><br><span class="line">		AND START_DATE &gt;= #&#123;startDate&#125;</span><br><span class="line">	&lt;/if&gt;</span><br><span class="line">	&lt;if test=&quot;endDate != null&quot;&gt;</span><br><span class="line">		AND END_DATE &lt;= #&#123;endDate&#125;</span><br><span class="line">	&lt;/if&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public interface CourseMapper &#123;</span><br><span class="line">	List&lt;Course&gt; searchCourses(Map&lt;String, Object&gt; map);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void searchCourses() &#123;</span><br><span class="line">	Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span><br><span class="line">	map.put(&quot;tutorId&quot;, 1);</span><br><span class="line">	map.put(&quot;courseName&quot;, &quot;%java%&quot;);</span><br><span class="line">	map.put(&quot;startDate&quot;, new Date());</span><br><span class="line">	CourseMapper mapper = sqlSession.getMapper(CourseMapper.class);</span><br><span class="line">	List&lt;Course&gt; courses = mapper.searchCourses(map);</span><br><span class="line">	for (Course course : courses) &#123;</span><br><span class="line">		System.out.println(course);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>此处将生成查询语句 SELECT * FROM COURSES WHERE TUTOR_ID= ? AND NAME like ? AND START_DATE &gt;= ?。准备根据给定条件的动态 SQL 查询将会派上用场。</p>
+<blockquote>
+<p>MyBatis 是使用 OGNL（Object Graph Navigation Language）表达式来构建动态 SQL 语句。</p>
+</blockquote>
+<h3 id="choose-when-和-otherwise-条件"><a href="#choose-when-和-otherwise-条件" class="headerlink" title="choose,when 和 otherwise 条件"></a>choose,when 和 otherwise 条件</h3><p>有时候，查询功能是以查询类别为基础的。首先，用户需要选择是否希望通过选择 讲师，课程名称，开始时间，或结束时间作为查询条件类别来进行查询，然后根据选择的查询类别，输入相应的参数。在这样的情景中，我们需要只使用其中一种查询类别。</p>
+<p>MyBatis 提供了<code>&lt;choose&gt;</code>元素支持此类型的 SQL 预处理。</p>
+<p>  现在让我们书写一个适用此情景的 SQL 映射语句。如果没有选择查询类别，则查询开始时间在今天之后的课程，<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;searchCourses&quot; parameterType=&quot;hashmap&quot; resultMap=&quot;CourseResult&quot;&gt;</span><br><span class="line">	SELECT * FROM COURSES</span><br><span class="line">	&lt;choose&gt;</span><br><span class="line">		&lt;when test=&quot;searchBy == &apos;Tutor&apos;&quot;&gt;</span><br><span class="line">			WHERE TUTOR_ID= #&#123;tutorId&#125;</span><br><span class="line">		&lt;/when&gt;</span><br><span class="line">		&lt;when test=&quot;searchBy == &apos;CourseName&apos;&quot;&gt;</span><br><span class="line">			WHERE name like #&#123;courseName&#125;</span><br><span class="line">		&lt;/when&gt;</span><br><span class="line">		&lt;otherwise&gt;</span><br><span class="line">			WHERE TUTOR start_date &gt;= now()</span><br><span class="line">		&lt;/otherwise&gt;</span><br><span class="line">	&lt;/choose&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>MyBatis 计算<choose>测试条件的值，且使用第一个值为 TRUE 的子句。如果没有条件为 true，则使用<otherwise>内的子句。</otherwise></choose></p>
+<h3 id="Where-条件"><a href="#Where-条件" class="headerlink" title="Where 条件"></a>Where 条件</h3><p>有时候，所有的查询条件（criteria）应该是可选的。在需要使用至少一种查询条件的情况下，我们应该使用 WHERE子句。并且， 如果有多个条件，我们需要在条件中添加 AND 或 OR。MyBatis 提供了<code>&lt;where&gt;</code>元素支持这种类型的动态 SQL 语句。</p>
+<p>在我们查询课程界面，我们假设所有的查询条件是可选的。进而，当需要提供一个或多个查询条件时，应该改使用WHERE 子句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;select id=&quot;searchCourses&quot; parameterType=&quot;hashmap&quot; resultMap=&quot;CourseResult&quot;&gt;</span><br><span class="line">	SELECT * FROM COURSES</span><br><span class="line">	&lt;where&gt;</span><br><span class="line">		&lt;if test=&quot; tutorId != null &quot;&gt;</span><br><span class="line">			TUTOR_ID= #&#123;tutorId&#125;</span><br><span class="line">		&lt;/if&gt;</span><br><span class="line">		&lt;if test=&quot;courseName != null&quot;&gt;</span><br><span class="line">			AND name like #&#123;courseName&#125;</span><br><span class="line">		&lt;/if&gt;</span><br><span class="line">		&lt;if test=&quot;startDate != null&quot;&gt;</span><br><span class="line">			AND start_date &gt;= #&#123;startDate&#125;</span><br><span class="line">		&lt;/if&gt;</span><br><span class="line">		&lt;if test=&quot;endDate != null&quot;&gt;</span><br><span class="line">			AND end_date &lt;= #&#123;endDate&#125;</span><br><span class="line">		&lt;/if&gt;</span><br><span class="line">	&lt;/where&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p><where>元素只有在其内部标签有返回内容时才会在动态语句上插入 WHERE 条件语句。并且，如果 WHERE 子句以AND 或者 OR 打头，则打头的 AND 或 OR 将会被移除。</where></p>
+<p>如果 tutor_id 参数值为 null，并且 courseName 参数值不为 null，则<where>标签会将 AND name like#{courseName} 中的 AND 移除掉，生成的 SQL WHERE 子句为：where name like #{courseName}。</where></p>
+<h3 id="lt-trim-gt-条件"><a href="#lt-trim-gt-条件" class="headerlink" title="&lt;trim&gt;条件"></a><code>&lt;trim&gt;</code>条件</h3><p><code>&lt;trim&gt;</code>元素和<code>&lt;where&gt;</code>元素类似，但是<code>&lt;trim&gt;</code>提供了在添加前缀/后缀 或者 移除前缀/后缀方面提供更大的灵活性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;searchCourses&quot; parameterType=&quot;hashmap&quot; resultMap=&quot;CourseResult&quot;&gt;</span><br><span class="line">	SELECT * FROM COURSES</span><br><span class="line">	&lt;trim prefix=&quot;WHERE&quot; prefixOverrides=&quot;AND | OR&quot;&gt;</span><br><span class="line">		&lt;if test=&quot; tutorId != null &quot;&gt;</span><br><span class="line"> 			TUTOR_ID= #&#123;tutorId&#125;</span><br><span class="line">		&lt;/if&gt;</span><br><span class="line">		&lt;if test=&quot;courseName != null&quot;&gt;</span><br><span class="line">			AND name like #&#123;courseName&#125;</span><br><span class="line">		&lt;/if&gt;</span><br><span class="line">	&lt;/trim&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里如果任意一个<code>&lt;if&gt;</code>条件为 true，<code>&lt;trim&gt;</code>元素会插入 WHERE,并且移除紧跟 WHERE 后面的 AND 或 OR</p>
+<h3 id="foreach-循环"><a href="#foreach-循环" class="headerlink" title="foreach 循环"></a>foreach 循环</h3><p>另外一个强大的动态 SQL 语句构造标签即是<code>&lt;foreach&gt;</code>。它可以迭代遍历一个数组或者列表，构造 AND/OR 条件或一个 IN 子句。</p>
+<p>假设我们想找到 tutor_id 为 1，3，6 的讲师所教授的课程，我们可以传递一个 tutor_id 组成的列表给映射语句，然后通过<code>&lt;foreach&gt;</code>遍历此列表构造动态 SQL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;searchCoursesByTutors&quot; parameterType=&quot;map&quot; resultMap=&quot;CourseResult&quot;&gt;</span><br><span class="line">	SELECT * FROM COURSES</span><br><span class="line">	&lt;if test=&quot;tutorIds != null&quot;&gt;</span><br><span class="line">		&lt;where&gt;</span><br><span class="line">		&lt;foreach item=&quot;tutorId&quot; collection=&quot;tutorIds&quot;&gt;</span><br><span class="line">			OR tutor_id=#&#123;tutorId&#125;</span><br><span class="line">		&lt;/foreach&gt;</span><br><span class="line">		&lt;/where&gt;</span><br><span class="line">	&lt;/if&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public interface CourseMapper &#123;</span><br><span class="line">	List&lt;Course&gt; searchCoursesByTutors(Map&lt;String, Object&gt; map);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void searchCoursesByTutors()&#123;</span><br><span class="line">	Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span><br><span class="line">	List&lt;Integer&gt; tutorIds = new ArrayList&lt;Integer&gt;();</span><br><span class="line">	tutorIds.add(1);</span><br><span class="line">	tutorIds.add(3);</span><br><span class="line">	tutorIds.add(6);</span><br><span class="line">	map.put(&quot;tutorIds&quot;, tutorIds);</span><br><span class="line">	CourseMapper mapper = sqlSession.getMapper(CourseMapper.class);</span><br><span class="line">	List&lt;Course&gt; courses = mapper.searchCoursesByTutors(map);</span><br><span class="line">	for (Course course : courses) &#123;</span><br><span class="line">		System.out.println(course);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在让我们来看一下怎样使用<foreach>生成 IN 子句：</foreach></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;searchCoursesByTutors&quot; parameterType=&quot;map&quot; resultMap=&quot;CourseResult&quot;&gt;</span><br><span class="line">	SELECT * FROM COURSES</span><br><span class="line">	&lt;if test=&quot;tutorIds != null&quot;&gt;</span><br><span class="line">		&lt;where&gt;</span><br><span class="line">			tutor_id IN</span><br><span class="line">				&lt;foreach item=&quot;tutorId&quot; collection=&quot;tutorIds&quot; open=&quot;(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;</span><br><span class="line">					#&#123;tutorId&#125;</span><br><span class="line">				&lt;/foreach&gt;</span><br><span class="line">		&lt;/where&gt;</span><br><span class="line">	&lt;/if&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="set-条件"><a href="#set-条件" class="headerlink" title="set 条件"></a>set 条件</h3><p><code>&lt;set&gt;</code>元素和<code>&lt;where&gt;</code>元素类似，如果其内部条件判断有任何内容返回时，他会插入 SET SQL 片段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;update id=&quot;updateStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">	update students</span><br><span class="line">	&lt;set&gt;</span><br><span class="line">		&lt;if test=&quot;name != null&quot;&gt;name=#&#123;name&#125;,&lt;/if&gt;</span><br><span class="line">		&lt;if test=&quot;email != null&quot;&gt;email=#&#123;email&#125;,&lt;/if&gt;</span><br><span class="line">		&lt;if test=&quot;phone != null&quot;&gt;phone=#&#123;phone&#125;,&lt;/if&gt;</span><br><span class="line">	&lt;/set&gt;</span><br><span class="line">	where stud_id=#&#123;id&#125;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里，如果<code>&lt;if&gt;</code>条件返回了任何文本内容，<set>将会插入 set 关键字和其文本内容，并且会剔除将末尾的 “，。”<br>在上述的例子中，如果 phone!=null,<set>将会让会移除 phone=#{phone}后的逗号“,”，生成 set phone=#{phone} 。</set></set></p>
+<h2 id="MyBaits-食谱"><a href="#MyBaits-食谱" class="headerlink" title="MyBaits 食谱"></a>MyBaits 食谱</h2><p>除了简化数据库编程外，MyBatis 还提供了各种功能，这些对实现一些常用任务非常有用，比如按页加载表数据，存取 CLOB/BLOB 类型的数据，处理枚举类型值，等等。让我们来看看其中一些特性吧。</p>
+<h3 id="处理枚举类型"><a href="#处理枚举类型" class="headerlink" title="处理枚举类型"></a>处理枚举类型</h3><p>MyBatis 支持开箱方式持久化 enum 类型属性。假设 STUDENTS 表中有一列 gender（性别）类型为 varchar，存储”MALE”或者“FEMALE”两种值。并且，Student 对象有一个 enum 类型的 gender 属性，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public enum Gender&#123;</span><br><span class="line">	FEMALE,</span><br><span class="line">	MALE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>默认情况下，MyBatis 使用 EnumTypeHandler 来处理 enum 类型的 Java 属性，并且将其存储为 enum 值的名称。你不需要为此做任何额外的配置。你可以可以向使用基本数据类型属性一样使用 enum 类型属性，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Student &#123;</span><br><span class="line">	private Integer id;</span><br><span class="line">	private String name;</span><br><span class="line">	private String email;</span><br><span class="line">	private PhoneNumber phone;</span><br><span class="line">	private Address address;</span><br><span class="line">	private Gender gender;</span><br><span class="line">	//setters and getters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;</span><br><span class="line">	insert into students(name,email,addr_id, phone,gender) values(#&#123;name&#125;,#&#123;email&#125;,#&#123;address.addrId&#125;,#&#123;phone&#125;,#&#123;gender&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+<p>当你执行 insertStudent 语句的时候，MyBatis 会取 Gender 枚举（FEMALE/MALE）的名称，然后将其存储到 GENDER列中。</p>
+<p>如果你希望存储原 enum 的顺序位置，而不是 enum 名，，你需要明确地配置它。</p>
+<p>如 果 你 想 存 储 FEMALE 为 0 ， MALE 为 1 到 gender 列 中 ， 你 需 要 在 mybatis-config.xml 文 件 中 配 置EnumOrdinalTypeHandler:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeHandler handler=&quot;org.apache.ibatis.type.EnumOrdinalTypeHandler&quot; javaType=&quot;org.freecode.domain.Gender&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>使用顺序位置为值存储到数据库时要当心。顺序值是根据 enum 中的声明顺序赋值的。如果你改变了 Gender enum 的声明顺序，则数据库存储的数据和此顺序值就不匹配了。</p>
+<h3 id="处理-CLOB-BLOB-类型数据"><a href="#处理-CLOB-BLOB-类型数据" class="headerlink" title="处理 CLOB/BLOB 类型数据"></a>处理 CLOB/BLOB 类型数据</h3><p>MyBatis 提供了内建的对 CLOB/BLOB 类型列的映射处理支持。</p>
+<p>假设我们有如下的表结构来存储学生和讲师的照片和简介信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE USER_PICS</span><br><span class="line">(</span><br><span class="line">ID INT(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">NAME VARCHAR(50) DEFAULT NULL,</span><br><span class="line">PIC BLOB,</span><br><span class="line">BIO LONGTEXT,</span><br><span class="line">PRIMARY KEY (ID)</span><br><span class="line">) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=LATIN1;</span><br></pre></td></tr></table></figure></p>
+<p>这里，照片可以是 PNG,JPG 或其他格式的。简介信息可以是学生或者讲师的漫长的人生经历。默认情况下，MyBatis将 CLOB 类型的列映射到 java.lang.String 类型上、而把 BLOB 列映射到 byte[] 类型上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class UserPic &#123;</span><br><span class="line">	private int id;</span><br><span class="line">	private String name;</span><br><span class="line">	private byte[] pic;</span><br><span class="line">	private String bio;</span><br><span class="line">	//setters &amp; getters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建 UserPicMapper.xml 文件，配置映射语句，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertUserPic&quot; parameterType=&quot;UserPic&quot;&gt;</span><br><span class="line">	INSERT INTO USER_PICS(NAME, PIC,BIO) VALUES(#&#123;name&#125;,#&#123;pic&#125;,#&#123;bio&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br><span class="line">&lt;select id=&quot;getUserPic&quot; parameterType=&quot;int&quot; resultType=&quot;UserPic&quot;&gt;</span><br><span class="line">	SELECT * FROM USER_PICS WHERE ID=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>下列的 insertUserPic()展示了如何将数据插入到 CLOB/BLOB 类型的列上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public void insertUserPic() &#123;</span><br><span class="line">	byte[] pic = null;</span><br><span class="line">	try &#123;</span><br><span class="line">		File file = new File(&quot;C:\\Images\\UserImg.jpg&quot;);</span><br><span class="line">		InputStream is = new FileInputStream(file);</span><br><span class="line">		pic = new byte[is.available()];</span><br><span class="line">		is.read(pic);</span><br><span class="line">		is.close();</span><br><span class="line">	&#125;catch (FileNotFoundException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;catch (IOException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">	String name = &quot;UserName&quot;;</span><br><span class="line">	String bio = &quot;put some lenghty bio here&quot;;</span><br><span class="line">	UserPic userPic = new UserPic(0, name, pic , bio);</span><br><span class="line">	SqlSession sqlSession = MyBatisUtil.openSession();</span><br><span class="line">	try &#123;</span><br><span class="line">		UserPicMapper mapper = sqlSession.getMapper(UserPicMapper.class);</span><br><span class="line">		mapper.insertUserPic(userPic);</span><br><span class="line">		sqlSession.commit();</span><br><span class="line">	&#125; finally &#123;</span><br><span class="line">		sqlSession.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面的 getUserPic()方法展示了怎样将 CLOB 类型数据读取到 String 类型，BLOB 类型数据读取成 byte[]属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public void getUserPic() &#123;</span><br><span class="line">	UserPic userPic = null;</span><br><span class="line">	SqlSession sqlSession = MyBatisUtil.openSession();</span><br><span class="line">	try &#123;</span><br><span class="line">		UserPicMapper mapper = sqlSession.getMapper(UserPicMapper.class);</span><br><span class="line">		userPic = mapper.getUserPic(1);</span><br><span class="line">	&#125; finally &#123;</span><br><span class="line">		sqlSession.close();</span><br><span class="line">	&#125;</span><br><span class="line">	byte[] pic = userPic.getPic();</span><br><span class="line">	try &#123;</span><br><span class="line">		OutputStream os = new FileOutputStream(new File(&quot;C:\\Images\\UserImage_FromDB.jpg&quot;));</span><br><span class="line">		os.write(pic);</span><br><span class="line">		os.close();</span><br><span class="line">    &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125; catch (IOException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="传入多个输入参数"><a href="#传入多个输入参数" class="headerlink" title="传入多个输入参数"></a>传入多个输入参数</h3><p>MyBatis 中的映射语句有一个 parameterType 属性来制定输入参数的类型。如果我们想给映射语句传入多个参数的话，我们可以将所有的输入参数放到 HashMap 中，将 HashMap 传递给映射语句。</p>
+<p>MyBatis 还提供了另外一种传递多个输入参数给映射语句的方法。假设我们想通过给定的 name 和 email 信息查找学生信息，定义查询接口如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Public interface StudentMapper &#123;</span><br><span class="line">	List&lt;Student&gt; findAllStudentsByNameEmail(String name, String email);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MyBatis 支持 将多个输入参数传递给映射语句，并以#{param}的语法形式引用它们：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findAllStudentsByNameEmail&quot; resultMap=&quot;StudentResult&quot;&gt;</span><br><span class="line">	select stud_id, name,email, phone from Students where name=#&#123;param1&#125; and email=#&#123;param2&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里#{param1}引用第一个参数 name，而#{param2}引用了第二个参数 email。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);</span><br><span class="line">studentMapper.findAllStudentsByNameEmail(name, email);</span><br></pre></td></tr></table></figure></p>
+<h3 id="多行结果集映射成-Map"><a href="#多行结果集映射成-Map" class="headerlink" title="多行结果集映射成 Map"></a>多行结果集映射成 Map</h3><p>如果你有一个映射语句返回多行记录，并且你想以 HashMap 的形式存储记录的值，使用记录列名作为 key 值，而记录对应值或为 value 值。我们可以使用 sqlSession.selectMap(),如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot; findAllStudents&quot; resultMap=&quot;StudentResult&quot;&gt;</span><br><span class="line">	select * from Students</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, Student&gt; studentMap = sqlSession.selectMap(&quot;org.freecode.mappers.StudentMapper.findAllStudents&quot;, &quot;studId&quot;);</span><br></pre></td></tr></table></figure>
+<p>这里 studentMap 将会将 studId 作为 key 值，而 Student 对象作为 value 值。</p>
+<h3 id="使用-RowBounds-对结果集进行分页"><a href="#使用-RowBounds-对结果集进行分页" class="headerlink" title="使用 RowBounds 对结果集进行分页"></a>使用 RowBounds 对结果集进行分页</h3><p>有时候，我们会需要跟海量的数据打交道，比如一个有数百万条数据级别的表。由于计算机内存的现实我们不可能一次性加载这么多数据，我们可以获取到数据的一部分。特别是在 Web 应用程序中，分页机制被用来以一页一页的形式展示海量的数据。</p>
+<p>MyBatis 可以使用 RowBounds 逐页加载表数据。RowBounds 对象可以使用 offset 和 limit 参数来构建。参数offset 表示开始位置，而 limit 表示要取的记录的数目。假设如果你想每页加载并显示 25 条学生的记录，你可以使用如下的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findAllStudents&quot; resultMap=&quot;StudentResult&quot;&gt;</span><br><span class="line">	select * from Students</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后，你可以加载如下加载第一页数据（前 25 条）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int offset =0 , limit =25;</span><br><span class="line">RowBounds rowBounds = new RowBounds(offset, limit);</span><br><span class="line">List&lt;Student&gt; = studentMapper.getStudents(rowBounds);</span><br></pre></td></tr></table></figure></p>
+<p>若要展示第二页，使用 offset=25,limit=25;第三页，则为 offset=50，limit=25。</p>
+<h3 id="使用-ResultSetHandler-自定义结果集-ResultSet-处理"><a href="#使用-ResultSetHandler-自定义结果集-ResultSet-处理" class="headerlink" title="使用 ResultSetHandler 自定义结果集 ResultSet 处理"></a>使用 ResultSetHandler 自定义结果集 ResultSet 处理</h3><p>MyBatis 在将查询结果集映射到 JavaBean 方面提供了很大的选择性。但是，有时候我们会遇到由于特定的目的，需要我们自己处理 SQL 查询结果的情况。MyBatis 提供了 ResultHandler 插件形式允许我们以任何自己喜欢的方式处理结果集 ResultSet。</p>
+<p>  假设我们想从学生的 stud_id 被用作 key，而 name 被用作 value 的 HashMap 中获取到 student 信息。</p>
+<blockquote>
+<p>mybatis-3.2.2 并不支持使用 resultMap 配置将查询的结果集映射成一个属性为key，而另外属性为 value 的 HashMap。<br>sqlSession.selectMap()则可以返回 以给定列为 key，记录对象为 value 的 map。<br>我们不能将其配置成使用其中一个属性作为 key，而另外的属性作为 value。</p>
+</blockquote>
+<p>对于 sqlSession.select()方法，我们可以传递给它一个 ResultHandler 的实现，它会被调用来处理 ResultSet的每一条记录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface ResultHandler &#123;</span><br><span class="line">	void handleResult(ResultContext context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在然我们来看一下怎么使用 ResultHandler 来处理结果集 ResultSet，并返回自定义化的结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public Map&lt;Integer, String&gt; getStudentIdNameMap() &#123;</span><br><span class="line"></span><br><span class="line">	final Map&lt;Integer, String&gt; map = new HashMap&lt;Integer, String&gt;();</span><br><span class="line">	SqlSession sqlSession = MyBatisUtil.openSession();</span><br><span class="line">	try &#123;</span><br><span class="line">	sqlSession.select(&quot;org.freecode.mappers.StudentMapper.findAllStudents&quot;, new ResultHandler()&#123;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public void handleResult(ResultContext context) &#123;</span><br><span class="line">			Student student = (Student) context.getResultObject();</span><br><span class="line">			map.put(student.getStudId(), student.getName());</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	&#125; finally &#123;</span><br><span class="line">		sqlSession.close();</span><br><span class="line">	&#125;</span><br><span class="line">	return map;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 上 述 的 代 码 中 ， 我 们 提 供 了 匿 名 内 部 ResultHandler 实 现 类 ， 在 handleResult() 方 法 中 ， 我 们 使 用context.getResultObject()获取当前的 result 对象，即 Student 对象，因为我们定义了 findAllStudent 映射语句的 resultMap=”studentResult“。对查询返回的每一行都会调用 handleResult()方法，并且我们从 Student 对象中取出 studId 和 name，将其放到 map 中。</p>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>将从数据库中加载的数据缓存到内存中，是很多应用程序为了提高性能而采取的一贯做法。MyBatis 对通过映射的SELECT 语句加载的查询结果提供了内建的缓存支持。默认情况下，启用一级缓存；即，如果你使用同一个 SqlSession接口对象调用了相同的 SELECT 语句，则直接会从缓存中返回结果，而不是再查询一次数据库。</p>
+<p>我们可以在 SQL 映射器 XML 配置文件中使用<code>&lt;cache /&gt;</code>元素添加全局二级缓存。<br>当你加入了<code>&lt;cache /&gt;</code>元素，将会出现以下情况：</p>
+<ul>
+<li>所有的在映射语句文件定义的<code>&lt;select&gt;</code>语句的查询结果都会被缓存</li>
+<li>所有的在映射语句文件定义的<code>&lt;insert&gt;</code>,<code>&lt;update&gt;</code> 和<code>&lt;delete&gt;</code>语句将会刷新缓存</li>
+<li>缓存根据最近最少被使用（Least Recently Used，LRU）算法管理</li>
+<li>缓存不会被任何形式的基于时间表的刷新（没有刷新时间间隔），即不支持定时刷新机制</li>
+<li>缓存将存储 1024 个 查询方法返回的列表或者对象的引用</li>
+<li>缓存会被当作一个读/写缓存。这是指检索出的对象不会被共享，并且可以被调用者安全地修改，不会其他潜在的调用者或者线程的潜在修改干扰。（即，缓存是线程安全的）</li>
+</ul>
+<p>你也可以通过复写默认属性来自定义缓存的行为，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;cache eviction=&quot;FIFO&quot; flushInterval=&quot;60000&quot; size=&quot;512&quot; readOnly=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>以下是对上述属性的描述：</p>
+<ul>
+<li>eviction:此处定义缓存的移除机制。默认值是 LRU，其可能的值有：LRU（least recently used,最近最少使用）,FIFO(first in first out,先进先出)，SOFT(soft reference,软引用)，WEAK（weakreference,弱引用）。</li>
+<li>flushInterval:定义缓存刷新间隔，以毫秒计。默认情况下不设置。所以不使用刷新间隔，缓存 cache 只有调用语句的时候刷新。</li>
+<li>size:此表示缓存 cache 中能容纳的最大元素数。默认值是 1024，你可以设置成任意的正整数。</li>
+<li>readOnly:一个只读的缓存 cache 会对所有的调用者返回被缓存对象的同一个实例（实际返回的是被返回对象的一份引用）。一个读/写缓存 cache 将会返回被返回对象的一分拷贝（通过序列化）。默认情况下设置为 false。可能的值有 false 和 true。</li>
+</ul>
+<p>一个缓存的配置和缓存实例被绑定到映射器配置文件所在的名空间（namespace）上，所以在相同名空间内的所有语句被绑定到一个 cache 中。<br>80</p>
+<p>默认的映射语句的 cache 配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;select ... flushCache=&quot;false&quot; useCache=&quot;true&quot;/&gt;</span><br><span class="line">&lt;insert ... flushCache=&quot;true&quot;/&gt;</span><br><span class="line">&lt;update ... flushCache=&quot;true&quot;/&gt;</span><br><span class="line">&lt;delete ... flushCache=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>你可以为任意特定的映射语句复写默认的 cache 行为；例如，对一个 select 语句不使用缓存，可以设置useCache=“false”。</p>
+<p>除了内建的缓存支持，MyBatis 也提供了与第三方缓存类库如 Ehcache，OSCache，Hazelcast 的集成支持。你可以在 MyBatis 官方网站 <a href="https://code.google.com/p/mybatis/wiki/Caches" target="_blank" rel="external">https://code.google.com/p/mybatis/wiki/Caches</a> 上找到关于继承第三方缓存类库的更多信息。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/04/02/Mybatis井号和$的区别/" itemprop="url">
                   Mybatis ${}和#{} 区别
                 </a>
@@ -1910,812 +2350,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/03/05/JSPServlet3.0总结/" itemprop="url">
-                  JSP/Servlet3.0总结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-03-05T19:53:00+08:00" content="2013-03-05">
-              2013-03-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/03/05/JSPServlet3.0总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/05/JSPServlet3.0总结/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>总结下一JSP/Servlet3.0，记性不好，记录一下，容易反查。</p>
-<h2 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h2><h3 id="JSP-注释"><a href="#JSP-注释" class="headerlink" title="JSP 注释"></a>JSP 注释</h3><h4 id="一种显示注释和三种隐式注释"><a href="#一种显示注释和三种隐式注释" class="headerlink" title="一种显示注释和三种隐式注释"></a>一种显示注释和三种隐式注释</h4><p>JSP中有两种注释方式：</p>
-<ul>
-<li><p>显示注释<br><strong>显示注释就是HTML注释方式</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 注释内容 --&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>隐式注释<br><strong>JSP 注释方式</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%-- 注释内容 --%&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>单行注释</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">// 注释内容</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>多行注释</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">/*</span><br><span class="line">1.注释内容</span><br><span class="line">2.注释内容</span><br><span class="line">*/</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="显示注释和隐式注释的区别"><a href="#显示注释和隐式注释的区别" class="headerlink" title="显示注释和隐式注释的区别"></a>显示注释和隐式注释的区别</h4><p>Servlet渲染页面的过程如下：</p>
-<blockquote>
-<p>JSP -&gt; Servlet -&gt; HTML</p>
-</blockquote>
-<p>显示注释和隐式注释的区别:<br><strong>渲染为HTML页面后，显示注释的内容会显示到页面中，而隐式注释不会显示到页面中。</strong></p>
-<h3 id="Scriptle-脚本片段"><a href="#Scriptle-脚本片段" class="headerlink" title="Scriptle 脚本片段"></a>Scriptle 脚本片段</h3><p>我们将JSP中写Java代码片段（代码块）理解为Scriptle 脚本片段 。Scriptle 脚本片段我们考虑如下三种情况：</p>
-<ul>
-<li><p>局部代码块<br><strong>通过<code>&lt;% Java %&gt;</code> 进行局部代码编写</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">StringBuffer sb = new StringBuffer();</span><br><span class="line">// TODO</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>全局变量和方法<br><strong>通过<code>&lt;%！ Java %&gt;</code> 进行全局代码编写</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%!</span><br><span class="line">String user = &quot;root&quot;;</span><br><span class="line">String password = &quot;123456&quot;;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>输出<br><strong>这里的输出要理解为渲染，它并不是将内容输出到控制台，而是渲染到页面上。  （特别说明）</strong><br><strong>输出有两种方式</strong></p>
-<ul>
-<li><p>通过<code>&lt;%= 内容 %&gt;</code> 进行内容输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%=</span><br><span class="line">&quot;&lt;p&gt;cmp-cc.github.io 是一个Blog &lt;/p&gt;&quot;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过<code>&lt;% out.println(&quot;内容&quot;) %&gt;</code> 进行内容输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;% </span><br><span class="line">out.println(&quot;cmp-cc.github.io 是一个Blog&quot;);</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Scriptlet-标签"><a href="#Scriptlet-标签" class="headerlink" title="Scriptlet 标签"></a>Scriptlet 标签</h3><p>HTML 中有Tag标签，每一标签有它特殊的含义和用途，JSP同样可以引入标签，我们称为：Scriptlet 标签 。<br>Scriptlet 标签是用来取代&lt;%%&gt; 这种形式，使得页面展示更加友好。</p>
-<p>吧啦吧啦！！！！  （一大堆使用Scriptlet 标签 取代 &lt;%%&gt; 的好处）。</p>
-<p>Scriptlet 标签基本写法：<br><strong>这里是JSP标签，很多标签的写法是一致的</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:scriptle&gt;</span><br><span class="line">            </span><br><span class="line">&lt;/jsp:scriptle&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="JSP指令"><a href="#JSP指令" class="headerlink" title="JSP指令"></a>JSP指令</h3><p>  JSP指令用来设置与整个JSP页面相关的属性，它并不直接产生任何可见的输出,而只是告诉引擎如何处理其余JSP页面。</p>
-<p>其一般语法形式为：  &lt;%@ 指令名称 属性=”值” %&gt;</p>
-<p>三种命令指令分别是</p>
-<ul>
-<li>page<br><strong>设定整个JSP网页的静态属性</strong></li>
-<li>include<br><strong>include指令用来向当前页面插入一个静态文件的内容。这个文件可以是JSP、HTML、文本或是Java程序</strong></li>
-<li>taglib<br><strong>使用标签库定义新的自定义标签，在JSP页面中启用定制行为</strong></li>
-</ul>
-<h4 id="page-指令-（页面指令）"><a href="#page-指令-（页面指令）" class="headerlink" title="page 指令 （页面指令）"></a>page 指令 （页面指令）</h4><p>作用： 设定整个JSP网页的静态属性<br>语法：键值对，空格分割。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=utf-8&quot;</span><br><span class="line">    pageEncoding=&quot;utf-8&quot;%&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>page指令属性</strong></p>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>autoFlush</td>
-<td>满缓冲刷新，否异常 默认true</td>
-</tr>
-<tr>
-<td>buffer</td>
-<td>指定输出模式缓冲流，none 无，指定数值，大于此值，与上一起用，默认大于8kb</td>
-</tr>
-<tr>
-<td>contentType</td>
-<td>定义字符编码和页面响应MIME类型：contentType=”text/html;charset=GBK”</td>
-</tr>
-<tr>
-<td>errorPage</td>
-<td>错误跳转页面errorPage=”error.jsp” 与isErrorPage同用</td>
-</tr>
-<tr>
-<td>extends</td>
-<td>定义JSP页面产生的Servlet 类的扩展， extends=””</td>
-</tr>
-<tr>
-<td>import</td>
-<td>import=”java.util.*”</td>
-</tr>
-<tr>
-<td>info</td>
-<td>此JSP信息 info=”info.exe”</td>
-</tr>
-<tr>
-<td>isErrorPage</td>
-<td>设置true或false</td>
-</tr>
-<tr>
-<td>isThreadSafe</td>
-<td>此页面是否是线程安全的，true，表示一个JSP页面可以处理多个用户，false， 一次只能处理一个用户。</td>
-</tr>
-<tr>
-<td>language</td>
-<td>用来定义使用的脚本语言, language=”java”</td>
-</tr>
-<tr>
-<td>pageEncoding</td>
-<td>JSP页面的字节编码 pageEncoding=”utf-8”</td>
-</tr>
-<tr>
-<td>session</td>
-<td>指定所在页面是否参与HTTP对话，默认:true</td>
-</tr>
-</tbody>
-</table>
-<p><strong>实例代码</strong></p>
-<ul>
-<li>引入ArrayList 和 StringTokenizer<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=utf-8&quot;</span><br><span class="line">    pageEncoding=&quot;utf-8&quot;%&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.ArrayList,java.util.StringTokenizer;&quot; %&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="include-（包含指令）"><a href="#include-（包含指令）" class="headerlink" title="include （包含指令）"></a>include （包含指令）</h4><p><strong>包含指令的用法非常简单，因为它只有一个属性</strong><br>作用： include指令用来向当前页面插入一个静态文件的内容。这个文件可以是JSP、HTML、文本或是Java程序<br>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@include file=&quot;文件路径&quot;%&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>注意：</strong><br>1、include 属于静态包含。（先包含后处理）<br>2、如果直接以文件名开头,指的是正在使用的JSP文件所在的路径,如果以/开头,指的是正在使用的JSP文件上下的路径关系(相对于WEB应用的根目录。)</p>
-<p><strong>实例</strong></p>
-<ul>
-<li>index.jsp 引入 home.jsp<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ include file=&quot;home.jsp&quot;%&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="taglib-（标签指令）"><a href="#taglib-（标签指令）" class="headerlink" title="taglib （标签指令）"></a>taglib （标签指令）</h4><p>当页面引用了用户自定义标签时，taglib指令用于引用自定义标签库，并指定标签的前缀。<br>JSP内置的标签，我们称为JSP标签。</p>
-<p>作用：使用标签库定义新的自定义标签，在JSP页面中启用定制行为。<br>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ taglib uri=&quot;URIToTagLibrary&quot; prefix=&quot;tagPrefix&quot; %&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>taglib 指令属性</strong><br>属性 | 说明<br>— | —<br>uri | 定位标签库描述符的位置。唯一标识和前缀相关的标签库描述符，可以使用绝对或相对URL。<br>tagDir | 指示前缀将被用于标识在WEV-INF/tags目录下的标签文件。<br>prefix | 标签的前缀，区分多个自定义标签。不可以使用保留前缀和空前缀，遵循XML命名空间的命名约定。</p>
-<p><strong>实例</strong></p>
-<ul>
-<li>引入JSTL 标签库<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;taglib uri=&quot;http://java.sun.com /jsp/jstl/core&quot; prefix=&quot;c&quot; /&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="JSP-内置标签"><a href="#JSP-内置标签" class="headerlink" title="JSP 内置标签"></a>JSP 内置标签</h3><p><strong>JSP 一共有13个内置标签，他们用于完成不同的功能</strong><br><strong>暂略</strong></p>
-<h4 id="静态包含和动态包含的区别"><a href="#静态包含和动态包含的区别" class="headerlink" title="静态包含和动态包含的区别"></a>静态包含和动态包含的区别</h4><ul>
-<li><p>写法</p>
-<ul>
-<li><p>静态包含<br>静态包含就是使用包含指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@include file=&quot;文件路径&quot;%&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>动态包含<br>使用JSP标签 <jsp:include></jsp:include></p>
-</li>
-</ul>
-</li>
-<li><p>区别：</p>
-<ul>
-<li>静态包含<br><strong>执行时间是在编译阶段执行，引入的内容为静态文件，在编译成servlet时就和包含者融合到一起,最后生成HTML</strong></li>
-<li>动态包含<br><strong>执行时间是在请求阶段执行，引入的内容在执行页面时被请求时动态生成再包含到页面中。</strong></li>
-</ul>
-</li>
-</ul>
-<h3 id="JSP-内置对象"><a href="#JSP-内置对象" class="headerlink" title="JSP 内置对象"></a>JSP 内置对象</h3><h4 id="JSP-九种内置对象"><a href="#JSP-九种内置对象" class="headerlink" title="JSP 九种内置对象"></a>JSP 九种内置对象</h4><p><strong>JSP 内置九种内置对象，你并不需要使用include 去引入它</strong></p>
-<table>
-<thead>
-<tr>
-<th>对象名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pageContext</td>
-<td>JSP的页面容器</td>
-</tr>
-<tr>
-<td>request</td>
-<td>得到用户的请求信息</td>
-</tr>
-<tr>
-<td>response</td>
-<td>服务器向用户的回应信息</td>
-</tr>
-<tr>
-<td>session</td>
-<td>用来保存内一个用户信息</td>
-</tr>
-<tr>
-<td>application</td>
-<td>表示所有用户的共享信息</td>
-</tr>
-<tr>
-<td>config</td>
-<td>服务器配置，可以去的初始值参数页面输出</td>
-</tr>
-<tr>
-<td>out</td>
-<td>页面输出</td>
-</tr>
-<tr>
-<td>page</td>
-<td>表示从页面中表示出来的一个Servlet实例</td>
-</tr>
-<tr>
-<td>exception</td>
-<td>表示JSP页面所发生异常，在错误页面才起作用</td>
-</tr>
-</tbody>
-</table>
-<h4 id="JSP-四种属性范围"><a href="#JSP-四种属性范围" class="headerlink" title="JSP 四种属性范围"></a>JSP 四种属性范围</h4><p><strong>这里涉及JSP页面请求的生命周期,  暂略</strong></p>
-<table>
-<thead>
-<tr>
-<th>作用范围名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>page</td>
-<td>只在一个页面中保存属性，跳转之后无效。（使用pageContext表示）</td>
-</tr>
-<tr>
-<td>request</td>
-<td>再一次请求中保存属性，服务器跳转后依然有效。</td>
-</tr>
-<tr>
-<td>session</td>
-<td>再一次会话范围中保存，无论何种跳转都可以使用，但是新开浏览器无法使用。</td>
-</tr>
-<tr>
-<td>application</td>
-<td>在整个服务器上保存，所有用户都可以使用。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="JSP-JavaBean"><a href="#JSP-JavaBean" class="headerlink" title="JSP JavaBean"></a>JSP JavaBean</h3><p><strong>JSP 使用使用JavaBean，除了可以使用&lt;%User user = new User();%&gt;的方式，大多数使用<code>&lt;jsp:useBean&gt;</code>标签</strong></p>
-<ul>
-<li><p>写法<br><strong>它会按照按名称完成自动匹配</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=&quot;实例化对象名称&quot; scope=&quot;保存范围&quot; class=&quot;包.类名称&quot;/&gt;</span><br><span class="line">&lt;jsp:setProperty name=&quot;javabean对象&quot; property=&quot;*&quot;/&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用参数 <jsp:property></jsp:property></p>
-<ul>
-<li><code>&lt;jsp:setProperty name=&quot;id&quot; property=&quot;*&quot;/&gt;</code>  </li>
-<li><code>&lt;jsp:setProperty name=&quot;id&quot; property=&quot;属性名称&quot;/&gt;</code></li>
-<li><code>&lt;jsp:setProperty name=&quot;id&quot; property=&quot;属性名称&quot; param=&quot;参数名称&quot;/&gt;</code></li>
-<li><code>&lt;jsp:setProperty name=&quot;id&quot; property=&quot;属性名称&quot; param=&quot;参数名称&quot; value=&quot;内容&quot;/&gt;</code></li>
-</ul>
-</li>
-<li><p>获得属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:getProperty name=&quot;实例化对象名称&quot; property=&quot;属性名称&quot;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>JavaBean的保存范围</p>
-<ul>
-<li>page </li>
-<li>request </li>
-<li>session </li>
-<li>application</li>
-</ul>
-</li>
-<li>JavaBean删除<br><strong>作用域范围.removeAttribute(JavaBean名称)，必须根据设置的范围删除</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pageContext.removeAttribute(&quot;javabean&quot;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h2><p><strong>这里简单总结</strong></p>
-<h3 id="Servlet-基础"><a href="#Servlet-基础" class="headerlink" title="Servlet 基础"></a>Servlet 基础</h3><h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>Servlet 生命周期如下：</p>
-<blockquote>
-<p>加载 -&gt; 初始化 -&gt; 服务 -&gt; 销毁 -&gt; 卸载</p>
-</blockquote>
-<h4 id="内置方法"><a href="#内置方法" class="headerlink" title="内置方法"></a>内置方法</h4><table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>init()</td>
-<td>Servlet初始化调用</td>
-</tr>
-<tr>
-<td>init(ServletConfig)</td>
-<td>Servlet初始化调用，ServletConfig读取配置信息</td>
-</tr>
-<tr>
-<td>service()</td>
-<td>Servlet服务，一般不会直接覆写此方法，而是使用doGet()或doPost()方法</td>
-</tr>
-<tr>
-<td>destroy()</td>
-<td>Servlet销毁时调用</td>
-</tr>
-</tbody>
-</table>
-<h4 id="web-xml-配置Servlet，并附加初始值"><a href="#web-xml-配置Servlet，并附加初始值" class="headerlink" title="web.xml 配置Servlet，并附加初始值"></a>web.xml 配置Servlet，并附加初始值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;                                         定义&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;xxxx&lt;/servlet-name&gt;             与servlet-mapping对应</span><br><span class="line">    &lt;servlet-class&gt;                               定义包.类名称</span><br><span class="line">    io.github.cmp-cc.xxxx</span><br><span class="line">  &lt;/servlet-class&gt;</span><br><span class="line">  &lt;init-param&gt;                                    配置参数，可配置多个</span><br><span class="line">    &lt;param-name&gt;ref&lt;/param-name&gt;                  参数名称</span><br><span class="line">    &lt;param-value&gt;值&lt;/param-value&gt;                 参数内容</span><br><span class="line">  &lt;/init-param&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;                                 映射路径</span><br><span class="line">  &lt;servlet-name&gt;xxxx&lt;/servlet-name&gt;               与servlet相对应</span><br><span class="line">  &lt;url-pattern&gt;/xxx&lt;/url-pattern&gt;                 页面映射路径</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>Servlet 获取初始值</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Congif.getinitParameter（&quot;ref&quot;）取出</span><br></pre></td></tr></table></figure></p>
-<h4 id="获取HttpSession、ServletContext-实例"><a href="#获取HttpSession、ServletContext-实例" class="headerlink" title="获取HttpSession、ServletContext 实例"></a>获取HttpSession、ServletContext 实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getSession（）              // 返回当前session</span><br><span class="line">getSession（boolean）       // 返回当前session，是否新建。</span><br><span class="line">getServletContext（）       // 取得ServletContext对象</span><br></pre></td></tr></table></figure>
-<h4 id="请求转发与重定向"><a href="#请求转发与重定向" class="headerlink" title="请求转发与重定向"></a>请求转发与重定向</h4><h5 id="请求转发与重定向的区别"><a href="#请求转发与重定向的区别" class="headerlink" title="请求转发与重定向的区别"></a>请求转发与重定向的区别</h5><ul>
-<li>请求转发<br><strong>调用者与被调用者之间共享相同的request对象和response对象，他们属于同一个访问请求和响应过程，我们可以称之为<code>服务器跳转</code></strong></li>
-<li>重定向<br><strong>调用者与被调用者,不共享属性和方法，等同于点击一个URL。 我们称之为<code>客户端跳转</code></strong><h5 id="请求转发与重定向的用法"><a href="#请求转发与重定向的用法" class="headerlink" title="请求转发与重定向的用法"></a>请求转发与重定向的用法</h5></li>
-<li><p>重定向（客户点跳转）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.sendRedirect（&quot;success.jsp&quot;）;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>请求转发（服务端跳转）<br><strong>有两个方法用于请求转发</strong></p>
-<ul>
-<li><p>forward(req,res);        页面跳转    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestDispatcher(&quot;success.jsp&quot;).forward(request,response);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>include(req.res)       页面包含</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestDispatcher(&quot;main.jsp&quot;).include(request, response);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="forward-和-include-区别"><a href="#forward-和-include-区别" class="headerlink" title="forward 和 include 区别"></a>forward 和 include 区别</h4><ul>
-<li>forward方法是把请求的内容转发到另外的一个servlet.</li>
-<li>include是把另一个servlet处理过后的结果内容拿过来.<h3 id="Servlet-过滤器"><a href="#Servlet-过滤器" class="headerlink" title="Servlet 过滤器"></a>Servlet 过滤器</h3>Servlet 自定义过滤器需要两个步骤</li>
-<li><p>1、实现Filter接口</p>
-<ul>
-<li><p>Filter 方法<br>方法名称 | 说明<br>— | —<br>init（FilterConfig）| 过滤器初始化<br>doFilter(req,res)  |  完成过滤操作，然后通过FilterChain传递<br>destroy() | 过滤器消亡，执行方法</p>
-</li>
-<li><p>实例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">  private String encodeString;</span><br><span class="line"></span><br><span class="line">//初始化方法</span><br><span class="line">@Override</span><br><span class="line">public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">  // 获取Web.xml 中配置的属性值</span><br><span class="line">  encodeString=filterConfig.getInitParameter(&quot;encoding&quot;);</span><br><span class="line">&#125;</span><br><span class="line">  //filter 要实现的功能</span><br><span class="line">@Override</span><br><span class="line">public void doFilter(ServletRequest request, ServletResponse response,</span><br><span class="line">    FilterChain chain) throws IOException, ServletException &#123;</span><br><span class="line">  System.out.println(&quot;begin&quot;);</span><br><span class="line">  // 设置字符集</span><br><span class="line">  request.setCharacterEncoding(encodeString);</span><br><span class="line">  </span><br><span class="line">  //继续向下执行，如果还有其他filter继续调用其他filter，没有的话将消息发送给服务器或客户端</span><br><span class="line">  chain.doFilter(request, response);</span><br><span class="line">  System.out.println(&quot;end&quot;);</span><br><span class="line">&#125;</span><br><span class="line">//Filter注销方法</span><br><span class="line">@Override</span><br><span class="line">public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>2、配置Web.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;encodeFilter&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;io.github.cmp-cc.filter.encodeFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;encodeFilter&lt;/filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>url-pattern指定匹配模式</p>
-</blockquote>
-<h3 id="Servlet-监听器"><a href="#Servlet-监听器" class="headerlink" title="Servlet 监听器"></a>Servlet 监听器</h3><h4 id="监听器类型"><a href="#监听器类型" class="headerlink" title="监听器类型"></a>监听器类型</h4><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>接口名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>application</td>
-<td>ServletContextListener</td>
-<td>上下文状态监听器：监听应用容器启动和消亡</td>
-</tr>
-<tr>
-<td>application</td>
-<td>ServletContextAttributeListener</td>
-<td>上下文属性监听器：监听增删改变换</td>
-</tr>
-<tr>
-<td>session</td>
-<td>HttpSessionListener</td>
-<td>状态监听器： 监听一次会话（Session）启动和消亡</td>
-</tr>
-<tr>
-<td>session</td>
-<td>HttpSessionAttributeListener</td>
-<td>Session 属性监听：监听增删改变换</td>
-</tr>
-<tr>
-<td>session</td>
-<td>HttpSessionBindingListener</td>
-<td>Session 对象绑定监听：Session绑定对象触发和消亡</td>
-</tr>
-<tr>
-<td>request</td>
-<td>ServletRequestListener</td>
-<td>请求监听器：监听一个请求（Request）启动和消亡</td>
-</tr>
-<tr>
-<td>request</td>
-<td>ServletRequestAttributeListener</td>
-<td>Request 属性监听：监听增删改变换</td>
-</tr>
-</tbody>
-</table>
-<h4 id="监听器的方法"><a href="#监听器的方法" class="headerlink" title="监听器的方法"></a>监听器的方法</h4><h5 id="application-监听"><a href="#application-监听" class="headerlink" title="application 监听"></a>application 监听</h5><p><strong>ServletContextListener </strong></p>
-<table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>contextInitialized(ServletContextEvent)</td>
-<td>容器启动时触发</td>
-</tr>
-<tr>
-<td>contextDestroyed（ServletContextEvent）</td>
-<td>容器销毁时触发</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>ServletContextEvent<ul>
-<li>getServletContext() 取得ServletContext对象</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>ServletContextAttributeListener </strong></p>
-<table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>attributeAdded（ServletContexArribute）</td>
-<td>增加属性触发</td>
-</tr>
-<tr>
-<td>attributeRemoved(ServletContexArribute)</td>
-<td>删除属性触发</td>
-</tr>
-<tr>
-<td>attributeReplaced(ServletContexArribute)</td>
-<td>替换属性(重复设置)时触发</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>ServletContexArribute <ul>
-<li>getName()取得设置属性名称</li>
-<li>getValue()取得设置属性内容</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h5 id="session-监听"><a href="#session-监听" class="headerlink" title="session 监听"></a>session 监听</h5><p><strong>HttpSessionListener</strong></p>
-<table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sessionCreated(HttpSessionEvent)</td>
-<td>session创建时调用</td>
-</tr>
-<tr>
-<td>sessionDestroyed(HttpSessionEvent)</td>
-<td>session销毁时调用</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>HttpSessionAttributeListener<ul>
-<li>getsession()取得当前session</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>HttpSessionAttributeListener</strong></p>
-<table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>attributeAdded(HttpSessionBindingEvent)</td>
-<td>增加属性触发</td>
-</tr>
-<tr>
-<td>attributeRemoved(HttpSessionBindingEvent)</td>
-<td>删除属性触发</td>
-</tr>
-<tr>
-<td>attributeReplaced(HttpSessionBindingEvent)</td>
-<td>替换属性时触发</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>HttpSessionBindingListener<ul>
-<li>getSession()取得session</li>
-<li>getName()取得属性名称</li>
-<li>getValue()取得属性的内容</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>HttpSessionBindingListener </strong></p>
-<table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>valueBound(HttpSessionBindingEvent)</td>
-<td>绑定对象到session时触发</td>
-</tr>
-<tr>
-<td>valueUnbound(HttpSessionBindingEvent)</td>
-<td>从session中移除对象时触发</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h5 id="request-监听"><a href="#request-监听" class="headerlink" title="request 监听"></a>request 监听</h5><p><strong>ServletRequestListener</strong></p>
-<table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>requestInitialized(ServletRequestEvent)</td>
-<td>请求开始时调用</td>
-</tr>
-<tr>
-<td>requestDestroyed(ServletRequestEvent)</td>
-<td>请求结束时调用</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>ServletRequestEvent<ul>
-<li>getServletRequest() 取得ServletRequest对象</li>
-<li>getServletContext()取得ServletContext对象</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>ServletRequestAttributeListener</strong></p>
-<table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>attributeAdded(ServletRequestAttributeEvent)</td>
-<td>增加属性触发</td>
-</tr>
-<tr>
-<td>attributeRemoved(ServletRequestAttributeEvent)</td>
-<td>删除属性触发</td>
-</tr>
-<tr>
-<td>attributeReplaced(ServletRequestAttributeEvent)</td>
-<td>替换属性(重复设置)时触发</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>ServletRequestAttributeEvent<ul>
-<li>getName()         取得属性名称</li>
-<li>getValue()         取得属性的内容</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="监听器实例"><a href="#监听器实例" class="headerlink" title="监听器实例"></a>监听器实例</h4><h4 id="web-xml-配置监听器"><a href="#web-xml-配置监听器" class="headerlink" title="web.xml 配置监听器"></a>web.xml 配置监听器</h4><p><strong>如此简单</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;listener&gt;</span><br><span class="line">   &lt;listener-class&gt;io.github.cmp-cc.listener.RquestCountListener&lt;/listener-class&gt;</span><br><span class="line">&lt;/listener&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="EL-表达式"><a href="#EL-表达式" class="headerlink" title="EL 表达式"></a>EL 表达式</h2><p><strong>EL表达式可以理解为是JSP的一部分，把EL表达式单独拎出来，说是因为，它只是提供了一种更加简写操作内置对象的一种方式，就简单的总结一下。</strong></p>
-<h3 id="语法结构"><a href="#语法结构" class="headerlink" title="语法结构"></a>语法结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;expression&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="与-运算符"><a href="#与-运算符" class="headerlink" title=".与  []  运算符"></a><code>.</code>与  <code>[]</code>  运算符</h3><p>这两个运算符都是用于取值操作，可能你已经习惯如果取值方式,他更符合你的编程习惯。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;sessionScope.user.username&#125;</span><br></pre></td></tr></table></figure></p>
-<p>但是，要取值的key 为 $-3，怎么办?  ，你就需要使用<code>[]</code> 运算符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$&#123;sessionScope.user[$-3]&#125;</span><br><span class="line"></span><br><span class="line">$&#123;sessionScope.user.$-3&#125;   // 这是会报错的。</span><br></pre></td></tr></table></figure></p>
-<p>如果你想忘掉<code>.</code>的方式也是可行的。</p>
-<h3 id="EL表达式隐式对象"><a href="#EL表达式隐式对象" class="headerlink" title="EL表达式隐式对象"></a>EL表达式隐式对象</h3><p><strong>EL表达式有十一个隐式对象</strong></p>
-<p><strong>四大作用域对象</strong></p>
-<table>
-<thead>
-<tr>
-<th>对象名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pageScope</td>
-<td>将页面范围的变量名称映射到其值。</td>
-</tr>
-<tr>
-<td>requestScope</td>
-<td>将请求范围的变量名称映射到其值。</td>
-</tr>
-<tr>
-<td>sessionScope</td>
-<td>将会话范围的变量名称映射到其值。该对象允许访问会话对象的属性。</td>
-</tr>
-<tr>
-<td>applicationScope</td>
-<td>将应用程序范围的变量名称映射到其值。该隐式对象允许访问应用程序范围的对象。</td>
-</tr>
-</tbody>
-</table>
-<p><strong>一个上下文对象</strong></p>
-<table>
-<thead>
-<tr>
-<th>对象名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pageContext</td>
-<td>javax.servlet.jsp.PageContext对象 将页面范围的变量名称映射到其值。用于访问 JSP 隐式对象，如请求、响应、会话、输出、servletContext</td>
-</tr>
-</tbody>
-</table>
-<p><strong>其他六个不同作用的隐式对象</strong></p>
-<table>
-<thead>
-<tr>
-<th>对象名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>param</td>
-<td>接收传递到本页面的参数</td>
-</tr>
-<tr>
-<td>paramValues</td>
-<td>接收传递到本页面的一组参数</td>
-</tr>
-<tr>
-<td>header</td>
-<td>取得一个头信息数据</td>
-</tr>
-<tr>
-<td>headerValues</td>
-<td>取出一组头信息数据</td>
-</tr>
-<tr>
-<td>cookie</td>
-<td>取出cookie中的数据</td>
-</tr>
-<tr>
-<td>initParam</td>
-<td>将上下文初始化参数名称映射到单个值</td>
-</tr>
-</tbody>
-</table>
-<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><table>
-<thead>
-<tr>
-<th>术语</th>
-<th>定义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>算术</td>
-<td>+、- 、*、/、div、%、mod、–</td>
-</tr>
-<tr>
-<td>逻辑</td>
-<td>and、&amp;&amp;、or、ll、!、not</td>
-</tr>
-<tr>
-<td>关系</td>
-<td>==、eq、!=、ne、lt、gt、&lt;=、le、&gt;=、ge</td>
-</tr>
-<tr>
-<td>空</td>
-<td>empty </td>
-</tr>
-<tr>
-<td>三目（条件）</td>
-<td>A ?B :C</td>
-</tr>
-</tbody>
-</table>
-<h3 id="理解EL表达式的查找属性的顺序"><a href="#理解EL表达式的查找属性的顺序" class="headerlink" title="理解EL表达式的查找属性的顺序"></a>理解EL表达式的查找属性的顺序</h3><p><strong>你可以通过如下进行属性查找：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;username&#125;</span><br></pre></td></tr></table></figure></p>
-<p>因为没有指定哪一个范围的username，所以它会依序从Page -&gt; Request -&gt; Session -&gt; Application范围查找,没有找到返回null。</p>
-<h3 id="EL-其他"><a href="#EL-其他" class="headerlink" title="EL 其他"></a>EL 其他</h3><ul>
-<li><p>接受请求参数</p>
-<ul>
-<li><p>单个参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;param.red&#125;     等价于      &lt;%=request.getparameter(&quot;red&quot;)%&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一组参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&#123;paramValues.参数名称&#125;</span><br><span class="line">$&#123;paramValues.inst[0]&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>处理集合</p>
-<ul>
-<li>List   使用<code>${all[0]}</code></li>
-<li>Map  使用<code>${all[&quot;key&quot;]}</code></li>
-<li>Javabean 使用 <code>${all.名称}</code></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2761,7 +2395,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

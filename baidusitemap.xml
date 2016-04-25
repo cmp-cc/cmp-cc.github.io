@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://cmp-cc.github.io/2014/04/04/MyBatis%20%E4%B8%8E%20%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90/</loc>
+    <lastmod>2016-04-25T12:58:23.737Z</lastmod>
+    <data>
+        <display>
+        <title>MyBatis 使用XML配置SQL 映射器</title>
+        <pubTime>2014-04-04T14:09:00.000Z</pubTime>
+        
+        <tag>Mybatis</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java Web" url="http://cmp-cc.github.io/categories/Java-Web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://cmp-cc.github.io/2014/04/03/MyBatis%20%E4%BD%BF%E7%94%A8XML%E9%85%8D%E7%BD%AESQL%20%E6%98%A0%E5%B0%84%E5%99%A8/</loc>
     <lastmod>2016-04-24T08:53:10.596Z</lastmod>
     <data>
