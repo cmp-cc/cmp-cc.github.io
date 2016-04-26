@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-04-26T11:15:03.707Z</updated>
+  <updated>2016-04-26T11:15:39.224Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>模板</title>
+    <title>Python + OpenCV 环境配置</title>
     <link href="http://cmp-cc.github.io/2016/04/26/Python%20+%20OpenCV%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
     <id>http://cmp-cc.github.io/2016/04/26/Python + OpenCV 环境配置/</id>
     <published>2016-04-26T11:12:00.000Z</published>
-    <updated>2016-04-26T11:15:03.707Z</updated>
+    <updated>2016-04-26T11:15:39.224Z</updated>
     
     <content type="html">&lt;p&gt;还以为cv2 只是一个普通的图像处理lib库，使用&lt;code&gt;pip install cv2&lt;/code&gt; 发现import cv2失败。&lt;/p&gt;
 &lt;p&gt;CV2 是OpenCV 基于Python版的图像处理库&lt;br&gt;安装详情参考:&lt;br&gt;&lt;a href=&quot;http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_setup/py_setup_in_windows/py_setup_in_windows.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_setup/py_setup_in_windows/py_setup_in_windows.html&lt;/a&gt;&lt;/p&gt;
