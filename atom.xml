@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-04-27T12:56:30.143Z</updated>
+  <updated>2016-04-28T07:59:21.005Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://cmp-cc.github.io/2016/04/27/2016/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%20Azkaban%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://cmp-cc.github.io/2016/04/27/2016/大数据工作流 Azkaban 环境搭建/</id>
     <published>2016-04-27T12:55:00.000Z</published>
-    <updated>2016-04-27T12:56:30.143Z</updated>
+    <updated>2016-04-28T07:59:21.005Z</updated>
     
     <content type="html">&lt;p&gt;运维什么脚本泛滥，且依赖混乱，不易管理。 需要符合自身要求的任务调度系统，来减轻痛苦~~。&lt;/p&gt;
 &lt;p&gt;之前调研了Oozie、AzkaBan、Airflow、Luigi 评估了一下诉求，选择AzkaBan。&lt;/p&gt;
@@ -147,10 +147,12 @@
     
     </summary>
     
-      <category term="大数据" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+      <category term="Workflow" scheme="http://cmp-cc.github.io/categories/Workflow/"/>
+    
+      <category term="Bigdata Workflow" scheme="http://cmp-cc.github.io/categories/Workflow/Bigdata-Workflow/"/>
     
     
-      <category term="工作流" scheme="http://cmp-cc.github.io/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/"/>
+      <category term="Workflow" scheme="http://cmp-cc.github.io/tags/Workflow/"/>
     
       <category term="Azkaban" scheme="http://cmp-cc.github.io/tags/Azkaban/"/>
     
@@ -161,7 +163,7 @@
     <link href="http://cmp-cc.github.io/2016/04/26/2016/Python%20+%20OpenCV%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
     <id>http://cmp-cc.github.io/2016/04/26/2016/Python + OpenCV 环境配置/</id>
     <published>2016-04-26T11:12:00.000Z</published>
-    <updated>2016-04-26T11:23:53.212Z</updated>
+    <updated>2016-04-28T07:55:30.213Z</updated>
     
     <content type="html">&lt;p&gt;OpenCV的全称是：Open Source Computer Vision Library。OpenCV是一个基于（开源）发行的跨平台计算机视觉库，可以运行在Linux、Windows和Mac OS操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。&lt;/p&gt;
 &lt;p&gt;CV2是OpenCV官方的一个扩展库，属于一个Python模块，处理图像函数主要还是和CV2打交道。&lt;/p&gt;
@@ -191,10 +193,14 @@
     
     </summary>
     
-      <category term="Python" scheme="http://cmp-cc.github.io/categories/Python/"/>
+      <category term="Programming Language" scheme="http://cmp-cc.github.io/categories/Programming-Language/"/>
+    
+      <category term="Python" scheme="http://cmp-cc.github.io/categories/Programming-Language/Python/"/>
     
     
       <category term="Python" scheme="http://cmp-cc.github.io/tags/Python/"/>
+    
+      <category term="图像处理" scheme="http://cmp-cc.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
@@ -203,7 +209,7 @@
     <link href="http://cmp-cc.github.io/2016/04/14/2016/%E6%A8%A1%E6%8B%9FORM/"/>
     <id>http://cmp-cc.github.io/2016/04/14/2016/模拟ORM/</id>
     <published>2016-04-14T10:34:00.000Z</published>
-    <updated>2016-04-15T07:11:46.908Z</updated>
+    <updated>2016-04-28T07:54:42.158Z</updated>
     
     <content type="html">&lt;p&gt;有时候做一些展示用的项目，或者是测试项目，可能并不会去引入Hibernate 等这类ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。&lt;/p&gt;
 &lt;h2 id=&quot;SQL-Mapping-Java&quot;&gt;&lt;a href=&quot;#SQL-Mapping-Java&quot; class=&quot;headerlink&quot; title=&quot;SQL Mapping Java&quot;&gt;&lt;/a&gt;SQL Mapping Java&lt;/h2&gt;&lt;h3 id=&quot;整体实体关系映射&quot;&gt;&lt;a href=&quot;#整体实体关系映射&quot; class=&quot;headerlink&quot; title=&quot;整体实体关系映射&quot;&gt;&lt;/a&gt;整体实体关系映射&lt;/h3&gt;&lt;table&gt;
@@ -532,7 +538,9 @@
     
     </summary>
     
-      <category term="Java" scheme="http://cmp-cc.github.io/categories/Java/"/>
+      <category term="Programming Language" scheme="http://cmp-cc.github.io/categories/Programming-Language/"/>
+    
+      <category term="Java" scheme="http://cmp-cc.github.io/categories/Programming-Language/Java/"/>
     
     
       <category term="Java" scheme="http://cmp-cc.github.io/tags/Java/"/>
@@ -544,7 +552,7 @@
     <link href="http://cmp-cc.github.io/2016/04/12/2016/H2%20DataBase%20%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     <id>http://cmp-cc.github.io/2016/04/12/2016/H2 DataBase 数据库/</id>
     <published>2016-04-12T09:49:00.000Z</published>
-    <updated>2016-04-13T09:04:18.895Z</updated>
+    <updated>2016-04-28T07:54:27.441Z</updated>
     
     <content type="html">&lt;p&gt;H2 DataBase属于Java 嵌入式数据库（内存数据库），除此之外还有HyperSQL Database、 Apache Derby。&lt;/p&gt;
 &lt;p&gt;H2 貌似用的人更多一些，这篇文章只是介绍 H2 Web开发实例。&lt;/p&gt;
@@ -583,7 +591,9 @@
     
     </summary>
     
-      <category term="数据库" scheme="http://cmp-cc.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="DataBase" scheme="http://cmp-cc.github.io/categories/DataBase/"/>
+    
+      <category term="H2" scheme="http://cmp-cc.github.io/categories/DataBase/H2/"/>
     
     
       <category term="嵌入式数据库" scheme="http://cmp-cc.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
@@ -597,7 +607,7 @@
     <link href="http://cmp-cc.github.io/2015/10/08/2015/Airbnb%20JavaScript%20%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"/>
     <id>http://cmp-cc.github.io/2015/10/08/2015/Airbnb JavaScript 编码规范/</id>
     <published>2015-10-08T15:51:00.000Z</published>
-    <updated>2016-04-18T06:44:12.481Z</updated>
+    <updated>2016-04-28T07:48:11.240Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;ECMAScript 6 编码规范 来自于 Airbnb&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Airbnb JavaScript 编程规范：&lt;a href=&quot;https://github.com/airbnb/javascript&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/airbnb/javascript&lt;/a&gt;&lt;br&gt;翻译自 &lt;a href=&quot;https://github.com/airbnb/javascript&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Airbnb JavaScript Style Guide&lt;/a&gt; 。&lt;/p&gt;
@@ -1050,7 +1060,9 @@
     
     </summary>
     
-      <category term="Web" scheme="http://cmp-cc.github.io/categories/Web/"/>
+      <category term="Programming Language" scheme="http://cmp-cc.github.io/categories/Programming-Language/"/>
+    
+      <category term="Javascript" scheme="http://cmp-cc.github.io/categories/Programming-Language/Javascript/"/>
     
     
       <category term="Javascript" scheme="http://cmp-cc.github.io/tags/Javascript/"/>
@@ -1062,7 +1074,7 @@
     <link href="http://cmp-cc.github.io/2015/07/22/2015/Hive%20%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%BC%82%E5%B8%B8/"/>
     <id>http://cmp-cc.github.io/2015/07/22/2015/Hive 动态分区异常/</id>
     <published>2015-07-22T11:53:00.000Z</published>
-    <updated>2016-04-28T06:57:26.446Z</updated>
+    <updated>2016-04-28T07:50:35.784Z</updated>
     
     <content type="html">&lt;h2 id=&quot;异常信息&quot;&gt;&lt;a href=&quot;#异常信息&quot; class=&quot;headerlink&quot; title=&quot;异常信息&quot;&gt;&lt;/a&gt;异常信息&lt;/h2&gt;&lt;p&gt;&lt;strong&gt; 我们大致设置这样一条插入语句:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;hue_sunyan_detection0711表中 dt&amp;gt;’20150415’的数据插入到pengwei_test_detection0711表中，并自动创建分区。&lt;/p&gt;
@@ -1106,9 +1118,9 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="大数据" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
     
-      <category term="数据仓库" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/"/>
+      <category term="Hive" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Hive/"/>
     
     
       <category term="Hive" scheme="http://cmp-cc.github.io/tags/Hive/"/>
@@ -1120,7 +1132,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2015/04/28/2015/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%84%9A%E6%9C%AC/"/>
     <id>http://cmp-cc.github.io/2015/04/28/2015/配置环境变量脚本/</id>
     <published>2015-04-28T13:54:00.000Z</published>
-    <updated>2016-04-19T07:09:17.839Z</updated>
+    <updated>2016-04-28T07:53:04.160Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;Window-环境下自动化配置各种环境变量&quot;&gt;&lt;a href=&quot;#Window-环境下自动化配置各种环境变量&quot; class=&quot;headerlink&quot; title=&quot;Window 环境下自动化配置各种环境变量&quot;&gt;&lt;/a&gt;Window 环境下自动化配置各种环境变量&lt;/h2&gt;&lt;h3 id=&quot;1、修改注册表的方法，重启永久有效&quot;&gt;&lt;a href=&quot;#1、修改注册表的方法，重启永久有效&quot; class=&quot;headerlink&quot; title=&quot;1、修改注册表的方法，重启永久有效&quot;&gt;&lt;/a&gt;1、修改注册表的方法，重启永久有效&lt;/h3&gt;&lt;p&gt;reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%path%;C:\”  /f&lt;/p&gt;
@@ -1141,10 +1153,12 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="效率" scheme="http://cmp-cc.github.io/categories/%E6%95%88%E7%8E%87/"/>
+      <category term="Operating System" scheme="http://cmp-cc.github.io/categories/Operating-System/"/>
+    
+      <category term="Work Efficiency" scheme="http://cmp-cc.github.io/categories/Operating-System/Work-Efficiency/"/>
     
     
-      <category term="系统与效率" scheme="http://cmp-cc.github.io/tags/%E7%B3%BB%E7%BB%9F%E4%B8%8E%E6%95%88%E7%8E%87/"/>
+      <category term="System and Efficiency" scheme="http://cmp-cc.github.io/tags/System-and-Efficiency/"/>
     
   </entry>
   
@@ -1153,7 +1167,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2015/04/22/2015/Hbase%E5%B8%B8%E8%A7%84%E6%93%8D%E4%BD%9C/"/>
     <id>http://cmp-cc.github.io/2015/04/22/2015/Hbase常规操作/</id>
     <published>2015-04-22T08:53:00.000Z</published>
-    <updated>2016-04-28T06:24:49.667Z</updated>
+    <updated>2016-04-28T07:50:06.881Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;记录Hbase 一些常规操作&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;获取rowkey&quot;&gt;&lt;a href=&quot;#获取rowkey&quot; class=&quot;headerlink&quot; title=&quot;获取rowkey&quot;&gt;&lt;/a&gt;获取rowkey&lt;/h2&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;final&lt;/span&gt; String table_name = &lt;span class=&quot;string&quot;&gt;&quot;avml_test&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Set&amp;lt;String&amp;gt; sampleSet = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; HashSet&amp;lt;String&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Configuration conf = HBaseConfiguration.create();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    conf.set(&lt;span class=&quot;string&quot;&gt;&quot;hbase.zookeeper.quorum&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;datanode01.hadoop&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        HTable table = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; HTable(conf,table_name);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Scan scan = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Scan();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ResultScanner scanner1 =  table.getScanner(scan);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(Result res : scanner1)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(KeyValue kv : res.raw())&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rowkey 为一个md5 ，你需要做截取操作&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    \x00 01CCC0C34CD54B2C915237F3C848840A\x06resultavml_qq\x00\x00\x01L\xBB\x1A&amp;#125;\xCA\x04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sampleSet.add(kv.getKeyString().split(&lt;span class=&quot;string&quot;&gt;&quot; &quot;&lt;/span&gt;)[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;].substring(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;32&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        table.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;#125; &lt;span class=&quot;keyword&quot;&gt;catch&lt;/span&gt; (IOException e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// TODO Auto-generated catch block&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -1169,9 +1183,9 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="大数据" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
     
-      <category term="数据库" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="Hbase" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Hbase/"/>
     
     
       <category term="Hbase" scheme="http://cmp-cc.github.io/tags/Hbase/"/>
@@ -1203,9 +1217,9 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="大数据" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
     
-      <category term="数据库" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="Hbase" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Hbase/"/>
     
     
       <category term="Hbase" scheme="http://cmp-cc.github.io/tags/Hbase/"/>
@@ -1217,7 +1231,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/12/28/2014/Hadoop%20%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9/"/>
     <id>http://cmp-cc.github.io/2014/12/28/2014/Hadoop 日常实战 文件压缩/</id>
     <published>2014-12-28T11:25:00.000Z</published>
-    <updated>2016-04-09T06:35:52.371Z</updated>
+    <updated>2016-04-28T07:47:12.505Z</updated>
     
     <content type="html">&lt;p&gt;Mapreduce 程序执行可以分为三个阶段：&lt;br&gt;1、Mapper 阶段&lt;br&gt;&lt;strong&gt;从HDFS中读取数据源，将计算结果写入HDFS&lt;/strong&gt;&lt;br&gt;2、Suffle与排序阶段&lt;br&gt;&lt;strong&gt;从HDFS中读取Mapper阶段结果数据，并进行混排操作（Suffle与排序），并将结果数据传递给Reducer&lt;/strong&gt;&lt;br&gt;3、Reducer阶段&lt;br&gt;&lt;strong&gt;Reducer接受数据，再将计算结果写入HDFS或其它&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1340,7 +1354,9 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="大数据开发" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/"/>
+      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
+    
+      <category term="Hadoop" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Hadoop/"/>
     
     
       <category term="Hadoop" scheme="http://cmp-cc.github.io/tags/Hadoop/"/>
@@ -1352,7 +1368,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/12/16/2014/Hadoop%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E8%AE%A1%E6%95%B0%E5%99%A8/"/>
     <id>http://cmp-cc.github.io/2014/12/16/2014/Hadoop日常实战 计数器/</id>
     <published>2014-12-16T09:26:00.000Z</published>
-    <updated>2016-04-08T11:51:45.958Z</updated>
+    <updated>2016-04-28T07:47:00.057Z</updated>
     
     <content type="html">&lt;p&gt;计数器是一种收集作业统计信息的有效有段&lt;/p&gt;
 &lt;p&gt;  &lt;strong&gt;在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。&lt;/strong&gt;&lt;/p&gt;
@@ -1426,7 +1442,9 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="大数据开发" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91/"/>
+      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
+    
+      <category term="Hadoop" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Hadoop/"/>
     
     
       <category term="Hadoop" scheme="http://cmp-cc.github.io/tags/Hadoop/"/>
@@ -1438,7 +1456,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/11/28/2014/Linux%20sftp%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
     <id>http://cmp-cc.github.io/2014/11/28/2014/Linux sftp 进行文件传输/</id>
     <published>2014-11-28T12:32:00.000Z</published>
-    <updated>2016-04-14T08:01:50.664Z</updated>
+    <updated>2016-04-28T07:40:47.118Z</updated>
     
     <content type="html">&lt;p&gt;使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。&lt;/p&gt;
 &lt;p&gt;Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。&lt;/p&gt;
@@ -1614,7 +1632,9 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="操作系统" scheme="http://cmp-cc.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+      <category term="Operating System" scheme="http://cmp-cc.github.io/categories/Operating-System/"/>
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/categories/Operating-System/Linux/"/>
     
     
       <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
@@ -1626,7 +1646,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/13/2014/Maven3%20setting.xml%20%E8%AE%BE%E7%BD%AE/"/>
     <id>http://cmp-cc.github.io/2014/04/13/2014/Maven3 setting.xml 设置/</id>
     <published>2014-04-13T08:54:00.000Z</published>
-    <updated>2016-04-12T08:40:58.759Z</updated>
+    <updated>2016-04-28T07:37:43.789Z</updated>
     
     <content type="html">&lt;h2 id=&quot;不要修改setting-xml地址-和-仓库地址地址&quot;&gt;&lt;a href=&quot;#不要修改setting-xml地址-和-仓库地址地址&quot; class=&quot;headerlink&quot; title=&quot;不要修改setting.xml地址 和 仓库地址地址&quot;&gt;&lt;/a&gt;不要修改setting.xml地址 和 仓库地址地址&lt;/h2&gt;&lt;p&gt;Maven3 默认setting.xml文件地址和仓库地址为：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1664,7 +1684,9 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="项目构建" scheme="http://cmp-cc.github.io/categories/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"/>
+      <category term="Project Build" scheme="http://cmp-cc.github.io/categories/Project-Build/"/>
+    
+      <category term="Maven" scheme="http://cmp-cc.github.io/categories/Project-Build/Maven/"/>
     
     
       <category term="Maven" scheme="http://cmp-cc.github.io/tags/Maven/"/>
@@ -1676,7 +1698,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/04/2014/MyBatis%20%E4%B8%8E%20%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90/"/>
     <id>http://cmp-cc.github.io/2014/04/04/2014/MyBatis 与 第三方框架集成/</id>
     <published>2014-04-04T14:09:00.000Z</published>
-    <updated>2016-04-25T13:05:04.212Z</updated>
+    <updated>2016-04-28T07:40:03.945Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;MyBatis 集成第三方框架应用集成&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;与Spring-集成&quot;&gt;&lt;a href=&quot;#与Spring-集成&quot; class=&quot;headerlink&quot; title=&quot;与Spring 集成&quot;&gt;&lt;/a&gt;与Spring 集成&lt;/h2&gt;&lt;h3 id=&quot;Spring-介绍&quot;&gt;&lt;a href=&quot;#Spring-介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring 介绍&quot;&gt;&lt;/a&gt;Spring 介绍&lt;/h3&gt;&lt;p&gt;   Spring 框 架 是 一 个 基 于 依 赖 注 入 （ Dependency Injection ） 和 面 向 切 面 编 程 (Aspect Oriented Programming,AOP)的 Java 框架，鼓励使用基于 POJO 的编程模型。另外，Spring 提供了声明式和编程式的事务管理能力，可以很大程度上简化应用程序的数据访问层（data access layer）的实现。&lt;/p&gt;
@@ -1789,6 +1811,8 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
     
+      <category term="Mybatis" scheme="http://cmp-cc.github.io/categories/Java-Web/Mybatis/"/>
+    
     
       <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
     
@@ -1799,7 +1823,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/03/2014/MyBatis%20%E4%BD%BF%E7%94%A8XML%E9%85%8D%E7%BD%AESQL%20%E6%98%A0%E5%B0%84%E5%99%A8/"/>
     <id>http://cmp-cc.github.io/2014/04/03/2014/MyBatis 使用XML配置SQL 映射器/</id>
     <published>2014-04-03T03:09:00.000Z</published>
-    <updated>2016-04-24T08:53:10.596Z</updated>
+    <updated>2016-04-28T07:40:09.728Z</updated>
     
     <content type="html">&lt;p&gt;关系型数据库和 SQL 是经受时间考验和验证的数据存储机制。和其他的 ORM 框架如 Hibernate 不同，MyBatis鼓励开发者可以直接使用数据库，而不是将其对开发者隐藏，因为这样可以充分发挥数据库服务器所提供的 SQL 语句的巨大威力。与此同时，MyBaits 消除了书写大量冗余代码的痛苦，它使使用 SQL 更容易。&lt;/p&gt;
 &lt;p&gt;  在代码里直接嵌套 SQL 语句是很差的编码实践，并且维护起来困难。MyBaits 使用了映射器配置文件或注解来配置 SQL语句。&lt;/p&gt;
@@ -2137,6 +2161,8 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
     
+      <category term="Mybatis" scheme="http://cmp-cc.github.io/categories/Java-Web/Mybatis/"/>
+    
     
       <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
     
@@ -2147,7 +2173,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/02/2014/Mybatis%E4%BA%95%E5%8F%B7%E5%92%8C$%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <id>http://cmp-cc.github.io/2014/04/02/2014/Mybatis井号和$的区别/</id>
     <published>2014-04-02T04:53:00.000Z</published>
-    <updated>2016-04-22T09:33:31.367Z</updated>
+    <updated>2016-04-28T07:39:48.331Z</updated>
     
     <content type="html">&lt;p&gt;这两个标示符均会出现在MyBatis XML SQL 映射文件中。&lt;/p&gt;
 &lt;ul&gt;
@@ -2186,6 +2212,8 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
     
+      <category term="Mybatis" scheme="http://cmp-cc.github.io/categories/Java-Web/Mybatis/"/>
+    
     
       <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
     
@@ -2196,7 +2224,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/02/2014/MyBatis%20Boostrap/"/>
     <id>http://cmp-cc.github.io/2014/04/02/2014/MyBatis Boostrap/</id>
     <published>2014-04-02T02:44:00.000Z</published>
-    <updated>2016-04-20T11:07:57.808Z</updated>
+    <updated>2016-04-28T07:40:21.204Z</updated>
     
     <content type="html">&lt;p&gt;SqlSessionFactory 是MyBatis的核心对象，用于获取SqlSession，并执行映射的 SQL 语句。&lt;br&gt;可以通过基于 XML 的配置信息或者 Java API 创建。&lt;/p&gt;
 &lt;p&gt;我们将探索各种 MaBatis 配置元素，如 dataSource，environments,全局参数设置,typeAlias，typeHandlers，&lt;br&gt;SQL 映射；接着我们将实例化 SqlSessionFactory。&lt;/p&gt;
@@ -2295,6 +2323,8 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
     
+      <category term="Mybatis" scheme="http://cmp-cc.github.io/categories/Java-Web/Mybatis/"/>
+    
     
       <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
     
@@ -2305,7 +2335,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/01/2014/MyBatis%20%E5%85%A5%E9%97%A8/"/>
     <id>http://cmp-cc.github.io/2014/04/01/2014/MyBatis 入门/</id>
     <published>2014-04-01T15:44:00.000Z</published>
-    <updated>2016-04-15T10:13:46.168Z</updated>
+    <updated>2016-04-28T07:40:15.396Z</updated>
     
     <content type="html">&lt;p&gt;Hibernate 太过于庞大，作为同样的持久化ORM 框架Mybatis 就显得非常小巧灵活。&lt;/p&gt;
 &lt;p&gt;MyBatis 同样是简单易用的。&lt;/p&gt;
@@ -2406,6 +2436,8 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
     
+      <category term="Mybatis" scheme="http://cmp-cc.github.io/categories/Java-Web/Mybatis/"/>
+    
     
       <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
     
@@ -2460,7 +2492,9 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="版本控制" scheme="http://cmp-cc.github.io/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+      <category term="Version Control" scheme="http://cmp-cc.github.io/categories/Version-Control/"/>
+    
+      <category term="Git" scheme="http://cmp-cc.github.io/categories/Version-Control/Git/"/>
     
     
       <category term="Git" scheme="http://cmp-cc.github.io/tags/Git/"/>
@@ -2472,7 +2506,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/01/03/2014/HTML5%20%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/"/>
     <id>http://cmp-cc.github.io/2014/01/03/2014/HTML5 语义化标签/</id>
     <published>2014-01-03T08:43:00.000Z</published>
-    <updated>2016-04-08T08:23:52.427Z</updated>
+    <updated>2016-04-28T07:41:39.717Z</updated>
     
     <content type="html">&lt;p&gt;前段时间看了一本《HTML5 实战》 ，也只是为了关注一下HTML5的发展和趋势。&lt;/p&gt;
 &lt;p&gt;看的我头大，这本书只是做个了HTML5的介绍，算不上实战，很多例子含糊不清。&lt;/p&gt;
@@ -2681,7 +2715,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     </summary>
     
-      <category term="Web" scheme="http://cmp-cc.github.io/categories/Web/"/>
+      <category term="HTML" scheme="http://cmp-cc.github.io/categories/HTML/"/>
     
     
       <category term="HTML5" scheme="http://cmp-cc.github.io/tags/HTML5/"/>
