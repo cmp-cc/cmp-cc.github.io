@@ -1720,6 +1720,165 @@
             
               
                 
+                <a class="post-title-link" href="/2015/07/22/2015/Hive 动态分区异常/" itemprop="url">
+                  Hive 动态分区异常
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-22T19:53:00+08:00" content="2015-07-22">
+              2015-07-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/大数据/数据仓库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据仓库</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/22/2015/Hive 动态分区异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/22/2015/Hive 动态分区异常/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h2><p><strong> 我们大致设置这样一条插入语句:</strong></p>
+<p>hue_sunyan_detection0711表中 dt&gt;’20150415’的数据插入到pengwei_test_detection0711表中，并自动创建分区。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)</span><br><span class="line">select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,</span><br><span class="line">a.system,a.device,a.version,a.detection_time,</span><br><span class="line">a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken</span><br><span class="line">from hue_sunyan_detection0711 a where dt is not null and dt&gt;&apos;20150415&apos;;</span><br></pre></td></tr></table></figure>
+<p><strong>他会抛出如下异常。</strong></p>
+<img src="/2015/07/22/2015/Hive%20动态分区异常/6b1dc171-e5ff-4cd3-8d6d-7d6e2d7be83f.png" alt="异常详情" title="异常详情">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Diagnostic Messages for this Task:</span><br><span class="line">Error: java.lang.RuntimeException: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &#123;&quot;log_id&quot;:&quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&quot;,&quot;time&quot;:&quot;1421005659&quot;,&quot;receive_time&quot;:&quot;1435946517&quot;,&quot;receiver_ip&quot;:&quot;127.0.0.1&quot;,&quot;user_ip&quot;:&quot;75.133.213.133&quot;,&quot;id&quot;:&quot;3333ca9c9857c31b&quot;,&quot;system&quot;:&quot;ro.build.version.release=4.2.2/samsung&quot;,&quot;device&quot;:&quot;SM-T110&quot;,&quot;version&quot;:&quot;0.0.1&quot;,&quot;detection_time&quot;:&quot;1433433618&quot;,&quot;app_type&quot;:&quot;U&quot;,&quot;apk_md5&quot;:&quot;BF70797DF6896555F476F321B2C40DBB&quot;,&quot;apk_name&quot;:&quot;com.pixelberrystudios.hssandroid&quot;,&quot;vir_name&quot;:null,&quot;time_consuming&quot;:&quot;14950989&quot;,&quot;engine_version&quot;:null,&quot;siglib_version&quot;:null,&quot;scan_opt&quot;:null,&quot;dt&quot;:&quot;20150605&quot;,&quot;channel&quot;:&quot;opensdk&quot;,&quot;apptoken&quot;:&quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&quot;&#125;</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:159)</span><br><span class="line">        at org.apache.hadoop.mapred.MapRunner.run(MapRunner.java:54)</span><br><span class="line">        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:428)</span><br><span class="line">        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:340)</span><br><span class="line">        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:160)</span><br><span class="line">        at java.security.AccessController.doPrivileged(Native Method)</span><br><span class="line">        at javax.security.auth.Subject.doAs(Subject.java:396)</span><br><span class="line">        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1438)</span><br><span class="line">        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:155)</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &#123;&quot;log_id&quot;:&quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&quot;,&quot;time&quot;:&quot;1421005659&quot;,&quot;receive_time&quot;:&quot;1435946517&quot;,&quot;receiver_ip&quot;:&quot;127.0.0.1&quot;,&quot;user_ip&quot;:&quot;75.133.213.133&quot;,&quot;id&quot;:&quot;3333ca9c9857c31b&quot;,&quot;system&quot;:&quot;ro.build.version.release=4.2.2/samsung&quot;,&quot;device&quot;:&quot;SM-T110&quot;,&quot;version&quot;:&quot;0.0.1&quot;,&quot;detection_time&quot;:&quot;1433433618&quot;,&quot;app_type&quot;:&quot;U&quot;,&quot;apk_md5&quot;:&quot;BF70797DF6896555F476F321B2C40DBB&quot;,&quot;apk_name&quot;:&quot;com.pixelberrystudios.hssandroid&quot;,&quot;vir_name&quot;:null,&quot;time_consuming&quot;:&quot;14950989&quot;,&quot;engine_version&quot;:null,&quot;siglib_version&quot;:null,&quot;scan_opt&quot;:null,&quot;dt&quot;:&quot;20150605&quot;,&quot;channel&quot;:&quot;opensdk&quot;,&quot;apptoken&quot;:&quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&quot;&#125;</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:675)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:141)</span><br><span class="line">        ... 8 more</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.FileSinkOperator.processOp(FileSinkOperator.java:620)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.SelectOperator.processOp(SelectOperator.java:84)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.FilterOperator.processOp(FilterOperator.java:132)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.TableScanOperator.processOp(TableScanOperator.java:83)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:656)</span><br><span class="line">        ... 9 more</span><br><span class="line">Caused by: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.createBlockOutputStream(DFSOutputStream.java:1168)</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.nextBlockOutputStream(DFSOutputStream.java:1091)</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:502)</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p><strong>通过如下设置可解决如上异常。</strong></p>
+<p>原因：我们默认分区数过低，有如下几个设置参数：</p>
+<ul>
+<li>hive.exec.max.dynamic.partitions.pernode  （default：100）：每个节点上能够生成的最大分区数。</li>
+<li>hive.exec.max.dynamic.partitions （fault：1000）： 一条DML语句允许创建的最大分区数</li>
+<li>hive.exec.max.created.files （fault：100000）：能够创建的最多文件数。</li>
+</ul>
+<pre>
+SET hive.exec.max.dynamic.partitions=100000;
+SET hive.exec.max.dynamic.partitions.pernode=100000;
+</pre>
+
+<p><strong> 但是如果执行如下HQL，依然会抛出出异常。</strong></p>
+<p>将hue_sunyan_detection0711表的数据文件拷贝到pengwei_test_detection0711表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)</span><br><span class="line">select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,</span><br><span class="line">a.system,a.device,a.version,a.detection_time,</span><br><span class="line">a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken</span><br><span class="line">from hue_sunyan_detection0711 a where dt is not null;</span><br></pre></td></tr></table></figure>
+<h2 id="我有如下尝试"><a href="#我有如下尝试" class="headerlink" title="我有如下尝试"></a>我有如下尝试</h2><blockquote>
+<p>1、修改动态分区参数。（几乎给予最大上限）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.max.dynamic.partitions.pernode=1000000;</span><br><span class="line">set hive.exec.max.dynamic.partitions=1000000;</span><br><span class="line">set hive.exec.max.created.files=10000000;</span><br></pre></td></tr></table></figure></p>
+<p>2、设置Number of map的数量，甚至关闭并行计算。<br>3、查阅一些资料。</p>
+<p>谁有解决方案啊~~~，告诉我一下！！！<br><strong> 插入动态分区是简单，但是这个问题，我都认为是Hive Bug 了 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.dynamic.partition=true; // 是否可以使用动态分区</span><br><span class="line">set hive.exec.dynamic.partition.mode=nostrick;//设置为运行所有分区为动态分区。默认为strick。主分区（第一分区）为静态分区。</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
+<li>分批插入数据。（可以按照dt划分多个HQL，分别执行。）</li>
+<li>一定是一个Bug，哈哈~ 尝试更新CDH版本，我们当前CDH版本为4.7。 内置Hive版本为hive-0.10.0+263。 CDH5.4内置hive版本hive-1.1.0。 </li>
+</ol>
+<blockquote>
+<p>2015年年初,大数据运维承诺升级CDH5.3，这都TM7月份了</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/04/28/2015/配置环境变量脚本/" itemprop="url">
                   配置环境变量脚本
                 </a>
@@ -1799,6 +1958,137 @@
 <hr>
 <h3 id="3、set-命令（非永久，只针对于当前命令行）"><a href="#3、set-命令（非永久，只针对于当前命令行）" class="headerlink" title="3、set 命令（非永久，只针对于当前命令行）"></a>3、set 命令（非永久，只针对于当前命令行）</h3><p>同上 (setx命令)</p>
 <h2 id="自动环境配置脚本"><a href="#自动环境配置脚本" class="headerlink" title="自动环境配置脚本"></a>自动环境配置脚本</h2><p><strong>参考如下 EnvironmentConfiguration.bat 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF </span><br><span class="line">IF EXIST %systemroot%\system32\setx.exe ( </span><br><span class="line"></span><br><span class="line">@ECHO 开始配置JAVA环境</span><br><span class="line">@SETX JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br><span class="line">@SETX CLASSPATH &quot;.;%%JAVA_HOME%%\lib&quot;</span><br><span class="line">@SETX PATH &quot;%%PATH%%;%%JAVA_HOME%%\bin&quot;</span><br><span class="line">@ECHO JDK配置完成</span><br><span class="line"></span><br><span class="line">) else (</span><br><span class="line"></span><br><span class="line">@ECHO ON</span><br><span class="line">@ECHO 未能找到%systemroot%\system32\setx.exe，请下载setx.exe程序 </span><br><span class="line"></span><br><span class="line">)</span><br><span class="line">@PAUSE</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/04/22/2015/Hbase常规操作/" itemprop="url">
+                  Hbase常规操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-04-22T16:53:00+08:00" content="2015-04-22">
+              2015-04-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/大数据/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/04/22/2015/Hbase常规操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/22/2015/Hbase常规操作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>记录Hbase 一些常规操作</strong></p>
+<h2 id="获取rowkey"><a href="#获取rowkey" class="headerlink" title="获取rowkey"></a>获取rowkey</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> String table_name = <span class="string">"avml_test"</span>;</span><br><span class="line">    Set&lt;String&gt; sampleSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    Configuration conf = HBaseConfiguration.create();</span><br><span class="line">    conf.set(<span class="string">"hbase.zookeeper.quorum"</span>, <span class="string">"datanode01.hadoop"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        HTable table = <span class="keyword">new</span> HTable(conf,table_name);</span><br><span class="line">        Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">        ResultScanner scanner1 =  table.getScanner(scan);</span><br><span class="line">        <span class="keyword">for</span>(Result res : scanner1)&#123;</span><br><span class="line">            <span class="keyword">for</span>(KeyValue kv : res.raw())&#123;</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">    rowkey 为一个md5 ，你需要做截取操作</span><br><span class="line">    \x00 01CCC0C34CD54B2C915237F3C848840A\x06resultavml_qq\x00\x00\x01L\xBB\x1A&#125;\xCA\x04</span><br><span class="line">        */</span></span><br><span class="line">            sampleSet.add(kv.getKeyString().split(<span class="string">" "</span>)[<span class="number">1</span>].substring(<span class="number">0</span>,<span class="number">32</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        table.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+<p>也可以使用如下方法,获取真实rowkey</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static String getRealRowKey(KeyValue kv) &#123;  </span><br><span class="line">        int rowlength = Bytes.toShort(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET);  </span><br><span class="line">        String rowKey = Bytes.toStringBinary(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET + Bytes.SIZEOF_SHORT, rowlength);  </span><br><span class="line">        return rowKey;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>获取rowkey(这个代码是有问题的，没有修改)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ResultScanner <span class="title">readHbaseRowkey</span><span class="params">(Configuration conf,String tableName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    HTable table = <span class="keyword">new</span> HTable(conf, tableName);</span><br><span class="line">    Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">    KeyOnlyFilter rowKeyFilter = <span class="keyword">new</span> KeyOnlyFilter();</span><br><span class="line">    scan.setFilter(rowKeyFilter);</span><br><span class="line">    ResultScanner scanner = table.getScanner(scan);</span><br><span class="line">    <span class="comment">// 关闭table scanner 会失效的。 异常？</span></span><br><span class="line">    table.close();</span><br><span class="line">    <span class="keyword">return</span> scanner;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -2185,461 +2475,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/12/16/2014/Hadoop日常实战 计数器/" itemprop="url">
-                  Hadoop日常实战 计数器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-12-16T17:26:00+08:00" content="2014-12-16">
-              2014-12-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/大数据开发/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/12/16/2014/Hadoop日常实战 计数器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/16/2014/Hadoop日常实战 计数器/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>计数器是一种收集作业统计信息的有效有段</p>
-<p>  <strong>在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。</strong></p>
-<h2 id="内置计数器控制台视图"><a href="#内置计数器控制台视图" class="headerlink" title="内置计数器控制台视图"></a>内置计数器控制台视图</h2><p>Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的具体状体。</p>
-<p>如下是<code>Hadoop 2.0.0-cdh4.7.0</code> Hadoop Mapreudce执行程序控制台显示</p>
-<img src="/2014/12/16/2014/Hadoop日常实战%20计数器/QQ图片20141211110508.png" alt="内置计数器" title="内置计数器">
-<p> <strong>Counter有组（group）的概念，用于表示逻辑上相同范围的所有数值。</strong><br>上图默认输出Counter分为三个组，从中我们可以分析出程序运行使用 CPU、内存、IO读写、网络流量的一个基本情况 </p>
-<p>文章推荐: <a href="http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html</a></p>
-<h2 id="内置计数器的分类："><a href="#内置计数器的分类：" class="headerlink" title="内置计数器的分类："></a>内置计数器的分类：</h2><table>
-<thead>
-<tr>
-<th>分组</th>
-<th>属性名</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Mapreduce任务计数器</td>
-<td>org.apache.hadoop.mapreduce. TaskCounter</td>
-</tr>
-<tr>
-<td>任务计数器</td>
-<td>org.apache.hadoop.mapreduce. JobCounter</td>
-</tr>
-<tr>
-<td>文件系统计数器</td>
-<td>org.apache.hadoop.mapreduce.FileSystemCounter</td>
-</tr>
-<tr>
-<td>输入文件计数器</td>
-<td>org.apache.hadoop.mapreduce.lib.input. FileInputFormatCounter</td>
-</tr>
-<tr>
-<td>输出文件计数器</td>
-<td>org.apache.hadoop.mapreduce.lib.output. FileOutputFormatCounter</td>
-</tr>
-</tbody>
-</table>
-<p><strong>这些就是hadoop 内置的计数器类（组），均是枚举类型。</strong></p>
-<h2 id="静态计数器和动态计数器"><a href="#静态计数器和动态计数器" class="headerlink" title="静态计数器和动态计数器"></a>静态计数器和动态计数器</h2><ul>
-<li><p>静态计数器<br><strong>定义一个枚举(enum) 枚举的名称即使Counter组的名称。 枚举属性即使要记录的数值名称，Mapreduce框架将跨所有map和reduce聚集这些计数器，并在作业结束时产生一个结果。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static enum ReporInfo&#123;</span><br><span class="line">    // 统计map端读取数据是否按预期。 MISSING输出为0，表示没有输入数据完整或无缺损。</span><br><span class="line">  MISSING</span><br><span class="line">&#125;</span><br><span class="line">//通过Mapper中的context对象进行计数</span><br><span class="line">context.getCounter(Temperature.MISSING).increment(1);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>动态计数器<br><strong>动态计数器使用更加简单,你需要指定两个变量，这个变量均是动态指定。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 组的名称  和  动态计数的字段名称</span><br><span class="line">context.getCounter(&quot;group name&quot;,&quot;dynamic args&quot;).increment(1);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>比较<br><strong>静态类型： 先将java枚举类型转换成String类型，再通过RPC发送计数器，两种创建和访问计数器方法(枚举类型和String类型) 实际是等价的。<br>相比之下，枚举类型易于使用，还提供类型安全，使用与大多数作业，特定场合使用动态计数器。</strong></p>
-</li>
-</ul>
-<h2 id="通过计数器获取Mapreduce的运行情况"><a href="#通过计数器获取Mapreduce的运行情况" class="headerlink" title="通过计数器获取Mapreduce的运行情况"></a>通过计数器获取Mapreduce的运行情况</h2><p>获取计数器：  作业长时间运行，我们需要通过计数器了解运行情况。我们只需要写一个监听类就可以。<br>如下是Mapreduce2.0写法，同样需要引用1.0中的JobClient类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String jobID = args[0];</span><br><span class="line">JobClient jobClient = new JobClient(new JobConf(getConf()));</span><br><span class="line">RunningJob job = jobClient.getJob(JobID.forName(jobID));</span><br><span class="line">Counters counters = job.getCounters();</span><br><span class="line">long missing = counters.getCounter(</span><br><span class="line">MaxTemperatureWithCounters.Temperature.MISSING);</span><br><span class="line">    </span><br><span class="line">long total = counters.getCounter(Task.Counter.MAP_INPUT_RECORDS);</span><br><span class="line"></span><br><span class="line">System.out.printf(&quot;Records with missing temperature fields: %.2f%%\n&quot;,100.0 * missing / total);</span><br></pre></td></tr></table></figure></p>
-<h2 id="计数器原理"><a href="#计数器原理" class="headerlink" title="计数器原理"></a>计数器原理</h2><img src="/2014/12/16/2014/Hadoop日常实战%20计数器/c5c20a58-0087-49b2-a5d5-91ca4ae38066.jpg" alt="计数器原理图" title="计数器原理图">
-<ul>
-<li>计数器实质是由JobTracker维护，计数器值会定期传到tasktracker，在由tasktracker传递给jobtracker。也就是说所有的计数器信息都是存在jobTracker的内存中，计数器序列化并状态更新同步到JobTracker。</li>
-<li>TaskTracker中累加计数器 记录单节点中的计数个数。通过“心跳“ 传递信息给JobTracker。</li>
-<li>JobTracker会下运行结束之前最终汇总时剔除掉失败任务计数器。</li>
-</ul>
-<p>Mapreduce1.0中并没有限制计数器的个数，极其影响程序性能。<br>为了不对JobTracker产生印象。计数器数目应当控制到100以下。</p>
-<p>如果你的计数器超过了120个就会报如下错误：<br>org.apache.hadoop.mapreduce.counters.LimitExceededException: Too many counters: 121 max=120</p>
-<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>你可能遇到如下异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">14/12/12 09:56:48 INFO mapred.JobClient: Task Id : attempt_201412091419_0236_m_000028_0, Status : FAILED</span><br><span class="line">Error: Found interface org.apache.hadoop.mapreduce.Counter, but class was expected</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>原因：<br><strong>你本地的使用的编译环境是Hadoop1.0(MR1) 而你的集群环境为hadoop2.0(MR2) 所以默认没有找到。</strong></li>
-<li>解决方案<br>更改为hadoop2.0(hadoop-mapreduce-client-core-2.0.0-cdh4.7.0.jar，hadoop-common-2.0.0-cdh4.7.0.jar)的jar。和集群环境保持一致。</li>
-</ul>
-<p>推荐Blog：<br><a href="http://langyu.iteye.com/blog/1171091" target="_blank" rel="external">http://langyu.iteye.com/blog/1171091</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/11/28/2014/Linux sftp 进行文件传输/" itemprop="url">
-                  Linux sftp 进行文件传输
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-11-28T20:32:00+08:00" content="2014-11-28">
-              2014-11-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/操作系统/" itemprop="url" rel="index">
-                    <span itemprop="name">操作系统</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/11/28/2014/Linux sftp 进行文件传输/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/28/2014/Linux sftp 进行文件传输/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。</p>
-<p>Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。</p>
-<p>这里介绍 sftp 进行文件传输， 我习惯使用SecureCRT（SSH终端仿真程序）进行sftp操作。</p>
-<p>同样，你可以使用rs、sz 进行文件传输，它只作用于单文件传输。</p>
-<h2 id="sftp-基础命令"><a href="#sftp-基础命令" class="headerlink" title="sftp 基础命令"></a>sftp 基础命令</h2><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ascii</td>
-<td>Set transfer mode to ASCII</td>
-</tr>
-<tr>
-<td>binary</td>
-<td>Set transfer mode to binary</td>
-</tr>
-<tr>
-<td>cd path</td>
-<td>更改远程目录到”路径”</td>
-</tr>
-<tr>
-<td>detail remote-path</td>
-<td>显示系统信息关于远程文件或文件夹</td>
-</tr>
-<tr>
-<td>ldetail local-path</td>
-<td>显示系统信息关于本地文件或文件夹</td>
-</tr>
-<tr>
-<td>lcd path</td>
-<td>更改本地目录到”路径” </td>
-</tr>
-<tr>
-<td>chgrp group path</td>
-<td>将文件”path”的权限更改为”mode” </td>
-</tr>
-<tr>
-<td>chmod mode path</td>
-<td>将文件”path”的权限更改为”mode” </td>
-</tr>
-<tr>
-<td>chown owner path</td>
-<td>将文件”path”的属主更改为”owner” </td>
-</tr>
-<tr>
-<td>exit</td>
-<td>退出 sftp </td>
-</tr>
-<tr>
-<td>help</td>
-<td>显示帮助文本</td>
-</tr>
-<tr>
-<td>include filename</td>
-<td>Include commands from ‘filename’ Alternate: &lt; filename</td>
-</tr>
-<tr>
-<td>get [-a l -b] remote-path</td>
-<td>Download file force ascii (-a) or binary (-b) mode 下载文件</td>
-</tr>
-<tr>
-<td>ln [-s] existingpath linkpath</td>
-<td>Hardlink / symlink remote file</td>
-</tr>
-<tr>
-<td>ls [options] [path]</td>
-<td>符号链接远程文件 </td>
-</tr>
-<tr>
-<td>lls [options] [path]</td>
-<td>显示本地目录列表 </td>
-</tr>
-<tr>
-<td>mkdir path</td>
-<td>创建远程目录 </td>
-</tr>
-<tr>
-<td>lmkdir path</td>
-<td>创建本地目录</td>
-</tr>
-<tr>
-<td>mv oldpath newpath</td>
-<td>移动远程文件</td>
-</tr>
-<tr>
-<td>open [user@]host[:port]</td>
-<td>连接到远程主机</td>
-</tr>
-<tr>
-<td>put [-a l -b] local-path</td>
-<td>Upload file force ascii (-a) or binary (-b) mode 上传文件</td>
-</tr>
-<tr>
-<td>pwd</td>
-<td>打印本地工作目录</td>
-</tr>
-<tr>
-<td>lpwd</td>
-<td>打印本地工作目录</td>
-</tr>
-<tr>
-<td>quit</td>
-<td>退出 sftp</td>
-</tr>
-<tr>
-<td>rmdir path</td>
-<td>移除远程目录</td>
-</tr>
-<tr>
-<td>lrmdir path</td>
-<td>移除本地目录 </td>
-</tr>
-<tr>
-<td>rm path</td>
-<td>删除远程文件</td>
-</tr>
-<tr>
-<td>lrm path</td>
-<td>删除本地文件</td>
-</tr>
-<tr>
-<td>su username</td>
-<td>Substitutes the current user This is only supported with VShell for Windows 3.5 or later.</td>
-</tr>
-<tr>
-<td>type [transfer-mode]</td>
-<td>Display or set file transfer mode</td>
-</tr>
-<tr>
-<td>view remote-path</td>
-<td>Download and open file</td>
-</tr>
-<tr>
-<td>version</td>
-<td>显示协议版本</td>
-</tr>
-</tbody>
-</table>
-<h2 id="进入sftp-模式"><a href="#进入sftp-模式" class="headerlink" title="进入sftp 模式"></a>进入sftp 模式</h2><ul>
-<li>命令行模式下输入 ：<code>sftp 用户名@IP地址</code> ， 然后会提示你输入密码</li>
-<li>如果是SecureCRT。 <code>Alt+p</code> 或者 <code>File -&gt; 链接sftp</code></li>
-</ul>
-<h2 id="sftp-基本使用"><a href="#sftp-基本使用" class="headerlink" title="sftp 基本使用"></a>sftp 基本使用</h2><p>sftp主要是用来传输文件的，所以我们主要使用两个命令。</p>
-<blockquote>
-<p>提示 </p>
-<h3 id="文件上传-（从本机到远程主机）"><a href="#文件上传-（从本机到远程主机）" class="headerlink" title="文件上传 （从本机到远程主机）"></a>文件上传 （从本机到远程主机）</h3></blockquote>
-<p><strong>使用 put [-Ppr] local [remote]</strong></p>
-<p><strong>实例1： 上传单个文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 查看Window 当前目录</span><br><span class="line">sftp&gt; lpwd</span><br><span class="line">C:/Users/root/Documents</span><br><span class="line"></span><br><span class="line">// 切换Window 上传目录</span><br><span class="line">sftp&gt; lcd d:/temp </span><br><span class="line">// 查看roles.csv文件</span><br><span class="line">sftp&gt; lls -l</span><br><span class="line"> Oct 23, 2014 14:30 </span><br><span class="line"> Oct 21, 2014 11:21 actors.csv</span><br><span class="line"> Nov 10, 2014 11:01 ali</span><br><span class="line"> Oct 21, 2014 11:19 movies.csv</span><br><span class="line"> Jan 14, 2014 16:56 neo4j</span><br><span class="line"> Oct 28, 2014 17:40 package.json</span><br><span class="line"> Oct 21, 2014 11:21 roles.csv</span><br><span class="line"> Nov 30, 2014 20:54 TV.war</span><br><span class="line"> // 查看当前终端路径</span><br><span class="line">sftp&gt; pwd                </span><br><span class="line">/usr/local/program/server_tool/apache-tomcat-7.0.32/webapps</span><br><span class="line"></span><br><span class="line">// 切换到上传路径</span><br><span class="line">sftp&gt; cd ~</span><br><span class="line">sftp&gt; pwd</span><br><span class="line">/home/centos</span><br><span class="line"></span><br><span class="line">// 使用put 进行文件上传</span><br><span class="line">sftp&gt; put roles.csv ./</span><br><span class="line">Uploading roles.csv to /home/centos/roles.csv</span><br><span class="line">Skipping directory d:/temp</span><br><span class="line">  100% 367 bytes    367 bytes/s 00:00:00     </span><br><span class="line">d:/temp/roles.csv: 367 bytes transferred in 0 seconds (367 bytes/s)</span><br><span class="line"></span><br><span class="line">// 查看，ok 成功的。</span><br><span class="line">sftp&gt; ls</span><br><span class="line">roles.csv</span><br></pre></td></tr></table></figure></p>
-<p><strong>实例2： 上传文件目录</strong><br><code>put -r 目录名称 目录名称</code> <code>-r</code> 表示文件夹。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 很简单，参考实例1。 默认上传当前路径</span><br><span class="line">put -r download/</span><br></pre></td></tr></table></figure></p>
-<p><strong>实例3： 上传所有文件</strong></p>
-<ul>
-<li><p>上传当前所有文件 到 远程目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put *</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上传当前所有文件及其文件夹 到 远程目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put -r *</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="文件下载-从远程主机到本机"><a href="#文件下载-从远程主机到本机" class="headerlink" title="文件下载(从远程主机到本机)"></a>文件下载(从远程主机到本机)</h3><p><strong>使用 get [-Ppr] remote [local]</strong></p>
-<p><strong>关于get (文件下载)说明和实例 略。   参考put (文件上传) 。 两则异曲同工</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2685,7 +2520,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2693,7 +2528,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2702,7 +2537,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

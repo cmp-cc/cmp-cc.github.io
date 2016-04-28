@@ -1058,6 +1058,64 @@
   </entry>
   
   <entry>
+    <title>Hive 动态分区异常</title>
+    <link href="http://cmp-cc.github.io/2015/07/22/2015/Hive%20%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%BC%82%E5%B8%B8/"/>
+    <id>http://cmp-cc.github.io/2015/07/22/2015/Hive 动态分区异常/</id>
+    <published>2015-07-22T11:53:00.000Z</published>
+    <updated>2016-04-28T06:57:26.446Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;异常信息&quot;&gt;&lt;a href=&quot;#异常信息&quot; class=&quot;headerlink&quot; title=&quot;异常信息&quot;&gt;&lt;/a&gt;异常信息&lt;/h2&gt;&lt;p&gt;&lt;strong&gt; 我们大致设置这样一条插入语句:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;hue_sunyan_detection0711表中 dt&amp;gt;’20150415’的数据插入到pengwei_test_detection0711表中，并自动创建分区。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a.system,a.device,a.version,a.detection_time,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from hue_sunyan_detection0711 a where dt is not null and dt&amp;gt;&amp;apos;20150415&amp;apos;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;他会抛出如下异常。&lt;/strong&gt;&lt;/p&gt;
+&lt;img src=&quot;/2015/07/22/2015/Hive%20动态分区异常/6b1dc171-e5ff-4cd3-8d6d-7d6e2d7be83f.png&quot; alt=&quot;异常详情&quot; title=&quot;异常详情&quot;&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Diagnostic Messages for this Task:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Error: java.lang.RuntimeException: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &amp;#123;&amp;quot;log_id&amp;quot;:&amp;quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;1421005659&amp;quot;,&amp;quot;receive_time&amp;quot;:&amp;quot;1435946517&amp;quot;,&amp;quot;receiver_ip&amp;quot;:&amp;quot;127.0.0.1&amp;quot;,&amp;quot;user_ip&amp;quot;:&amp;quot;75.133.213.133&amp;quot;,&amp;quot;id&amp;quot;:&amp;quot;3333ca9c9857c31b&amp;quot;,&amp;quot;system&amp;quot;:&amp;quot;ro.build.version.release=4.2.2/samsung&amp;quot;,&amp;quot;device&amp;quot;:&amp;quot;SM-T110&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;0.0.1&amp;quot;,&amp;quot;detection_time&amp;quot;:&amp;quot;1433433618&amp;quot;,&amp;quot;app_type&amp;quot;:&amp;quot;U&amp;quot;,&amp;quot;apk_md5&amp;quot;:&amp;quot;BF70797DF6896555F476F321B2C40DBB&amp;quot;,&amp;quot;apk_name&amp;quot;:&amp;quot;com.pixelberrystudios.hssandroid&amp;quot;,&amp;quot;vir_name&amp;quot;:null,&amp;quot;time_consuming&amp;quot;:&amp;quot;14950989&amp;quot;,&amp;quot;engine_version&amp;quot;:null,&amp;quot;siglib_version&amp;quot;:null,&amp;quot;scan_opt&amp;quot;:null,&amp;quot;dt&amp;quot;:&amp;quot;20150605&amp;quot;,&amp;quot;channel&amp;quot;:&amp;quot;opensdk&amp;quot;,&amp;quot;apptoken&amp;quot;:&amp;quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&amp;quot;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:159)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.MapRunner.run(MapRunner.java:54)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:428)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:340)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:160)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at java.security.AccessController.doPrivileged(Native Method)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at javax.security.auth.Subject.doAs(Subject.java:396)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1438)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:155)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &amp;#123;&amp;quot;log_id&amp;quot;:&amp;quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;1421005659&amp;quot;,&amp;quot;receive_time&amp;quot;:&amp;quot;1435946517&amp;quot;,&amp;quot;receiver_ip&amp;quot;:&amp;quot;127.0.0.1&amp;quot;,&amp;quot;user_ip&amp;quot;:&amp;quot;75.133.213.133&amp;quot;,&amp;quot;id&amp;quot;:&amp;quot;3333ca9c9857c31b&amp;quot;,&amp;quot;system&amp;quot;:&amp;quot;ro.build.version.release=4.2.2/samsung&amp;quot;,&amp;quot;device&amp;quot;:&amp;quot;SM-T110&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;0.0.1&amp;quot;,&amp;quot;detection_time&amp;quot;:&amp;quot;1433433618&amp;quot;,&amp;quot;app_type&amp;quot;:&amp;quot;U&amp;quot;,&amp;quot;apk_md5&amp;quot;:&amp;quot;BF70797DF6896555F476F321B2C40DBB&amp;quot;,&amp;quot;apk_name&amp;quot;:&amp;quot;com.pixelberrystudios.hssandroid&amp;quot;,&amp;quot;vir_name&amp;quot;:null,&amp;quot;time_consuming&amp;quot;:&amp;quot;14950989&amp;quot;,&amp;quot;engine_version&amp;quot;:null,&amp;quot;siglib_version&amp;quot;:null,&amp;quot;scan_opt&amp;quot;:null,&amp;quot;dt&amp;quot;:&amp;quot;20150605&amp;quot;,&amp;quot;channel&amp;quot;:&amp;quot;opensdk&amp;quot;,&amp;quot;apptoken&amp;quot;:&amp;quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&amp;quot;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:675)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:141)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ... 8 more&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.FileSinkOperator.processOp(FileSinkOperator.java:620)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.SelectOperator.processOp(SelectOperator.java:84)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.FilterOperator.processOp(FilterOperator.java:132)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.TableScanOperator.processOp(TableScanOperator.java:83)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:656)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ... 9 more&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Caused by: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.createBlockOutputStream(DFSOutputStream.java:1168)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.nextBlockOutputStream(DFSOutputStream.java:1091)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:502)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;通过如下设置可解决如上异常。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;原因：我们默认分区数过低，有如下几个设置参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;hive.exec.max.dynamic.partitions.pernode  （default：100）：每个节点上能够生成的最大分区数。&lt;/li&gt;
+&lt;li&gt;hive.exec.max.dynamic.partitions （fault：1000）： 一条DML语句允许创建的最大分区数&lt;/li&gt;
+&lt;li&gt;hive.exec.max.created.files （fault：100000）：能够创建的最多文件数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+SET hive.exec.max.dynamic.partitions=100000;
+SET hive.exec.max.dynamic.partitions.pernode=100000;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt; 但是如果执行如下HQL，依然会抛出出异常。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;将hue_sunyan_detection0711表的数据文件拷贝到pengwei_test_detection0711表。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a.system,a.device,a.version,a.detection_time,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from hue_sunyan_detection0711 a where dt is not null;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;我有如下尝试&quot;&gt;&lt;a href=&quot;#我有如下尝试&quot; class=&quot;headerlink&quot; title=&quot;我有如下尝试&quot;&gt;&lt;/a&gt;我有如下尝试&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;1、修改动态分区参数。（几乎给予最大上限）&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions.pernode=1000000;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions=1000000;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.max.created.files=10000000;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;2、设置Number of map的数量，甚至关闭并行计算。&lt;br&gt;3、查阅一些资料。&lt;/p&gt;
+&lt;p&gt;谁有解决方案啊~~~，告诉我一下！！！&lt;br&gt;&lt;strong&gt; 插入动态分区是简单，但是这个问题，我都认为是Hive Bug 了 &lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.dynamic.partition=true; // 是否可以使用动态分区&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.dynamic.partition.mode=nostrick;//设置为运行所有分区为动态分区。默认为strick。主分区（第一分区）为静态分区。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;结论&quot;&gt;&lt;a href=&quot;#结论&quot; class=&quot;headerlink&quot; title=&quot;结论&quot;&gt;&lt;/a&gt;结论&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;分批插入数据。（可以按照dt划分多个HQL，分别执行。）&lt;/li&gt;
+&lt;li&gt;一定是一个Bug，哈哈~ 尝试更新CDH版本，我们当前CDH版本为4.7。 内置Hive版本为hive-0.10.0+263。 CDH5.4内置hive版本hive-1.1.0。 &lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2015年年初,大数据运维承诺升级CDH5.3，这都TM7月份了&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;异常信息&quot;&gt;&lt;a href=&quot;#异常信息&quot; class=&quot;headerlink&quot; title=&quot;异常信息&quot;&gt;&lt;/a&gt;异常信息&lt;/h2&gt;&lt;p&gt;&lt;strong&gt; 我们大致设置这样一条插入语句:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;hue_sunyan_detection0
+    
+    </summary>
+    
+      <category term="大数据" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="数据仓库" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/"/>
+    
+    
+      <category term="Hive" scheme="http://cmp-cc.github.io/tags/Hive/"/>
+    
+  </entry>
+  
+  <entry>
     <title>配置环境变量脚本</title>
     <link href="http://cmp-cc.github.io/2015/04/28/2015/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%84%9A%E6%9C%AC/"/>
     <id>http://cmp-cc.github.io/2015/04/28/2015/配置环境变量脚本/</id>
@@ -1087,6 +1145,36 @@
     
     
       <category term="系统与效率" scheme="http://cmp-cc.github.io/tags/%E7%B3%BB%E7%BB%9F%E4%B8%8E%E6%95%88%E7%8E%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hbase常规操作</title>
+    <link href="http://cmp-cc.github.io/2015/04/22/2015/Hbase%E5%B8%B8%E8%A7%84%E6%93%8D%E4%BD%9C/"/>
+    <id>http://cmp-cc.github.io/2015/04/22/2015/Hbase常规操作/</id>
+    <published>2015-04-22T08:53:00.000Z</published>
+    <updated>2016-04-28T06:24:49.667Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;记录Hbase 一些常规操作&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;获取rowkey&quot;&gt;&lt;a href=&quot;#获取rowkey&quot; class=&quot;headerlink&quot; title=&quot;获取rowkey&quot;&gt;&lt;/a&gt;获取rowkey&lt;/h2&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;final&lt;/span&gt; String table_name = &lt;span class=&quot;string&quot;&gt;&quot;avml_test&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Set&amp;lt;String&amp;gt; sampleSet = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; HashSet&amp;lt;String&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Configuration conf = HBaseConfiguration.create();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    conf.set(&lt;span class=&quot;string&quot;&gt;&quot;hbase.zookeeper.quorum&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;datanode01.hadoop&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        HTable table = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; HTable(conf,table_name);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        Scan scan = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Scan();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ResultScanner scanner1 =  table.getScanner(scan);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(Result res : scanner1)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(KeyValue kv : res.raw())&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;/*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    rowkey 为一个md5 ，你需要做截取操作&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    \x00 01CCC0C34CD54B2C915237F3C848840A\x06resultavml_qq\x00\x00\x01L\xBB\x1A&amp;#125;\xCA\x04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            sampleSet.add(kv.getKeyString().split(&lt;span class=&quot;string&quot;&gt;&quot; &quot;&lt;/span&gt;)[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;].substring(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;32&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        table.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &amp;#125; &lt;span class=&quot;keyword&quot;&gt;catch&lt;/span&gt; (IOException e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// TODO Auto-generated catch block&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;     &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;也可以使用如下方法,获取真实rowkey&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public static String getRealRowKey(KeyValue kv) &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        int rowlength = Bytes.toShort(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        String rowKey = Bytes.toStringBinary(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET + Bytes.SIZEOF_SHORT, rowlength);  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return rowKey;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;获取rowkey(这个代码是有问题的，没有修改)&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; ResultScanner &lt;span class=&quot;title&quot;&gt;readHbaseRowkey&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Configuration conf,String tableName)&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;throws&lt;/span&gt; IOException&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    HTable table = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; HTable(conf, tableName);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Scan scan = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Scan();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    KeyOnlyFilter rowKeyFilter = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; KeyOnlyFilter();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    scan.setFilter(rowKeyFilter);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ResultScanner scanner = table.getScanner(scan);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;// 关闭table scanner 会失效的。 异常？&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    table.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; scanner;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;记录Hbase 一些常规操作&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;获取rowkey&quot;&gt;&lt;a href=&quot;#获取rowkey&quot; class=&quot;headerlink&quot; title=&quot;获取rowkey&quot;&gt;&lt;/a&gt;获取rowkey&lt;/h2&gt;&lt;figure cl
+    
+    </summary>
+    
+      <category term="大数据" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="数据库" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Hbase" scheme="http://cmp-cc.github.io/tags/Hbase/"/>
     
   </entry>
   
@@ -2597,244 +2685,6 @@
     
     
       <category term="HTML5" scheme="http://cmp-cc.github.io/tags/HTML5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>贫血模型和充血模型</title>
-    <link href="http://cmp-cc.github.io/2013/12/14/2013/%E8%B4%AB%E8%A1%80%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%85%85%E8%A1%80%E6%A8%A1%E5%9E%8B/"/>
-    <id>http://cmp-cc.github.io/2013/12/14/2013/贫血模型和充血模型/</id>
-    <published>2013-12-14T08:53:00.000Z</published>
-    <updated>2016-04-07T06:24:53.828Z</updated>
-    
-    <content type="html">&lt;p&gt;大多数情况下，我忍不住赋予Model行为，我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己（cmp-cc）的理解：&lt;/p&gt;
-&lt;h2 id=&quot;模型-（Model）&quot;&gt;&lt;a href=&quot;#模型-（Model）&quot; class=&quot;headerlink&quot; title=&quot;模型 （Model）&quot;&gt;&lt;/a&gt;模型 （Model）&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;无论是贫血模型还是充血模型，他们都符合POJO （也可以认为JavaBean）。&lt;br&gt;&lt;strong&gt;Model包含属性的&lt;code&gt;get&lt;/code&gt;、&lt;code&gt;set&lt;/code&gt;方法&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;模型的本质充当数据容器（保存状态，传递状态）。&lt;br&gt;&lt;strong&gt;模型是一种特殊的数据结构&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;失血模型&quot;&gt;&lt;a href=&quot;#失血模型&quot; class=&quot;headerlink&quot; title=&quot;失血模型&quot;&gt;&lt;/a&gt;失血模型&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;失血模型就是POJO对象，模型仅仅包含数据的定义和getter/setter方法，业务逻辑和应用逻辑都放到服务层（Service）中。&lt;/strong&gt; &lt;/p&gt;
-&lt;p&gt;层次表示：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;UI(视图层) -&amp;gt; Control(控制层) -&amp;gt; Service（服务层） -&amp;gt; DAO （持久化层） -&amp;gt;domain object （领域对象 Model ）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;领域对象不具备任何行为（仅仅是一个POJO对象），所有的行为都在Service层。&lt;/li&gt;
-&lt;li&gt;领域对象的作用。&lt;ul&gt;
-&lt;li&gt;充当数据容器。&lt;/li&gt;
-&lt;li&gt;对象关系映射（ORM）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;这种模型很容易理解和掌握。&lt;/li&gt;
-&lt;li&gt;优点&lt;ul&gt;
-&lt;li&gt;层次结构清晰，单项依赖，易于维护。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;缺点&lt;ul&gt;
-&lt;li&gt;Service 层挤压严重。（业务逻辑职责） &lt;/li&gt;
-&lt;li&gt;部分与数据操作相关的行为，必须通过Service层进行修改。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;贫血模型&quot;&gt;&lt;a href=&quot;#贫血模型&quot; class=&quot;headerlink&quot; title=&quot;贫血模型&quot;&gt;&lt;/a&gt;贫血模型&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;贫血模型中包含了一些业务逻辑，但不包含依赖持久层的业务逻辑。这部分依赖于持久层的业务逻辑将会放到服务层中。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;层次表示：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;UI(视图层) -&amp;gt; Control(控制层) -&amp;gt; Service（服务层） -&amp;gt; DAO （持久化层） -&amp;gt;domain object （Model）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;继承失血模型特性&lt;/li&gt;
-&lt;li&gt;领域对象具备简单行为，如下特点。&lt;ul&gt;
-&lt;li&gt;行为不具备持久化特性。（不与数据库打交道，也就是不依赖于DAO层）&lt;/li&gt;
-&lt;li&gt;具备与数据相关的业务行为。（部分Service行为 移至 Model）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;同样与失血模型同样的痛处&lt;ul&gt;
-&lt;li&gt;系统越复杂，维护成本越高，Service层（业务逻辑）挤压严重。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;充血模型&quot;&gt;&lt;a href=&quot;#充血模型&quot; class=&quot;headerlink&quot; title=&quot;充血模型&quot;&gt;&lt;/a&gt;充血模型&lt;/h2&gt;&lt;p&gt;**充血模型中包含了所有的业务逻辑，包括依赖于持久层的业务逻辑。所以，使用充血模型的领域层是依赖于持久层。&lt;/p&gt;
-&lt;p&gt;层次表示：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;UI -&amp;gt; Control -&amp;gt; Service -&amp;gt; domain object &amp;lt;–&amp;gt; DAO&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;Service 层被减轻，不和DAO打交道，只包含业务逻辑。&lt;/li&gt;
-&lt;li&gt;领域对象 和 DAO 双向依赖。&lt;/li&gt;
-&lt;li&gt;优点&lt;ul&gt;
-&lt;li&gt;减轻了Service层。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;缺点&lt;ul&gt;
-&lt;li&gt;Service 将直接依赖于领域对象。 领域对象同样具备部分业务，可能会造成职责混乱，或者使领域对象不具备业务I行为&lt;/li&gt;
-&lt;li&gt;领域对象与DAO双向依赖，部分职责容易混响。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;胀血模型&quot;&gt;&lt;a href=&quot;#胀血模型&quot; class=&quot;headerlink&quot; title=&quot;胀血模型&quot;&gt;&lt;/a&gt;胀血模型&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;胀血模型就是把和业务逻辑不想关的其他应用逻辑（如授权、事务等）都放到领域模型中。我感觉胀血模型反而是另外一种的失血模型，因为服务层消失了，领域层干了服务层的事，到头来还是什么都没变。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;层次表示：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;UI -&amp;gt; Control -&amp;gt; domain object &amp;lt;–&amp;gt; DAO&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;没有了服务层，领域对象包含所有业务逻辑，并双向依赖与持久化层。&lt;/li&gt;
-&lt;li&gt;优点&lt;ul&gt;
-&lt;li&gt;分层极其简单&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;缺点&lt;ul&gt;
-&lt;li&gt;领域对象职责过多，挤压严重，极其不稳定，不易维护。&lt;/li&gt;
-&lt;li&gt;控制层访问领域对象能够看到不必要的行为。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;失血模型和胀血模型并不被提倡，主要原因：领域模型内聚职责过少，或者过多。&lt;br&gt;关于贫血模型和充血模型的选型，其实跟语言架构有关（Robin提出）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;如果使用Spring，必须贫血模型。&lt;/li&gt;
-&lt;li&gt;如果使用RoR，直接充血模型。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/always_my_fault/article/details/2063612&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/always_my_fault/article/details/2063612&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.oschina.net/question/54100_10400&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.oschina.net/question/54100_10400&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;大多数情况下，我忍不住赋予Model行为，我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己（cmp-cc）的理解：&lt;/p&gt;
-&lt;h2 id=&quot;模型-（Model）&quot;&gt;&lt;a href=&quot;#模型-（Model）&quot; cla
-    
-    </summary>
-    
-      <category term="架构设计" scheme="http://cmp-cc.github.io/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-      <category term="DDD (领域驱动设计)" scheme="http://cmp-cc.github.io/tags/DDD-%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/"/>
-    
-      <category term="Java" scheme="http://cmp-cc.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux iptable 防火墙</title>
-    <link href="http://cmp-cc.github.io/2013/11/25/2013/Linux%20iptable%20%E9%98%B2%E7%81%AB%E5%A2%99/"/>
-    <id>http://cmp-cc.github.io/2013/11/25/2013/Linux iptable 防火墙/</id>
-    <published>2013-11-25T15:23:00.000Z</published>
-    <updated>2016-04-21T12:43:04.087Z</updated>
-    
-    <content type="html">&lt;p&gt;&lt;strong&gt;Linux 环境下，默认使用的防火墙都是用iptable，同样也是服务器名称&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;iptable-服务&quot;&gt;&lt;a href=&quot;#iptable-服务&quot; class=&quot;headerlink&quot; title=&quot;iptable 服务&quot;&gt;&lt;/a&gt;iptable 服务&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;iptable 基本服务命令&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;service  iptables  start           开启防火墙&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service  iptables  stop           关闭防火墙&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service  iptables  restart        重启防火墙&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service  iptables save            保持iptable 配置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service  iptables  status        查看防火墙状态&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;iptable-基本语法&quot;&gt;&lt;a href=&quot;#iptable-基本语法&quot; class=&quot;headerlink&quot; title=&quot;iptable 基本语法&quot;&gt;&lt;/a&gt;iptable 基本语法&lt;/h2&gt;&lt;h3 id=&quot;防火墙处理数据4中方式&quot;&gt;&lt;a href=&quot;#防火墙处理数据4中方式&quot; class=&quot;headerlink&quot; title=&quot;防火墙处理数据4中方式&quot;&gt;&lt;/a&gt;防火墙处理数据4中方式&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;ACCEPT&lt;br&gt;允许数据包通过&lt;/li&gt;
-&lt;li&gt;DROP&lt;br&gt;直接丢弃数据包，不给予响应&lt;/li&gt;
-&lt;li&gt;REJECT&lt;br&gt;拒绝数据包通过，给予响应&lt;/li&gt;
-&lt;li&gt;LOG&lt;br&gt;&lt;code&gt;/var/log/messages&lt;/code&gt;文件记录日志信息&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;iptable-参数&quot;&gt;&lt;a href=&quot;#iptable-参数&quot; class=&quot;headerlink&quot; title=&quot;iptable 参数&quot;&gt;&lt;/a&gt;iptable 参数&lt;/h3&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;参数缩写&lt;/th&gt;
-&lt;th&gt;参数全称&lt;/th&gt;
-&lt;th&gt;参数解释&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;-A&lt;/td&gt;
-&lt;td&gt;–append&lt;/td&gt;
-&lt;td&gt;在指定链的末尾添加一条新的规则&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-D&lt;/td&gt;
-&lt;td&gt;–delete&lt;/td&gt;
-&lt;td&gt;删除指定链中的某一条规则，可以按规则序号和内容删除&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-I&lt;/td&gt;
-&lt;td&gt;–insert&lt;/td&gt;
-&lt;td&gt;在指定链中插入一条新的规则，默认在第一行添加&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-R&lt;/td&gt;
-&lt;td&gt;–replace&lt;/td&gt;
-&lt;td&gt;修改、替换指定链中的某一条规则，可以按规则序号和内容替换&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-L&lt;/td&gt;
-&lt;td&gt;–list&lt;/td&gt;
-&lt;td&gt;列出指定链中所有的规则进行查看&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-E&lt;/td&gt;
-&lt;td&gt;–rename-chain&lt;/td&gt;
-&lt;td&gt;重命名用户定义的链，不改变链本身&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-F&lt;/td&gt;
-&lt;td&gt;–flush&lt;/td&gt;
-&lt;td&gt;清空&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-N&lt;/td&gt;
-&lt;td&gt;–new-chain&lt;/td&gt;
-&lt;td&gt;新建一条用户自己定义的规则链&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-X&lt;/td&gt;
-&lt;td&gt;–delete-chain&lt;/td&gt;
-&lt;td&gt;删除指定表中用户自定义的规则链&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-P&lt;/td&gt;
-&lt;td&gt;–policy&lt;/td&gt;
-&lt;td&gt;设置指定链的默认策略&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-Z&lt;/td&gt;
-&lt;td&gt;–zero&lt;/td&gt;
-&lt;td&gt;将所有表的所有链的字节和数据包计数器清零&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-n&lt;/td&gt;
-&lt;td&gt;–numeric&lt;/td&gt;
-&lt;td&gt;使用数字形式显示输出结果&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-v&lt;/td&gt;
-&lt;td&gt;–verbose&lt;/td&gt;
-&lt;td&gt;查看规则表详细信息的信息&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-V&lt;/td&gt;
-&lt;td&gt;–version&lt;/td&gt;
-&lt;td&gt;查看版本&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;-h&lt;/td&gt;
-&lt;td&gt;–help&lt;/td&gt;
-&lt;td&gt;获取帮助&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&quot;常用命令&quot;&gt;&lt;a href=&quot;#常用命令&quot; class=&quot;headerlink&quot; title=&quot;常用命令&quot;&gt;&lt;/a&gt;常用命令&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -L -n    // 查看防火墙配置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -nL --line-number  // 查看iptables规则及编号&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;开放一个端口&quot;&gt;&lt;a href=&quot;#开放一个端口&quot; class=&quot;headerlink&quot; title=&quot;开放一个端口&quot;&gt;&lt;/a&gt;开放一个端口&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;开启8000端口&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -I INPUT -p tcp --dport 8000 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;删除一个规则&quot;&gt;&lt;a href=&quot;#删除一个规则&quot; class=&quot;headerlink&quot; title=&quot;删除一个规则&quot;&gt;&lt;/a&gt;删除一个规则&lt;/h3&gt;&lt;p&gt;删除一个开放的端口规则&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -L -n --line-number     // 查看规则编号&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -D INPUT 2  // 删除指定规则编号，如 2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;只开放某个端口&quot;&gt;&lt;a href=&quot;#只开放某个端口&quot; class=&quot;headerlink&quot; title=&quot;只开放某个端口&quot;&gt;&lt;/a&gt;只开放某个端口&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;只开放80端口&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -A INPUT -p tcp –dport 80 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -A OUTPUT -p tcp –sport 80 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;禁止某个IP地址&quot;&gt;&lt;a href=&quot;#禁止某个IP地址&quot; class=&quot;headerlink&quot; title=&quot;禁止某个IP地址&quot;&gt;&lt;/a&gt;禁止某个IP地址&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;禁止192.168.12.13访问&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -A INPUT -p tcp -s 192.168.12.13 -j DROP&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;关闭所有的-INPUT-FORWARD-OUTPUT&quot;&gt;&lt;a href=&quot;#关闭所有的-INPUT-FORWARD-OUTPUT&quot; class=&quot;headerlink&quot; title=&quot;关闭所有的 INPUT FORWARD OUTPUT&quot;&gt;&lt;/a&gt;关闭所有的 INPUT FORWARD OUTPUT&lt;/h3&gt;&lt;p&gt;关闭所有的INPUT FORWARD、 OUTPUT的所有端口&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;iptables -P INPUT DROP&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -P FORWARD DROP&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iptables -P OUTPUT DROP&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;手工配置iptable&quot;&gt;&lt;a href=&quot;#手工配置iptable&quot; class=&quot;headerlink&quot; title=&quot;手工配置iptable&quot;&gt;&lt;/a&gt;手工配置iptable&lt;/h2&gt;&lt;h3 id=&quot;iptable-配置文件&quot;&gt;&lt;a href=&quot;#iptable-配置文件&quot; class=&quot;headerlink&quot; title=&quot;iptable 配置文件&quot;&gt;&lt;/a&gt;iptable 配置文件&lt;/h3&gt;&lt;p&gt;iptable配置文件默认地址为：&lt;code&gt;/etc/sysconfig/iptables&lt;/code&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/sysconfig/iptables&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;执行如上命令显示如下iptables配置信息：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Firewall configuration written by system-config-firewall&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Manual customization of this file is not recommended.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*filter&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;:INPUT ACCEPT [0:0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;:FORWARD ACCEPT [0:0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;:OUTPUT ACCEPT [0:0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -p icmp -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -i lo -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -m state --state NEW -m tcp -p tcp --dport 6379 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -m state --state NEW -m tcp -p tcp --dport 7474 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A INPUT -j REJECT --reject-with icmp-host-prohibited&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A FORWARD -j REJECT --reject-with icmp-host-prohibited&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;COMMIT&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;开放特定端口&quot;&gt;&lt;a href=&quot;#开放特定端口&quot; class=&quot;headerlink&quot; title=&quot;开放特定端口&quot;&gt;&lt;/a&gt;开放特定端口&lt;/h3&gt;&lt;p&gt;如下开放1517端口，将其复制到iptable 配置文件中。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 1517 -j ACCEPT&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;然后执行如下&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;serivce iptables save       保持防火墙设置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service iptables restart     重启防火墙&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;Linux 环境下，默认使用的防火墙都是用iptable，同样也是服务器名称&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;iptable-服务&quot;&gt;&lt;a href=&quot;#iptable-服务&quot; class=&quot;headerlink&quot; title=&quot;iptable 服
-    
-    </summary>
-    
-      <category term="操作系统" scheme="http://cmp-cc.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-      <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
     
   </entry>
   
