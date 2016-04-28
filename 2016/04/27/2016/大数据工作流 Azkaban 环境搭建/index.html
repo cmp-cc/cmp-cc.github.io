@@ -1,0 +1,906 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="工作流,Azkaban," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="I am cmp-cc" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="运维什么脚本泛滥，且依赖混乱，不易管理。 需要符合自身要求的任务调度系统，来减轻痛苦~~。
+之前调研了Oozie、AzkaBan、Airflow、Luigi 评估了一下诉求，选择AzkaBan。
+这篇文章将演示如何在一个全新的Linux(CentOS)环境安装Azkaban。
+Azkaban 介绍LinkedIn/Azkaban 为解决Hadoop的任务依赖问题。
+
+它有三个重要组件：
+关系数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据工作流 Azkaban 环境搭建">
+<meta property="og:url" content="http://cmp-cc.github.io/2016/04/27/2016/大数据工作流 Azkaban 环境搭建/index.html">
+<meta property="og:site_name" content="I am cmp-cc">
+<meta property="og:description" content="运维什么脚本泛滥，且依赖混乱，不易管理。 需要符合自身要求的任务调度系统，来减轻痛苦~~。
+之前调研了Oozie、AzkaBan、Airflow、Luigi 评估了一下诉求，选择AzkaBan。
+这篇文章将演示如何在一个全新的Linux(CentOS)环境安装Azkaban。
+Azkaban 介绍LinkedIn/Azkaban 为解决Hadoop的任务依赖问题。
+
+它有三个重要组件：
+关系数据库">
+<meta property="og:updated_time" content="2016-04-27T12:56:30.143Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大数据工作流 Azkaban 环境搭建">
+<meta name="twitter:description" content="运维什么脚本泛滥，且依赖混乱，不易管理。 需要符合自身要求的任务调度系统，来减轻痛苦~~。
+之前调研了Oozie、AzkaBan、Airflow、Luigi 评估了一下诉求，选择AzkaBan。
+这篇文章将演示如何在一个全新的Linux(CentOS)环境安装Azkaban。
+Azkaban 介绍LinkedIn/Azkaban 为解决Hadoop的任务依赖问题。
+
+它有三个重要组件：
+关系数据库">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 大数据工作流 Azkaban 环境搭建 | I am cmp-cc </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0fb6f1a75a76726c10a144a8257465e3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">I am cmp-cc</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一直在打杂，从未被超越。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                大数据工作流 Azkaban 环境搭建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-27T20:55:00+08:00" content="2016-04-27">
+              2016-04-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/27/2016/大数据工作流 Azkaban 环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/27/2016/大数据工作流 Azkaban 环境搭建/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>运维什么脚本泛滥，且依赖混乱，不易管理。 需要符合自身要求的任务调度系统，来减轻痛苦~~。</p>
+<p>之前调研了Oozie、AzkaBan、Airflow、Luigi 评估了一下诉求，选择AzkaBan。</p>
+<p>这篇文章将演示如何在一个全新的Linux(CentOS)环境安装Azkaban。</p>
+<h2 id="Azkaban-介绍"><a href="#Azkaban-介绍" class="headerlink" title="Azkaban 介绍"></a>Azkaban 介绍</h2><p>LinkedIn/Azkaban 为解决Hadoop的任务依赖问题。</p>
+<ul>
+<li>它有三个重要组件：<ul>
+<li>关系数据库（目前仅支持mysql）</li>
+<li>web管理服务器－AzkabanWebServer</li>
+<li>执行服务器－AzkabanExecutorServer</li>
+</ul>
+</li>
+</ul>
+<h3 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h3><p>Azkaban使用MySQL来存储它的状态信息，Azkaban Executor Server和Azkaban Web Server均使用到了MySQL数据库。</p>
+<ul>
+<li><p>AzkabanExecutorServer在如下几个方面使用到了数据库：<br>1、获取project的信息<br>2、执行工作流<br>3、存储工作流运行日志</p>
+</li>
+<li><p>AzkabanWebServer在如下几个方面使用到了数据库：<br>1、Project管理<br>2、跟踪工作流执行进度<br>3、访问历史工作流的运行信息<br>4、定时执行工作流任务</p>
+</li>
+</ul>
+<h3 id="AzkabanWebServer"><a href="#AzkabanWebServer" class="headerlink" title="AzkabanWebServer"></a>AzkabanWebServer</h3><p>AzkabanWebserver是整个Azkaban工作流系统的主要管理者，它负责project管理、用户登录认证、定时执行工作流、跟踪工作流执 行进度等一系列任务。同时，它还提供Web服务操作的接口，利用该接口，用户可以使用curl或其他ajax的方式，来执行azkaban的相关操作。操 作包括：用户登录、创建project、上传workflow、执行workflow、查询workflow的执行进度、杀掉workflow等一系列操 作，且这些操作的返回结果均是json的格式。</p>
+<h3 id="AzkabanExecutorServer"><a href="#AzkabanExecutorServer" class="headerlink" title="AzkabanExecutorServer"></a>AzkabanExecutorServer</h3><p>之所以将AzkabanWebServer和AzkabanExecutorServer分开，主要是因为在某个任务流失败后，可以更方便的将重新执行。而且也更有利于Azkaban系统的升级。</p>
+<p>两种不同类型的Azkaban</p>
+<p>solo server mode:该模式使用H2数据库，且webServer和executorServer运行在同一个进程中，没有单独分开。该模式适用于小规模的使用。<br>two server mode:该模式使用MySQL数据库，webServer和executorServer运行在不同进程中，该模式适用于大规模应用</p>
+<h2 id="Azkaban-开始"><a href="#Azkaban-开始" class="headerlink" title="Azkaban 开始"></a>Azkaban 开始</h2><ul>
+<li>solo server mode：<br><strong>最简单的模式，数据库内置的H2数据库，管理服务器和执行服务器都在一个进程中运行，任务量不大项目可以采用此模式。</strong></li>
+<li>two server mode：<br><strong>数据库为mysql，管理服务器和执行服务器在不同进程，这种模式下，管理服务器和执行服务器互不影响</strong></li>
+<li>multiple executor mode：<br><strong>该模式下，执行服务器和管理服务器在不同主机上，且执行服务器可以有多</strong></li>
+</ul>
+<h2 id="Azkaban-安装"><a href="#Azkaban-安装" class="headerlink" title="Azkaban 安装"></a>Azkaban 安装</h2><p>Azkaban2 仅仅只用Mysql 作为数据存储</p>
+<h3 id="安装JDK1-8"><a href="#安装JDK1-8" class="headerlink" title="安装JDK1.8"></a>安装JDK1.8</h3><h3 id="安装Mysql"><a href="#安装Mysql" class="headerlink" title="安装Mysql"></a>安装Mysql</h3><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><h5 id="创建Azkaban数据库"><a href="#创建Azkaban数据库" class="headerlink" title="创建Azkaban数据库"></a><strong>创建Azkaban数据库</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE azkaban;</span><br></pre></td></tr></table></figure>
+<h5 id="创建数据库用户于Azkaban"><a href="#创建数据库用户于Azkaban" class="headerlink" title="创建数据库用户于Azkaban"></a><strong>创建数据库用户于Azkaban</strong></h5><p>如下：</p>
+<ul>
+<li>用户名:azkaban</li>
+<li>地址：localhost</li>
+<li>密码：123456<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;azkaban&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;azkaban&apos; PASSWORD EXPIRE;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="设置权限于Azkaban数据库，赋予Azkaban-用户INSERT、SELECT、UPDATE-DELETE权限，作用于Azkaban-数据库"><a href="#设置权限于Azkaban数据库，赋予Azkaban-用户INSERT、SELECT、UPDATE-DELETE权限，作用于Azkaban-数据库" class="headerlink" title="设置权限于Azkaban数据库，赋予Azkaban 用户INSERT、SELECT、UPDATE,DELETE权限，作用于Azkaban 数据库"></a><strong>设置权限于Azkaban数据库，赋予Azkaban 用户<code>INSERT</code>、<code>SELECT</code>、<code>UPDATE</code>,<code>DELETE</code>权限，作用于Azkaban 数据库</strong></h5><p><strong>这里执行如下，给予所有权限</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on azkaban.* to &apos;azkaban&apos;@&apos;localhost&apos; identified by &apos;azkaban&apos;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>也可以如下限定访问权限</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT SELECT,INSERT,UPDATE,DELETE ON azkaban.* TO &apos;azkaban&apos;@&apos;localhost&apos; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></p>
+<p><strong>配置数据包大小，修改属性<code>max_allowed_packet</code>值为<code>1024M</code>或者更高</strong></p>
+<ul>
+<li><p>编辑<code>/etc/my.cnf</code>文件，增加如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">...</span><br><span class="line">max_allowed_packet=2048M</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启 mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql restart</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="创建Azkaban-表"><a href="#创建Azkaban-表" class="headerlink" title="创建Azkaban 表"></a>创建Azkaban 表</h5><ul>
+<li>首先下载<a href="http://azkaban.github.io/downloads.html" target="_blank" rel="external"><code>azkaban-sql-script</code></a>压缩文件，这个档案包含在表创建脚本。</li>
+<li>从下载页面选择合适版本进行下载。(这里选择最新版azkaban-sql-script-2.5.0.tar.gz，复制链接)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https://s3.amazonaws.com/azkaban2/azkaban2/2.5.0/azkaban-sql-script-2.5.0.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>create-all-sql 脚本包含所有单条语句,忽略所有<code>update</code>前缀的脚本</strong></p>
+<ul>
+<li><p>解压并导入azkaban DB</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf azkaban-sql-script-2.5.0.tar.gz</span><br><span class="line"></span><br><span class="line">mysql -u root -p azkaban &lt; /user/cmp-cc/azkaban-2.5.0/create-all-sql-2.5.0.sql </span><br><span class="line"></span><br><span class="line">// 提示你输入密码即可</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查是否创建成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables;</span><br><span class="line">+------------------------+</span><br><span class="line">| Tables_in_azkaban      |</span><br><span class="line">+------------------------+</span><br><span class="line">| active_executing_flows |</span><br><span class="line">| active_sla             |</span><br><span class="line">| execution_flows        |</span><br><span class="line">| execution_jobs         |</span><br><span class="line">| execution_logs         |</span><br><span class="line">| project_events         |</span><br><span class="line">| project_files          |</span><br><span class="line">| project_flows          |</span><br><span class="line">| project_permissions    |</span><br><span class="line">| project_properties     |</span><br><span class="line">| project_versions       |</span><br><span class="line">| projects               |</span><br><span class="line">| properties             |</span><br><span class="line">| schedules              |</span><br><span class="line">| triggers               |</span><br><span class="line">+------------------------+</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装-Azkaban-Web-Server"><a href="#安装-Azkaban-Web-Server" class="headerlink" title="安装 Azkaban Web Server"></a>安装 Azkaban Web Server</h3><p>Azkaban Web Server 处理项目管理、身份验证、调度和触发器的执行。</p>
+<h4 id="安装-Web-Server"><a href="#安装-Web-Server" class="headerlink" title="安装 Web Server"></a>安装 Web Server</h4><ul>
+<li>选择合适的版本，<a href="http://azkaban.github.io/downloads.html" target="_blank" rel="external">下载页面</a>。  </li>
+<li>你也以可以<a href="https://github.com/azkaban/azkaban2" target="_blank" rel="external"><code>git clone 最新版</code></a>,查看文档，<a href="http://azkaban.github.io/azkaban/docs/latest/#building-from-source" target="_blank" rel="external">如何进行源码安装</a></li>
+<li><p>这里为<code>azkaban-web-server-2.5.0.tar.gz</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget –no-check-certificate https://s3.amazonaws.com/azkaban2/azkaban2/2.5.0/azkaban-web-server-2.5.0.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压到指定目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/local/azkaban/</span><br><span class="line"></span><br><span class="line">tar zxvf azkaban-web-server-2.5.0.tar.gz -C /usr/local/azkaban/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>相关目录描述<br>Folder | Description<br>— | —<br>bin     |The scripts to start Azkaban jetty server<br>conf |    The configurations for Azkaban solo server<br>lib |    The jar dependencies for Azkaban<br>extlib |    Additional jars that are added to extlib will be added to Azkaban’s classpath<br>plugins |    the directory where plugins can be installed<br>web     |The web (css, javascript, image) files for Azkaban web server.</p>
+</li>
+<li><p><code>conf</code>目录，有如下三个文件</p>
+<ul>
+<li>azkaban.properties - Used by Azkaban for runtime parameters</li>
+<li>global.properties - Global static properties that are passed as shared properties to every workflow and job.</li>
+<li>azkaban-users.xml - Used to add users and roles for authentication. This file is not used if the XmLUserManager is not set up to use it.</li>
+</ul>
+</li>
+</ul>
+<p>The <code>azkaban.properties</code> file will be the main configuration file that is necessary to setup Azkaban.</p>
+<ul>
+<li>将MySQL数据库链接添加至<code>extlib</code><br><strong>This jar will be needed for both the web server and the executor server and should be dropped into the /extlib directory for both servers.</strong><blockquote>
+<p>MySQL JDBC Jar 官方地址 ：<a href="http://dev.mysql.com/downloads/connector/j/" target="_blank" rel="external">http://dev.mysql.com/downloads/connector/j/</a>  </p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/azkaban/azkaban-web-2.5.0/extlib</span><br><span class="line">wget http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar</span><br></pre></td></tr></table></figure>
+<h4 id="获取SSL-KeyStore"><a href="#获取SSL-KeyStore" class="headerlink" title="获取SSL KeyStore"></a>获取SSL KeyStore</h4><p>Azkaban 使用<code>SSL socket</code> 链接器。</p>
+<h5 id="创建SSL-配置"><a href="#创建SSL-配置" class="headerlink" title="创建SSL 配置"></a>创建SSL 配置</h5><p><strong>这里keytool 是JDK提供，并将其密钥生成或复制于<code>/azkaban/web</code>目录</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/azkaban/azkaban-web-2.5.0/web/</span><br><span class="line"></span><br><span class="line">keytool -genkey -keystore keystore -alias keystore -keyalg RSA</span><br></pre></td></tr></table></figure></p>
+<p>将有如下提示，密码长度 &gt;= 6 (这里为password)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Enter keystore password:  </span><br><span class="line">Re-enter new password: </span><br><span class="line">What is your first and last name?</span><br><span class="line">  [Unknown]:  azkaban</span><br><span class="line">What is the name of your organizational unit?</span><br><span class="line">  [Unknown]:  Jetty</span><br><span class="line">What is the name of your organization?</span><br><span class="line">  [Unknown]:  cmp-cc</span><br><span class="line">What is the name of your City or Locality?</span><br><span class="line">  [Unknown]:  WuHan</span><br><span class="line">What is the name of your State or Province?</span><br><span class="line">  [Unknown]:  WuHan</span><br><span class="line">What is the two-letter country code for this unit?</span><br><span class="line">  [Unknown]:  86</span><br><span class="line">Is CN=azkaban, OU=Jetty, O=cmp-cc, L=WuHan, ST=WuHan, C=86 correct?</span><br><span class="line">  [no]:  yes</span><br><span class="line"></span><br><span class="line">Enter key password for &lt;jetty-azkaban&gt;</span><br><span class="line">        (RETURN if same as keystore password):  </span><br><span class="line">Re-enter new password:</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置azkaban-properties文件"><a href="#配置azkaban-properties文件" class="headerlink" title="配置azkaban.properties文件"></a>配置<code>azkaban.properties</code>文件</h4><p> 修改<code>./conf/azkaban.properties</code>文件,进行如下修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/azkaban/azkaban-web-2.5.0/conf/azkaban.properties</span><br></pre></td></tr></table></figure></p>
+<p><strong>我的完整配置信息，邮件通知自己配置即可</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#Azkaban Personalization Settings</span><br><span class="line">azkaban.name=Test</span><br><span class="line">azkaban.label=My Local Azkaban</span><br><span class="line">azkaban.color=#FF3601</span><br><span class="line">azkaban.default.servlet.path=/index</span><br><span class="line">web.resource.dir=web/</span><br><span class="line">default.timezone.id=America/Los_Angeles</span><br><span class="line"></span><br><span class="line">#Azkaban UserManager class</span><br><span class="line">user.manager.class=azkaban.user.XmlUserManager</span><br><span class="line">user.manager.xml.file=conf/azkaban-users.xml</span><br><span class="line"></span><br><span class="line">#Loader for projects</span><br><span class="line">executor.global.properties=conf/global.properties</span><br><span class="line">azkaban.project.dir=projects</span><br><span class="line"></span><br><span class="line">database.type=mysql</span><br><span class="line">mysql.port=3306</span><br><span class="line">mysql.host=localhost</span><br><span class="line">mysql.database=azkaban</span><br><span class="line">mysql.user=azkaban</span><br><span class="line">mysql.password=azkaban</span><br><span class="line">mysql.numconnections=100</span><br><span class="line"></span><br><span class="line"># Velocity dev mode</span><br><span class="line">velocity.dev.mode=false</span><br><span class="line"></span><br><span class="line"># Azkaban Jetty server properties.</span><br><span class="line">jetty.maxThreads=25</span><br><span class="line">jetty.ssl.port=8443</span><br><span class="line">jetty.port=8081</span><br><span class="line">jetty.keystore=web/keystore</span><br><span class="line">jetty.password=password</span><br><span class="line">jetty.keypassword=password</span><br><span class="line">jetty.truststore=web/keystore</span><br><span class="line">jetty.trustpassword=password</span><br><span class="line"></span><br><span class="line"># Azkaban Executor settings</span><br><span class="line">executor.port=12321</span><br><span class="line"></span><br><span class="line"># mail settings</span><br><span class="line">mail.sender=</span><br><span class="line">mail.host=</span><br><span class="line">job.failure.email=</span><br><span class="line">job.success.email=</span><br><span class="line"></span><br><span class="line">lockdown.create.projects=false</span><br><span class="line"></span><br><span class="line">cache.directory=cache</span><br></pre></td></tr></table></figure>
+<h5 id="SSL-密钥配置"><a href="#SSL-密钥配置" class="headerlink" title="SSL 密钥配置"></a>SSL 密钥配置</h5><p>修改<code>jetty.xxxx</code>信息为keystore 设置，类似如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Azkaban Jetty server properties.</span><br><span class="line">jetty.maxThreads=25</span><br><span class="line">jetty.ssl.port=8443</span><br><span class="line">jetty.port=8081</span><br><span class="line">jetty.keystore=web/keystore</span><br><span class="line">jetty.password=123456</span><br><span class="line">jetty.keypassword=123456</span><br><span class="line">jetty.truststore=web/keystore</span><br><span class="line">jetty.trustpassword=123456</span><br></pre></td></tr></table></figure></p>
+<h5 id="DB-设置"><a href="#DB-设置" class="headerlink" title="DB 设置"></a>DB 设置</h5><p>确保<code>mysql jdbc连接器</code>已经添加到<code>extlib</code>目录,配置大致如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">database.type=mysql</span><br><span class="line">mysql.port=3306</span><br><span class="line">mysql.host=localhost</span><br><span class="line">mysql.database=azkaban</span><br><span class="line">mysql.user=azkaban</span><br><span class="line">mysql.password=azkaban</span><br><span class="line">mysql.numconnections=100</span><br></pre></td></tr></table></figure></p>
+<h5 id="UserManager-设置"><a href="#UserManager-设置" class="headerlink" title="UserManager 设置"></a>UserManager 设置</h5><p>Azkaban 使用<code>UserManager</code>支持用户认证和用户角色<br>默认：Azkaban使用<code>XmlUserManager</code>从<code>azkaban-users.xml</code>获取用户名、密码、角色信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user.manager.class=azkaban.user.XmlUserManager</span><br><span class="line">user.manager.xml.file=conf/azkaban-users.xml</span><br></pre></td></tr></table></figure></p>
+<h5 id="jetty运行设置"><a href="#jetty运行设置" class="headerlink" title="jetty运行设置"></a>jetty运行设置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jetty.maxThreads=25</span><br><span class="line">jetty.ssl.port=8443</span><br></pre></td></tr></table></figure>
+<h3 id="Azkaban-运行和关闭"><a href="#Azkaban-运行和关闭" class="headerlink" title="Azkaban 运行和关闭"></a>Azkaban 运行和关闭</h3><ul>
+<li><p>start AzkabanWebServer.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/azkaban-web-start.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>shutdown AzkabanWebServer</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/azkaban-web-shutdown.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器端口</p>
+<ul>
+<li>设置SSL=true  默认访问： 192.168.xx.xxxx:8443</li>
+<li>设置SSL=false 默认访问： 192.168.xx.xxxx:8081</li>
+</ul>
+</li>
+</ul>
+<p><strong>运行Azkaban-web 并访问浏览器验证是否成功</strong></p>
+<h2 id="明天在写"><a href="#明天在写" class="headerlink" title="明天在写"></a>明天在写</h2>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工作流/" rel="tag">#工作流</a>
+          
+            <a href="/tags/Azkaban/" rel="tag">#Azkaban</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/26/2016/Python + OpenCV 环境配置/" rel="next" title="Python + OpenCV 环境配置">
+                <i class="fa fa-chevron-left"></i> Python + OpenCV 环境配置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/27/2016/大数据工作流 Azkaban 环境搭建/"
+           data-title="大数据工作流 Azkaban 环境搭建" data-url="http://cmp-cc.github.io/2016/04/27/2016/大数据工作流 Azkaban 环境搭建/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="cmp-cc" />
+          <p class="site-author-name" itemprop="name">cmp-cc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cmp-cc" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Azkaban-介绍"><span class="nav-number">1.</span> <span class="nav-text">Azkaban 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql"><span class="nav-number">1.1.</span> <span class="nav-text">Mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AzkabanWebServer"><span class="nav-number">1.2.</span> <span class="nav-text">AzkabanWebServer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AzkabanExecutorServer"><span class="nav-number">1.3.</span> <span class="nav-text">AzkabanExecutorServer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Azkaban-开始"><span class="nav-number">2.</span> <span class="nav-text">Azkaban 开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Azkaban-安装"><span class="nav-number">3.</span> <span class="nav-text">Azkaban 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装JDK1-8"><span class="nav-number">3.1.</span> <span class="nav-text">安装JDK1.8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Mysql"><span class="nav-number">3.2.</span> <span class="nav-text">安装Mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据库"><span class="nav-number">3.2.1.</span> <span class="nav-text">创建数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建Azkaban数据库"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">创建Azkaban数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建数据库用户于Azkaban"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">创建数据库用户于Azkaban</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置权限于Azkaban数据库，赋予Azkaban-用户INSERT、SELECT、UPDATE-DELETE权限，作用于Azkaban-数据库"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">设置权限于Azkaban数据库，赋予Azkaban 用户INSERT、SELECT、UPDATE,DELETE权限，作用于Azkaban 数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建Azkaban-表"><span class="nav-number">3.2.1.4.</span> <span class="nav-text">创建Azkaban 表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Azkaban-Web-Server"><span class="nav-number">3.3.</span> <span class="nav-text">安装 Azkaban Web Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-Web-Server"><span class="nav-number">3.3.1.</span> <span class="nav-text">安装 Web Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取SSL-KeyStore"><span class="nav-number">3.3.2.</span> <span class="nav-text">获取SSL KeyStore</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建SSL-配置"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">创建SSL 配置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置azkaban-properties文件"><span class="nav-number">3.3.3.</span> <span class="nav-text">配置azkaban.properties文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SSL-密钥配置"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">SSL 密钥配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DB-设置"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">DB 设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UserManager-设置"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">UserManager 设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#jetty运行设置"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">jetty运行设置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Azkaban-运行和关闭"><span class="nav-number">3.4.</span> <span class="nav-text">Azkaban 运行和关闭</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#明天在写"><span class="nav-number">4.</span> <span class="nav-text">明天在写</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cmp-cc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cmp-cc"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+
+
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+ <script type="text/javascript">
+  window.onload = function(){setTimeout(function(){/*无登陆账户*/if(!document.getElementsByClassName("ds-account-control")[0]){var cmp_cc_blog_user=localStorage.getItem("cmp-cc_blog_user");var author_name_value = cmp_cc_blog_user?'value="'+cmp_cc_blog_user+'"':'';var i = '<div class="ds-control-group" style="float:right;padding:6px;"><input type="text" '+author_name_value+'id="author_name_proxy" id="ds-dialog-name"  class="custom_input" style="color:#777;width=80%;font-size:13px;border:1px solid #ccc;height:25px;box-shadow: inset 0 1px 1px;padding: 2px 0px 0px 8px;" placeholder="昵称 or 登陆" required></div>';/*展开一个回复，再关闭。 多说没有参数配置啊~ 让人觉得不优雅*/var $last_ds_post_reply = $(".ds-post-reply:last");$last_ds_post_reply.click().click();$(".ds-post-options.ds-gradient-bg").append(i);$(".ds-post-button").click(function(){$(this).submit();$("#ds-wrapper").hide();var author_name = $("#author_name_proxy").val();$("#ds-wrapper #ds-dialog-name").val(author_name);$("#ds-wrapper form").submit();/*www.cmp-cc.github.com*/localStorage.setItem("cmp-cc_blog_user",author_name);$(".custom_input").val(author_name);});}},300);} 
+ </script>
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

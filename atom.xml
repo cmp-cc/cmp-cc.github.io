@@ -17,8 +17,8 @@
   
   <entry>
     <title>大数据工作流 Azkaban 环境搭建</title>
-    <link href="http://cmp-cc.github.io/2016/04/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%20Azkaban%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    <id>http://cmp-cc.github.io/2016/04/27/大数据工作流 Azkaban 环境搭建/</id>
+    <link href="http://cmp-cc.github.io/2016/04/27/2016/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%20Azkaban%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>http://cmp-cc.github.io/2016/04/27/2016/大数据工作流 Azkaban 环境搭建/</id>
     <published>2016-04-27T12:55:00.000Z</published>
     <updated>2016-04-27T12:56:30.143Z</updated>
     
@@ -158,8 +158,8 @@
   
   <entry>
     <title>Python + OpenCV 环境配置</title>
-    <link href="http://cmp-cc.github.io/2016/04/26/Python%20+%20OpenCV%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
-    <id>http://cmp-cc.github.io/2016/04/26/Python + OpenCV 环境配置/</id>
+    <link href="http://cmp-cc.github.io/2016/04/26/2016/Python%20+%20OpenCV%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    <id>http://cmp-cc.github.io/2016/04/26/2016/Python + OpenCV 环境配置/</id>
     <published>2016-04-26T11:12:00.000Z</published>
     <updated>2016-04-26T11:23:53.212Z</updated>
     
@@ -200,8 +200,8 @@
   
   <entry>
     <title>模拟ORM</title>
-    <link href="http://cmp-cc.github.io/2016/04/14/%E6%A8%A1%E6%8B%9FORM/"/>
-    <id>http://cmp-cc.github.io/2016/04/14/模拟ORM/</id>
+    <link href="http://cmp-cc.github.io/2016/04/14/2016/%E6%A8%A1%E6%8B%9FORM/"/>
+    <id>http://cmp-cc.github.io/2016/04/14/2016/模拟ORM/</id>
     <published>2016-04-14T10:34:00.000Z</published>
     <updated>2016-04-15T07:11:46.908Z</updated>
     
@@ -541,8 +541,8 @@
   
   <entry>
     <title>H2 DataBase 数据库</title>
-    <link href="http://cmp-cc.github.io/2016/04/12/H2%20DataBase%20%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    <id>http://cmp-cc.github.io/2016/04/12/H2 DataBase 数据库/</id>
+    <link href="http://cmp-cc.github.io/2016/04/12/2016/H2%20DataBase%20%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>http://cmp-cc.github.io/2016/04/12/2016/H2 DataBase 数据库/</id>
     <published>2016-04-12T09:49:00.000Z</published>
     <updated>2016-04-13T09:04:18.895Z</updated>
     
@@ -594,8 +594,8 @@
   
   <entry>
     <title>Airbnb JavaScript 编码规范</title>
-    <link href="http://cmp-cc.github.io/2015/10/08/Airbnb%20JavaScript%20%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"/>
-    <id>http://cmp-cc.github.io/2015/10/08/Airbnb JavaScript 编码规范/</id>
+    <link href="http://cmp-cc.github.io/2015/10/08/2015/Airbnb%20JavaScript%20%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"/>
+    <id>http://cmp-cc.github.io/2015/10/08/2015/Airbnb JavaScript 编码规范/</id>
     <published>2015-10-08T15:51:00.000Z</published>
     <updated>2016-04-18T06:44:12.481Z</updated>
     
@@ -1058,44 +1058,9 @@
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://cmp-cc.github.io/2015/08/14/hello-world/"/>
-    <id>http://cmp-cc.github.io/2015/08/14/hello-world/</id>
-    <published>2015-08-14T08:53:00.000Z</published>
-    <updated>2016-04-06T08:49:38.964Z</updated>
-    
-    <content type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Generate-static-files&quot;&gt;&lt;a href=&quot;#Generate-static-files&quot; class=&quot;headerlink&quot; title=&quot;Generate static files&quot;&gt;&lt;/a&gt;Generate static files&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo generate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/generating.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Generating&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Deploy-to-remote-sites&quot;&gt;&lt;a href=&quot;#Deploy-to-remote-sites&quot; class=&quot;headerlink&quot; title=&quot;Deploy to remote sites&quot;&gt;&lt;/a&gt;Deploy to remote sites&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo deploy&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/deployment.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Deployment&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
-    
-      <category term="博客" scheme="http://cmp-cc.github.io/categories/%E5%8D%9A%E5%AE%A2/"/>
-    
-    
-      <category term="Blog" scheme="http://cmp-cc.github.io/tags/Blog/"/>
-    
-      <category term="Hexo" scheme="http://cmp-cc.github.io/tags/Hexo/"/>
-    
-      <category term="Markdown" scheme="http://cmp-cc.github.io/tags/Markdown/"/>
-    
-  </entry>
-  
-  <entry>
     <title>配置环境变量脚本</title>
-    <link href="http://cmp-cc.github.io/2015/04/28/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%84%9A%E6%9C%AC/"/>
-    <id>http://cmp-cc.github.io/2015/04/28/配置环境变量脚本/</id>
+    <link href="http://cmp-cc.github.io/2015/04/28/2015/%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%84%9A%E6%9C%AC/"/>
+    <id>http://cmp-cc.github.io/2015/04/28/2015/配置环境变量脚本/</id>
     <published>2015-04-28T13:54:00.000Z</published>
     <updated>2016-04-19T07:09:17.839Z</updated>
     
@@ -1126,9 +1091,43 @@
   </entry>
   
   <entry>
+    <title>Hbase异常记录及其解决方案</title>
+    <link href="http://cmp-cc.github.io/2015/04/08/2015/Hbase%E5%BC%82%E5%B8%B8%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://cmp-cc.github.io/2015/04/08/2015/Hbase异常记录及其解决方案/</id>
+    <published>2015-04-08T02:42:00.000Z</published>
+    <updated>2015-07-08T02:42:00.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;记录我Hbase 使用的相关问题解决方案，持续更新&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;java-net-ConnectException-Connection-refused&quot;&gt;&lt;a href=&quot;#java-net-ConnectException-Connection-refused&quot; class=&quot;headerlink&quot; title=&quot;java.net.ConnectException: Connection refused&quot;&gt;&lt;/a&gt;java.net.ConnectException: Connection refused&lt;/h2&gt;&lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:739)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1075)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15/04/08 10:42:26 WARN zookeeper.RecoverableZooKeeper: Possibly transient ZooKeeper exception: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /hbase/hbaseid&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15/04/08 10:42:26 INFO util.RetryCounter: Sleeping 2000ms before retry #1...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15/04/08 10:42:27 INFO zookeeper.ClientCnxn: Opening socket connection to server localhost/127.0.0.1:2181. Will not attempt to authenticate using SASL (unknown error)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15/04/08 10:42:27 WARN zookeeper.ClientCnxn: Session 0x0 for server null, unexpected error, closing socket connection and attempting reconnect&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;java.net.ConnectException: Connection refused&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;hbase-site.xml 中没有配置&lt;code&gt;hbase.zookeeper.quorum&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;应用程序指定ZK地址&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;conf.set(&amp;quot;hbase.zookeeper.quorum&amp;quot;, &amp;quot;datanode01.hadoop&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;h2 id=&quot;ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper&quot;&gt;&lt;a href=&quot;#ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper&quot; class=&quot;headerlink&quot; title=&quot;ConnectionException: An error is preventing HBase from connecting to ZooKeeper&quot;&gt;&lt;/a&gt;ConnectionException: An error is preventing HBase from connecting to ZooKeeper&lt;/h2&gt;&lt;/blockquote&gt;
+&lt;h3 id=&quot;问题描述-1&quot;&gt;&lt;a href=&quot;#问题描述-1&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Thu Apr 23 17:38:19 CST 2015, org.apache.hadoop.hbase.client.ScannerCallable@60ac8067, org.apache.hadoop.hbase.ZooKeeperConnectionException: An error is preventing HBase from connecting to ZooKeeper&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hbase.client.AbstractClientScanner$1.hasNext(AbstractClientScanner.java:44)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at mapreduce.test1.md5ConvertID(test1.java:41)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at mapreduce.test1.main(test1.java:152)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at java.lang.reflect.Method.invoke(Method.java:606)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.util.RunJar.main(RunJar.java:208)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;解决方案-1&quot;&gt;&lt;a href=&quot;#解决方案-1&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;检查相关程序，确保scanner开放&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ResultScanner scanner = table.getScanner(scan);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;使用scanner 获取数据的时候， Htable 已经关闭。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Too-Many-fetch-failures-Failing-the-attempt&quot;&gt;&lt;a href=&quot;#Too-Many-fetch-failures-Failing-the-attempt&quot; class=&quot;headerlink&quot; title=&quot;Too Many fetch failures.Failing the attempt&quot;&gt;&lt;/a&gt;Too Many fetch failures.Failing the attempt&lt;/h2&gt;&lt;h3 id=&quot;解决方案-2&quot;&gt;&lt;a href=&quot;#解决方案-2&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt; 某一台服务器上的磁盘满了。 删除临时文件或无效数据。 或者增加磁盘&lt;/strong&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;记录我Hbase 使用的相关问题解决方案，持续更新&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;java-net-ConnectException-Connection-refused&quot;&gt;&lt;a href=&quot;#java-net-ConnectException-
+    
+    </summary>
+    
+      <category term="大数据" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="数据库" scheme="http://cmp-cc.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="Hbase" scheme="http://cmp-cc.github.io/tags/Hbase/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hadoop 日常实战 文件压缩</title>
-    <link href="http://cmp-cc.github.io/2014/12/28/Hadoop%20%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9/"/>
-    <id>http://cmp-cc.github.io/2014/12/28/Hadoop 日常实战 文件压缩/</id>
+    <link href="http://cmp-cc.github.io/2014/12/28/2014/Hadoop%20%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E6%96%87%E4%BB%B6%E5%8E%8B%E7%BC%A9/"/>
+    <id>http://cmp-cc.github.io/2014/12/28/2014/Hadoop 日常实战 文件压缩/</id>
     <published>2014-12-28T11:25:00.000Z</published>
     <updated>2016-04-09T06:35:52.371Z</updated>
     
@@ -1262,8 +1261,8 @@
   
   <entry>
     <title>Hadoop日常实战 计数器</title>
-    <link href="http://cmp-cc.github.io/2014/12/16/Hadoop%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E8%AE%A1%E6%95%B0%E5%99%A8/"/>
-    <id>http://cmp-cc.github.io/2014/12/16/Hadoop日常实战 计数器/</id>
+    <link href="http://cmp-cc.github.io/2014/12/16/2014/Hadoop%E6%97%A5%E5%B8%B8%E5%AE%9E%E6%88%98%20%E8%AE%A1%E6%95%B0%E5%99%A8/"/>
+    <id>http://cmp-cc.github.io/2014/12/16/2014/Hadoop日常实战 计数器/</id>
     <published>2014-12-16T09:26:00.000Z</published>
     <updated>2016-04-08T11:51:45.958Z</updated>
     
@@ -1271,7 +1270,7 @@
 &lt;p&gt;  &lt;strong&gt;在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;内置计数器控制台视图&quot;&gt;&lt;a href=&quot;#内置计数器控制台视图&quot; class=&quot;headerlink&quot; title=&quot;内置计数器控制台视图&quot;&gt;&lt;/a&gt;内置计数器控制台视图&lt;/h2&gt;&lt;p&gt;Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的具体状体。&lt;/p&gt;
 &lt;p&gt;如下是&lt;code&gt;Hadoop 2.0.0-cdh4.7.0&lt;/code&gt; Hadoop Mapreudce执行程序控制台显示&lt;/p&gt;
-&lt;img src=&quot;/2014/12/16/Hadoop日常实战%20计数器/QQ图片20141211110508.png&quot; alt=&quot;内置计数器&quot; title=&quot;内置计数器&quot;&gt;
+&lt;img src=&quot;/2014/12/16/2014/Hadoop日常实战%20计数器/QQ图片20141211110508.png&quot; alt=&quot;内置计数器&quot; title=&quot;内置计数器&quot;&gt;
 &lt;p&gt; &lt;strong&gt;Counter有组（group）的概念，用于表示逻辑上相同范围的所有数值。&lt;/strong&gt;&lt;br&gt;上图默认输出Counter分为三个组，从中我们可以分析出程序运行使用 CPU、内存、IO读写、网络流量的一个基本情况 &lt;/p&gt;
 &lt;p&gt;文章推荐: &lt;a href=&quot;http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;内置计数器的分类：&quot;&gt;&lt;a href=&quot;#内置计数器的分类：&quot; class=&quot;headerlink&quot; title=&quot;内置计数器的分类：&quot;&gt;&lt;/a&gt;内置计数器的分类：&lt;/h2&gt;&lt;table&gt;
@@ -1316,7 +1315,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;通过计数器获取Mapreduce的运行情况&quot;&gt;&lt;a href=&quot;#通过计数器获取Mapreduce的运行情况&quot; class=&quot;headerlink&quot; title=&quot;通过计数器获取Mapreduce的运行情况&quot;&gt;&lt;/a&gt;通过计数器获取Mapreduce的运行情况&lt;/h2&gt;&lt;p&gt;获取计数器：  作业长时间运行，我们需要通过计数器了解运行情况。我们只需要写一个监听类就可以。&lt;br&gt;如下是Mapreduce2.0写法，同样需要引用1.0中的JobClient类。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;String jobID = args[0];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;JobClient jobClient = new JobClient(new JobConf(getConf()));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RunningJob job = jobClient.getJob(JobID.forName(jobID));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Counters counters = job.getCounters();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;long missing = counters.getCounter(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;MaxTemperatureWithCounters.Temperature.MISSING);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;long total = counters.getCounter(Task.Counter.MAP_INPUT_RECORDS);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;System.out.printf(&amp;quot;Records with missing temperature fields: %.2f%%\n&amp;quot;,100.0 * missing / total);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;计数器原理&quot;&gt;&lt;a href=&quot;#计数器原理&quot; class=&quot;headerlink&quot; title=&quot;计数器原理&quot;&gt;&lt;/a&gt;计数器原理&lt;/h2&gt;&lt;img src=&quot;/2014/12/16/Hadoop日常实战%20计数器/c5c20a58-0087-49b2-a5d5-91ca4ae38066.jpg&quot; alt=&quot;计数器原理图&quot; title=&quot;计数器原理图&quot;&gt;
+&lt;h2 id=&quot;计数器原理&quot;&gt;&lt;a href=&quot;#计数器原理&quot; class=&quot;headerlink&quot; title=&quot;计数器原理&quot;&gt;&lt;/a&gt;计数器原理&lt;/h2&gt;&lt;img src=&quot;/2014/12/16/2014/Hadoop日常实战%20计数器/c5c20a58-0087-49b2-a5d5-91ca4ae38066.jpg&quot; alt=&quot;计数器原理图&quot; title=&quot;计数器原理图&quot;&gt;
 &lt;ul&gt;
 &lt;li&gt;计数器实质是由JobTracker维护，计数器值会定期传到tasktracker，在由tasktracker传递给jobtracker。也就是说所有的计数器信息都是存在jobTracker的内存中，计数器序列化并状态更新同步到JobTracker。&lt;/li&gt;
 &lt;li&gt;TaskTracker中累加计数器 记录单节点中的计数个数。通过“心跳“ 传递信息给JobTracker。&lt;/li&gt;
@@ -1348,8 +1347,8 @@
   
   <entry>
     <title>Linux sftp 进行文件传输</title>
-    <link href="http://cmp-cc.github.io/2014/11/28/Linux%20sftp%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
-    <id>http://cmp-cc.github.io/2014/11/28/Linux sftp 进行文件传输/</id>
+    <link href="http://cmp-cc.github.io/2014/11/28/2014/Linux%20sftp%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
+    <id>http://cmp-cc.github.io/2014/11/28/2014/Linux sftp 进行文件传输/</id>
     <published>2014-11-28T12:32:00.000Z</published>
     <updated>2016-04-14T08:01:50.664Z</updated>
     
@@ -1536,8 +1535,8 @@
   
   <entry>
     <title>Maven3 setting.xml 设置</title>
-    <link href="http://cmp-cc.github.io/2014/04/13/Maven3%20setting.xml%20%E8%AE%BE%E7%BD%AE/"/>
-    <id>http://cmp-cc.github.io/2014/04/13/Maven3 setting.xml 设置/</id>
+    <link href="http://cmp-cc.github.io/2014/04/13/2014/Maven3%20setting.xml%20%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://cmp-cc.github.io/2014/04/13/2014/Maven3 setting.xml 设置/</id>
     <published>2014-04-13T08:54:00.000Z</published>
     <updated>2016-04-12T08:40:58.759Z</updated>
     
@@ -1586,8 +1585,8 @@
   
   <entry>
     <title>MyBatis 与 第三方框架集成</title>
-    <link href="http://cmp-cc.github.io/2014/04/04/MyBatis%20%E4%B8%8E%20%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90/"/>
-    <id>http://cmp-cc.github.io/2014/04/04/MyBatis 与 第三方框架集成/</id>
+    <link href="http://cmp-cc.github.io/2014/04/04/2014/MyBatis%20%E4%B8%8E%20%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90/"/>
+    <id>http://cmp-cc.github.io/2014/04/04/2014/MyBatis 与 第三方框架集成/</id>
     <published>2014-04-04T14:09:00.000Z</published>
     <updated>2016-04-25T13:05:04.212Z</updated>
     
@@ -1709,8 +1708,8 @@
   
   <entry>
     <title>MyBatis 使用XML配置SQL 映射器</title>
-    <link href="http://cmp-cc.github.io/2014/04/03/MyBatis%20%E4%BD%BF%E7%94%A8XML%E9%85%8D%E7%BD%AESQL%20%E6%98%A0%E5%B0%84%E5%99%A8/"/>
-    <id>http://cmp-cc.github.io/2014/04/03/MyBatis 使用XML配置SQL 映射器/</id>
+    <link href="http://cmp-cc.github.io/2014/04/03/2014/MyBatis%20%E4%BD%BF%E7%94%A8XML%E9%85%8D%E7%BD%AESQL%20%E6%98%A0%E5%B0%84%E5%99%A8/"/>
+    <id>http://cmp-cc.github.io/2014/04/03/2014/MyBatis 使用XML配置SQL 映射器/</id>
     <published>2014-04-03T03:09:00.000Z</published>
     <updated>2016-04-24T08:53:10.596Z</updated>
     
@@ -2057,8 +2056,8 @@
   
   <entry>
     <title>Mybatis ${}和#{} 区别</title>
-    <link href="http://cmp-cc.github.io/2014/04/02/Mybatis%E4%BA%95%E5%8F%B7%E5%92%8C$%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>http://cmp-cc.github.io/2014/04/02/Mybatis井号和$的区别/</id>
+    <link href="http://cmp-cc.github.io/2014/04/02/2014/Mybatis%E4%BA%95%E5%8F%B7%E5%92%8C$%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://cmp-cc.github.io/2014/04/02/2014/Mybatis井号和$的区别/</id>
     <published>2014-04-02T04:53:00.000Z</published>
     <updated>2016-04-22T09:33:31.367Z</updated>
     
@@ -2106,8 +2105,8 @@
   
   <entry>
     <title>MyBatis Boostrap</title>
-    <link href="http://cmp-cc.github.io/2014/04/02/MyBatis%20Boostrap/"/>
-    <id>http://cmp-cc.github.io/2014/04/02/MyBatis Boostrap/</id>
+    <link href="http://cmp-cc.github.io/2014/04/02/2014/MyBatis%20Boostrap/"/>
+    <id>http://cmp-cc.github.io/2014/04/02/2014/MyBatis Boostrap/</id>
     <published>2014-04-02T02:44:00.000Z</published>
     <updated>2016-04-20T11:07:57.808Z</updated>
     
@@ -2215,8 +2214,8 @@
   
   <entry>
     <title>MyBatis 入门</title>
-    <link href="http://cmp-cc.github.io/2014/04/01/MyBatis%20%E5%85%A5%E9%97%A8/"/>
-    <id>http://cmp-cc.github.io/2014/04/01/MyBatis 入门/</id>
+    <link href="http://cmp-cc.github.io/2014/04/01/2014/MyBatis%20%E5%85%A5%E9%97%A8/"/>
+    <id>http://cmp-cc.github.io/2014/04/01/2014/MyBatis 入门/</id>
     <published>2014-04-01T15:44:00.000Z</published>
     <updated>2016-04-15T10:13:46.168Z</updated>
     
@@ -2326,8 +2325,8 @@
   
   <entry>
     <title>Git 遇到的异常</title>
-    <link href="http://cmp-cc.github.io/2014/03/11/Git%20%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8/"/>
-    <id>http://cmp-cc.github.io/2014/03/11/Git 遇到的异常/</id>
+    <link href="http://cmp-cc.github.io/2014/03/11/2014/Git%20%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8/"/>
+    <id>http://cmp-cc.github.io/2014/03/11/2014/Git 遇到的异常/</id>
     <published>2014-03-11T14:53:00.000Z</published>
     <updated>2015-12-14T09:50:00.000Z</updated>
     
@@ -2348,7 +2347,7 @@
 &lt;li&gt;最后再合并刚刚暂存下來的本地变更&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;3-push之后不能访问文件-文件状态为灰色&quot;&gt;&lt;a href=&quot;#3-push之后不能访问文件-文件状态为灰色&quot; class=&quot;headerlink&quot; title=&quot;3.push之后不能访问文件(文件状态为灰色)&quot;&gt;&lt;/a&gt;3.push之后不能访问文件(文件状态为灰色)&lt;/h2&gt;&lt;h3 id=&quot;错误信息-2&quot;&gt;&lt;a href=&quot;#错误信息-2&quot; class=&quot;headerlink&quot; title=&quot;错误信息&quot;&gt;&lt;/a&gt;错误信息&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;如下，处于不可打开状态，如果你把整个项目clone下来，你会发现文件为空&lt;/strong&gt;&lt;/p&gt;
-&lt;img src=&quot;/2014/03/11/Git%20遇到的异常/4D44727A1CED48A6AF27443A6F1A36D7.png&quot; alt=&quot;文件显示状态&quot; title=&quot;文件显示状态&quot;&gt;
+&lt;img src=&quot;/2014/03/11/2014/Git%20遇到的异常/4D44727A1CED48A6AF27443A6F1A36D7.png&quot; alt=&quot;文件显示状态&quot; title=&quot;文件显示状态&quot;&gt;
 &lt;h3 id=&quot;解决方案-2&quot;&gt;&lt;a href=&quot;#解决方案-2&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;你可能需要了解一下&lt;code&gt;git submodule&lt;/code&gt;的使用,就知道问题所在了。(git项目中的子目录存在一个git仓库)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;将子目录中的&lt;code&gt;.git&lt;/code&gt;目录删掉&lt;/li&gt;
@@ -2382,8 +2381,8 @@
   
   <entry>
     <title>HTML5 语义化标签</title>
-    <link href="http://cmp-cc.github.io/2014/01/03/HTML5%20%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/"/>
-    <id>http://cmp-cc.github.io/2014/01/03/HTML5 语义化标签/</id>
+    <link href="http://cmp-cc.github.io/2014/01/03/2014/HTML5%20%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/"/>
+    <id>http://cmp-cc.github.io/2014/01/03/2014/HTML5 语义化标签/</id>
     <published>2014-01-03T08:43:00.000Z</published>
     <updated>2016-04-08T08:23:52.427Z</updated>
     
@@ -2603,8 +2602,8 @@
   
   <entry>
     <title>贫血模型和充血模型</title>
-    <link href="http://cmp-cc.github.io/2013/12/14/%E8%B4%AB%E8%A1%80%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%85%85%E8%A1%80%E6%A8%A1%E5%9E%8B/"/>
-    <id>http://cmp-cc.github.io/2013/12/14/贫血模型和充血模型/</id>
+    <link href="http://cmp-cc.github.io/2013/12/14/2013/%E8%B4%AB%E8%A1%80%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%85%85%E8%A1%80%E6%A8%A1%E5%9E%8B/"/>
+    <id>http://cmp-cc.github.io/2013/12/14/2013/贫血模型和充血模型/</id>
     <published>2013-12-14T08:53:00.000Z</published>
     <updated>2016-04-07T06:24:53.828Z</updated>
     
@@ -2714,8 +2713,8 @@
   
   <entry>
     <title>Linux iptable 防火墙</title>
-    <link href="http://cmp-cc.github.io/2013/11/25/Linux%20iptable%20%E9%98%B2%E7%81%AB%E5%A2%99/"/>
-    <id>http://cmp-cc.github.io/2013/11/25/Linux iptable 防火墙/</id>
+    <link href="http://cmp-cc.github.io/2013/11/25/2013/Linux%20iptable%20%E9%98%B2%E7%81%AB%E5%A2%99/"/>
+    <id>http://cmp-cc.github.io/2013/11/25/2013/Linux iptable 防火墙/</id>
     <published>2013-11-25T15:23:00.000Z</published>
     <updated>2016-04-21T12:43:04.087Z</updated>
     
