@@ -2,8 +2,8 @@
 title: Hive 动态分区异常
 date: 2015-07-22 19:53:00
 categories: 
-- 大数据
-- 数据仓库
+- Distributed Development
+- Hive
 tags:
 - Hive
 ----

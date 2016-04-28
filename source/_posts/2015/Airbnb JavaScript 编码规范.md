@@ -2,7 +2,8 @@
 title: Airbnb JavaScript 编码规范
 date: 2015-10-8 23:51:00
 categories: 
-- Web
+- Programming Language
+- Javascript
 tags:
 - Javascript
 ----

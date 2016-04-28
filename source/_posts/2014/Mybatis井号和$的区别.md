@@ -3,6 +3,7 @@ title: Mybatis ${}和#{} 区别
 date: 2014-04-02 12:53:00
 categories: 
 - Java Web
+- Mybatis
 tags:
 - Mybatis
 ----

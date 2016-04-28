@@ -3,6 +3,7 @@ title: MyBatis 入门
 date: 2014-04-01 23:44:00
 categories: 
 - Java Web
+- Mybatis
 tags:
 - Mybatis
 ----

@@ -2,7 +2,8 @@
 title: Linux sftp 进行文件传输
 date: 2014-11-28 20:32:00
 categories: 
-- 操作系统
+- Operating System
+- Linux
 tags:
 - Linux
 ----

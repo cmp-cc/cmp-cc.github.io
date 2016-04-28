@@ -2,7 +2,8 @@
 title: Maven 服务器插件Jetty
 date: 2013-11-16 8:54:00
 categories: 
-- 项目构建
+- Project Build
+- Maven
 tags:
 - Maven
 ----

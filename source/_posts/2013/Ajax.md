@@ -2,7 +2,8 @@
 title: Ajax
 date: 2013-02-16 13:43:00
 categories: 
-- Web
+- Programming Language
+- Javascript
 tags:
 - Javascript
 ----

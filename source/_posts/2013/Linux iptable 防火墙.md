@@ -2,7 +2,8 @@
 title: Linux iptable 防火墙
 date: 2013-11-25 23:23:00
 categories: 
-- 操作系统
+- Operating System
+- Linux
 tags:
 - Linux
 ----

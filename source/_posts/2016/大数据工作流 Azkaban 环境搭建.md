@@ -2,9 +2,10 @@
 title: 大数据工作流 Azkaban 环境搭建
 date: 2016-04-27 20:55:00
 categories: 
-- 大数据
+- Workflow
+- Bigdata Workflow
 tags:
-- 工作流
+- Workflow
 - Azkaban
 ----
 

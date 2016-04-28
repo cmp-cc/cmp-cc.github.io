@@ -3,6 +3,7 @@ title: MyBatis Boostrap
 date: 2014-04-02 10:44:00
 categories: 
 - Java Web
+- Mybatis
 tags:
 - Mybatis
 ----

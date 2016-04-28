@@ -2,7 +2,7 @@
 title: HTML5 语义化标签
 date: 2014-01-03 16:43:00
 categories: 
-- Web
+- HTML
 tags:
 - HTML5
 ----

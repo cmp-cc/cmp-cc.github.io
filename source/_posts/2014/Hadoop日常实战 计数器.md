@@ -2,7 +2,8 @@
 title: Hadoop日常实战 计数器
 date: 2014-12-16 17:26:00
 categories: 
-- 大数据开发
+- Distributed Development
+- Hadoop
 tags:
 - Hadoop
 ----

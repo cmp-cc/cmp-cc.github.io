@@ -3,8 +3,8 @@ title: Hbase异常记录及其解决方案
 date: 2015-04-08 10:42:00
 updated: 2015-07-08 10:42:00
 categories: 
-- 大数据
-- 数据库
+- Distributed Development
+- Hbase
 tags:
 - Hbase
 ----

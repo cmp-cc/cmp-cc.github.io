@@ -3,8 +3,8 @@ title: Hbase常规操作
 date: 2015-04-22 16:53:00
 updated:
 categories: 
-- 大数据
-- 数据库
+- Distributed Development
+- Hbase
 tags:
 - Hbase
 ----

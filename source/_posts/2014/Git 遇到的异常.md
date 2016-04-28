@@ -3,7 +3,8 @@ title: Git 遇到的异常
 date: 2014-03-11 22:53:00
 updated: 2015-12-14 17:50:00
 categories: 
-- 版本控制
+- Version Control
+- Git
 tags:
 - Git
 ----

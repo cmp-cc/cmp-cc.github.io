@@ -2,7 +2,8 @@
 title: Java项目开发中的简称
 date: 2013-08-12 14:13:00 
 categories: 
-- 架构设计
+- Programming Language
+- Java
 tags:
 - DDD (领域驱动设计)
 - Java

@@ -2,7 +2,8 @@
 title: Maven3 setting.xml 设置
 date: 2014-04-13 16:54:00
 categories: 
-- 项目构建
+- Project Build
+- Maven
 tags:
 - Maven
 ----

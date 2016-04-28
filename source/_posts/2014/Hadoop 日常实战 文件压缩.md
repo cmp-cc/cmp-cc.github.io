@@ -2,7 +2,8 @@
 title: Hadoop 日常实战 文件压缩
 date: 2014-12-28 19:25:00
 categories: 
-- 大数据开发
+- Distributed Development
+- Hadoop
 tags:
 - Hadoop
 ----

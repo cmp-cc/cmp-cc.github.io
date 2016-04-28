@@ -3,6 +3,7 @@ title: MyBatis 使用XML配置SQL 映射器
 date: 2014-04-03 11:09:00
 categories: 
 - Java Web
+- Mybatis
 tags:
 - Mybatis
 ----

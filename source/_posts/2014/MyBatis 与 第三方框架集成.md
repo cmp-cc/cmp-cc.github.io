@@ -3,6 +3,7 @@ title: MyBatis 与 第三方框架集成
 date: 2014-04-04 22:09:00
 categories: 
 - Java Web
+- Mybatis
 tags:
 - Mybatis
 ----
