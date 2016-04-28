@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-04-28T07:59:21.005Z</updated>
+  <updated>2016-04-28T08:44:14.002Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://cmp-cc.github.io/2016/04/27/2016/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%20Azkaban%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>http://cmp-cc.github.io/2016/04/27/2016/大数据工作流 Azkaban 环境搭建/</id>
     <published>2016-04-27T12:55:00.000Z</published>
-    <updated>2016-04-28T07:59:21.005Z</updated>
+    <updated>2016-04-28T08:44:14.002Z</updated>
     
     <content type="html">&lt;p&gt;运维什么脚本泛滥，且依赖混乱，不易管理。 需要符合自身要求的任务调度系统，来减轻痛苦~~。&lt;/p&gt;
 &lt;p&gt;之前调研了Oozie、AzkaBan、Airflow、Luigi 评估了一下诉求，选择AzkaBan。&lt;/p&gt;
@@ -34,6 +34,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;img src=&quot;/2016/04/27/2016/大数据工作流%20Azkaban%20环境搭建/d82665b7-7a34-4272-ac43-6beaf6546f68.png&quot; alt=&quot;azkaban组件&quot; title=&quot;azkaban组件&quot;&gt;
 &lt;h3 id=&quot;Mysql&quot;&gt;&lt;a href=&quot;#Mysql&quot; class=&quot;headerlink&quot; title=&quot;Mysql&quot;&gt;&lt;/a&gt;Mysql&lt;/h3&gt;&lt;p&gt;Azkaban使用MySQL来存储它的状态信息，Azkaban Executor Server和Azkaban Web Server均使用到了MySQL数据库。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;AzkabanExecutorServer在如下几个方面使用到了数据库：&lt;br&gt;1、获取project的信息&lt;br&gt;2、执行工作流&lt;br&gt;3、存储工作流运行日志&lt;/p&gt;
@@ -60,7 +61,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h5 id=&quot;设置权限于Azkaban数据库，赋予Azkaban-用户INSERT、SELECT、UPDATE-DELETE权限，作用于Azkaban-数据库&quot;&gt;&lt;a href=&quot;#设置权限于Azkaban数据库，赋予Azkaban-用户INSERT、SELECT、UPDATE-DELETE权限，作用于Azkaban-数据库&quot; class=&quot;headerlink&quot; title=&quot;设置权限于Azkaban数据库，赋予Azkaban 用户INSERT、SELECT、UPDATE,DELETE权限，作用于Azkaban 数据库&quot;&gt;&lt;/a&gt;&lt;strong&gt;设置权限于Azkaban数据库，赋予Azkaban 用户&lt;code&gt;INSERT&lt;/code&gt;、&lt;code&gt;SELECT&lt;/code&gt;、&lt;code&gt;UPDATE&lt;/code&gt;,&lt;code&gt;DELETE&lt;/code&gt;权限，作用于Azkaban 数据库&lt;/strong&gt;&lt;/h5&gt;&lt;p&gt;&lt;strong&gt;这里执行如下，给予所有权限&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;grant all privileges on azkaban.* to &amp;apos;azkaban&amp;apos;@&amp;apos;localhost&amp;apos; identified by &amp;apos;azkaban&amp;apos;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;也可以如下限定访问权限&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;GRANT SELECT,INSERT,UPDATE,DELETE ON azkaban.* TO &amp;apos;azkaban&amp;apos;@&amp;apos;localhost&amp;apos; WITH GRANT OPTION;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;也可以如下限定访问权限&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;GRANT SELECT,INSERT,UPDATE,DELETE ON azkaban.* TO &amp;apos;azkaban&amp;apos;@&amp;apos;localhost&amp;apos; identified by &amp;apos;azkaban&amp;apos;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;配置数据包大小，修改属性&lt;code&gt;max_allowed_packet&lt;/code&gt;值为&lt;code&gt;1024M&lt;/code&gt;或者更高&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;编辑&lt;code&gt;/etc/my.cnf&lt;/code&gt;文件，增加如下&lt;/p&gt;
@@ -94,7 +95,7 @@
 &lt;li&gt;&lt;p&gt;解压到指定目录&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mkdir -p /usr/local/azkaban/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tar zxvf azkaban-web-server-2.5.0.tar.gz -C /usr/local/azkaban/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;相关目录描述&lt;br&gt;Folder | Description&lt;br&gt;— | —&lt;br&gt;bin     |The scripts to start Azkaban jetty server&lt;br&gt;conf |    The configurations for Azkaban solo server&lt;br&gt;lib |    The jar dependencies for Azkaban&lt;br&gt;extlib |    Additional jars that are added to extlib will be added to Azkaban’s classpath&lt;br&gt;plugins |    the directory where plugins can be installed&lt;br&gt;web     |The web (css, javascript, image) files for Azkaban web server.&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;相关目录描述&lt;br&gt;Folder | Description&lt;br&gt;— | —&lt;br&gt;bin  |The scripts to start Azkaban jetty server&lt;br&gt;conf |  The configurations for Azkaban solo server&lt;br&gt;lib | The jar dependencies for Azkaban&lt;br&gt;extlib |  Additional jars that are added to extlib will be added to Azkaban’s classpath&lt;br&gt;plugins | the directory where plugins can be installed&lt;br&gt;web  |The web (css, javascript, image) files for Azkaban web server.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;conf&lt;/code&gt;目录，有如下三个文件&lt;/p&gt;
 &lt;ul&gt;
@@ -117,12 +118,12 @@
 &lt;p&gt;将有如下提示，密码长度 &amp;gt;= 6 (这里为password)&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Enter keystore password:  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Re-enter new password: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;What is your first and last name?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [Unknown]:  azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;What is the name of your organizational unit?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [Unknown]:  Jetty&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;What is the name of your organization?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [Unknown]:  cmp-cc&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;What is the name of your City or Locality?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [Unknown]:  WuHan&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;What is the name of your State or Province?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [Unknown]:  WuHan&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;What is the two-letter country code for this unit?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [Unknown]:  86&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Is CN=azkaban, OU=Jetty, O=cmp-cc, L=WuHan, ST=WuHan, C=86 correct?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  [no]:  yes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Enter key password for &amp;lt;jetty-azkaban&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        (RETURN if same as keystore password):  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Re-enter new password:&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&quot;配置azkaban-properties文件&quot;&gt;&lt;a href=&quot;#配置azkaban-properties文件&quot; class=&quot;headerlink&quot; title=&quot;配置azkaban.properties文件&quot;&gt;&lt;/a&gt;配置&lt;code&gt;azkaban.properties&lt;/code&gt;文件&lt;/h4&gt;&lt;p&gt; 修改&lt;code&gt;./conf/azkaban.properties&lt;/code&gt;文件,进行如下修改&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vi /usr/local/azkaban/azkaban-web-2.5.0/conf/azkaban.properties&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;我的完整配置信息，邮件通知自己配置即可&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#Azkaban Personalization Settings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.name=Test&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.label=My Local Azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.color=#FF3601&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.default.servlet.path=/index&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;web.resource.dir=web/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;default.timezone.id=America/Los_Angeles&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Azkaban UserManager class&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;user.manager.class=azkaban.user.XmlUserManager&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;user.manager.xml.file=conf/azkaban-users.xml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Loader for projects&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.global.properties=conf/global.properties&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.project.dir=projects&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;database.type=mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.port=3306&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.host=localhost&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.database=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.user=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.password=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.numconnections=100&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Velocity dev mode&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;velocity.dev.mode=false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban Jetty server properties.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.maxThreads=25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.ssl.port=8443&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.port=8081&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.keystore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.password=password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.keypassword=password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.truststore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.trustpassword=password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban Executor settings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.port=12321&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# mail settings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mail.sender=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mail.host=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;job.failure.email=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;job.success.email=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;lockdown.create.projects=false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cache.directory=cache&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h5 id=&quot;SSL-密钥配置&quot;&gt;&lt;a href=&quot;#SSL-密钥配置&quot; class=&quot;headerlink&quot; title=&quot;SSL 密钥配置&quot;&gt;&lt;/a&gt;SSL 密钥配置&lt;/h5&gt;&lt;p&gt;修改&lt;code&gt;jetty.xxxx&lt;/code&gt;信息为keystore 设置，类似如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban Jetty server properties.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.maxThreads=25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.ssl.port=8443&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.port=8081&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.keystore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.password=123456&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.keypassword=123456&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.truststore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.trustpassword=123456&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#Azkaban Personalization Settings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.name=Test&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.label=My Local Azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.color=#FF3601&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.default.servlet.path=/index&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;web.resource.dir=web/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;default.timezone.id=Asia/Shanghai&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Azkaban UserManager class&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;user.manager.class=azkaban.user.XmlUserManager&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;user.manager.xml.file=conf/azkaban-users.xml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Loader for projects&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.global.properties=conf/global.properties&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.project.dir=projects&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;database.type=mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.port=3306&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.host=localhost&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.database=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.user=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.password=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.numconnections=100&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Velocity dev mode&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;velocity.dev.mode=false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban Jetty server properties.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.maxThreads=25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.ssl.port=8443&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.port=8081&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.keystore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.password=password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.keypassword=password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.truststore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.trustpassword=password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban Executor settings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.port=12321&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# mail settings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mail.sender=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mail.host=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;job.failure.email=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;job.success.email=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;lockdown.create.projects=false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cache.directory=cache&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h5 id=&quot;SSL-密钥配置&quot;&gt;&lt;a href=&quot;#SSL-密钥配置&quot; class=&quot;headerlink&quot; title=&quot;SSL 密钥配置&quot;&gt;&lt;/a&gt;SSL 密钥配置&lt;/h5&gt;&lt;p&gt;修改&lt;code&gt;jetty.xxxx&lt;/code&gt;信息为keystore 设置，类似如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban Jetty server properties.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.maxThreads=25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.ssl.port=8443&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.port=8081&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.keystore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.password=password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.keypassword=password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.truststore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.trustpassword=password&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h5 id=&quot;DB-设置&quot;&gt;&lt;a href=&quot;#DB-设置&quot; class=&quot;headerlink&quot; title=&quot;DB 设置&quot;&gt;&lt;/a&gt;DB 设置&lt;/h5&gt;&lt;p&gt;确保&lt;code&gt;mysql jdbc连接器&lt;/code&gt;已经添加到&lt;code&gt;extlib&lt;/code&gt;目录,配置大致如下&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;database.type=mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.port=3306&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.host=localhost&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.database=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.user=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.password=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.numconnections=100&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h5 id=&quot;UserManager-设置&quot;&gt;&lt;a href=&quot;#UserManager-设置&quot; class=&quot;headerlink&quot; title=&quot;UserManager 设置&quot;&gt;&lt;/a&gt;UserManager 设置&lt;/h5&gt;&lt;p&gt;Azkaban 使用&lt;code&gt;UserManager&lt;/code&gt;支持用户认证和用户角色&lt;br&gt;默认：Azkaban使用&lt;code&gt;XmlUserManager&lt;/code&gt;从&lt;code&gt;azkaban-users.xml&lt;/code&gt;获取用户名、密码、角色信息。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;user.manager.class=azkaban.user.XmlUserManager&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;user.manager.xml.file=conf/azkaban-users.xml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h5 id=&quot;jetty运行设置&quot;&gt;&lt;a href=&quot;#jetty运行设置&quot; class=&quot;headerlink&quot; title=&quot;jetty运行设置&quot;&gt;&lt;/a&gt;jetty运行设置&lt;/h5&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;jetty.maxThreads=25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.ssl.port=8443&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;Azkaban-运行和关闭&quot;&gt;&lt;a href=&quot;#Azkaban-运行和关闭&quot; class=&quot;headerlink&quot; title=&quot;Azkaban 运行和关闭&quot;&gt;&lt;/a&gt;Azkaban 运行和关闭&lt;/h3&gt;&lt;ul&gt;
+&lt;h3 id=&quot;Azkaban-web-运行和关闭&quot;&gt;&lt;a href=&quot;#Azkaban-web-运行和关闭&quot; class=&quot;headerlink&quot; title=&quot;Azkaban-web 运行和关闭&quot;&gt;&lt;/a&gt;Azkaban-web 运行和关闭&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;start AzkabanWebServer.&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bin/azkaban-web-start.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
@@ -131,13 +132,48 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;浏览器端口&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;设置SSL=true  默认访问： 192.168.xx.xxxx:8443&lt;/li&gt;
-&lt;li&gt;设置SSL=false 默认访问： 192.168.xx.xxxx:8081&lt;/li&gt;
+&lt;li&gt;设置SSL=true  默认访问： &lt;a href=&quot;https://192.168.xx.xxxx:8443&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://192.168.xx.xxxx:8443&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;设置SSL=false 默认访问： &lt;a href=&quot;http://192.168.xx.xxxx:8081&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://192.168.xx.xxxx:8081&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SSL 是可以关闭的，azkaban.properties 文件中添加&lt;code&gt;jetty.use.ssl=false&lt;/code&gt; 如下&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;jetty.maxThreads=25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.port=8081&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jetty.use.ssl=false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#jetty.ssl.port=8443&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#jetty.keystore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#jetty.password=keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#jetty.keypassword=keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#jetty.truststore=web/keystore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#jetty.trustpassword=keystore&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;运行Azkaban-web 并访问浏览器验证是否成功&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;明天在写&quot;&gt;&lt;a href=&quot;#明天在写&quot; class=&quot;headerlink&quot; title=&quot;明天在写&quot;&gt;&lt;/a&gt;明天在写&lt;/h2&gt;</content>
+&lt;h3 id=&quot;安装-Azkaban-Executor-Server&quot;&gt;&lt;a href=&quot;#安装-Azkaban-Executor-Server&quot; class=&quot;headerlink&quot; title=&quot;安装 Azkaban Executor Server&quot;&gt;&lt;/a&gt;安装 Azkaban Executor Server&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Azkaban Executor Server&lt;/strong&gt; 处理工作流和作业的实际执行。&lt;/p&gt;
+&lt;h4 id=&quot;安装Executor-Server&quot;&gt;&lt;a href=&quot;#安装Executor-Server&quot; class=&quot;headerlink&quot; title=&quot;安装Executor Server&quot;&gt;&lt;/a&gt;安装Executor Server&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://azkaban.github.io/downloads.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载页面选择版本&lt;/a&gt; 与 Azkaban-Web 保持一致。&lt;/li&gt;
+&lt;li&gt;你也以可以&lt;a href=&quot;https://github.com/azkaban/azkaban2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;git clone 最新版&lt;/code&gt;&lt;/a&gt;,查看文档，&lt;a href=&quot;http://azkaban.github.io/azkaban/docs/latest/#building-from-source&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何进行源码安装&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;这里是下载&lt;code&gt;azkaban-executor-server-2.5.0.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget –no-check-certificate  https://s3.amazonaws.com/azkaban2/azkaban2/2.5.0/azkaban-executor-server-2.5.0.tar.gz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;解压到指定目录&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar zxvf azkaban-executor-server-2.5.0.tar.gz -C /usr/local/azkaban/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;相关目录描述&lt;br&gt;Folder | Description&lt;br&gt;— | —&lt;br&gt;bin | The scripts to start Azkaban jetty server&lt;br&gt;conf  | The configurations for Azkaban solo server&lt;br&gt;lib | The jar dependencies for Azkaban&lt;br&gt;extlib   | Additional jars that are added to extlib will be added to Azkaban’s classpath&lt;br&gt;plugins | the directory where plugins can be installed&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;配置azkaban-properties文件-1&quot;&gt;&lt;a href=&quot;#配置azkaban-properties文件-1&quot; class=&quot;headerlink&quot; title=&quot;配置azkaban.properties文件&quot;&gt;&lt;/a&gt;配置&lt;code&gt;azkaban.properties&lt;/code&gt;文件&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;修改&lt;code&gt;./conf/azkaban.properties&lt;/code&gt;文件,进行如下修改&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;我的配置文件&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;default.timezone.id=Asia/Shanghai&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban JobTypes Plugins&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.jobtype.plugin.dir=plugins/jobtypes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#Loader for projects&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.global.properties=conf/global.properties&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;azkaban.project.dir=projects&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;database.type=mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.port=3306&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.host=localhost&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.database=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.user=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.password=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.numconnections=100&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban Executor settings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.maxThreads=50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.port=12321&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.flow.threads=30&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h5 id=&quot;设置DB&quot;&gt;&lt;a href=&quot;#设置DB&quot; class=&quot;headerlink&quot; title=&quot;设置DB&quot;&gt;&lt;/a&gt;设置DB&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;将MySQL数据库链接添加至&lt;code&gt;extlib&lt;/code&gt; 可重新下载，如下&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd /usr/local/azkaban/azkaban-executor-2.5.0/extlib/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;DB设置(覆盖azkaban.properties)&lt;br&gt;&lt;strong&gt;如下：&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;database.type=mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.port=3306&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.host=localhost&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.database=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.user=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.password=azkaban&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mysql.numconnections=100&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&quot;配置AzabanWebServer-和-AzkabanExecutorServer&quot;&gt;&lt;a href=&quot;#配置AzabanWebServer-和-AzkabanExecutorServer&quot; class=&quot;headerlink&quot; title=&quot;配置AzabanWebServer 和 AzkabanExecutorServer&quot;&gt;&lt;/a&gt;配置AzabanWebServer 和 AzkabanExecutorServer&lt;/h5&gt;&lt;p&gt;&lt;strong&gt;Executor server 需要一个端口，Web server 需要知道这个端口，使用如下默认即可&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Azkaban Executor settings&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.maxThreads=50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.port=12321&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;executor.flow.threads=30&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;运行和关闭&quot;&gt;&lt;a href=&quot;#运行和关闭&quot; class=&quot;headerlink&quot; title=&quot;运行和关闭&quot;&gt;&lt;/a&gt;运行和关闭&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;运行AzkabanExecutorServer&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bin/azkaban-exec-start.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;关闭 AzkabanExecutorServer&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;bin/azkaban-exec-shutdown.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
     
     <summary type="html">
     
@@ -1642,6 +1678,64 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
   </entry>
   
   <entry>
+    <title>Linux 开发环境安装指南</title>
+    <link href="http://cmp-cc.github.io/2014/11/07/2014/Linux%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/"/>
+    <id>http://cmp-cc.github.io/2014/11/07/2014/Linux 开发环境安装指南/</id>
+    <published>2014-11-07T08:53:00.000Z</published>
+    <updated>2015-12-14T09:50:00.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;我的Linux (Centos)开发、应用部署环境，持续更新&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;安装JDK1-8&quot;&gt;&lt;a href=&quot;#安装JDK1-8&quot; class=&quot;headerlink&quot; title=&quot;安装JDK1.8&quot;&gt;&lt;/a&gt;安装JDK1.8&lt;/h2&gt;&lt;h3 id=&quot;查看Linux-自带的JDK是否安装&quot;&gt;&lt;a href=&quot;#查看Linux-自带的JDK是否安装&quot; class=&quot;headerlink&quot; title=&quot;查看Linux 自带的JDK是否安装&quot;&gt;&lt;/a&gt;查看Linux 自带的JDK是否安装&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;img src=&quot;/2014/11/07/2014/Linux%20开发环境安装指南/596f24a9-b58f-40e3-b02c-6cfdf4c58dab.png&quot; alt=&quot;已安装OpenJDK7 运行环境，但没有编译环境&quot; title=&quot;已安装OpenJDK7 运行环境，但没有编译环境&quot;&gt;
+&lt;h3 id=&quot;卸载自带JDK&quot;&gt;&lt;a href=&quot;#卸载自带JDK&quot; class=&quot;headerlink&quot; title=&quot;卸载自带JDK&quot;&gt;&lt;/a&gt;卸载自带JDK&lt;/h3&gt;&lt;h4 id=&quot;查看相关依赖&quot;&gt;&lt;a href=&quot;#查看相关依赖&quot; class=&quot;headerlink&quot; title=&quot;查看相关依赖&quot;&gt;&lt;/a&gt;查看相关依赖&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rpm -qa | grep java&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;或则&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rmp -qa |grep jdk&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;img src=&quot;/2014/11/07/2014/Linux%20开发环境安装指南/2310dfba-98e6-478a-890e-11291c66f2d1.png&quot; alt=&quot;已安装OpenJDK7的相关依赖&quot; title=&quot;已安装OpenJDK7的相关依赖&quot;&gt;
+&lt;h4 id=&quot;卸载&quot;&gt;&lt;a href=&quot;#卸载&quot; class=&quot;headerlink&quot; title=&quot;卸载&quot;&gt;&lt;/a&gt;卸载&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rpm -e --nodeps java-1.7.0-openjdk-1.7.0.75-2.5.4.2.el7_0.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.75-2.5.4.2.el7_0.x86_64&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;下载JDK1-8&quot;&gt;&lt;a href=&quot;#下载JDK1-8&quot; class=&quot;headerlink&quot; title=&quot;下载JDK1.8&quot;&gt;&lt;/a&gt;下载JDK1.8&lt;/h3&gt;&lt;p&gt;在Oracle 选择合适的版本，进行JDK安装，这里更新至JDK1.8&lt;br&gt;&lt;strong&gt;Oracle官网上下载jdk，需要点击accept licence的才能下载，使用下面的命令，直接可以下载。&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget --no-check-certificate --no-cookies --header &amp;quot;Cookie: oraclelicense=accept-securebackup-cookie&amp;quot; http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;解压&quot;&gt;&lt;a href=&quot;#解压&quot; class=&quot;headerlink&quot; title=&quot;解压&quot;&gt;&lt;/a&gt;解压&lt;/h3&gt;&lt;p&gt;-C 表示解压路径&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar zxvf jdk-8u73-linux-x64.tar.gz -C /usr/local/jdk/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;环境变量配置&quot;&gt;&lt;a href=&quot;#环境变量配置&quot; class=&quot;headerlink&quot; title=&quot;环境变量配置&quot;&gt;&lt;/a&gt;环境变量配置&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;/etc/profile&lt;/code&gt;文件,添加如下&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//添加如下&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;JAVA_HOME=/usr/local/jdk/jdk1.8.0_73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PATH=$PATH:$JAVA_HOME/bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export PATH&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;重新加载配置&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;source /etc/profile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;安装-Mysql-5-7-11&quot;&gt;&lt;a href=&quot;#安装-Mysql-5-7-11&quot; class=&quot;headerlink&quot; title=&quot;安装 Mysql 5.7.11&quot;&gt;&lt;/a&gt;安装 Mysql 5.7.11&lt;/h2&gt;&lt;h3 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;这里更新至最新版Mysql5.7.11 源码(这里采用编译安装)&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.11.tar.gz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;解压-1&quot;&gt;&lt;a href=&quot;#解压-1&quot; class=&quot;headerlink&quot; title=&quot;解压&quot;&gt;&lt;/a&gt;解压&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar zxvf mysql-5.7.11.tar.gz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;安装必要的包&quot;&gt;&lt;a href=&quot;#安装必要的包&quot; class=&quot;headerlink&quot; title=&quot;安装必要的包&quot;&gt;&lt;/a&gt;安装必要的包&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;安装Boost&quot;&gt;&lt;a href=&quot;#安装Boost&quot; class=&quot;headerlink&quot; title=&quot;安装Boost&quot;&gt;&lt;/a&gt;安装Boost&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget http://jaist.dl.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.zip unzip boost_1_59_0.zip&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;unzip boost_1_59_0.zip &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd boost_1_59_0 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./bootstrap.sh  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./b2 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./b2 install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;生成makefile-和-编译&quot;&gt;&lt;a href=&quot;#生成makefile-和-编译&quot; class=&quot;headerlink&quot; title=&quot;生成makefile 和 编译&quot;&gt;&lt;/a&gt;生成makefile 和 编译&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd mysql-5.7.11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 生成makefile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cmake .&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 编译&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;make&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;make install&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// mysql 将会安装到/usr/local/mysql路径&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;添加mysql用户和组&quot;&gt;&lt;a href=&quot;#添加mysql用户和组&quot; class=&quot;headerlink&quot; title=&quot;添加mysql用户和组&quot;&gt;&lt;/a&gt;添加mysql用户和组&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//创建mysql 组&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo groupadd mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 创建mysql用户 所属组为mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo useradd -r -g mysql mysql&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;修改目录和文件权限，安装默认数据库&quot;&gt;&lt;a href=&quot;#修改目录和文件权限，安装默认数据库&quot; class=&quot;headerlink&quot; title=&quot;修改目录和文件权限，安装默认数据库&quot;&gt;&lt;/a&gt;修改目录和文件权限，安装默认数据库&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo chown -R mysql.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chgrp -R mysql.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bin/mysql_ssl_rsa_setup &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chown -R root .&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chown -R mysql data&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;创建-etc-my-cnf文件&quot;&gt;&lt;a href=&quot;#创建-etc-my-cnf文件&quot; class=&quot;headerlink&quot; title=&quot;创建/etc/my.cnf文件&quot;&gt;&lt;/a&gt;创建/etc/my.cnf文件&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/my.cnf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 增加如下&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;server_id = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#binary log&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;log-bin = mysql-bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;binlog_format = mixed&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# expire_logs_day = 30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#slow query log&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;slow_query_log = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;slow_query_log_file = /var/log/mysql/slow.log&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;long_query_time = 3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;log-queries-not-using-indexes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;log-slow-admin-statements&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 这里忽略密码了，重设密码后，应当删除&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;skip-grant-tables&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;复制mysql服务启动脚本并加入PATH路径&quot;&gt;&lt;a href=&quot;#复制mysql服务启动脚本并加入PATH路径&quot; class=&quot;headerlink&quot; title=&quot;复制mysql服务启动脚本并加入PATH路径&quot;&gt;&lt;/a&gt;复制mysql服务启动脚本并加入PATH路径&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vim /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 添加如下&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH:.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export PATH&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;source /etc/profile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;启动Mysql-并加入开机自动启动&quot;&gt;&lt;a href=&quot;#启动Mysql-并加入开机自动启动&quot; class=&quot;headerlink&quot; title=&quot;启动Mysql 并加入开机自动启动&quot;&gt;&lt;/a&gt;启动Mysql 并加入开机自动启动&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;service mysqld start &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --level 35 mysqld on&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;重设密码&quot;&gt;&lt;a href=&quot;#重设密码&quot; class=&quot;headerlink&quot; title=&quot;重设密码&quot;&gt;&lt;/a&gt;重设密码&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mysql -uroot&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//选择数据库&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;use mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 设置密码。 5.7 相比5.5 user表中password字段改为authentication_string。如下&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;update user set authentication_string=PASSWORD(&amp;apos;123456&amp;apos;) where user=&amp;apos;root&amp;apos; and host=&amp;apos;localhost&amp;apos;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//更新权限表&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;flush privileges;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;我的Linux (Centos)开发、应用部署环境，持续更新&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;安装JDK1-8&quot;&gt;&lt;a href=&quot;#安装JDK1-8&quot; class=&quot;headerlink&quot; title=&quot;安装JDK1.8&quot;&gt;&lt;/a&gt;安装JDK1.
+    
+    </summary>
+    
+      <category term="Operating System" scheme="http://cmp-cc.github.io/categories/Operating-System/"/>
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/categories/Operating-System/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
+    
+      <category term="安装部署" scheme="http://cmp-cc.github.io/tags/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Maven3 setting.xml 设置</title>
     <link href="http://cmp-cc.github.io/2014/04/13/2014/Maven3%20setting.xml%20%E8%AE%BE%E7%BD%AE/"/>
     <id>http://cmp-cc.github.io/2014/04/13/2014/Maven3 setting.xml 设置/</id>
@@ -2498,227 +2592,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     
       <category term="Git" scheme="http://cmp-cc.github.io/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTML5 语义化标签</title>
-    <link href="http://cmp-cc.github.io/2014/01/03/2014/HTML5%20%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/"/>
-    <id>http://cmp-cc.github.io/2014/01/03/2014/HTML5 语义化标签/</id>
-    <published>2014-01-03T08:43:00.000Z</published>
-    <updated>2016-04-28T07:41:39.717Z</updated>
-    
-    <content type="html">&lt;p&gt;前段时间看了一本《HTML5 实战》 ，也只是为了关注一下HTML5的发展和趋势。&lt;/p&gt;
-&lt;p&gt;看的我头大，这本书只是做个了HTML5的介绍，算不上实战，很多例子含糊不清。&lt;/p&gt;
-&lt;p&gt;HTML5 中新的语义化标签，还是让我眼前一亮。&lt;/p&gt;
-&lt;h2 id=&quot;HTML5-中的新特性&quot;&gt;&lt;a href=&quot;#HTML5-中的新特性&quot; class=&quot;headerlink&quot; title=&quot;HTML5 中的新特性&quot;&gt;&lt;/a&gt;HTML5 中的新特性&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;HTML5 中的核心特性，先记录一下,方便日后查阅&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;新的语义化标签&lt;/li&gt;
-&lt;li&gt;表单与表单API&lt;/li&gt;
-&lt;li&gt;Canvas API&lt;/li&gt;
-&lt;li&gt;拖放 API&lt;/li&gt;
-&lt;li&gt;地理位置 API&lt;/li&gt;
-&lt;li&gt;WEB存储 API&lt;/li&gt;
-&lt;li&gt;IndexedDB API&lt;/li&gt;
-&lt;li&gt;文件&lt;/li&gt;
-&lt;li&gt;通信API&lt;/li&gt;
-&lt;li&gt;WEB workers API&lt;/li&gt;
-&lt;li&gt;历史 API&lt;/li&gt;
-&lt;li&gt;脱机 API&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;HTML5-语义化标签&quot;&gt;&lt;a href=&quot;#HTML5-语义化标签&quot; class=&quot;headerlink&quot; title=&quot;HTML5 语义化标签&quot;&gt;&lt;/a&gt;HTML5 语义化标签&lt;/h2&gt;&lt;h3 id=&quot;HTML-结构语义&quot;&gt;&lt;a href=&quot;#HTML-结构语义&quot; class=&quot;headerlink&quot; title=&quot;HTML 结构语义&quot;&gt;&lt;/a&gt;HTML 结构语义&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;HTML 整体结构所需的标签语义&lt;/strong&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;标签&lt;/th&gt;
-&lt;th&gt;语义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;header&lt;/td&gt;
-&lt;td&gt;这个元素表示一组介绍性的内容，适用于文档的不同节，他既可以包含节标题，也可以包含索引、搜索表单、logo等&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;nav&lt;/td&gt;
-&lt;td&gt;这个元素表示包含导航链接的节，如菜单或索引，并非所有的网页链接都要加&lt;nav&gt;元素中，只有主要的导航块才需要加到元素中。&lt;/nav&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;section&lt;/td&gt;
-&lt;td&gt;这个元素表示文档中的普通的节，通常，它可用于创建多个内容块（如：列） 从而对具有特定主题的内容进行分组，如图书的章&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;aside&lt;/td&gt;
-&lt;td&gt;这个元素表示与内容相关但不属于它的内容，如：引用，边侧栏，广告&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;footer&lt;/td&gt;
-&lt;td&gt;这个元素表示与父级元素相关的额外信息。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;article&lt;/td&gt;
-&lt;td&gt;这个元素表示重要信息的独立部分–例如，报纸上或博客中的文章，&lt;article&gt;可以嵌套，也可以用于在相关项列表中显示一个&lt;/article&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;hgroup&lt;/td&gt;
-&lt;td&gt;如果有多级标题，请使用。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;figure&lt;/td&gt;
-&lt;td&gt;这个元素表示主内容引用内容独立部分(图像，图表，视频)，这个信息可以从主内容删除，而不会影响其常规流。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;figcaption&lt;/td&gt;
-&lt;td&gt;这个元素可以用于显示表题，或者与figure 一起用，例如： 图形的描述信息。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;mark&lt;/td&gt;
-&lt;td&gt;这个元素可以突出显示特殊情况下的重要文字，或者是对应的用户输入。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;small&lt;/td&gt;
-&lt;td&gt;这个元素表示边侧评论，如附属细则(负责声明，法律限制，版权)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cite&lt;/td&gt;
-&lt;td&gt;这个元素可以用于显示作品标题(图书、电影、诗歌)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;address&lt;/td&gt;
-&lt;td&gt;显示article或者整个文档的合同信息，且应该位于footer中。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;time&lt;/td&gt;
-&lt;td&gt;显示人和机器可读的日期和时间。 datetime属性，pubdate表示出版日期&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&quot;HTML-文档语义&quot;&gt;&lt;a href=&quot;#HTML-文档语义&quot; class=&quot;headerlink&quot; title=&quot;HTML 文档语义&quot;&gt;&lt;/a&gt;HTML 文档语义&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;HTML 作用于文本标签语义&lt;/strong&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;标签&lt;/th&gt;
-&lt;th&gt;语义&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;time&lt;/td&gt;
-&lt;td&gt;定义日期或时间&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;em&lt;/td&gt;
-&lt;td&gt;强调&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;strong&lt;/td&gt;
-&lt;td&gt;重要&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;small&lt;/td&gt;
-&lt;td&gt;旁注&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cite&lt;/td&gt;
-&lt;td&gt;作品引用 （标题）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;q&lt;/td&gt;
-&lt;td&gt;引用&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dfn&lt;/td&gt;
-&lt;td&gt;举例&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;abbr&lt;/td&gt;
-&lt;td&gt;缩写&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;code&lt;/td&gt;
-&lt;td&gt;计算机代码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;var&lt;/td&gt;
-&lt;td&gt;变量&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;samp&lt;/td&gt;
-&lt;td&gt;计算机输出&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;kbd&lt;/td&gt;
-&lt;td&gt;用户输入&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;sub&lt;/td&gt;
-&lt;td&gt;下标&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;sup&lt;/td&gt;
-&lt;td&gt;上标&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;i&lt;/td&gt;
-&lt;td&gt;备选项 大部分用于发言、技术短语等情况。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;b&lt;/td&gt;
-&lt;td&gt;关键字 表示在不增加额外重要性的同时将词或短语高亮显示&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;mart&lt;/td&gt;
-&lt;td&gt;高亮&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ruby、rb、rt、rp&lt;/td&gt;
-&lt;td&gt;注释 [一种排版注释系统(位于横排文本上方的简短文字)]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;bdi&lt;/td&gt;
-&lt;td&gt;文本方向间离&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;bdo&lt;/td&gt;
-&lt;td&gt;文本方向格式&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;span&lt;/td&gt;
-&lt;td&gt;其他&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;br&lt;/td&gt;
-&lt;td&gt;换行&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;wbr&lt;/td&gt;
-&lt;td&gt;可选折行 [长单词的破择号 (让浏览器决定是否换行)]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;h1 ~ h6&lt;/td&gt;
-&lt;td&gt;一级标题 至 六级标题&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;figure、figcaption&lt;/td&gt;
-&lt;td&gt;figure 独立的流（图片、图像、图表）figcaption 标题&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;前段时间看了一本《HTML5 实战》 ，也只是为了关注一下HTML5的发展和趋势。&lt;/p&gt;
-&lt;p&gt;看的我头大，这本书只是做个了HTML5的介绍，算不上实战，很多例子含糊不清。&lt;/p&gt;
-&lt;p&gt;HTML5 中新的语义化标签，还是让我眼前一亮。&lt;/p&gt;
-&lt;h2 id=&quot;HTML5
-    
-    </summary>
-    
-      <category term="HTML" scheme="http://cmp-cc.github.io/categories/HTML/"/>
-    
-    
-      <category term="HTML5" scheme="http://cmp-cc.github.io/tags/HTML5/"/>
     
   </entry>
   
