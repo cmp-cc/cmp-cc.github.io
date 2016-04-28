@@ -78,3 +78,56 @@ git commit -m "delete child module"
 git push origin master
 ```
 可参考：http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean
+
+## pull没有更新（ See git-pull(1) for details ）
+
+### 错误信息
+**这个算不上错误，问题是这样的：你有两个分支A 和 B。当前分支为B，你执行git pull 操作，他却pull了A而不是B**
+```
+$ git pull
+remote: Counting objects: 174, done.
+remote: Compressing objects: 100% (95/95), done.
+remote: Total 174 (delta 61), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (174/174), 251.93 KiB | 206.00 KiB/s, done.
+Resolving deltas: 100% (61/61), done.
+   69cc25b..1b24763  master     -> origin/master
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> stream
+```
+### 解决方案
+**进行本地分支和远程分支关联**
+`git branch --set-upstream-to=origin/<branch> master`
+```
+git branch --set-upstream-to=origin/stream stream
+```
+
+参考：http://www.tbdazhe.com/archives/238
+
+
+## Unlink of file 'xxx' failed. Should I try again?
+
+### 错误信息
+```
+error: refusing to lose untracked file at 'stream/next/bower.json'
+error: refusing to lose untracked file at 'stream/next/_config.yml'
+error: refusing to lose untracked file at 'stream/next/README.md'
+error: refusing to lose untracked file at 'stream/next/.jshintrc'
+error: refusing to lose untracked file at 'stream/next/.javascript_ignore'
+error: refusing to lose untracked file at 'stream/next/.hound.yml'
+error: refusing to lose untracked file at 'stream/next/.gitignore'
+error: refusing to lose untracked file at 'stream/next/.editorconfig'
+error: refusing to lose untracked file at 'stream/next/.bowerrc'
+Unlink of file 'stream/next' failed. Should I try again? (y/n)
+```
+
+### 解决方案
+出现这种问题，通常意味这有一个进程仍在使用特定的文件，急需要关闭其它程序，然后在尝试执行`git pull`
+
+参考：http://stackoverflow.com/questions/10181057/unlink-of-file-failed
