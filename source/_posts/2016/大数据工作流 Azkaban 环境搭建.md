@@ -9,7 +9,8 @@ tags:
 - Azkaban
 ----
 
-运维什么脚本泛滥，且依赖混乱，不易管理。 需要符合自身要求的任务调度系统，来减轻痛苦~~。
+
+大数据运维的同学Python、Shell脚本泛滥，且依赖混乱，不易管理。 需要符合自身要求的任务调度系统，来减轻痛苦~~。
 
 之前调研了Oozie、AzkaBan、Airflow、Luigi 评估了一下诉求，选择AzkaBan。
 
@@ -25,6 +26,7 @@ LinkedIn/Azkaban 为解决Hadoop的任务依赖问题。
    * 执行服务器－AzkabanExecutorServer
 
 
+{% asset_img d82665b7-7a34-4272-ac43-6beaf6546f68.png azkaban组件%}
 
 ### Mysql
 Azkaban使用MySQL来存储它的状态信息，Azkaban Executor Server和Azkaban Web Server均使用到了MySQL数据库。
@@ -47,19 +49,13 @@ AzkabanWebserver是整个Azkaban工作流系统的主要管理者，它负责pro
 ### AzkabanExecutorServer
 之所以将AzkabanWebServer和AzkabanExecutorServer分开，主要是因为在某个任务流失败后，可以更方便的将重新执行。而且也更有利于Azkaban系统的升级。
 
-两种不同类型的Azkaban
-
-solo server mode:该模式使用H2数据库，且webServer和executorServer运行在同一个进程中，没有单独分开。该模式适用于小规模的使用。
-two server mode:该模式使用MySQL数据库，webServer和executorServer运行在不同进程中，该模式适用于大规模应用
-
-
 
 ## Azkaban 开始
 
 * solo server mode：
-**最简单的模式，数据库内置的H2数据库，管理服务器和执行服务器都在一个进程中运行，任务量不大项目可以采用此模式。**
+**最简单的模式，数据库内置的H2数据库，且webServer和executorServer运行在同一个进程中，没有单独分开。该模式适用于小规模的使用。**
 * two server mode：
-**数据库为mysql，管理服务器和执行服务器在不同进程，这种模式下，管理服务器和执行服务器互不影响**
+**该模式使用MySQL数据库，webServer和executorServer运行在不同进程中，webServer和executorServer互不影响，该模式适用于大规模应用。**
 * multiple executor mode：
 **该模式下，执行服务器和管理服务器在不同主机上，且执行服务器可以有多**
 
@@ -67,8 +63,9 @@ two server mode:该模式使用MySQL数据库，webServer和executorServer运行
 
 Azkaban2 仅仅只用Mysql 作为数据存储
 ### 安装JDK1.8
+[参考安装JDK1.8 安装](http://cmp-cc.github.io/2014/11/07/2014/Linux%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/)
 ### 安装Mysql
-
+[参考安装Mysql5.7.11 ](http://cmp-cc.github.io/2014/11/07/2014/Linux%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/)
 #### 创建数据库
 ##### **创建Azkaban数据库**
 ```
@@ -78,22 +75,24 @@ CREATE DATABASE azkaban;
 如下：
 * 用户名:azkaban
 * 地址：localhost
-* 密码：123456
+* 密码：azkaban
 ```
 CREATE USER 'azkaban'@'localhost' IDENTIFIED BY 'azkaban' PASSWORD EXPIRE;
 ```
-##### **设置权限于Azkaban数据库，赋予Azkaban 用户`INSERT`、`SELECT`、`UPDATE`,`DELETE`权限，作用于Azkaban 数据库**
+##### **设置权限于Azkaban 用户**
 **这里执行如下，给予所有权限**
 ```
 grant all privileges on azkaban.* to 'azkaban'@'localhost' identified by 'azkaban';
 ```
 **也可以如下限定访问权限**
 ```
-GRANT SELECT,INSERT,UPDATE,DELETE ON azkaban.* TO 'azkaban'@'localhost' WITH GRANT OPTION;
+GRANT SELECT,INSERT,UPDATE,DELETE ON azkaban.* TO 'azkaban'@'localhost' identified by 'azkaban';
 ```
 **配置数据包大小，修改属性`max_allowed_packet`值为`1024M`或者更高**
 * 编辑`/etc/my.cnf`文件，增加如下
 ```
+vi /etc/my.cnf
+
 [mysqld]
 ...
 max_allowed_packet=2048M
@@ -104,7 +103,7 @@ service mysql restart
 ```
 ##### 创建Azkaban 表
 * 首先下载[`azkaban-sql-script`](http://azkaban.github.io/downloads.html)压缩文件，这个档案包含在表创建脚本。
-* 从下载页面选择合适版本进行下载。(这里选择最新版azkaban-sql-script-2.5.0.tar.gz，复制链接)
+* 从下载页面选择合适版本进行下载。(这里选择最新版azkaban-sql-script-2.5.0.tar.gz)
 ```
 wget –no-check-certificate https://s3.amazonaws.com/azkaban2/azkaban2/2.5.0/azkaban-sql-script-2.5.0.tar.gz
 ```
@@ -159,14 +158,15 @@ tar zxvf azkaban-web-server-2.5.0.tar.gz -C /usr/local/azkaban/
 
 ```
 * 相关目录描述
+
 Folder | Description
 --- | ---
-bin	 |The scripts to start Azkaban jetty server
-conf |	The configurations for Azkaban solo server
-lib |	The jar dependencies for Azkaban
-extlib |	Additional jars that are added to extlib will be added to Azkaban's classpath
-plugins |	the directory where plugins can be installed
-web	 |The web (css, javascript, image) files for Azkaban web server.
+bin  |The scripts to start Azkaban jetty server
+conf |  The configurations for Azkaban solo server
+lib | The jar dependencies for Azkaban
+extlib |  Additional jars that are added to extlib will be added to Azkaban's classpath
+plugins | the directory where plugins can be installed
+web  |The web (css, javascript, image) files for Azkaban web server.
 
 * `conf`目录，有如下三个文件
    * azkaban.properties - Used by Azkaban for runtime parameters
@@ -174,16 +174,10 @@ web	 |The web (css, javascript, image) files for Azkaban web server.
    * azkaban-users.xml - Used to add users and roles for authentication. This file is not used if the XmLUserManager is not set up to use it.
 
 The `azkaban.properties` file will be the main configuration file that is necessary to setup Azkaban.
-* 将MySQL数据库链接添加至`extlib`
-**This jar will be needed for both the web server and the executor server and should be dropped into the /extlib directory for both servers.**
-> MySQL JDBC Jar 官方地址 ：http://dev.mysql.com/downloads/connector/j/  
 
-```
-cd /usr/local/azkaban/azkaban-web-2.5.0/extlib
-wget http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar
-```
-#### 获取SSL KeyStore
-Azkaban 使用`SSL socket` 链接器。
+#### 获取SSL KeyStore（可选）
+Azkaban 使用`SSL socket` 链接器,设置SSL可以通过使用`https://` 访问页面，使其更加安全。
+**SSL 并是必须的，我们可以通过`azkaban.properties`配置取消，请参考SSL配置**
 
 ##### 创建SSL 配置
 **这里keytool 是JDK提供，并将其密钥生成或复制于`/azkaban/web`目录**
@@ -192,7 +186,7 @@ cd /usr/local/azkaban/azkaban-web-2.5.0/web/
 
 keytool -genkey -keystore keystore -alias keystore -keyalg RSA
 ```
-将有如下提示，密码长度 >= 6 (这里为password)
+将有如下提示，密码长度 >= 6 (这里为:password)
 ```
 Enter keystore password:  
 Re-enter new password: 
@@ -212,8 +206,8 @@ Is CN=azkaban, OU=Jetty, O=cmp-cc, L=WuHan, ST=WuHan, C=86 correct?
   [no]:  yes
 
 Enter key password for <jetty-azkaban>
-        (RETURN if same as keystore password):  
-Re-enter new password:
+        (RETURN if same as keystore password):             // 这里回车即可
+
 ```
 #### 配置`azkaban.properties`文件
  修改`./conf/azkaban.properties`文件,进行如下修改
@@ -229,7 +223,7 @@ azkaban.label=My Local Azkaban
 azkaban.color=#FF3601
 azkaban.default.servlet.path=/index
 web.resource.dir=web/
-default.timezone.id=America/Los_Angeles
+default.timezone.id=Asia/Shanghai
 
 #Azkaban UserManager class
 user.manager.class=azkaban.user.XmlUserManager
@@ -275,18 +269,37 @@ cache.directory=cache
 ```
 ##### SSL 密钥配置
 修改`jetty.xxxx`信息为keystore 设置，类似如下：
+* 如果已经生成keystore SSL文件，如下配置
 ```
 # Azkaban Jetty server properties.
 jetty.maxThreads=25
 jetty.ssl.port=8443
 jetty.port=8081
 jetty.keystore=web/keystore
-jetty.password=123456
-jetty.keypassword=123456
+jetty.password=password
+jetty.keypassword=password
 jetty.truststore=web/keystore
-jetty.trustpassword=123456
+jetty.trustpassword=password
+```
+* 取消SSL 设置
+```
+jetty.maxThreads=25
+jetty.port=8081
+jetty.use.ssl=false
+
+#jetty.ssl.port=8443
+#jetty.keystore=web/keystore
+#jetty.password=keystore
+#jetty.keypassword=keystore
+#jetty.truststore=web/keystore
+#jetty.trustpassword=keystore
 ```
 ##### DB 设置
+* 将MySQL数据库链接添加至`extlib`
+```
+cd /usr/local/azkaban/azkaban-web-2.5.0/extlib
+wget http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar
+```
 确保`mysql jdbc连接器`已经添加到`extlib`目录,配置大致如下
 ```
 database.type=mysql
@@ -311,7 +324,7 @@ jetty.ssl.port=8443
 ```
 
 
-### Azkaban 运行和关闭
+#### Azkaban-web 运行和关闭
 * start AzkabanWebServer.
 ```
 bin/azkaban-web-start.sh
@@ -321,22 +334,102 @@ bin/azkaban-web-start.sh
 bin/azkaban-web-shutdown.sh
 ```
 * 浏览器端口
-   * 设置SSL=true  默认访问： 192.168.xx.xxxx:8443
-   * 设置SSL=false 默认访问： 192.168.xx.xxxx:8081
+   * 设置SSL=true  默认访问： https://192.168.xx.xxxx:8443
+   * 设置SSL=false 默认访问： http://192.168.xx.xxxx:8081
+
+> SSL 是可以关闭的，azkaban.properties 文件中添加`jetty.use.ssl=false` 
+
 
 **运行Azkaban-web 并访问浏览器验证是否成功**
+> 记得关闭防火墙，或开放8443 和 8010 端口
 
 
+### 安装 Azkaban Executor Server
+**Azkaban Executor Server** 处理工作流和作业的实际执行。
 
+#### 安装Executor Server
+* [下载页面选择版本](http://azkaban.github.io/downloads.html) 与 Azkaban-Web 保持一致。
+* 你也以可以[`git clone 最新版`](https://github.com/azkaban/azkaban2),查看文档，[如何进行源码安装](http://azkaban.github.io/azkaban/docs/latest/#building-from-source)
+* 这里是下载`azkaban-executor-server-2.5.0.tar.gz`
+```
+wget –no-check-certificate  https://s3.amazonaws.com/azkaban2/azkaban2/2.5.0/azkaban-executor-server-2.5.0.tar.gz
+```
+* 解压到指定目录
+```
+tar zxvf azkaban-executor-server-2.5.0.tar.gz -C /usr/local/azkaban/
+```
+* 相关目录描述
+Folder | Description
+--- | ---
+bin | The scripts to start Azkaban jetty server
+conf  | The configurations for Azkaban solo server
+lib | The jar dependencies for Azkaban
+extlib   | Additional jars that are added to extlib will be added to Azkaban's classpath
+plugins | the directory where plugins can be installed
 
+#### 配置`azkaban.properties`文件
+**修改`./conf/azkaban.properties`文件,进行如下修改**
 
+**我的配置文件**
+```
+default.timezone.id=Asia/Shanghai
 
+# Azkaban JobTypes Plugins
+azkaban.jobtype.plugin.dir=plugins/jobtypes
 
+#Loader for projects
+executor.global.properties=conf/global.properties
+azkaban.project.dir=projects
 
-## 明天在写
+database.type=mysql
+mysql.port=3306
+mysql.host=localhost
+mysql.database=azkaban
+mysql.user=azkaban
+mysql.password=azkaban
+mysql.numconnections=100
 
+# Azkaban Executor settings
+executor.maxThreads=50
+executor.port=12321
+executor.flow.threads=30
 
+```
 
+##### 设置DB
+* 将MySQL数据库链接添加至`extlib` 可重新下载，如下
+```
+cd /usr/local/azkaban/azkaban-executor-2.5.0/extlib/
+wget http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar
+```
+* DB设置(覆盖azkaban.properties)
+**如下：**
+```
+database.type=mysql
+mysql.port=3306
+mysql.host=localhost
+mysql.database=azkaban
+mysql.user=azkaban
+mysql.password=azkaban
+mysql.numconnections=100
+```
+##### 配置AzabanWebServer 和 AzkabanExecutorServer 
+**Executor server 需要一个端口，Web server 需要知道这个端口，使用如下默认即可**
+```
+# Azkaban Executor settings
+executor.maxThreads=50
+executor.port=12321
+executor.flow.threads=30
+```
 
-
+#### 运行和关闭
+* 运行AzkabanExecutorServer
+```
+bin/azkaban-exec-start.sh
+```
+* 关闭 AzkabanExecutorServer
+```
+bin/azkaban-exec-shutdown.sh
+```
+**这里所有Azkaban 环境已经安装完毕，你需要启动azkaban-web 和 azkaban-executor 进行工作流管理（作业调度）**
 
