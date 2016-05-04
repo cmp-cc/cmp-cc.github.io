@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-04-28T10:25:40.674Z</updated>
+  <updated>2016-05-04T08:09:57.272Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -14,6 +14,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用国内yum源</title>
+    <link href="http://cmp-cc.github.io/2016/05/04/2016/%E4%BD%BF%E7%94%A8%E5%9B%BD%E5%86%85yum%E6%BA%90/"/>
+    <id>http://cmp-cc.github.io/2016/05/04/2016/使用国内yum源/</id>
+    <published>2016-05-04T08:07:00.000Z</published>
+    <updated>2016-05-04T08:09:57.272Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;strong&gt;国内yum源列表 Centos6&lt;/strong&gt;&lt;br&gt;来源 | 地址&lt;br&gt;— | —&lt;br&gt;中科大 | &lt;a href=&quot;http://centos.ustc.edu.cn/CentOS-Base.repo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://centos.ustc.edu.cn/CentOS-Base.repo&lt;/a&gt;&lt;br&gt;搜狐 | &lt;a href=&quot;http://mirrors.sohu.com/help/CentOS-Base-sohu.repo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mirrors.sohu.com/help/CentOS-Base-sohu.repo&lt;/a&gt;&lt;br&gt;网易 | &lt;a href=&quot;http://mirrors.163.com/.help/CentOS6-Base-163.repo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mirrors.163.com/.help/CentOS6-Base-163.repo&lt;/a&gt;&lt;br&gt;阿里云| &lt;a href=&quot;http://mirrors.aliyun.com/repo/Centos-6.repo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mirrors.aliyun.com/repo/Centos-6.repo&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;使用国内yum&quot;&gt;&lt;a href=&quot;#使用国内yum&quot; class=&quot;headerlink&quot; title=&quot;使用国内yum&quot;&gt;&lt;/a&gt;使用国内yum&lt;/h2&gt;&lt;p&gt;系统配置yum的目录为&lt;code&gt;/etc/yum.repos.d&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;备份系统yum配置文件&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd /etc/yum.repos.d&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mv CentOS-Base.repo CentOS-Base.repo.bk&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;下载相关yum源文件（这里使用阿里云）&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;更新yum配置&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum clean all&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;使用yum-fastestmirror&quot;&gt;&lt;a href=&quot;#使用yum-fastestmirror&quot; class=&quot;headerlink&quot; title=&quot;使用yum-fastestmirror&quot;&gt;&lt;/a&gt;使用yum-fastestmirror&lt;/h2&gt;&lt;p&gt;每次用yum安装，yum-fastestmirror就会自动检查速度最快的镜像。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum install yum-fastestmirror&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum clean all&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过&lt;code&gt;yum --disableplugin=fastestmirror update&lt;/code&gt; 禁用此插件&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;被数落了&quot;&gt;&lt;a href=&quot;#被数落了&quot; class=&quot;headerlink&quot; title=&quot;被数落了~&quot;&gt;&lt;/a&gt;被数落了~&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;公司内部原来有开放的yum源，我还傻乎乎的使用别人家。&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;Antiy: &lt;a href=&quot;http://mirrors.avlyun.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mirrors.avlyun.org/&lt;/a&gt;  提供各种系统的yum镜像，欢迎使用。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;修改为自家的东西&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl http://mirrors.avlyun.org/repo/centos6.repo &amp;gt; /etc/yum.repos.d/CentOS-Base.repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum makecache&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我并没有使用yum-fastestmirror，自家的东东快的多。&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;国内yum源列表 Centos6&lt;/strong&gt;&lt;br&gt;来源 | 地址&lt;br&gt;— | —&lt;br&gt;中科大 | &lt;a href=&quot;http://centos.ustc.edu.cn/CentOS-Base.repo&quot; target=&quot;_blank&quot; rel=&quot;
+    
+    </summary>
+    
+      <category term="Operating System" scheme="http://cmp-cc.github.io/categories/Operating-System/"/>
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/categories/Operating-System/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>大数据工作流 Azkaban 环境搭建</title>
@@ -2578,64 +2628,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     
       <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git 遇到的异常</title>
-    <link href="http://cmp-cc.github.io/2014/03/11/2014/Git%20%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8/"/>
-    <id>http://cmp-cc.github.io/2014/03/11/2014/Git 遇到的异常/</id>
-    <published>2014-03-11T14:53:00.000Z</published>
-    <updated>2015-12-14T09:50:00.000Z</updated>
-    
-    <content type="html">&lt;p&gt;&lt;strong&gt;更新于 ：2015-12-14 17:50:00&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;总结 在使用Git 进行版本控制遇到错误及其相关解决方案，并持续更新&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;1-Everything-is-update&quot;&gt;&lt;a href=&quot;#1-Everything-is-update&quot; class=&quot;headerlink&quot; title=&quot;1.Everything is update&quot;&gt;&lt;/a&gt;1.Everything is update&lt;/h2&gt;&lt;h3 id=&quot;错误信息&quot;&gt;&lt;a href=&quot;#错误信息&quot; class=&quot;headerlink&quot; title=&quot;错误信息&quot;&gt;&lt;/a&gt;错误信息&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;git push origin master 的时候出现Everything is update&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;使用git commit -am “xxxx”&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git commit -am &amp;quot;modify of part&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git origin master&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;2-Note-about-fast-forwards-rejected&quot;&gt;&lt;a href=&quot;#2-Note-about-fast-forwards-rejected&quot; class=&quot;headerlink&quot; title=&quot;2.Note about fast-forwards (! [rejected])&quot;&gt;&lt;/a&gt;2.Note about fast-forwards (! [rejected])&lt;/h2&gt;&lt;h3 id=&quot;错误信息-1&quot;&gt;&lt;a href=&quot;#错误信息-1&quot; class=&quot;headerlink&quot; title=&quot;错误信息&quot;&gt;&lt;/a&gt;错误信息&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git push origin hexo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;To git@github.com:cmp-cc/cmp-cc.github.io.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; ! [rejected]        hexo -&amp;gt; hexo (fetch first)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: failed to push some refs to &amp;apos;git@github.com:cmp-cc/cmp-cc.github.io.git&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hint: Updates were rejected because the remote contains work that you do&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hint: not have locally. This is usually caused by another repository pushing&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hint: to the same ref. You may want to first integrate the remote changes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hint: (e.g., &amp;apos;git pull ...&amp;apos;) before pushing again.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hint: See the &amp;apos;Note about fast-forwards&amp;apos; in &amp;apos;git push --help&amp;apos; for details.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;解决方案-1&quot;&gt;&lt;a href=&quot;#解决方案-1&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;一、使用强制push的方法 （不推荐）：&lt;/strong&gt;&lt;br&gt;这样会使远程修改丢失，一般是不可取的，尤其是多人协作开发的时候，单人协助无所谓。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git push -u origin master -f&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;二、老老实实的merge 分支。（推荐）&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git pull origin master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git push -u origin master&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;三、使用&lt;code&gt;git pull --rebase&lt;/code&gt; 将本地与远程进行同步（等价于第二种）&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;code&gt;git push --rebase&lt;/code&gt; 的含义&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;把本地 repo. 从上次 pull 之后的变更暂存起來&lt;/li&gt;
-&lt;li&gt;恢复到上次 pull 时的状态&lt;/li&gt;
-&lt;li&gt;合并远端的变更到本地&lt;/li&gt;
-&lt;li&gt;最后再合并刚刚暂存下來的本地变更&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;3-push之后不能访问文件-文件状态为灰色&quot;&gt;&lt;a href=&quot;#3-push之后不能访问文件-文件状态为灰色&quot; class=&quot;headerlink&quot; title=&quot;3.push之后不能访问文件(文件状态为灰色)&quot;&gt;&lt;/a&gt;3.push之后不能访问文件(文件状态为灰色)&lt;/h2&gt;&lt;h3 id=&quot;错误信息-2&quot;&gt;&lt;a href=&quot;#错误信息-2&quot; class=&quot;headerlink&quot; title=&quot;错误信息&quot;&gt;&lt;/a&gt;错误信息&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;如下，处于不可打开状态，如果你把整个项目clone下来，你会发现文件为空&lt;/strong&gt;&lt;/p&gt;
-&lt;img src=&quot;/2014/03/11/2014/Git%20遇到的异常/4D44727A1CED48A6AF27443A6F1A36D7.png&quot; alt=&quot;文件显示状态&quot; title=&quot;文件显示状态&quot;&gt;
-&lt;h3 id=&quot;解决方案-2&quot;&gt;&lt;a href=&quot;#解决方案-2&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;你可能需要了解一下&lt;code&gt;git submodule&lt;/code&gt;的使用,就知道问题所在了。(git项目中的子目录存在一个git仓库)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;将子目录中的&lt;code&gt;.git&lt;/code&gt;目录删掉&lt;/li&gt;
-&lt;li&gt;删除子模块子目录&lt;/li&gt;
-&lt;li&gt;再执行&lt;code&gt;git push&lt;/code&gt; 操作&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git rm --cached ./themes/next&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git add --all&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git commit -m &amp;quot;delete child module&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git push origin master&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;可参考：&lt;a href=&quot;http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;pull没有更新（-See-git-pull-1-for-details-）&quot;&gt;&lt;a href=&quot;#pull没有更新（-See-git-pull-1-for-details-）&quot; class=&quot;headerlink&quot; title=&quot;pull没有更新（ See git-pull(1) for details ）&quot;&gt;&lt;/a&gt;pull没有更新（ See git-pull(1) for details ）&lt;/h2&gt;&lt;h3 id=&quot;错误信息-3&quot;&gt;&lt;a href=&quot;#错误信息-3&quot; class=&quot;headerlink&quot; title=&quot;错误信息&quot;&gt;&lt;/a&gt;错误信息&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;这个算不上错误，问题是这样的：你有两个分支A 和 B。当前分支为B，你执行git pull 操作，他却pull了A而不是B&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git pull&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: Counting objects: 174, done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: Compressing objects: 100% (95/95), done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: Total 174 (delta 61), reused 0 (delta 0), pack-reused 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Receiving objects: 100% (174/174), 251.93 KiB | 206.00 KiB/s, done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Resolving deltas: 100% (61/61), done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   69cc25b..1b24763  master     -&amp;gt; origin/master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;There is no tracking information for the current branch.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Please specify which branch you want to merge with.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;See git-pull(1) for details&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    git pull &amp;lt;remote&amp;gt; &amp;lt;branch&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;If you wish to set tracking information for this branch you can do so with:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    git branch --set-upstream-to=origin/&amp;lt;branch&amp;gt; stream&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;解决方案-3&quot;&gt;&lt;a href=&quot;#解决方案-3&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;进行本地分支和远程分支关联&lt;/strong&gt;&lt;br&gt;&lt;code&gt;git branch --set-upstream-to=origin/&amp;lt;branch&amp;gt; master&lt;/code&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git branch --set-upstream-to=origin/stream stream&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;参考：&lt;a href=&quot;http://www.tbdazhe.com/archives/238&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.tbdazhe.com/archives/238&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Unlink-of-file-‘xxx’-failed-Should-I-try-again&quot;&gt;&lt;a href=&quot;#Unlink-of-file-‘xxx’-failed-Should-I-try-again&quot; class=&quot;headerlink&quot; title=&quot;Unlink of file ‘xxx’ failed. Should I try again?&quot;&gt;&lt;/a&gt;Unlink of file ‘xxx’ failed. Should I try again?&lt;/h2&gt;&lt;h3 id=&quot;错误信息-4&quot;&gt;&lt;a href=&quot;#错误信息-4&quot; class=&quot;headerlink&quot; title=&quot;错误信息&quot;&gt;&lt;/a&gt;错误信息&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/bower.json&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/_config.yml&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/README.md&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/.jshintrc&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/.javascript_ignore&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/.hound.yml&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/.gitignore&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/.editorconfig&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: refusing to lose untracked file at &amp;apos;stream/next/.bowerrc&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Unlink of file &amp;apos;stream/next&amp;apos; failed. Should I try again? (y/n)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;解决方案-4&quot;&gt;&lt;a href=&quot;#解决方案-4&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;出现这种问题，通常意味这有一个进程仍在使用特定的文件，急需要关闭其它程序，然后在尝试执行&lt;code&gt;git pull&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;参考：&lt;a href=&quot;http://stackoverflow.com/questions/10181057/unlink-of-file-failed&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://stackoverflow.com/questions/10181057/unlink-of-file-failed&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;更新于 ：2015-12-14 17:50:00&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;总结 在使用Git 进行版本控制遇到错误及其相关解决方案，并持续更新&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;1-Everything-is-update&quot;&gt;
-    
-    </summary>
-    
-      <category term="Version Control" scheme="http://cmp-cc.github.io/categories/Version-Control/"/>
-    
-      <category term="Git" scheme="http://cmp-cc.github.io/categories/Version-Control/Git/"/>
-    
-    
-      <category term="Git" scheme="http://cmp-cc.github.io/tags/Git/"/>
     
   </entry>
   
