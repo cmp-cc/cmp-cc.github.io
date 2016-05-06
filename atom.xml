@@ -1871,7 +1871,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/05/11/2014/MyBatis%20Generator/"/>
     <id>http://cmp-cc.github.io/2014/05/11/2014/MyBatis Generator/</id>
     <published>2014-05-11T14:53:00.000Z</published>
-    <updated>2016-05-06T08:41:18.493Z</updated>
+    <updated>2016-05-06T08:43:45.211Z</updated>
     
     <content type="html">&lt;p&gt;MyBatis 也提供了一些工具如 MyBatis Generator(&lt;a href=&quot;http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库&lt;/a&gt; schema 中，产生持久化代码如数据库实体（database entities）,映射器 Mapper 接口，MapperXML 配置文件。&lt;/p&gt;
 &lt;h2 id=&quot;MyBatis-Generator-介绍&quot;&gt;&lt;a href=&quot;#MyBatis-Generator-介绍&quot; class=&quot;headerlink&quot; title=&quot;MyBatis Generator 介绍&quot;&gt;&lt;/a&gt;MyBatis Generator 介绍&lt;/h2&gt;&lt;ul&gt;
@@ -2121,7 +2121,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
       <category term="MyBatis" scheme="http://cmp-cc.github.io/categories/Java-Web/MyBatis/"/>
     
     
-      <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
+      <category term="MyBatis" scheme="http://cmp-cc.github.io/tags/MyBatis/"/>
     
   </entry>
   
@@ -2130,7 +2130,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/05/11/2014/MyBatis%20Boostrap/"/>
     <id>http://cmp-cc.github.io/2014/05/11/2014/MyBatis Boostrap/</id>
     <published>2014-05-11T14:53:00.000Z</published>
-    <updated>2016-05-06T08:41:34.538Z</updated>
+    <updated>2016-05-06T08:43:36.958Z</updated>
     
     <content type="html">&lt;p&gt;MyBatis 也提供了一些工具如 MyBatis Generator(&lt;a href=&quot;http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库&lt;/a&gt; schema 中，产生持久化代码如数据库实体（database entities）,映射器 Mapper 接口，MapperXML 配置文件。&lt;/p&gt;
 &lt;h2 id=&quot;MyBatis-Generator-介绍&quot;&gt;&lt;a href=&quot;#MyBatis-Generator-介绍&quot; class=&quot;headerlink&quot; title=&quot;MyBatis Generator 介绍&quot;&gt;&lt;/a&gt;MyBatis Generator 介绍&lt;/h2&gt;&lt;ul&gt;
@@ -2380,7 +2380,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
       <category term="MyBatis" scheme="http://cmp-cc.github.io/categories/Java-Web/MyBatis/"/>
     
     
-      <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
+      <category term="MyBatis" scheme="http://cmp-cc.github.io/tags/MyBatis/"/>
     
   </entry>
   
@@ -2441,7 +2441,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/04/2014/MyBatis%20%E4%B8%8E%20%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E9%9B%86%E6%88%90/"/>
     <id>http://cmp-cc.github.io/2014/04/04/2014/MyBatis 与 第三方框架集成/</id>
     <published>2014-04-04T14:09:00.000Z</published>
-    <updated>2016-04-28T07:40:03.945Z</updated>
+    <updated>2016-05-06T08:44:10.475Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;MyBatis 集成第三方框架应用集成&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;与Spring-集成&quot;&gt;&lt;a href=&quot;#与Spring-集成&quot; class=&quot;headerlink&quot; title=&quot;与Spring 集成&quot;&gt;&lt;/a&gt;与Spring 集成&lt;/h2&gt;&lt;h3 id=&quot;Spring-介绍&quot;&gt;&lt;a href=&quot;#Spring-介绍&quot; class=&quot;headerlink&quot; title=&quot;Spring 介绍&quot;&gt;&lt;/a&gt;Spring 介绍&lt;/h3&gt;&lt;p&gt;   Spring 框 架 是 一 个 基 于 依 赖 注 入 （ Dependency Injection ） 和 面 向 切 面 编 程 (Aspect Oriented Programming,AOP)的 Java 框架，鼓励使用基于 POJO 的编程模型。另外，Spring 提供了声明式和编程式的事务管理能力，可以很大程度上简化应用程序的数据访问层（data access layer）的实现。&lt;/p&gt;
@@ -2554,10 +2554,10 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
     
-      <category term="Mybatis" scheme="http://cmp-cc.github.io/categories/Java-Web/Mybatis/"/>
+      <category term="MyBatis" scheme="http://cmp-cc.github.io/categories/Java-Web/MyBatis/"/>
     
     
-      <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
+      <category term="MyBatis" scheme="http://cmp-cc.github.io/tags/MyBatis/"/>
     
   </entry>
   
@@ -2566,7 +2566,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/03/2014/MyBatis%20%E4%BD%BF%E7%94%A8XML%E9%85%8D%E7%BD%AESQL%20%E6%98%A0%E5%B0%84%E5%99%A8/"/>
     <id>http://cmp-cc.github.io/2014/04/03/2014/MyBatis 使用XML配置SQL 映射器/</id>
     <published>2014-04-03T03:09:00.000Z</published>
-    <updated>2016-04-28T07:40:09.728Z</updated>
+    <updated>2016-05-06T08:44:02.742Z</updated>
     
     <content type="html">&lt;p&gt;关系型数据库和 SQL 是经受时间考验和验证的数据存储机制。和其他的 ORM 框架如 Hibernate 不同，MyBatis鼓励开发者可以直接使用数据库，而不是将其对开发者隐藏，因为这样可以充分发挥数据库服务器所提供的 SQL 语句的巨大威力。与此同时，MyBaits 消除了书写大量冗余代码的痛苦，它使使用 SQL 更容易。&lt;/p&gt;
 &lt;p&gt;  在代码里直接嵌套 SQL 语句是很差的编码实践，并且维护起来困难。MyBaits 使用了映射器配置文件或注解来配置 SQL语句。&lt;/p&gt;
@@ -2904,10 +2904,10 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
     
-      <category term="Mybatis" scheme="http://cmp-cc.github.io/categories/Java-Web/Mybatis/"/>
+      <category term="MyBatis" scheme="http://cmp-cc.github.io/categories/Java-Web/MyBatis/"/>
     
     
-      <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
+      <category term="MyBatis" scheme="http://cmp-cc.github.io/tags/MyBatis/"/>
     
   </entry>
   
@@ -2916,7 +2916,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     <link href="http://cmp-cc.github.io/2014/04/02/2014/MyBatis%E4%BA%95%E5%8F%B7%E5%92%8C$%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <id>http://cmp-cc.github.io/2014/04/02/2014/MyBatis井号和$的区别/</id>
     <published>2014-04-02T04:53:00.000Z</published>
-    <updated>2016-04-28T07:39:48.331Z</updated>
+    <updated>2016-05-06T08:44:20.602Z</updated>
     
     <content type="html">&lt;p&gt;这两个标示符均会出现在MyBatis XML SQL 映射文件中。&lt;/p&gt;
 &lt;ul&gt;
@@ -2955,10 +2955,10 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/categories/Java-Web/"/>
     
-      <category term="Mybatis" scheme="http://cmp-cc.github.io/categories/Java-Web/Mybatis/"/>
+      <category term="MyBatis" scheme="http://cmp-cc.github.io/categories/Java-Web/MyBatis/"/>
     
     
-      <category term="Mybatis" scheme="http://cmp-cc.github.io/tags/Mybatis/"/>
+      <category term="MyBatis" scheme="http://cmp-cc.github.io/tags/MyBatis/"/>
     
   </entry>
   
