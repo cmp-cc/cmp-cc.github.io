@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://cmp-cc.github.io/2014/07/11/MyBatis%20Generator/</loc>
+    <loc>http://cmp-cc.github.io/2014/05/11/2014/MyBatis%20Generator/</loc>
     
-    <lastmod>2016-05-05T11:10:41.402Z</lastmod>
+    <lastmod>2016-05-06T08:23:29.443Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://cmp-cc.github.io/2014/05/11/2014/MyBatis%20Boostrap/</loc>
+    
+    <lastmod>2016-05-06T08:23:06.857Z</lastmod>
     
   </url>
   
@@ -124,13 +131,6 @@
     <loc>http://cmp-cc.github.io/2014/11/28/2014/Linux%20sftp%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</loc>
     
     <lastmod>2016-04-28T07:40:47.118Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://cmp-cc.github.io/2014/04/02/2014/MyBatis%20Boostrap/</loc>
-    
-    <lastmod>2016-04-28T07:40:21.204Z</lastmod>
     
   </url>
   

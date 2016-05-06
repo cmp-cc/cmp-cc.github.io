@@ -1103,7 +1103,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/07/11/MyBatis Generator/" itemprop="url">
+                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Boostrap/" itemprop="url">
                   MyBatis Generator
                 </a>
               
@@ -1117,8 +1117,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-07-11T22:53:00+08:00" content="2014-07-11">
-              2014-07-11
+            <time itemprop="dateCreated" datetime="2014-05-11T22:53:00+08:00" content="2014-05-11">
+              2014-05-11
             </time>
           </span>
 
@@ -1159,8 +1159,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/07/11/MyBatis Generator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/11/MyBatis Generator/" itemprop="commentsCount"></span>
+                <a href="/2014/05/11/2014/MyBatis Boostrap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Boostrap/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1345,14 +1345,441 @@
 <li>类名默认是<code>&lt;TableName&gt;Key</code>,如果<code>&lt;table&gt;</code>元素配置domainObjectName属性，那么类名是<code>&lt;domainObjectName&gt;Key</code></li>
 <li>This class will be generated in the hierarchical model if the table has a primary key. This class will be generated in the conditional model if the table has more then one column in the primary key. This class will not be generated in the flat model.</li>
 </ul>
-<h3 id="记录类"><a href="#记录类" class="headerlink" title="记录类"></a>记录类</h3><ul>
+<h4 id="记录类"><a href="#记录类" class="headerlink" title="记录类"></a>记录类</h4><ul>
 <li>表中不包含主键、BLOB字段属性.如果这个类集成了主键类，MBG会根据表的列名自动生成属性名称。可通过<code>columnOverride</code>属性覆盖属性名称。</li>
 <li>类名默认是<code>&lt;TableName&gt;</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性，类名为<code>&lt;domainObjectName&gt;</code></li>
 <li>This class will be generated in the hierarchical model if the table has non-BLOB and non-primary key columns. This class will be generated in the conditional model if the table has non-BLOB and non-primary key columns, or if there is only one primary key column or one BLOB column. This class is always generated in the flat model.</li>
 </ul>
-<h3 id="BLOB-记录类"><a href="#BLOB-记录类" class="headerlink" title="BLOB 记录类"></a>BLOB 记录类</h3><ul>
-<li>表中包含BLOB字段属性，</li>
+<h4 id="BLOB-记录类"><a href="#BLOB-记录类" class="headerlink" title="BLOB 记录类"></a>BLOB 记录类</h4><ul>
+<li>表中包含BLOB字段属性，如果表中只存在一个字段，该类将继承基础类，或将继承主键类。（注意：MBG 不支持表中只包含BLBO列）MBG 根据表列名自动生成属性名称，可以配置<code>&lt;columnOverride&gt;</code>属性覆盖</li>
+<li>BLOB 记录类调用<code>selectByPrimaryKey</code>或<code>selectByExampleWithBLOBs</code>方法返回BLOB字段值.</li>
+<li>类名默认是<code>&lt;TableName&gt;WithBLOBs</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性那么类名是<code>&lt;domainObjectName&gt;WithBLOBs</code>.</li>
+<li>如果表中存在一个BLOB列将生成<code>hierarchical 模式</code>实体对象，如果表中存在多个BLOB列将生成<code>conditional 模式</code>实体对象。 BLOB记录类不会生<code>flat 模式</code> 实体对象</li>
 </ul>
+<h4 id="Example-类"><a href="#Example-类" class="headerlink" title="Example 类"></a>Example 类</h4><ul>
+<li>Example类用来处理MBG动态查询功能. 下列条件方法用于动态生成WHERE子句:<ul>
+<li>selectByExample</li>
+<li>selectByExampleWithBLOBs</li>
+<li>deleteByExample</li>
+<li>countByExample</li>
+<li>updateByExample</li>
+</ul>
+</li>
+<li>Example类不继承任何实体对象</li>
+<li>类名默认是<code>&lt;TableName&gt;Example</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性那么类名是<code>&lt;domainObjectName&gt;Example</code>.</li>
+<li>如果方法被启动Example类将生成任何*ByExample方法.注意:如果表中有非常多的字段该类可能很大,但 DAO生成的XML是比较小的. 如果您不需要使用动态WHERE子句,您可以禁用生成这些方法.</li>
+</ul>
+<h3 id="SQL-映射文件"><a href="#SQL-映射文件" class="headerlink" title="SQL 映射文件"></a>SQL 映射文件</h3><ul>
+<li>MBG生成SQL映射文件遵循 MyBatis和IBatis DTD规范。</li>
+<li>MBG按照配置表生成SQL映射文件，在表的基础上还包含了不同的标签和属性配置。</li>
+<li>表名就是SQL映射文件的命名控制。（前提是数据库支持schema 和 catalog）</li>
+<li>你需要手工将生成<code>xxxMapper.xml</code> 加入到<code>mybatis-conf.xml</code>文件。 或者使用Spring的自动扫描。（注入）</li>
+</ul>
+<h4 id="结果集-Result-Map"><a href="#结果集-Result-Map" class="headerlink" title="结果集(Result Map)"></a>结果集(Result Map)</h4><ul>
+<li>resultMap元素（结果集对象）用于数据库表列映射Java对象的属性，不包括如下情况：<ul>
+<li>任何列配置<code>&lt;ignoreColumn&gt;</code>属性将被会被忽略</li>
+<li>任何BLOB字段</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>配置<code>&lt;columnOverride&gt;</code>属性覆盖默认的属性和JDBC类型</li>
+<li>对与自定义连接查询结果集<strong>继承一个结果集</strong>是一种常见的用法。对于其他连接查询也想使用（继承）该结果集。在MBG自动生成的时候需要配置前缀.详见<code>&lt;table&gt;</code>元素<code>alias</code>配置前缀，这样可以区分表中相同字段</li>
+<li>如果<code>table</code>存在BLOB字段且配置了<code>enableSelectByExample</code>、<code>enableSelectByPrimaryKey</code>属性,MBG会生成BLOB结果集,table默认这两个配置都是true所以大部分情况下都会生成resultMap.</li>
+</ul>
+<h4 id="Where条件SQL语句"><a href="#Where条件SQL语句" class="headerlink" title="Where条件SQL语句"></a>Where条件SQL语句</h4><ul>
+<li><p>This element contains a reusable where clause that is used by the “by example” methods. The where clause will not include any BLOB fields if they exist in the table. Most databases do not support BLOB fields in the WHERE clause.</p>
+</li>
+<li><p>This element will be generated if any of the “by example” statements are enabled.</p>
+</li>
+</ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>略，请参考官方文档。 官方文档这一部分写的也太烂了。</p>
+<h3 id="Java-客户端对象"><a href="#Java-客户端对象" class="headerlink" title="Java 客户端对象"></a>Java 客户端对象</h3><ul>
+<li>MBG 生成几种类型的Java客户端对象，使得Java的客户端对象更容易与生成的XML进行交互</li>
+<li>生成Java客户端对象是可选的。通过配置<code>&lt;javaClientGenerator&gt;</code> MyBatis 3 生成Java客户端对象类型：<ul>
+<li>XMLMAPPER 与 支持MyBatis3.x的映射</li>
+</ul>
+</li>
+</ul>
+<h4 id="通用DAO方法"><a href="#通用DAO方法" class="headerlink" title="通用DAO方法"></a>通用DAO方法</h4><p>根据表的特性，以及配置选项，Java客户端自动生成如下方法：</p>
+<ul>
+<li>countByExample</li>
+<li>deleteByPrimaryKey</li>
+<li>deleteByExample</li>
+<li>insert</li>
+<li>insertSelective</li>
+<li>selectByPrimaryKey</li>
+<li>selectByExample</li>
+<li>selectByExampleWithBLOBs</li>
+<li>updateByPrimaryKey (否更新BLOB字段需要重写方法)</li>
+<li>updateByPrimaryKeySelective (只更新参数类非空字段)</li>
+<li>updateByExample (否更新BLOB字段需要重写方法)</li>
+<li>updateByExampleSelective (只更新参数类非空字段)</li>
+</ul>
+<p>对于包含BLOB的表,MBG通过生成不同的对象和方法使您更容易使用BLOB字段,是否忽略它们,这取决于具体情况.</p>
+<h4 id="XMLMAPPER-客户端"><a href="#XMLMAPPER-客户端" class="headerlink" title="XMLMAPPER 客户端"></a>XMLMAPPER 客户端</h4><p>XMLMAPPER客户端是将接口方法映射到生成的XML映射文件中.例如,MBG自动生成的接口名为<code>MyTableMapper.</code>您可以如下使用该接口:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  MyTableMapper mapper = sqlSession.getMapper(MyTableMapper.class);</span><br><span class="line">  List&lt;MyTable&gt; allRecords = mapper.selectByExample(null);</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Example-用法"><a href="#Example-用法" class="headerlink" title="Example 用法"></a>Example 用法</h4><p>略，实际项目中很少用。 一般不会生成Example 对象。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Generator/" itemprop="url">
+                  MyBatis Generator
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-05-11T22:53:00+08:00" content="2014-05-11">
+              2014-05-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/MyBatis/" itemprop="url" rel="index">
+                    <span itemprop="name">MyBatis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/05/11/2014/MyBatis Generator/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Generator/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MyBatis 也提供了一些工具如 MyBatis Generator(<a href="http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库" target="_blank" rel="external">http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库</a> schema 中，产生持久化代码如数据库实体（database entities）,映射器 Mapper 接口，MapperXML 配置文件。</p>
+<h2 id="MyBatis-Generator-介绍"><a href="#MyBatis-Generator-介绍" class="headerlink" title="MyBatis Generator 介绍"></a>MyBatis Generator 介绍</h2><ul>
+<li>MyBatis Generator (MBG) 是一个Mybatis的代码生成器</li>
+<li>它可以将数据库表生成基础对象。(不再需要手工创建对象和配置文件)</li>
+<li>MBG 能够创建简单的CDUR(增删改查)。（仍然需要手写SQL和对象，用于级联查询和存储过程）</li>
+</ul>
+<hr>
+<p>MyBatis 生成如下：</p>
+<ul>
+<li>匹配表结构的Java POJO 对象， 可能包括<ul>
+<li>一个和表主键匹配的类（如果存在主键）</li>
+<li>一个包含了非主键字段的类（BLOB字段除外）</li>
+<li>一个包含BLOB字段的类（如果表包含了BLOB字段）</li>
+<li>一个允许动态查询、更新和删除的类<br>这些类之间会有适当的继承关系。 可以配置生成器来生成不同类型的 POJO 的层次结构。 例如，您可能会选择针对每个表生成一个单独的实体对象。</li>
+</ul>
+</li>
+<li>MBG在配置中为每个表简单的生成 CRUD SQL 操作。生成的SQL 语句包括：<ul>
+<li>insert (插入)</li>
+<li>update by primary key (根据主键更新记录)</li>
+<li>update by example (根据条件更新记录)</li>
+<li>delete by primary key (根据主键删除记录)</li>
+<li>delete by example (根据条件删除记录)</li>
+<li>select by primary key (根据主键查询记录)</li>
+<li>select by example (根据条件查询记录集)</li>
+<li>count by example (根据条件查询记录总数)<br>根据表的结构，生成的这些语句会有不同的变化（例如，如果表中没有主键，那么 MBG 将不会生成update by primary key方法）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>注意<ul>
+<li>MBG 会自动合并重名XML文件（是合并，保留修改），从而可以反复运行，而不必担心修改丢失。</li>
+<li>MBG 不会合并Java文件，它可以覆盖或保留不同命名的文件。Eclipse插件时，MBG自动合并Java文件。</li>
+</ul>
+</li>
+</ul>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><p>快速使用MBG步骤如下：</p>
+<ul>
+<li>1、创建并填写适当的配置文件，必须包含如下：(查看 XML配置参考)<ul>
+<li><code>&lt;jdbcConnection&gt;</code> 元素定义如何连接目标数据库</li>
+<li><code>&lt;javaModelGenerator&gt;</code> 元素来指定生成 Java 模型对象所属的包</li>
+<li><code>&lt;sqlMapGenerator&gt;</code> 元素来指定生成 SQL 映射文件所属的包和的目标项目</li>
+<li>(可选) <code>&lt;javaClientGenerator&gt;</code> 元素来指定目标包和目标项目生成的客户端接口和类（如果您不想生成 Java 客户端代码您可以省略<code>&lt;javaClientGenerator&gt;</code>元素）</li>
+<li>至少一个数据库<code>&lt;table&gt;</code>元素</li>
+</ul>
+</li>
+<li>2、将文件保存适当的位置（例如：<code>\temp\generatorConfig.xml</code>）</li>
+<li><p>3、执行如下命令运行MBG:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile \temp\generatorConfig.xml -overwrite</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>MBG使用配置文件运行，<code>-overwrite</code> 表示覆盖同名Java文件。如果有冲突，MBG会生成一个唯一的文件。（e.g MyClass.java）</p>
+</blockquote>
+</li>
+<li>4、MBG运行后，你需要创建或修改标准的MyBatis配置文件来使用新生成的代码。</li>
+</ul>
+<h2 id="XML配置参考"><a href="#XML配置参考" class="headerlink" title="XML配置参考"></a>XML配置参考</h2><h3 id="MyBatis-Generator-XML-配置参考"><a href="#MyBatis-Generator-XML-配置参考" class="headerlink" title="MyBatis Generator XML 配置参考"></a>MyBatis Generator XML 配置参考</h3><p>如下是MBG的一个XML配置文件驱动。配置文件告诉MBG：</p>
+<ul>
+<li>如何链接到数据库</li>
+<li>生成什么对象，及其如何生成</li>
+<li>哪些表生成对象</li>
+</ul>
+<p><strong>如下是MBG配置文件实例。你应当查阅每一个元素说明</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line"></span><br><span class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</span><br><span class="line">        userId=&quot;db2admin&quot;</span><br><span class="line">        password=&quot;db2admin&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</span><br><span class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="MBG-XML-元素说明"><a href="#MBG-XML-元素说明" class="headerlink" title="MBG XML 元素说明"></a>MBG XML 元素说明</h3><p>查看官方元素说明：<a href="http://www.mybatis.org/generator/configreference/xmlconfig.html" target="_blank" rel="external">http://www.mybatis.org/generator/configreference/xmlconfig.html</a></p>
+<h2 id="通过Maven-plugin-运行MBG"><a href="#通过Maven-plugin-运行MBG" class="headerlink" title="通过Maven plugin 运行MBG"></a>通过Maven plugin 运行MBG</h2><p>运行MBG 可以使用<code>命令提示符</code>、<code>Ant任务</code>、<code>Maven Plugin</code>、<code>Java程序</code>。 这里介绍Maven 形式。</p>
+<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    ...</span><br><span class="line">  &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>MBG插件将会绑定到Maven生命周期的 <code>generate-sources</code> 阶段。 所以他会在编译步骤之前执行。 此外注意MBG目标将绑定生成Java和XML资源文件的建立，他们都将包括在生成的JAR包内。</p>
+</blockquote>
+<ul>
+<li><p>通过如下命令执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn mybatis-generator:generate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>或则 标准的Maven命令属性传递参数执行 (这条命令会是使MBG覆盖重名的文件)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="MBG-参考参数"><a href="#MBG-参考参数" class="headerlink" title="MBG 参考参数"></a>MBG 参考参数</h3><p>如下简单参考参数实例（大多数情况下为默认设置）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">            &lt;configurationFile&gt;src/main/resources/generatorConfig.xml&lt;/configurationFile&gt;</span><br><span class="line">            &lt;sqlScript&gt;classpath:mbg/test/common/scripts/CreateDB.sql&lt;/sqlScript&gt;</span><br><span class="line">            &lt;jdbcDriver&gt;org.hsqldb.jdbcDriver&lt;/jdbcDriver&gt;</span><br><span class="line">            &lt;jdbcURL&gt;jdbc:hsqldb:mem:aname&lt;/jdbcURL&gt;</span><br><span class="line">            &lt;jdbcUserId&gt;sa&lt;/jdbcUserId&gt;</span><br><span class="line">            &lt;verbose&gt;true&lt;/verbose&gt;</span><br><span class="line">            &lt;overwrite&gt;true&lt;/overwrite&gt;</span><br><span class="line">             ....</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如下是参考参数，均为可选，部分默认。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>configurationFile</td>
+<td>File</td>
+<td>指定配置文件的名称。默认值：<code>${basedir}/src/main/resources/generatorConfig.xml</code></td>
+</tr>
+<tr>
+<td>contexts</td>
+<td>String</td>
+<td>如果指定了该参数，使用逗号隔开<code>context</code>会被执行。 这些指定的<code>context</code>必须和配置文件中 <code>&lt;context&gt;</code> 元素的 <code>id</code> 属性一致。只有指定的这些<code>contextid</code>会被激活执行。如果没有指定该参数，所有的<code>context</code>都会被激活执行。</td>
+</tr>
+<tr>
+<td>jdbcDriver</td>
+<td>String</td>
+<td>如果您指定了 sqlScript 参数, 当连接数据库时这里的值是JDBC驱动类的权限定名称。</td>
+</tr>
+<tr>
+<td>jdbcPassword</td>
+<td>String</td>
+<td>如果您指定了 <code>sqlScript</code> 参数, 这是连接数据库的密码。</td>
+</tr>
+<tr>
+<td>jdbcURL</td>
+<td>String</td>
+<td>如果您指定了 <code>sqlScript</code> 参数, 这是连接数据库的<code>JDBC URL</code></td>
+</tr>
+<tr>
+<td>jdbcUserId</td>
+<td>String</td>
+<td>如果您指定了 <code>sqlScript</code> 参数, 这里是连接数据库的用户<code>id</code></td>
+</tr>
+<tr>
+<td>outputDirectory</td>
+<td>File</td>
+<td>将放置 MBG 所生成文件的目录。 这个目录是用于当<code>targetProject</code> 在配置文件中设置特殊值的”MAVEN”时使用(大小写敏感)。 默认值: <code>${project.build.directory}/generated-sources/mybatis-generator</code></td>
+</tr>
+<tr>
+<td>overwrite</td>
+<td>boolean</td>
+<td>如果为<code>true</code>，新生成的Java文件会覆盖原有的文件。 如果没有指定该参数，存在同名的文件，MBG会给新生成的代码文件生成一个唯一的名字(例如： MyClass.java.1, MyClass.java.2 等等)。 <strong>重要: 生成器一定会自动合并或覆盖已经生成的XML文件。</strong> 默认值: <code>false</code></td>
+</tr>
+<tr>
+<td>sqlScript</td>
+<td>String</td>
+<td>要在生成代码之前运行的 SQL 脚本文件的位置。 如果为空，不会执行任何脚本。 如果不为空，<code>jdbcDriver</code>, <code>jdbcURL</code> 参数必须提供。 另外如果连接数据库需要认证也需要提供<code>jdbcUserId</code> 和 <code>jdbcPassword</code> 参数。 值可以使一个文件系统的绝对路径或者是一个使用<code>&quot;classpath:&quot;</code>开头放在构建的类路径下的路径。</td>
+</tr>
+<tr>
+<td>tableNames</td>
+<td>String</td>
+<td>如果指定了该参数，逗号隔开的这个表会被运行， 这些表名必须和<code>&lt;table&gt;</code> 配置中的表面完全一致。只有指定的这些表会被执行。 如果没有指定该参数，所有的表都会被执行。按如下方式指定表明:  table 、schema.table 、catalog..table 等等。</td>
+</tr>
+<tr>
+<td>verbose</td>
+<td>boolean</td>
+<td>如果指定该参数，执行过程会输出到控制台。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用生成的对象"><a href="#使用生成的对象" class="headerlink" title="使用生成的对象"></a>使用生成的对象</h2><p>MBG生成如下类型的对象：</p>
+<ul>
+<li>Java 模型对象</li>
+<li>SQL映射文件（可选）</li>
+<li>一个xxxByExample方法的使用类。</li>
+</ul>
+<h3 id="Java-模型对象"><a href="#Java-模型对象" class="headerlink" title="Java 模型对象"></a>Java 模型对象</h3><ul>
+<li>MBG 根据数据库表字段生成Java POJO 对象。（根据表特性和配置生成不同类型的实体对象）</li>
+<li>如果不使用Eclipse插件，需要手工合并修改后生成的Java对象</li>
+<li>任何字段配置<code>&lt;ignoreColumn&gt;</code>,自动生成时不会添加到Java对象中</li>
+</ul>
+<h4 id="主键类"><a href="#主键类" class="headerlink" title="主键类"></a>主键类</h4><ul>
+<li>表中包含一个主键的字段属性,根据表的列名自动生成属性名称。可配置<code>&lt;columnOverride&gt;</code>属性覆盖。</li>
+<li>类名默认是<code>&lt;TableName&gt;Key</code>,如果<code>&lt;table&gt;</code>元素配置domainObjectName属性，那么类名是<code>&lt;domainObjectName&gt;Key</code></li>
+<li>This class will be generated in the hierarchical model if the table has a primary key. This class will be generated in the conditional model if the table has more then one column in the primary key. This class will not be generated in the flat model.</li>
+</ul>
+<h4 id="记录类"><a href="#记录类" class="headerlink" title="记录类"></a>记录类</h4><ul>
+<li>表中不包含主键、BLOB字段属性.如果这个类集成了主键类，MBG会根据表的列名自动生成属性名称。可通过<code>columnOverride</code>属性覆盖属性名称。</li>
+<li>类名默认是<code>&lt;TableName&gt;</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性，类名为<code>&lt;domainObjectName&gt;</code></li>
+<li>This class will be generated in the hierarchical model if the table has non-BLOB and non-primary key columns. This class will be generated in the conditional model if the table has non-BLOB and non-primary key columns, or if there is only one primary key column or one BLOB column. This class is always generated in the flat model.</li>
+</ul>
+<h4 id="BLOB-记录类"><a href="#BLOB-记录类" class="headerlink" title="BLOB 记录类"></a>BLOB 记录类</h4><ul>
+<li>表中包含BLOB字段属性，如果表中只存在一个字段，该类将继承基础类，或将继承主键类。（注意：MBG 不支持表中只包含BLBO列）MBG 根据表列名自动生成属性名称，可以配置<code>&lt;columnOverride&gt;</code>属性覆盖</li>
+<li>BLOB 记录类调用<code>selectByPrimaryKey</code>或<code>selectByExampleWithBLOBs</code>方法返回BLOB字段值.</li>
+<li>类名默认是<code>&lt;TableName&gt;WithBLOBs</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性那么类名是<code>&lt;domainObjectName&gt;WithBLOBs</code>.</li>
+<li>如果表中存在一个BLOB列将生成<code>hierarchical 模式</code>实体对象，如果表中存在多个BLOB列将生成<code>conditional 模式</code>实体对象。 BLOB记录类不会生<code>flat 模式</code> 实体对象</li>
+</ul>
+<h4 id="Example-类"><a href="#Example-类" class="headerlink" title="Example 类"></a>Example 类</h4><ul>
+<li>Example类用来处理MBG动态查询功能. 下列条件方法用于动态生成WHERE子句:<ul>
+<li>selectByExample</li>
+<li>selectByExampleWithBLOBs</li>
+<li>deleteByExample</li>
+<li>countByExample</li>
+<li>updateByExample</li>
+</ul>
+</li>
+<li>Example类不继承任何实体对象</li>
+<li>类名默认是<code>&lt;TableName&gt;Example</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性那么类名是<code>&lt;domainObjectName&gt;Example</code>.</li>
+<li>如果方法被启动Example类将生成任何*ByExample方法.注意:如果表中有非常多的字段该类可能很大,但 DAO生成的XML是比较小的. 如果您不需要使用动态WHERE子句,您可以禁用生成这些方法.</li>
+</ul>
+<h3 id="SQL-映射文件"><a href="#SQL-映射文件" class="headerlink" title="SQL 映射文件"></a>SQL 映射文件</h3><ul>
+<li>MBG生成SQL映射文件遵循 MyBatis和IBatis DTD规范。</li>
+<li>MBG按照配置表生成SQL映射文件，在表的基础上还包含了不同的标签和属性配置。</li>
+<li>表名就是SQL映射文件的命名控制。（前提是数据库支持schema 和 catalog）</li>
+<li>你需要手工将生成<code>xxxMapper.xml</code> 加入到<code>mybatis-conf.xml</code>文件。 或者使用Spring的自动扫描。（注入）</li>
+</ul>
+<h4 id="结果集-Result-Map"><a href="#结果集-Result-Map" class="headerlink" title="结果集(Result Map)"></a>结果集(Result Map)</h4><ul>
+<li>resultMap元素（结果集对象）用于数据库表列映射Java对象的属性，不包括如下情况：<ul>
+<li>任何列配置<code>&lt;ignoreColumn&gt;</code>属性将被会被忽略</li>
+<li>任何BLOB字段</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>配置<code>&lt;columnOverride&gt;</code>属性覆盖默认的属性和JDBC类型</li>
+<li>对与自定义连接查询结果集<strong>继承一个结果集</strong>是一种常见的用法。对于其他连接查询也想使用（继承）该结果集。在MBG自动生成的时候需要配置前缀.详见<code>&lt;table&gt;</code>元素<code>alias</code>配置前缀，这样可以区分表中相同字段</li>
+<li>如果<code>table</code>存在BLOB字段且配置了<code>enableSelectByExample</code>、<code>enableSelectByPrimaryKey</code>属性,MBG会生成BLOB结果集,table默认这两个配置都是true所以大部分情况下都会生成resultMap.</li>
+</ul>
+<h4 id="Where条件SQL语句"><a href="#Where条件SQL语句" class="headerlink" title="Where条件SQL语句"></a>Where条件SQL语句</h4><ul>
+<li><p>This element contains a reusable where clause that is used by the “by example” methods. The where clause will not include any BLOB fields if they exist in the table. Most databases do not support BLOB fields in the WHERE clause.</p>
+</li>
+<li><p>This element will be generated if any of the “by example” statements are enabled.</p>
+</li>
+</ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>略，请参考官方文档。 官方文档这一部分写的也太烂了。</p>
+<h3 id="Java-客户端对象"><a href="#Java-客户端对象" class="headerlink" title="Java 客户端对象"></a>Java 客户端对象</h3><ul>
+<li>MBG 生成几种类型的Java客户端对象，使得Java的客户端对象更容易与生成的XML进行交互</li>
+<li>生成Java客户端对象是可选的。通过配置<code>&lt;javaClientGenerator&gt;</code> MyBatis 3 生成Java客户端对象类型：<ul>
+<li>XMLMAPPER 与 支持MyBatis3.x的映射</li>
+</ul>
+</li>
+</ul>
+<h4 id="通用DAO方法"><a href="#通用DAO方法" class="headerlink" title="通用DAO方法"></a>通用DAO方法</h4><p>根据表的特性，以及配置选项，Java客户端自动生成如下方法：</p>
+<ul>
+<li>countByExample</li>
+<li>deleteByPrimaryKey</li>
+<li>deleteByExample</li>
+<li>insert</li>
+<li>insertSelective</li>
+<li>selectByPrimaryKey</li>
+<li>selectByExample</li>
+<li>selectByExampleWithBLOBs</li>
+<li>updateByPrimaryKey (否更新BLOB字段需要重写方法)</li>
+<li>updateByPrimaryKeySelective (只更新参数类非空字段)</li>
+<li>updateByExample (否更新BLOB字段需要重写方法)</li>
+<li>updateByExampleSelective (只更新参数类非空字段)</li>
+</ul>
+<p>对于包含BLOB的表,MBG通过生成不同的对象和方法使您更容易使用BLOB字段,是否忽略它们,这取决于具体情况.</p>
+<h4 id="XMLMAPPER-客户端"><a href="#XMLMAPPER-客户端" class="headerlink" title="XMLMAPPER 客户端"></a>XMLMAPPER 客户端</h4><p>XMLMAPPER客户端是将接口方法映射到生成的XML映射文件中.例如,MBG自动生成的接口名为<code>MyTableMapper.</code>您可以如下使用该接口:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  MyTableMapper mapper = sqlSession.getMapper(MyTableMapper.class);</span><br><span class="line">  List&lt;MyTable&gt; allRecords = mapper.selectByExample(null);</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Example-用法"><a href="#Example-用法" class="headerlink" title="Example 用法"></a>Example 用法</h4><p>略，实际项目中很少用。 一般不会生成Example 对象。</p>
 
           
         
@@ -2335,218 +2762,6 @@
 </ul>
 </li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/02/2014/MyBatis Boostrap/" itemprop="url">
-                  MyBatis Boostrap
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-02T10:44:00+08:00" content="2014-04-02">
-              2014-04-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/Mybatis/" itemprop="url" rel="index">
-                    <span itemprop="name">Mybatis</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/02/2014/MyBatis Boostrap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/2014/MyBatis Boostrap/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>SqlSessionFactory 是MyBatis的核心对象，用于获取SqlSession，并执行映射的 SQL 语句。<br>可以通过基于 XML 的配置信息或者 Java API 创建。</p>
-<p>我们将探索各种 MaBatis 配置元素，如 dataSource，environments,全局参数设置,typeAlias，typeHandlers，<br>SQL 映射；接着我们将实例化 SqlSessionFactory。</p>
-<ul>
-<li>使用 XML 配置 MyBatis</li>
-<li>使用 Java API 配置 MyBatis</li>
-<li>自定义 MyBatis 日志</li>
-</ul>
-<h2 id="使用-XML-配置-MyBatis"><a href="#使用-XML-配置-MyBatis" class="headerlink" title="使用 XML 配置 MyBatis"></a>使用 XML 配置 MyBatis</h2><p><strong>构建 SqlSessionFactory 最常见的方式是基于 XML 配置（的构造方式）。下面的 mybatis-config.xml 展示了一个<br>典型的 MyBatis 配置文件的样子：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;properties resource=&quot;application.properties&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;username&quot; value=&quot;db_user&quot; /&gt;</span><br><span class="line">		&lt;property name=&quot;password&quot; value=&quot;verysecurepwd&quot; /&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line">	&lt;settings&gt;</span><br><span class="line">		&lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">	&lt;/settings&gt;</span><br><span class="line">	&lt;typeAliases&gt;</span><br><span class="line">		&lt;typeAlias alias=&quot;Tutor&quot; type=&quot;com.mybatis3.domain.Tutor&quot; /&gt;</span><br><span class="line">		&lt;package name=&quot;com.mybatis3.domain&quot; /&gt;</span><br><span class="line">	&lt;/typeAliases&gt;</span><br><span class="line">	&lt;typeHandlers&gt;</span><br><span class="line">		&lt;typeHandler handler=&quot;com.mybatis3.typehandlers. PhoneTypeHandler&quot; /&gt;</span><br><span class="line">		&lt;package name=&quot;com.mybatis3.typehandlers&quot; /&gt;</span><br><span class="line">	&lt;/typeHandlers&gt;</span><br><span class="line">	&lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">		&lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">			&lt;transactionManager type=&quot;JDBC&quot; /&gt;</span><br><span class="line">			&lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">				&lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driverClassName&#125;&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot; /&gt;</span><br><span class="line">				&lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot; /&gt;</span><br><span class="line">			&lt;/dataSource&gt;</span><br><span class="line">		&lt;/environment&gt;</span><br><span class="line">		&lt;environment id=&quot;production&quot;&gt;</span><br><span class="line">			&lt;transactionManager type=&quot;MANAGED&quot; /&gt;</span><br><span class="line">			&lt;dataSource type=&quot;JNDI&quot;&gt;</span><br><span class="line">				&lt;property name=&quot;data_source&quot; value=&quot;java:comp/jdbc/MyBatisDemoDS&quot; /&gt;</span><br><span class="line">			&lt;/dataSource&gt;</span><br><span class="line">		&lt;/environment&gt;</span><br><span class="line">	&lt;/environments&gt;</span><br><span class="line">	&lt;mappers&gt;</span><br><span class="line">		&lt;mapper resource=&quot;com/mybatis3/mappers/StudentMapper.xml&quot; /&gt;</span><br><span class="line">		&lt;mapper url=&quot;file:///D:/mybatisdemo/mappers/TutorMapper.xml&quot; /&gt;</span><br><span class="line">		&lt;mapper class=&quot;com.mybatis3.mappers.TutorMapper&quot; /&gt;</span><br><span class="line">	&lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>下面让我们逐个讨论上述配置文件的组成部分</strong></p>
-<h3 id="environment-环境"><a href="#environment-环境" class="headerlink" title="environment (环境)"></a>environment (环境)</h3><p>MyBatis 支持配置多个 dataSource 环境，可以将应用部署到不同的环境上， DEV(开发环境)，如TEST（测试换将），<br>QA（质量评估环境）,UAT(用户验收环境),PRODUCTION（生产环境），可以通过将默认 environment 值设置成想要的<br>environment id 值。<br>在上述的配置中，默认的环境 environment 被设置成 development。当需要将程序部署到生产服务器上时，你不需<br>要修改什么配置，只需要将默认环境 environment 值设置成生产环境的<br>明细；使用 REPORTS 数据库存储订单明细的合计，用作报告。<br>如果你的应用需要连接多个数据库，你需要将每个数据库配置成独立的环境，并且为每一个数据库创建一个<br>SqlSessionFactory。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;environments default=&quot;shoppingcart&quot;&gt;</span><br><span class="line">	&lt;environment id=&quot;shoppingcart&quot;&gt;</span><br><span class="line">		&lt;transactionManager type=&quot;MANAGED&quot; /&gt;</span><br><span class="line">		&lt;dataSource type=&quot;JNDI&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;data_source&quot; value=&quot;java:comp/jdbc/ ShoppingcartDS&quot; /&gt;</span><br><span class="line">		&lt;/dataSource&gt;</span><br><span class="line">	&lt;/environment&gt;</span><br><span class="line">	&lt;environment id=&quot;reports&quot;&gt;</span><br><span class="line">		&lt;transactionManager type=&quot;MANAGED&quot; /&gt;</span><br><span class="line">		&lt;dataSource type=&quot;JNDI&quot;&gt;</span><br><span class="line">			&lt;property name=&quot;data_source&quot; value=&quot;java:comp/jdbc/ReportsDS&quot; /&gt;</span><br><span class="line">		&lt;/dataSource&gt;</span><br><span class="line">	&lt;/environment&gt;</span><br><span class="line">&lt;/environments&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>我们可以通过如下，为每一个环境创建一个SqlSessionFactory</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inputStream = Resources.getResourceAsStream(&quot;mybatis-config.xml&quot;);</span><br><span class="line">defaultSqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">cartSqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, &quot;shoppingcart&quot;);</span><br><span class="line">reportSqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, &quot;reports&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>创建 SqlSessionFactory 时，如果没有明确指定环境 environment id，则会使用默认的环境 environment 来创<br>建。在上述的源码中，默认的 SqlSessionFactory 便是使用 shoppingcart 环境设置创建的。<br>对于每个环境 environment,我们需要配置 dataSource 和 transactionManager 元素。</p>
-<h3 id="DataSource-数据源"><a href="#DataSource-数据源" class="headerlink" title="DataSource (数据源)"></a>DataSource (数据源)</h3><p>dataSource 元素被用来配置数据库连接属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driverClassName&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot; /&gt;</span><br><span class="line">&lt;/dataSource&gt;</span><br></pre></td></tr></table></figure></p>
-<p>dataSource 的类型可以配置成其内置类型之一，如 UNPOOLED，POOLED，JNDI。</p>
-<ul>
-<li>如果将类型设置成 UNPOOLED，MyBatis 会为每一个数据库操作创建一个新的连接，并关闭它。该方式适用于只有小规模数量并发用户的简单应用程序上。</li>
-<li>如果将属性设置成 POOLED，MyBatis 会创建一个数据库连接池，连接池中的一个连接将会被用作数据库操作。一旦数据库操作完成，MyBatis 会将此连接返回给连接池。在开发或测试环境中，经常使用此种方式。</li>
-<li>如果将类型设置成 JNDI，MyBatis 从在应用服务器向配置好的 JNDI 数据源 dataSource 获取数据库连接。在生产环境中，优先考虑这种方式。</li>
-</ul>
-<h3 id="TransactionManager-事务管理器"><a href="#TransactionManager-事务管理器" class="headerlink" title="TransactionManager(事务管理器)"></a>TransactionManager(事务管理器)</h3><ul>
-<li>MyBatis 支持两种类型的事务管理器： JDBC and MANAGED.<ul>
-<li>JDBC 事务管理器被用作当应用程序负责管理数据库连接的生命周期（提交、回退等等）的时候。当你将TransactionManager 属性设置成 JDBC，MyBatis 内部将使用 JdbcTransactionFactory 类创建TransactionManager。例如，部署到 Apache Tomcat 的应用程序，需要应用程序自己管理事务。</li>
-<li>MANAGED 事 务 管 理 器 是 当 由 应 用 服 务 器 负 责 管 理 数 据 库 连 接 生 命 周 期 的 时 候 使 用 。 当 你将TransactionManager 属性设置成 MANAGED 时，MyBatis 内部使用 ManagedTransactionFactory 类创建事务管理器TransactionManager。例如，当一个 JavaEE 的应用程序部署在类似 JBoss，WebLogic，GlassFish 应用服务器上时，它们会使用 EJB 进行应用服务器的事务管理能力。在这些管理环境中，你可以使用 MANAGED 事务管理器。<blockquote>
-<p>Managed 是托管的意思，即是应用本身不去管理事务，而是把事务管理交给应用所在的服务器进行管理。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Properties-属性"><a href="#Properties-属性" class="headerlink" title="Properties(属性)"></a>Properties(属性)</h3><p>属性配置元素可以将配置值具体化到一个属性文件中，，并且使用属性文件的 key 名作为占位符。在上述的配置中，我们将数据库连接属性具体化到了 application.properties 文件中，并且为 driver，URL 等属性使用了占位符。</p>
-<p><strong>1. 在 applications.properties 文件中配置数据库连接参数，如下所示：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdbc.driverClassName=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://localhost:3306/mybatisdemo</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=admin</span><br></pre></td></tr></table></figure></p>
-<p><strong>2. 在 mybatis-config.xml 文件中，为属性使用 application.properties 文件中定义的占位符：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties resource=&quot;application.properties&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;jdbc.username&quot; value=&quot;db_user&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;jdbc.password&quot; value=&quot;verysecurepwd&quot; /&gt;</span><br><span class="line">&lt;/properties&gt;</span><br><span class="line">&lt;dataSource type=&quot;POOLED&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;driver&quot; value=&quot;$&#123;jdbc.driverClassName&#125;&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc.url&#125;&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc.username&#125;&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot; /&gt;</span><br><span class="line">&lt;/dataSource&gt;</span><br></pre></td></tr></table></figure></p>
-<p>并且，你可以在<properties>元素中配置默认参数的值。如果<properties>中定义的元素和属性文件定义元素的 key<br>值相同，它们会被属性文件中定义的值覆盖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties resource=&quot;application.properties&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;jdbc.username&quot; value=&quot;db_user&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;jdbc.password&quot; value=&quot;verysecurepwd&quot; /&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure></properties></properties></p>
-<p>这里，如果 application.properties 文件包含值 jdbc.username 和 jdbc.password，则上述定义的 username 和<br>password 的值 db_user 和 verysecurepwd 将会被 application.properties 中定义的对应的 jdbc.username 和<br>jdbc.password 值覆盖。</p>
-<h3 id="typeAliases-类型别名"><a href="#typeAliases-类型别名" class="headerlink" title="typeAliases(类型别名)"></a>typeAliases(类型别名)</h3><p>在 SQLMapper 配置文件中，对于 resultType 和 parameterType 属性值，我们需要使用 JavaBean 的完全限定名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultType=&quot;com.mybatis3.domain.Student&quot;&gt;</span><br><span class="line">       SELECT STUD_ID AS ID, NAME, EMAIL, DOB FROM STUDENTS WHERE STUD_ID=#&#123;Id&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;update id=&quot;updateStudent&quot; parameterType=&quot;com.mybatis3.domain. Student&quot;&gt;</span><br><span class="line">       UPDATE STUDENTS SET NAME=#&#123;name&#125;, EMAIL=#&#123;email&#125;, DOB=#&#123;dob&#125; WHERE STUD_ID=#&#123;id&#125;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
-<p>这里我们为 resultType 和 parameterType 属性值设置为 Student 类型的完全限定名： com.mybatis3.domain.Student</p>
-<p>我们可以为完全限定名取一个别名（alias），然后其需要使用完全限定名的地方使用别名，而不是到处使用完全限定<br>名。如下例子所示，为完全限定名起一个别名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">    &lt;typeAlias alias=&quot;Student&quot; type=&quot;com.mybatis3.domain.Student&quot; /&gt;</span><br><span class="line">    &lt;typeAlias alias=&quot;Tutor&quot; type=&quot;com.mybatis3.domain.Tutor&quot; /&gt;</span><br><span class="line">    &lt;package name=&quot;com.mybatis3.domain&quot; /&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure></p>
-<p>然后在 SQL Mapper 映射文件中, 如下使用 Student 的别名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;findStudentById&quot; parameterType=&quot;int&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    SELECT STUD_ID AS ID, NAME, EMAIL, DOB FROM STUDENTS WHERE STUD_ID=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;update id=&quot;updateStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">    UPDATE STUDENTS SET NAME=#&#123;name&#125;, EMAIL=#&#123;email&#125;, DOB=#&#123;dob&#125; WHERE STUD_ID=#&#123;id&#125;</span><br><span class="line">&lt;/update&gt;</span><br></pre></td></tr></table></figure></p>
-<p>你可以不用为每一个 JavaBean 单独定义别名, 你可以为提供需要取别名的 JavaBean 所在的包(package)，MyBatis<br>会自动扫描包内定义的 JavaBeans，然后分别为 JavaBean 注册一个小写字母开头的非完全限定的类名形式的别名。如下所<br>示，提供一个需要为 JavaBeans 起别名的包名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">    &lt;package name=&quot;com.mybatis3.domain&quot; /&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如果 Student.java 和 Tutor.java Bean 定义在 com.mybatis3.domain 包中，则 com.mybatis3.domain.Student<br>的别名会被注册为 student。而 com.mybatis3.domain.Tutor 别名将会被注册为 tutor。示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">    &lt;typeAlias alias=&quot;Student&quot; type=&quot;com.mybatis3.domain.Student&quot; /&gt;</span><br><span class="line">    &lt;typeAlias alias=&quot;Tutor&quot; type=&quot;com.mybatis3.domain.Tutor&quot; /&gt;</span><br><span class="line">    &lt;package name=&quot;com.mybatis3.domain&quot; /&gt;</span><br><span class="line">    &lt;package name=&quot;com.mybatis3.webservices.domain&quot; /&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure></p>
-<p>还有另外一种方式为 JavaBeans 起别名，使用注解@Alias:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Alias(&quot;StudentAlias&quot;)</span><br><span class="line">public class Student&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>@Alias 注解将会覆盖配置文件中的<typealiases>定义。</typealiases></p>
-<h3 id="typeHandlers-类型处理器"><a href="#typeHandlers-类型处理器" class="headerlink" title="typeHandlers ( 类型处理器)"></a>typeHandlers ( 类型处理器)</h3><p>如上一章已经讨论过，MyBatis 通过抽象 JDBC 来简化了数据持久化逻辑的实现。MyBatis 在其内部使用 JDBC，提供<br>了更简洁的方式实现了数据库操作。<br>当 MyBatis 将一个 Java 对象作为输入参数执行 INSERT 语句操作时，它会创建一个 PreparedStatement 对象，并且<br>使用 setXXX()方式对占位符设置相应的参数值。<br>这里，XXX 可以是 Int，String，Date 等 Java 对象属性类型的任意一个。示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">    INSERT INTO STUDENTS(STUD_ID,NAME,EMAIL,DOB) VALUES(#&#123;studId&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;dob&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>为执行这个语句，MyBatis 将采取以下一系列动作：</strong><br><strong>1. 创建一个有占位符的 PreparedStatement 接口，如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PreparedStatement pstmt = connection.prepareStatement</span><br><span class="line">(&quot;INSERT INTO STUDENTS(STUD_ID,NAME,EMAIL,DOB) VALUES(?,?,?,?)&quot;);</span><br></pre></td></tr></table></figure></p>
-<p><strong>检查 Student 对象的属性 studId 的类型，然后使用合适 setXXX 方法去设置参数值。这里 studId 是 integer<br>类型，所以会使用 setInt()方法：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstmt.setInt(1,student.getStudId());</span><br></pre></td></tr></table></figure></p>
-<p><strong>3. 类似地，对于 name 和 email 属性都是 String 类型，MyBatis 使用 setString()方法设置参数。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pstmt.setString(2, student.getName());</span><br><span class="line">pstmt.setString(3, student.getEmail());</span><br></pre></td></tr></table></figure></p>
-<p><strong>4. 至于 dob 属性, MyBatis 会使用 setDate() 方法设置 dob 处占位符位置的值。</strong></p>
-<p><strong>5. MyBaits 会将 java.util.Date 类型转换为 into java.sql.Timestamp 并设值：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstmt.setTimestamp(4, new Timestamp((student.getDob()).getTime()));</span><br></pre></td></tr></table></figure></p>
-<p>   厉害！ MyBatis 是怎么知道对于 Integer 类型属性使用 setInt() 和 String 类型属性使用 setString()方法呢？但<br>其实 MyBatis 是通过使用类型处理器（type handlers）来决定这么做的。</p>
-<p>  MyBatis 对 于 以 下 的 类 型 使 用 内 建 的 类 型 处 理 器 ： 所 有 的 基 本 数 据 类 型 、 基 本 类 型 的 包 裹 类 型 、 byte[] 、<br>java.util.Date、java.sql.Date、java,sql.Time、java.sql.Timestamp、java 枚举类型等。所以当 MyBatis 发现<br>属性的类型属于上述类型，他会使用对应的类型处理器将值设置到 PreparedStatement 中，同样地，当从 SQL 结果集构<br>建 JavaBean 时，也有类似的过程。</p>
-<p>   那如果我们给了一个自定义的对象类型，来存储存储到数据库呢？示例如下：<br>   假设表 STUDENTS 有一个 PHONE 字段，类型为 VARCHAR(15)，而 JavaBean Student 有一个 PhoneNumber 类定义类<br>型的 phoneNumber 属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public class PhoneNumber</span><br><span class="line">&#123;</span><br><span class="line">private String countryCode;</span><br><span class="line">private String stateCode;</span><br><span class="line">private String number;</span><br><span class="line">public PhoneNumber()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line">public PhoneNumber(String countryCode, String stateCode, String</span><br><span class="line">number)</span><br><span class="line">&#123;</span><br><span class="line">this.countryCode = countryCode;</span><br><span class="line">this.stateCode = stateCode;</span><br><span class="line">this.number = number;</span><br><span class="line">&#125;</span><br><span class="line">public PhoneNumber(String string)</span><br><span class="line">&#123;</span><br><span class="line">if(string != null)</span><br><span class="line">&#123;</span><br><span class="line">String[] parts = string.split(&quot;-&quot;);</span><br><span class="line">if(parts.length &gt; 0) this.countryCode = parts[0];</span><br><span class="line">if(parts.length &gt; 1) this.stateCode = parts[1];</span><br><span class="line">if(parts.length &gt; 2) this.number = parts[2];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">public String getAsString()</span><br><span class="line">&#123;</span><br><span class="line">return countryCode + &quot;-&quot; + stateCode + &quot;-&quot; + number;</span><br><span class="line">&#125;</span><br><span class="line">// Setters and getters</span><br><span class="line">&#125;</span><br><span class="line">public class Student</span><br><span class="line">&#123;</span><br><span class="line">private Integer id;</span><br><span class="line">private String name;</span><br><span class="line">private String email;</span><br><span class="line">private PhoneNumber phone;</span><br><span class="line">// Setters and getters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertStudent&quot; parameterType=&quot;Student&quot;&gt;</span><br><span class="line">	insert into students(name,email,phone) values(#&#123;name&#125;,#&#123;email&#125;,#&#123;phone&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
-<p>   这里，phone 参数需要传递给#{phone}；而 phone 对象是 PhoneNumber 类型。然而，MyBatis 并不知道该怎样来处<br>理这个类型的对象。</p>
-<p>   为了让 MyBatis 明白怎样处理这个自定义的 Java 对象类型，如 PhoneNumber，我们可以创建一个自定义的类型处理<br>器，如下所示：</p>
-<p><strong>1. MyBatis 提供了抽象类 BaseTypeHandler<t> ，我们可以继承此类创建自定义类型处理器。</t></strong></p>
-<p><strong>域模型对象PhoneNumber</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.domain;</span><br><span class="line">public class PhoneNumber </span><br><span class="line">&#123;</span><br><span class="line">	private String countryCode;</span><br><span class="line">	private String stateCode;</span><br><span class="line">	private String number;</span><br><span class="line">	</span><br><span class="line">	public PhoneNumber() &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public PhoneNumber(String countryCode, String stateCode, String number) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.countryCode = countryCode;</span><br><span class="line">		this.stateCode = stateCode;</span><br><span class="line">		this.number = number;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public PhoneNumber(String string) &#123;</span><br><span class="line">		if(string != null)&#123;</span><br><span class="line">			String[] parts = string.split(&quot;-&quot;);</span><br><span class="line">			if(parts.length&gt;0) this.countryCode=parts[0];</span><br><span class="line">			if(parts.length&gt;1) this.stateCode=parts[1];</span><br><span class="line">			if(parts.length&gt;2) this.number=parts[2];</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return this.getAsString();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public String getCountryCode() &#123;</span><br><span class="line">		return countryCode;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setCountryCode(String countryCode) &#123;</span><br><span class="line">		this.countryCode = countryCode;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getStateCode() &#123;</span><br><span class="line">		return stateCode;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setStateCode(String stateCode) &#123;</span><br><span class="line">		this.stateCode = stateCode;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getNumber() &#123;</span><br><span class="line">		return number;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setNumber(String number) &#123;</span><br><span class="line">		this.number = number;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getAsString() &#123;</span><br><span class="line">		return countryCode+&quot;-&quot;+stateCode+&quot;-&quot;+number;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>定义格式转换类 PhoneTypeHandler</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package org.freecode.typehandlers;</span><br><span class="line"></span><br><span class="line">import java.sql.CallableStatement;</span><br><span class="line">import java.sql.PreparedStatement;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.type.BaseTypeHandler;</span><br><span class="line">import org.apache.ibatis.type.JdbcType;</span><br><span class="line">import org.freecode.domain.PhoneNumber;</span><br><span class="line"></span><br><span class="line">public class PhoneTypeHandler extends BaseTypeHandler&lt;PhoneNumber&gt;&#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void setNonNullParameter(PreparedStatement ps, int i,</span><br><span class="line">			PhoneNumber parameter, JdbcType jdbcType) throws SQLException &#123;</span><br><span class="line">		ps.setString(i, parameter.getAsString());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public PhoneNumber getNullableResult(ResultSet rs, String columnName)</span><br><span class="line">			throws SQLException &#123;</span><br><span class="line">		return new PhoneNumber(rs.getString(columnName));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public PhoneNumber getNullableResult(ResultSet rs, int columnIndex)</span><br><span class="line">			throws SQLException &#123;</span><br><span class="line">		return new PhoneNumber(rs.getString(columnIndex));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public PhoneNumber getNullableResult(CallableStatement cs, int columnIndex)</span><br><span class="line">			throws SQLException &#123;</span><br><span class="line">		return new PhoneNumber(cs.getString(columnIndex));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><p>我们使用 ps.setString()和 rs.getString()方法是因为 phone 列是 VARCHAR 类型。</p>
-</li>
-<li><p>一旦我们实现了自定义的类型处理器，我们需要在 mybatis-config.xml 中注册它：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;properties resource=&quot;application.properties&quot; /&gt;</span><br><span class="line">&lt;typeHandlers&gt;</span><br><span class="line">&lt;typeHandler handler=&quot;com.mybatis3.typehandlers. PhoneTypeHandler&quot; /&gt;</span><br><span class="line">&lt;/typeHandlers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>注册 PhoneTypeHandler 后, MyBatis 就能够将 Phone 类型的对象值存储到 VARCHAR 类型的列上。</p>
-<h3 id="Settings-全局参数设置"><a href="#Settings-全局参数设置" class="headerlink" title="Settings(全局参数设置)"></a>Settings(全局参数设置)</h3><p>为满足应用特定的需求，MyBatis 默认的全局参数设置可以被覆盖(overridden)掉，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">&lt;setting name=&quot;cacheEnabled&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;lazyLoadingEnabled&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;multipleResultSetsEnabled&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;useColumnLabel&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;useGeneratedKeys&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;autoMappingBehavior&quot; value=&quot;PARTIAL&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;defaultExecutorType&quot; value=&quot;SIMPLE&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;defaultStatementTimeout&quot; value=&quot;25000&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;safeRowBoundsEnabled&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;mapUnderscoreToCamelCase&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;localCacheScope&quot; value=&quot;SESSION&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;jdbcTypeForNull&quot; value=&quot;OTHER&quot; /&gt;</span><br><span class="line">&lt;setting name=&quot;lazyLoadTriggerMethods&quot; value=&quot;equals,clone,hashCode ,toString&quot; /&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="Mappers-SQL-映射定义"><a href="#Mappers-SQL-映射定义" class="headerlink" title="Mappers(SQL 映射定义)"></a>Mappers(SQL 映射定义)</h3><p>Mapper XML 文件中包含的 SQL 映射语句将会被应用通过使用其 statementid 来执行。我们需要在 mybatis-<br>config.xml 文件中配置 SQL Mapper 文件的位置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">&lt;mapper resource=&quot;com/mybatis3/mappers/StudentMapper.xml&quot; /&gt;</span><br><span class="line">&lt;mapper url=&quot;file:///D:/mybatisdemo/app/mappers/TutorMapper.xml&quot; /&gt;</span><br><span class="line">&lt;mapper class=&quot;com.mybatis3.mappers.TutorMapper&quot; /&gt;</span><br><span class="line">&lt;package name=&quot;com.mybatis3.mappers&quot; /&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure></p>
-<p>以上每一个<mapper> 标签的属性有助于从不同类型的资源中加载映射 mapper：</mapper></p>
-<ul>
-<li>resource 属性用来指定在 classpath 中的 mapper 文件。</li>
-<li>url 属性用来通过完全文件系统路径或者 web URL 地址来指向 mapper 文件</li>
-<li>class 属性用来指向一个 mapper 接口</li>
-<li>package 属性用来指向可以找到 Mapper 接口的包名</li>
-</ul>
-<h2 id="使用-Java-API-配置-MyBatis"><a href="#使用-Java-API-配置-MyBatis" class="headerlink" title="使用 Java API 配置 MyBatis"></a>使用 Java API 配置 MyBatis</h2><h2 id="自定义MyBatis-日志"><a href="#自定义MyBatis-日志" class="headerlink" title="自定义MyBatis 日志"></a>自定义MyBatis 日志</h2><p>   MyBatis 使用其内部 LoggerFactory 作为真正的日志类库使用的门面。其内部的 LaggerFactory 会将日志记录任务<br>委托给如下的所示某一个日志实现，日志记录优先级由上到下顺序递减：</p>
-<ul>
-<li>SLF4J</li>
-<li>Apache Commons Logging</li>
-<li>Log4j 2</li>
-<li>Log4j</li>
-<li>JDK logging</li>
-</ul>
-<p>如果 MyBatis 未发现上述日志记录实现，则 MyBatis 的日志记录功能无效。<br>如果你的运行环境中，在 classpath 中有多个可用的日志类库，并且你希望 MyBaits 使用某个特定的日志实现，你可以通过调用以下其中一个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">org.apache.ibatis.logging.LogFactory.useSlf4jLogging();</span><br><span class="line">org.apache.ibatis.logging.LogFactory.useLog4JLogging();</span><br><span class="line">org.apache.ibatis.logging.LogFactory.useLog4J2Logging();</span><br><span class="line">org.apache.ibatis.logging.LogFactory.useJdkLogging();</span><br><span class="line">org.apache.ibatis.logging.LogFactory.useCommonsLogging();</span><br><span class="line">org.apache.ibatis.logging.LogFactory.useStdOutLogging();</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>如果你想自定义 MyBatis 日志记录，你应该在调用任何其它方法之前调用以上的其中一个方法。如果你想切换到的日志记录类库在运行时期无效，MyBatis 将会忽略这一请求。</p>
-</blockquote>
 
           
         
