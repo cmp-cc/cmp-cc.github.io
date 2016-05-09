@@ -130,8 +130,8 @@ MyBatis 生成如下：
        <plugins>
         ...
         <plugin>
-      	  <groupId>org.mybatis.generator</groupId>
-      	  <artifactId>mybatis-generator-maven-plugin</artifactId>
+          <groupId>org.mybatis.generator</groupId>
+          <artifactId>mybatis-generator-maven-plugin</artifactId>
           <version>1.3.2</version>
         </plugin>
         ...
@@ -142,11 +142,11 @@ MyBatis 生成如下：
 
 MBG Maven Plugin 可以包含一个目录: `mybatis-generator:generate` ，如下配置：
 ```
-	  <plugins>
+    <plugins>
         ...
         <plugin>
-      	  <groupId>org.mybatis.generator</groupId>
-      	  <artifactId>mybatis-generator-maven-plugin</artifactId>
+          <groupId>org.mybatis.generator</groupId>
+          <artifactId>mybatis-generator-maven-plugin</artifactId>
           <version>1.3.2</version>
           <executions>
             <execution>
@@ -197,17 +197,17 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 
 参数  | 类型 | 说明
 --- | --- |---
-configurationFile	| File |	指定配置文件的名称。默认值：`${basedir}/src/main/resources/generatorConfig.xml`
-contexts	|	String|	如果指定了该参数，使用逗号隔开`context`会被执行。 这些指定的`context`必须和配置文件中 `<context>` 元素的 `id` 属性一致。只有指定的这些`contextid`会被激活执行。如果没有指定该参数，所有的`context`都会被激活执行。
-jdbcDriver|	String	| 如果您指定了 sqlScript 参数, 当连接数据库时这里的值是JDBC驱动类的权限定名称。
-jdbcPassword|		String |	如果您指定了 `sqlScript` 参数, 这是连接数据库的密码。
-jdbcURL	|	String |	如果您指定了 `sqlScript` 参数, 这是连接数据库的`JDBC URL`
-jdbcUserId|		String |	如果您指定了 `sqlScript` 参数, 这里是连接数据库的用户`id`
-outputDirectory|		File	|将放置 MBG 所生成文件的目录。 这个目录是用于当` targetProject` 在配置文件中设置特殊值的"MAVEN"时使用(大小写敏感)。 默认值: `${project.build.directory}/generated-sources/mybatis-generator`
-overwrite	|	boolean	| 如果为`true`，新生成的Java文件会覆盖原有的文件。 如果没有指定该参数，存在同名的文件，MBG会给新生成的代码文件生成一个唯一的名字(例如： MyClass.java.1, MyClass.java.2 等等)。 **重要: 生成器一定会自动合并或覆盖已经生成的XML文件。** 默认值: `false`
-sqlScript	|String	| 要在生成代码之前运行的 SQL 脚本文件的位置。 如果为空，不会执行任何脚本。 如果不为空，`jdbcDriver`, `jdbcURL` 参数必须提供。 另外如果连接数据库需要认证也需要提供`jdbcUserId` 和 `jdbcPassword` 参数。 值可以使一个文件系统的绝对路径或者是一个使用`"classpath:"`开头放在构建的类路径下的路径。
-tableNames	|	String	| 如果指定了该参数，逗号隔开的这个表会被运行， 这些表名必须和`<table>` 配置中的表面完全一致。只有指定的这些表会被执行。 如果没有指定该参数，所有的表都会被执行。按如下方式指定表明:  table 、schema.table 、catalog..table 等等。
-verbose	| 	boolean|	如果指定该参数，执行过程会输出到控制台。
+configurationFile | File |  指定配置文件的名称。默认值：`${basedir}/src/main/resources/generatorConfig.xml`
+contexts  | String| 如果指定了该参数，使用逗号隔开`context`会被执行。 这些指定的`context`必须和配置文件中 `<context>` 元素的 `id` 属性一致。只有指定的这些`contextid`会被激活执行。如果没有指定该参数，所有的`context`都会被激活执行。
+jdbcDriver| String  | 如果您指定了 sqlScript 参数, 当连接数据库时这里的值是JDBC驱动类的权限定名称。
+jdbcPassword|   String |  如果您指定了 `sqlScript` 参数, 这是连接数据库的密码。
+jdbcURL | String |  如果您指定了 `sqlScript` 参数, 这是连接数据库的`JDBC URL`
+jdbcUserId|   String |  如果您指定了 `sqlScript` 参数, 这里是连接数据库的用户`id`
+outputDirectory|    File  |将放置 MBG 所生成文件的目录。 这个目录是用于当` targetProject` 在配置文件中设置特殊值的"MAVEN"时使用(大小写敏感)。 默认值: `${project.build.directory}/generated-sources/mybatis-generator`
+overwrite | boolean | 如果为`true`，新生成的Java文件会覆盖原有的文件。 如果没有指定该参数，存在同名的文件，MBG会给新生成的代码文件生成一个唯一的名字(例如： MyClass.java.1, MyClass.java.2 等等)。 **重要: 生成器一定会自动合并或覆盖已经生成的XML文件。** 默认值: `false`
+sqlScript |String | 要在生成代码之前运行的 SQL 脚本文件的位置。 如果为空，不会执行任何脚本。 如果不为空，`jdbcDriver`, `jdbcURL` 参数必须提供。 另外如果连接数据库需要认证也需要提供`jdbcUserId` 和 `jdbcPassword` 参数。 值可以使一个文件系统的绝对路径或者是一个使用`"classpath:"`开头放在构建的类路径下的路径。
+tableNames  | String  | 如果指定了该参数，逗号隔开的这个表会被运行， 这些表名必须和`<table>` 配置中的表面完全一致。只有指定的这些表会被执行。 如果没有指定该参数，所有的表都会被执行。按如下方式指定表明:  table 、schema.table 、catalog..table 等等。
+verbose |   boolean|  如果指定该参数，执行过程会输出到控制台。
 
 ## 使用生成的对象
 MBG生成如下类型的对象：

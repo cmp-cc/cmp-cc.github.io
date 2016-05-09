@@ -3,9 +3,9 @@ title: Mybatis ${}和#{} 区别
 date: 2014-04-02 12:53:00
 categories: 
 - Java Web
-- Mybatis
+- MyBatis
 tags:
-- Mybatis
+- MyBatis
 ----
 
 这两个标示符均会出现在MyBatis XML SQL 映射文件中。

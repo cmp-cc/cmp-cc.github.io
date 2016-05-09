@@ -3,9 +3,9 @@ title: MyBatis 入门
 date: 2014-04-01 23:44:00
 categories: 
 - Java Web
-- Mybatis
+- MyBatis
 tags:
-- Mybatis
+- MyBatis
 ----
 
 Hibernate 太过于庞大，作为同样的持久化ORM 框架Mybatis 就显得非常小巧灵活。
