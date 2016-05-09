@@ -1,0 +1,894 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Spring MVC," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="I am cmp-cc" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="Struts2 用的人越来越少了呀~~~  Spring MVC的设计更加超前，使用也更加便利。
+Spring MVC 简介
+Spring MVC 是Spring Framework 中用于快速开发Web应用程序的一个模块。
+采用MVC设计模式（模型-视图-控制器）。
+
+Spring 优势
+Spring MVC 采用调用Servlet中一个控制方法，控制转发到一个视图。（你不必编写多个Servle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring MVC 入门">
+<meta property="og:url" content="http://cmp-cc.github.io/2014/06/10/Spring MVC 入门/index.html">
+<meta property="og:site_name" content="I am cmp-cc">
+<meta property="og:description" content="Struts2 用的人越来越少了呀~~~  Spring MVC的设计更加超前，使用也更加便利。
+Spring MVC 简介
+Spring MVC 是Spring Framework 中用于快速开发Web应用程序的一个模块。
+采用MVC设计模式（模型-视图-控制器）。
+
+Spring 优势
+Spring MVC 采用调用Servlet中一个控制方法，控制转发到一个视图。（你不必编写多个Servle">
+<meta property="og:updated_time" content="2016-05-09T11:36:41.904Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring MVC 入门">
+<meta name="twitter:description" content="Struts2 用的人越来越少了呀~~~  Spring MVC的设计更加超前，使用也更加便利。
+Spring MVC 简介
+Spring MVC 是Spring Framework 中用于快速开发Web应用程序的一个模块。
+采用MVC设计模式（模型-视图-控制器）。
+
+Spring 优势
+Spring MVC 采用调用Servlet中一个控制方法，控制转发到一个视图。（你不必编写多个Servle">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Spring MVC 入门 | I am cmp-cc </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0fb6f1a75a76726c10a144a8257465e3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">I am cmp-cc</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一直在打杂，从未被超越。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spring MVC 入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-06-10T16:53:00+08:00" content="2014-06-10">
+              2014-06-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/Spring-MVC/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring MVC</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/06/10/Spring MVC 入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/10/Spring MVC 入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Struts2 用的人越来越少了呀~~~  Spring MVC的设计更加超前，使用也更加便利。</p>
+<h2 id="Spring-MVC-简介"><a href="#Spring-MVC-简介" class="headerlink" title="Spring MVC 简介"></a>Spring MVC 简介</h2><ul>
+<li>Spring MVC 是Spring Framework 中用于快速开发Web应用程序的一个模块。</li>
+<li>采用MVC设计模式（模型-视图-控制器）。</li>
+</ul>
+<h2 id="Spring-优势"><a href="#Spring-优势" class="headerlink" title="Spring 优势"></a>Spring 优势</h2><ul>
+<li>Spring MVC 采用调用Servlet中一个控制方法，控制转发到一个视图。（你不必编写多个Servlet。）</li>
+<li>Spring MVC 实例化控制器类，并自动填充用户输入bean。（不需要配置XML映射、不需要使用request.paremxxx 获取请求信息）</li>
+<li>Spring MVC 重新编辑XML配置文件，不需要重新编译或重启应用程序。</li>
+<li>Spring MVC 自动绑定正确类型的用户输入信息。eg：Spring MVC可以自动解析字符串并设置float类型或double 类型。</li>
+<li>Spring MVC 可以验证用户输入，如果输入失败可以重定向表单。可以使用声明和编码的方式。Spring MVC内置任务验证。</li>
+<li>Spring MVC 支持国际化和本地化。（你可以显示用户区域多国家语言）</li>
+<li>Spring MVC 支持多视图技术。可以是JSP、FreeMarker、Velocity、JSON数据。</li>
+<li>Spring MVC 作为Spring 的一部分也算是一种优势把。</li>
+</ul>
+<blockquote>
+<p>以上几乎所有优势Struts2 都具备。 只是Spring MVC 实现方式更加简单，Struts2 同样优秀而已。</p>
+</blockquote>
+<h2 id="Spring-MVC-入门"><a href="#Spring-MVC-入门" class="headerlink" title="Spring MVC 入门"></a>Spring MVC 入门</h2><h3 id="Spring-MVC-入口-（DispatcherServlet）"><a href="#Spring-MVC-入口-（DispatcherServlet）" class="headerlink" title="Spring MVC 入口 （DispatcherServlet）"></a>Spring MVC 入口 （DispatcherServlet）</h3><h4 id="配置入口"><a href="#配置入口" class="headerlink" title="配置入口"></a>配置入口</h4><p><strong>配置<code>web.xml</code>文件，增加Spring MVC 调度Servlet入口，全称为：<code>org.springframework.web.servlte.DispatcherServlet</code>.如下配置：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class</span><br><span class="line">        org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">    &lt;/servlet-class&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;!-- map all requests to the DispatcherServlet --&gt;</span><br><span class="line">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>load-on-startup</code>元素是可选的，如果存在，在启动应用程序时，它会在加载Servlet并调用init()方法。如果不存，当第一次请求Servlet时被加载。</p>
+</blockquote>
+<h4 id="默认配置文件方式"><a href="#默认配置文件方式" class="headerlink" title="默认配置文件方式"></a>默认配置文件方式</h4><p><strong>当其调度 Servlet 将使用Spring MVC的许多默认组件，此外，在初始化时，它会寻找应用程序WEB_INF目录中的配置文件，XML文件的名称必须符合如下模式:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servletName-servlet.xml</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如果定义一个部署描述的Servlet，且名为为SringMVC,那么需要用SpringMVC-servlet.xml文件在应用程序WEB-INF目录下</p>
+<h4 id="自定义配置文件方式"><a href="#自定义配置文件方式" class="headerlink" title="自定义配置文件方式"></a>自定义配置文件方式</h4><p>同样，你可以告诉调度器servlet 在哪里找到Spring MVC配置文件。 您可以通过servlet声明，通过init-param元素做到这一点。如下修改默认名称和位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;</span><br><span class="line">        org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">    &lt;/servlet-class&gt;</span><br><span class="line">    &lt;init-param&gt;</span><br><span class="line">        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">        &lt;param-value&gt;/WEB-INF/config/simple-config.xml&lt;/param-value&gt;</span><br><span class="line">    &lt;/init-param&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">&lt;/servlet&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h3 id="控制器接口"><a href="#控制器接口" class="headerlink" title="控制器接口"></a>控制器接口</h3><h3 id="Spring-MVC-应用"><a href="#Spring-MVC-应用" class="headerlink" title="Spring MVC 应用"></a>Spring MVC 应用</h3><p><strong>如下演示如何构建一个Spring MVC 项目的详细步骤</strong></p>
+<h4 id="下载依赖"><a href="#下载依赖" class="headerlink" title="下载依赖"></a>下载依赖</h4><ul>
+<li>将如下依赖引入<code>WEB-INF\lib</code>目录下<ul>
+<li>spring-core</li>
+<li>spring-beans</li>
+<li>spring-context</li>
+<li>spring-expression</li>
+<li>spring-web</li>
+<li>spring-webmvc</li>
+<li>commons-looging</li>
+</ul>
+</li>
+<li>使用Maven构建项目<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;4.0.4.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>spring-webmvc</code> 会将相关依赖引入。</p>
+</blockquote>
+<h4 id="配置web-xml和Spring-MVC配置文件"><a href="#配置web-xml和Spring-MVC配置文件" class="headerlink" title="配置web.xml和Spring MVC配置文件"></a>配置web.xml和Spring MVC配置文件</h4><h5 id="配置-web-xml"><a href="#配置-web-xml" class="headerlink" title="配置 web.xml"></a>配置 web.xml</h5><p><strong>同上一样，部署描述文件(web.xml) 配置如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">    xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee </span><br><span class="line">http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class</span><br><span class="line">            org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;!-- map all requests to the DispatcherServlet --&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里，你告诉Servlet/JSP容器(应用程序)使用Spring MVC 调度servlet映射所有URL。（通过<code>url-pattern</code>元素设置为<code>\</code>）<br>而且，配置Spring MVC配置文件必须遵守约定（命名约定 + 将配置文件放置<code>/WEB-INF</code>目录中）。</p>
+</blockquote>
+<h5 id="配置Spring-MVC配置文件"><a href="#配置Spring-MVC配置文件" class="headerlink" title="配置Spring MVC配置文件"></a>配置Spring MVC配置文件</h5><p><strong>配置springmvc-servlet.xml 文件，如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">  http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line">       </span><br><span class="line">    &lt;bean name=&quot;/input-product&quot;</span><br><span class="line">        class=&quot;controller.InputProductController&quot;/&gt;</span><br><span class="line">    &lt;bean name=&quot;/save-product&quot; </span><br><span class="line">        class=&quot;controller.SaveProductController&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>在这里声明了两个控制器类，InputProductController 和 SaveProductController,映射路径为<code>/input-product</code> 和 <code>/save-product</code>。</p>
+</blockquote>
+<h4 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h4><p>InputProductController 和 SaveProductController 为两个<strong>旧式</strong>的控制器,通过实现<code>Controller</code>接口,返回视图模型,如下：</p>
+<blockquote>
+<p>之所以称为<code>旧式控制器</code>，是因为:这是spring2.5最初实现spring mvc 的方式。<br>现在大多数使用的控制器方式是基于注解的（Annotation-Based Controllers）。</p>
+</blockquote>
+<h5 id="InputProductController-类"><a href="#InputProductController-类" class="headerlink" title="InputProductController 类"></a>InputProductController 类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller;</span><br><span class="line"></span><br><span class="line">public class InputProductController implements Controller &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = LogFactory.getLog(InputProductController.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView handleRequest(HttpServletRequest request,</span><br><span class="line">            HttpServletResponse response) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;InputProductController called&quot;);</span><br><span class="line">        return new ModelAndView(&quot;/WEB-INF/jsp/ProductForm.jsp&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>InputProductController类中的handleRequest 方法返回一个ModelAndView对象，ModelAndView对象包含一个视图，不包含模型。这个实例，请求转发到<code>/WEB-INF/jsp/ProductForm.jsp</code>页面。</p>
+</blockquote>
+<h5 id="SaveProductController-类"><a href="#SaveProductController-类" class="headerlink" title="SaveProductController 类"></a>SaveProductController 类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller;</span><br><span class="line">import domain.Product;</span><br><span class="line">import form.ProductForm;</span><br><span class="line"></span><br><span class="line">public class SaveProductController implements Controller &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = LogFactory</span><br><span class="line">            .getLog(SaveProductController.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView handleRequest(HttpServletRequest request,</span><br><span class="line">            HttpServletResponse response) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;SaveProductController called&quot;);</span><br><span class="line">        ProductForm productForm = new ProductForm();</span><br><span class="line">        // populate action properties</span><br><span class="line">        productForm.setName(request.getParameter(&quot;name&quot;));</span><br><span class="line">        productForm.setDescription(request.getParameter(</span><br><span class="line">                &quot;description&quot;));</span><br><span class="line">        productForm.setPrice(request.getParameter(&quot;price&quot;));</span><br><span class="line"></span><br><span class="line">        // create model</span><br><span class="line">        Product product = new Product();</span><br><span class="line">        product.setName(productForm.getName());</span><br><span class="line">        product.setDescription(productForm.getDescription());</span><br><span class="line">        try &#123;</span><br><span class="line">            product.setPrice(</span><br><span class="line">                    Float.parseFloat(productForm.getPrice()));</span><br><span class="line">        &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // insert code to save Product</span><br><span class="line"></span><br><span class="line">        return new ModelAndView(&quot;/WEB-INF/jsp/ProductDetails.jsp&quot;, </span><br><span class="line">                &quot;product&quot;, product);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>SaveProductController类中handleRequest方法 创建一个ProductForm对象设置请求参数（request parameters）。<br>创建一个Product对象设置属性值。<br>【Spring MVC有更加方便的处理请求参数和处理Bean对象的方法，这里我们使用最原始的。】<br> 返回ModelAndView对象包含视图路径、模型名称、模型。返回视图结果。</p>
+</blockquote>
+<h4 id="视图-View"><a href="#视图-View" class="headerlink" title="视图 (View)"></a>视图 (View)</h4><blockquote>
+<p>通常会将JSP 页面存储在<code>/WEB-INF/</code>下面,防止外部直接访问。<br>这里包含两个JSP页面，ProductForm.jsp和ProductDetails.jsp</p>
+</blockquote>
+<h5 id="ProductForm-jsp-页面"><a href="#ProductForm-jsp-页面" class="headerlink" title="ProductForm.jsp 页面"></a>ProductForm.jsp 页面</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Add Product Form&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(css/main.css);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">&lt;form action=&quot;save-product&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    &lt;fieldset&gt;</span><br><span class="line">        &lt;legend&gt;Add a product&lt;/legend&gt;</span><br><span class="line">        &lt;label for=&quot;name&quot;&gt;Product Name: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; value=&quot;&quot; </span><br><span class="line">            tabindex=&quot;1&quot;&gt;</span><br><span class="line">        &lt;label for=&quot;description&quot;&gt;Description: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;description&quot; name=&quot;description&quot; </span><br><span class="line">            tabindex=&quot;2&quot;&gt;</span><br><span class="line">        &lt;label for=&quot;price&quot;&gt;Price: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;price&quot; name=&quot;price&quot; tabindex=&quot;3&quot;&gt;</span><br><span class="line">        &lt;div id=&quot;buttons&quot;&gt;</span><br><span class="line">            &lt;label for=&quot;dummy&quot;&gt; &lt;/label&gt;</span><br><span class="line">            &lt;input id=&quot;reset&quot; type=&quot;reset&quot; tabindex=&quot;4&quot;&gt;</span><br><span class="line">            &lt;input id=&quot;submit&quot; type=&quot;submit&quot; tabindex=&quot;5&quot; </span><br><span class="line">                value=&quot;Add Product&quot;&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/fieldset&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="ProductDetails-jsp-页面"><a href="#ProductDetails-jsp-页面" class="headerlink" title="ProductDetails.jsp 页面"></a>ProductDetails.jsp 页面</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Save Product&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(css/main.css);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">    &lt;h4&gt;The product has been saved.&lt;/h4&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">        &lt;h5&gt;Details:&lt;/h5&gt;</span><br><span class="line">        Product Name: $&#123;product.name&#125;&lt;br/&gt;</span><br><span class="line">        Description: $&#123;product.description&#125;&lt;br/&gt;</span><br><span class="line">        Price: $$&#123;product.price&#125;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ProductDetails.jsp 页面显示，通过EL表达式访问Product域模型对象。</p>
+</blockquote>
+<h5 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h5><p>在浏览器访问如下URL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/your-project-name/input-product</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>xxxx</p>
+</blockquote>
+<h5 id="视图解析器-View-Resolver"><a href="#视图解析器-View-Resolver" class="headerlink" title="视图解析器(View Resolver)"></a>视图解析器(View Resolver)</h5><p>在Spring MVC中视图解析器（View Resolver）负责视图解析映射。我们可以在配置文件中声明<code>viewResolver bean</code>，参考如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;viewResolver&quot; class=&quot;org.springframework.web.servlet.</span><br><span class="line">view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>View Resolver</code> 解决前缀和后缀问题<br>如上<code>View Resolver Bean</code>配置两个属性，<code>prefix (前缀)</code> 和 <code>suffix （后缀）</code>， 这样将缩短视图路径，而不需要再写全路径<code>/WEB-INF/jsp/myPage.jsp</code>，只需要写<code>myPage</code>。</p>
+</blockquote>
+<h4 id="修改项目"><a href="#修改项目" class="headerlink" title="修改项目"></a>修改项目</h4><p><strong>将Spring MVC 配置文件重命名为<code>springmvc-config.xml</code>,并移至<code>/WEB-INF/config</code>目录，我们需要告诉部署描述（web.xml）文件。如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">    xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee</span><br><span class="line">http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt;   </span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;</span><br><span class="line">            org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;</span><br><span class="line">                /WEB-INF/config/springmvc-config.xml</span><br><span class="line">            &lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>修改Spring MVC 配置文件，增加<code>View Resolver Bean</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">  http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean name=&quot;/input-product&quot; </span><br><span class="line">            class=&quot;controller.InputProductController&quot;/&gt;</span><br><span class="line">    &lt;bean name=&quot;/save-product&quot;  </span><br><span class="line">            class=&quot;controller.SaveProductController&quot;/&gt;</span><br><span class="line">    &lt;bean id=&quot;viewResolver&quot; </span><br><span class="line">            class=&quot;org.springframework.web.servlet.view.</span><br><span class="line">InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>通过如下访问应用程序</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/your-project-name/input-product</span><br></pre></td></tr></table></figure></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>介绍Spring MVC</li>
+<li>如何构建一个简单的Spring MVC Web 项目</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-MVC/" rel="tag">#Spring MVC</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/05/11/2014/MyBatis Boostrap/" rel="next" title="MyBatis Generator">
+                <i class="fa fa-chevron-left"></i> MyBatis Generator
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/07/2014/Linux 开发环境安装指南/" rel="prev" title="Linux 开发环境安装指南">
+                Linux 开发环境安装指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/06/10/Spring MVC 入门/"
+           data-title="Spring MVC 入门" data-url="http://cmp-cc.github.io/2014/06/10/Spring MVC 入门/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="cmp-cc" />
+          <p class="site-author-name" itemprop="name">cmp-cc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cmp-cc" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC-简介"><span class="nav-number">1.</span> <span class="nav-text">Spring MVC 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-优势"><span class="nav-number">2.</span> <span class="nav-text">Spring 优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC-入门"><span class="nav-number">3.</span> <span class="nav-text">Spring MVC 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-MVC-入口-（DispatcherServlet）"><span class="nav-number">3.1.</span> <span class="nav-text">Spring MVC 入口 （DispatcherServlet）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置入口"><span class="nav-number">3.1.1.</span> <span class="nav-text">配置入口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认配置文件方式"><span class="nav-number">3.1.2.</span> <span class="nav-text">默认配置文件方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义配置文件方式"><span class="nav-number">3.1.3.</span> <span class="nav-text">自定义配置文件方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器接口"><span class="nav-number">3.2.</span> <span class="nav-text">控制器接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-MVC-应用"><span class="nav-number">3.3.</span> <span class="nav-text">Spring MVC 应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载依赖"><span class="nav-number">3.3.1.</span> <span class="nav-text">下载依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置web-xml和Spring-MVC配置文件"><span class="nav-number">3.3.2.</span> <span class="nav-text">配置web.xml和Spring MVC配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#配置-web-xml"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">配置 web.xml</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置Spring-MVC配置文件"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">配置Spring MVC配置文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制器"><span class="nav-number">3.3.3.</span> <span class="nav-text">控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#InputProductController-类"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">InputProductController 类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SaveProductController-类"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">SaveProductController 类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图-View"><span class="nav-number">3.3.4.</span> <span class="nav-text">视图 (View)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ProductForm-jsp-页面"><span class="nav-number">3.3.4.1.</span> <span class="nav-text">ProductForm.jsp 页面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ProductDetails-jsp-页面"><span class="nav-number">3.3.4.2.</span> <span class="nav-text">ProductDetails.jsp 页面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试应用"><span class="nav-number">3.3.4.3.</span> <span class="nav-text">测试应用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#视图解析器-View-Resolver"><span class="nav-number">3.3.4.4.</span> <span class="nav-text">视图解析器(View Resolver)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改项目"><span class="nav-number">3.3.5.</span> <span class="nav-text">修改项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.3.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cmp-cc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cmp-cc"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+
+
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+ <script type="text/javascript">
+  window.onload = function(){setTimeout(function(){/*无登陆账户*/if(!document.getElementsByClassName("ds-account-control")[0]){var cmp_cc_blog_user=localStorage.getItem("cmp-cc_blog_user");var author_name_value = cmp_cc_blog_user?'value="'+cmp_cc_blog_user+'"':'';var i = '<div class="ds-control-group" style="float:right;padding:6px;"><input type="text" '+author_name_value+'id="author_name_proxy" id="ds-dialog-name"  class="custom_input" style="color:#777;width=80%;font-size:13px;border:1px solid #ccc;height:25px;box-shadow: inset 0 1px 1px;padding: 2px 0px 0px 8px;" placeholder="昵称 or 登陆" required></div>';/*展开一个回复，再关闭。 多说没有参数配置啊~ 让人觉得不优雅*/var $last_ds_post_reply = $(".ds-post-reply:last");$last_ds_post_reply.click().click();$(".ds-post-options.ds-gradient-bg").append(i);$(".ds-post-button").click(function(){$(this).submit();$("#ds-wrapper").hide();var author_name = $("#author_name_proxy").val();$("#ds-wrapper #ds-dialog-name").val(author_name);$("#ds-wrapper form").submit();/*www.cmp-cc.github.com*/localStorage.setItem("cmp-cc_blog_user",author_name);$(".custom_input").val(author_name);});}},300);} 
+ </script>
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
