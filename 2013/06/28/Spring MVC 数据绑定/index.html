@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hbase," />
+  <meta name="keywords" content="Spring MVC," />
 
 
 
@@ -59,19 +59,28 @@
 
 
 
-<meta name="description" content="记录我Hbase 使用的相关问题解决方案，持续更新
-java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChann">
+<meta name="description" content="数据绑定特性用于将用户输入（请求参数）转换为域模型或同名离散数据，由于数据绑定，HTTP请求参数，它总是字符串类型，可以填充不同类型的对象属性。(Srping 定义很多类型转换)。
+数据绑定离散参数控制器Action 方法接收请求数据为离散数据 
+
+JSP/HTML
+1234567891011121314&amp;lt;form action=&amp;quot;user-save&amp;quot; method=&amp;q">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hbase异常记录及其解决方案">
-<meta property="og:url" content="http://cmp-cc.github.io/2015/04/08/2015/Hbase异常记录及其解决方案/index.html">
+<meta property="og:title" content="Spring MVC 数据绑定">
+<meta property="og:url" content="http://cmp-cc.github.io/2013/06/28/Spring MVC 数据绑定/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="记录我Hbase 使用的相关问题解决方案，持续更新
-java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChann">
-<meta property="og:updated_time" content="2015-07-08T02:42:00.000Z">
+<meta property="og:description" content="数据绑定特性用于将用户输入（请求参数）转换为域模型或同名离散数据，由于数据绑定，HTTP请求参数，它总是字符串类型，可以填充不同类型的对象属性。(Srping 定义很多类型转换)。
+数据绑定离散参数控制器Action 方法接收请求数据为离散数据 
+
+JSP/HTML
+1234567891011121314&amp;lt;form action=&amp;quot;user-save&amp;quot; method=&amp;q">
+<meta property="og:updated_time" content="2016-05-12T11:00:00.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hbase异常记录及其解决方案">
-<meta name="twitter:description" content="记录我Hbase 使用的相关问题解决方案，持续更新
-java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChann">
+<meta name="twitter:title" content="Spring MVC 数据绑定">
+<meta name="twitter:description" content="数据绑定特性用于将用户输入（请求参数）转换为域模型或同名离散数据，由于数据绑定，HTTP请求参数，它总是字符串类型，可以填充不同类型的对象属性。(Srping 定义很多类型转换)。
+数据绑定离散参数控制器Action 方法接收请求数据为离散数据 
+
+JSP/HTML
+1234567891011121314&amp;lt;form action=&amp;quot;user-save&amp;quot; method=&amp;q">
 
 
 
@@ -89,7 +98,7 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
   };
 </script>
 
-  <title> Hbase异常记录及其解决方案 | I am cmp-cc </title>
+  <title> Spring MVC 数据绑定 | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -229,7 +238,7 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
             
             
               
-                Hbase异常记录及其解决方案
+                Spring MVC 数据绑定
               
             
           </h1>
@@ -241,8 +250,8 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-08T10:42:00+08:00" content="2015-04-08">
-              2015-04-08
+            <time itemprop="dateCreated" datetime="2013-06-28T16:53:00+08:00" content="2013-06-28">
+              2013-06-28
             </time>
           </span>
 
@@ -255,8 +264,8 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
                   </a>
                 </span>
 
@@ -267,8 +276,8 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hbase/" itemprop="url" rel="index">
-                    <span itemprop="name">Hbase</span>
+                  <a href="/categories/JavaWeb/Spring-MVC/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring MVC</span>
                   </a>
                 </span>
 
@@ -283,8 +292,8 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/04/08/2015/Hbase异常记录及其解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/08/2015/Hbase异常记录及其解决方案/" itemprop="commentsCount"></span>
+                <a href="/2013/06/28/Spring MVC 数据绑定/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/06/28/Spring MVC 数据绑定/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -306,15 +315,27 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
       
 
       
-        <p><strong>记录我Hbase 使用的相关问题解决方案，持续更新</strong></p>
-<h2 id="java-net-ConnectException-Connection-refused"><a href="#java-net-ConnectException-Connection-refused" class="headerlink" title="java.net.ConnectException: Connection refused"></a>java.net.ConnectException: Connection refused</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)</span><br><span class="line">at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:739)</span><br><span class="line">at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)</span><br><span class="line">at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1075)</span><br><span class="line">15/04/08 10:42:26 WARN zookeeper.RecoverableZooKeeper: Possibly transient ZooKeeper exception: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /hbase/hbaseid</span><br><span class="line">15/04/08 10:42:26 INFO util.RetryCounter: Sleeping 2000ms before retry #1...</span><br><span class="line">15/04/08 10:42:27 INFO zookeeper.ClientCnxn: Opening socket connection to server localhost/127.0.0.1:2181. Will not attempt to authenticate using SASL (unknown error)</span><br><span class="line">15/04/08 10:42:27 WARN zookeeper.ClientCnxn: Session 0x0 for server null, unexpected error, closing socket connection and attempting reconnect</span><br><span class="line">java.net.ConnectException: Connection refused</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>hbase-site.xml 中没有配置<code>hbase.zookeeper.quorum</code></strong></p>
-<p>应用程序指定ZK地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conf.set(&quot;hbase.zookeeper.quorum&quot;, &quot;datanode01.hadoop&quot;);</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<h2 id="ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper"><a href="#ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper" class="headerlink" title="ConnectionException: An error is preventing HBase from connecting to ZooKeeper"></a>ConnectionException: An error is preventing HBase from connecting to ZooKeeper</h2></blockquote>
-<h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Thu Apr 23 17:38:19 CST 2015, org.apache.hadoop.hbase.client.ScannerCallable@60ac8067, org.apache.hadoop.hbase.ZooKeeperConnectionException: An error is preventing HBase from connecting to ZooKeeper</span><br><span class="line"></span><br><span class="line">        at org.apache.hadoop.hbase.client.AbstractClientScanner$1.hasNext(AbstractClientScanner.java:44)</span><br><span class="line">        at mapreduce.test1.md5ConvertID(test1.java:41)</span><br><span class="line">        at mapreduce.test1.main(test1.java:152)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:606)</span><br><span class="line">        at org.apache.hadoop.util.RunJar.main(RunJar.java:208)</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>检查相关程序，确保scanner开放</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ResultScanner scanner = table.getScanner(scan);</span><br><span class="line">使用scanner 获取数据的时候， Htable 已经关闭。</span><br></pre></td></tr></table></figure></p>
-<h2 id="Too-Many-fetch-failures-Failing-the-attempt"><a href="#Too-Many-fetch-failures-Failing-the-attempt" class="headerlink" title="Too Many fetch failures.Failing the attempt"></a>Too Many fetch failures.Failing the attempt</h2><h3 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong> 某一台服务器上的磁盘满了。 删除临时文件或无效数据。 或者增加磁盘</strong></p>
+        <p>数据绑定特性用于将用户输入（请求参数）转换为<code>域模型</code>或<code>同名离散数据</code>，由于数据绑定，HTTP请求参数，它总是<code>字符串</code>类型，可以填充不同类型的对象属性。(Srping 定义很多类型转换)。</p>
+<h2 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h2><h3 id="离散参数"><a href="#离散参数" class="headerlink" title="离散参数"></a>离散参数</h3><p><strong>控制器Action 方法接收请求数据为离散数据</strong> </p>
+<ul>
+<li><p>JSP/HTML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;user-save&quot; method=&quot;post&quot;&gt;  </span><br><span class="line">    </span><br><span class="line">    &lt;input name=&quot;name&quot; value=&quot;姓名&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;age&quot; value=&quot;20&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;income&quot; value=&quot;100000&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;true&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Ruby&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Python&quot; checked=&quot;checked&quot;/&gt;  </span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Clojure&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交表单&quot;/&gt; </span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Spring MVC 控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/user-save&quot;)</span><br><span class="line">public void saveUserInfo(String name, Integer age, Double income, Boolean isMarried, String[] interests)  </span><br><span class="line">&#123;  </span><br><span class="line">    // 请求参数 Key 与 参数名称一一对应。</span><br><span class="line">    // 名字、年龄、收入、是否结婚、兴趣列表</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="域模型"><a href="#域模型" class="headerlink" title="域模型"></a>域模型</h3><p><strong>将用户输入转换为域模型</strong></p>
+<ul>
+<li><p>请求参数对象User</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class User &#123;  </span><br><span class="line">    private String name;  </span><br><span class="line">    private Integer age;  </span><br><span class="line">    private Boolean isMarried;  </span><br><span class="line">    private Double income;  </span><br><span class="line">    private String[] interests;  </span><br><span class="line">      </span><br><span class="line">    public String getName() &#123;  </span><br><span class="line">        return name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setName(String name) &#123;  </span><br><span class="line">        this.name = name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Integer getAge() &#123;  </span><br><span class="line">        return age;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setAge(Integer age) &#123;  </span><br><span class="line">        this.age = age;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Boolean getIsMarried() &#123;  </span><br><span class="line">        return isMarried;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setIsMarried(Boolean isMarried) &#123;  </span><br><span class="line">        this.isMarried = isMarried;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Double getIncome() &#123;  </span><br><span class="line">        return income;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setIncome(Double income) &#123;  </span><br><span class="line">        this.income = income;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public String[] getInterests() &#123;  </span><br><span class="line">        return interests;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setInterests(String[] interests) &#123;  </span><br><span class="line">        this.interests = interests;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Spring MVC 控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/user-save&quot;)</span><br><span class="line">   public void saveUserInfo(User user)  </span><br><span class="line">   &#123;  </span><br><span class="line">       // user 对象包含请求值</span><br><span class="line">       // 名字、年龄、收入、是否结婚、兴趣列表</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JSP/HTML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;user-save&quot; method=&quot;post&quot;&gt;  </span><br><span class="line">    </span><br><span class="line">    &lt;input name=&quot;name&quot; value=&quot;姓名&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;age&quot; value=&quot;20&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;income&quot; value=&quot;100000&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;true&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Ruby&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Python&quot; checked=&quot;checked&quot;/&gt;  </span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Clojure&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交表单&quot;/&gt; </span><br><span class="line">&lt;/form</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -329,7 +350,7 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
       
         <div class="post-tags">
           
-            <a href="/tags/Hbase/" rel="tag">#Hbase</a>
+            <a href="/tags/Spring-MVC/" rel="tag">#Spring MVC</a>
           
         </div>
       
@@ -338,16 +359,16 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/12/28/2014/Hadoop 日常实战 文件压缩/" rel="next" title="Hadoop 日常实战 文件压缩">
-                <i class="fa fa-chevron-left"></i> Hadoop 日常实战 文件压缩
+              <a href="/2013/05/17/2013/Mysql 异常及其解决方案/" rel="next" title="Mysql 异常及其解决方案">
+                <i class="fa fa-chevron-left"></i> Mysql 异常及其解决方案
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/04/22/2015/Hbase常规操作/" rel="prev" title="Hbase常规操作">
-                Hbase常规操作 <i class="fa fa-chevron-right"></i>
+              <a href="/2013/08/12/2013/Java项目开发中的简称/" rel="prev" title="Java项目开发中的简称">
+                Java项目开发中的简称 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -374,8 +395,8 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/04/08/2015/Hbase异常记录及其解决方案/"
-           data-title="Hbase异常记录及其解决方案" data-url="http://cmp-cc.github.io/2015/04/08/2015/Hbase异常记录及其解决方案/">
+      <div class="ds-thread" data-thread-key="2013/06/28/Spring MVC 数据绑定/"
+           data-title="Spring MVC 数据绑定" data-url="http://cmp-cc.github.io/2013/06/28/Spring MVC 数据绑定/">
       </div>
     
   </div>
@@ -488,7 +509,7 @@ java.net.ConnectException: Connection refused问题描述123456789at sun.nio.ch.
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java-net-ConnectException-Connection-refused"><span class="nav-number">1.</span> <span class="nav-text">java.net.ConnectException: Connection refused</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">1.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper"><span class="nav-number">2.</span> <span class="nav-text">ConnectionException: An error is preventing HBase from connecting to ZooKeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案-1"><span class="nav-number">2.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Too-Many-fetch-failures-Failing-the-attempt"><span class="nav-number">3.</span> <span class="nav-text">Too Many fetch failures.Failing the attempt</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案-2"><span class="nav-number">3.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据绑定"><span class="nav-number">1.</span> <span class="nav-text">数据绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#离散参数"><span class="nav-number">1.1.</span> <span class="nav-text">离散参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域模型"><span class="nav-number">1.2.</span> <span class="nav-text">域模型</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
