@@ -228,6 +228,153 @@
             
               
                 
+                <a class="post-title-link" href="/2013/06/28/Spring MVC 数据绑定/" itemprop="url">
+                  Spring MVC 数据绑定
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-06-28T16:53:00+08:00" content="2013-06-28">
+              2013-06-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/Spring-MVC/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring MVC</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/06/28/Spring MVC 数据绑定/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/06/28/Spring MVC 数据绑定/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>数据绑定特性用于将用户输入（请求参数）转换为<code>域模型</code>或<code>同名离散数据</code>，由于数据绑定，HTTP请求参数，它总是<code>字符串</code>类型，可以填充不同类型的对象属性。(Srping 定义很多类型转换)。</p>
+<h2 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h2><h3 id="离散参数"><a href="#离散参数" class="headerlink" title="离散参数"></a>离散参数</h3><p><strong>控制器Action 方法接收请求数据为离散数据</strong> </p>
+<ul>
+<li><p>JSP/HTML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;user-save&quot; method=&quot;post&quot;&gt;  </span><br><span class="line">    </span><br><span class="line">    &lt;input name=&quot;name&quot; value=&quot;姓名&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;age&quot; value=&quot;20&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;income&quot; value=&quot;100000&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;true&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Ruby&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Python&quot; checked=&quot;checked&quot;/&gt;  </span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Clojure&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交表单&quot;/&gt; </span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Spring MVC 控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/user-save&quot;)</span><br><span class="line">public void saveUserInfo(String name, Integer age, Double income, Boolean isMarried, String[] interests)  </span><br><span class="line">&#123;  </span><br><span class="line">    // 请求参数 Key 与 参数名称一一对应。</span><br><span class="line">    // 名字、年龄、收入、是否结婚、兴趣列表</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="域模型"><a href="#域模型" class="headerlink" title="域模型"></a>域模型</h3><p><strong>将用户输入转换为域模型</strong></p>
+<ul>
+<li><p>请求参数对象User</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class User &#123;  </span><br><span class="line">    private String name;  </span><br><span class="line">    private Integer age;  </span><br><span class="line">    private Boolean isMarried;  </span><br><span class="line">    private Double income;  </span><br><span class="line">    private String[] interests;  </span><br><span class="line">      </span><br><span class="line">    public String getName() &#123;  </span><br><span class="line">        return name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setName(String name) &#123;  </span><br><span class="line">        this.name = name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Integer getAge() &#123;  </span><br><span class="line">        return age;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setAge(Integer age) &#123;  </span><br><span class="line">        this.age = age;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Boolean getIsMarried() &#123;  </span><br><span class="line">        return isMarried;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setIsMarried(Boolean isMarried) &#123;  </span><br><span class="line">        this.isMarried = isMarried;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Double getIncome() &#123;  </span><br><span class="line">        return income;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setIncome(Double income) &#123;  </span><br><span class="line">        this.income = income;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public String[] getInterests() &#123;  </span><br><span class="line">        return interests;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setInterests(String[] interests) &#123;  </span><br><span class="line">        this.interests = interests;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Spring MVC 控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/user-save&quot;)</span><br><span class="line">   public void saveUserInfo(User user)  </span><br><span class="line">   &#123;  </span><br><span class="line">       // user 对象包含请求值</span><br><span class="line">       // 名字、年龄、收入、是否结婚、兴趣列表</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JSP/HTML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;user-save&quot; method=&quot;post&quot;&gt;  </span><br><span class="line">    </span><br><span class="line">    &lt;input name=&quot;name&quot; value=&quot;姓名&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;age&quot; value=&quot;20&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;income&quot; value=&quot;100000&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;true&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Ruby&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Python&quot; checked=&quot;checked&quot;/&gt;  </span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Clojure&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交表单&quot;/&gt; </span><br><span class="line">&lt;/form</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/05/17/2013/Mysql 异常及其解决方案/" itemprop="url">
                   Mysql 异常及其解决方案
                 </a>
@@ -1695,7 +1842,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1703,7 +1850,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1712,7 +1859,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
