@@ -228,6 +228,135 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/16/图片相似度搜索/" itemprop="url">
+                  图片相似度搜索计算
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-16T00:00:00+08:00" content="2016-05-16">
+              2016-05-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ImageProcessing/" itemprop="url" rel="index">
+                    <span itemprop="name">ImageProcessing</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/16/图片相似度搜索/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/16/图片相似度搜索/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>首先介绍Image相似度计算方法（PHash、AHash、DHash 等）。</li>
+<li>Image相似度算法比较</li>
+<li>案例：构建一个3千万图片（1T+）相似度搜索系统。（这里主要运用Elasticsearch 分布式计算分析能力）</li>
+</ul>
+<h2 id="PHash"><a href="#PHash" class="headerlink" title="PHash"></a>PHash</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>更多的phash应用，使用<code>http://www.phash.org/</code> 提供的Phash算法。</p>
+<p>如下Phash算法为Java实现。 说明:<a href="http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html" target="_blank" rel="external">http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.image.phash;</span><br><span class="line">import java.awt.Graphics2D;</span><br><span class="line">import java.awt.color.ColorSpace;</span><br><span class="line">import java.awt.image.BufferedImage;</span><br><span class="line">import java.awt.image.ColorConvertOp;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.FileInputStream;</span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line"> </span><br><span class="line">import java.math.BigInteger;</span><br><span class="line">import javax.imageio.ImageIO;</span><br><span class="line">/*</span><br><span class="line"> * pHash-like image hash.</span><br><span class="line"> * Author: Elliot Shepherd (elliot@jarofworms.com</span><br><span class="line"> * Based On: http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html</span><br><span class="line"> */</span><br><span class="line">public class ImagePHash &#123;</span><br><span class="line"> </span><br><span class="line">        private int size = 32;</span><br><span class="line">        private int smallerSize = 8;</span><br><span class="line">       </span><br><span class="line">        public ImagePHash() &#123;</span><br><span class="line">                initCoefficients();</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">        public ImagePHash(int size, int smallerSize) &#123;</span><br><span class="line">                this.size = size;</span><br><span class="line">                this.smallerSize = smallerSize;</span><br><span class="line">               </span><br><span class="line">                initCoefficients();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        public static int hammingDistance(String lhs, String rhs)&#123;          </span><br><span class="line">            return new BigInteger(lhs, 16).xor(new BigInteger(rhs, 16)).bitCount();</span><br><span class="line">         &#125;</span><br><span class="line">       </span><br><span class="line">        public int distance(String s1, String s2) &#123;</span><br><span class="line">                int counter = 0;</span><br><span class="line">                for (int k = 0; k &lt; s1.length();k++) &#123;</span><br><span class="line">                        if(s1.charAt(k) != s2.charAt(k)) &#123;</span><br><span class="line">                                counter++;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                return counter;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">        // Returns a &apos;binary string&apos; (like. 001010111011100010) which is easy to do a hamming distance on.</span><br><span class="line">        public String getHash(InputStream is) throws Exception &#123;</span><br><span class="line">                BufferedImage img = ImageIO.read(is);</span><br><span class="line">               </span><br><span class="line">                /* 1. Reduce size.</span><br><span class="line">                 * Like Average Hash, pHash starts with a small image.</span><br><span class="line">                 * However, the image is larger than 8x8; 32x32 is a good size.</span><br><span class="line">                 * This is really done to simplify the DCT computation and not</span><br><span class="line">                 * because it is needed to reduce the high frequencies.</span><br><span class="line">                 */</span><br><span class="line">                img = resize(img, size, size);</span><br><span class="line">               </span><br><span class="line">                /* 2. Reduce color.</span><br><span class="line">                 * The image is reduced to a grayscale just to further simplify</span><br><span class="line">                 * the number of computations.</span><br><span class="line">                 */</span><br><span class="line">                img = grayscale(img);</span><br><span class="line">               </span><br><span class="line">                double[][] vals = new double[size][size];</span><br><span class="line">               </span><br><span class="line">                for (int x = 0; x &lt; img.getWidth(); x++) &#123;</span><br><span class="line">                        for (int y = 0; y &lt; img.getHeight(); y++) &#123;</span><br><span class="line">                                vals[x][y] = getBlue(img, x, y);</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">               </span><br><span class="line">                /* 3. Compute the DCT.</span><br><span class="line">                 * The DCT separates the image into a collection of frequencies</span><br><span class="line">                 * and scalars. While JPEG uses an 8x8 DCT, this algorithm uses</span><br><span class="line">                 * a 32x32 DCT.</span><br><span class="line">                 */</span><br><span class="line">                long start = System.currentTimeMillis();</span><br><span class="line">                double[][] dctVals = applyDCT(vals);</span><br><span class="line">                System.out.println(&quot;DCT: &quot; + (System.currentTimeMillis() - start));</span><br><span class="line">               </span><br><span class="line">                /* 4. Reduce the DCT.</span><br><span class="line">                 * This is the magic step. While the DCT is 32x32, just keep the</span><br><span class="line">                 * top-left 8x8. Those represent the lowest frequencies in the</span><br><span class="line">                 * picture.</span><br><span class="line">                 */</span><br><span class="line">                /* 5. Compute the average value.</span><br><span class="line">                 * Like the Average Hash, compute the mean DCT value (using only</span><br><span class="line">                 * the 8x8 DCT low-frequency values and excluding the first term</span><br><span class="line">                 * since the DC coefficient can be significantly different from</span><br><span class="line">                 * the other values and will throw off the average).</span><br><span class="line">                 */</span><br><span class="line">                double total = 0;</span><br><span class="line">               </span><br><span class="line">                for (int x = 0; x &lt; smallerSize; x++) &#123;</span><br><span class="line">                        for (int y = 0; y &lt; smallerSize; y++) &#123;</span><br><span class="line">                                total += dctVals[x][y];</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                total -= dctVals[0][0];</span><br><span class="line">               </span><br><span class="line">                double avg = total / (double) ((smallerSize * smallerSize) - 1);</span><br><span class="line">       </span><br><span class="line">                /* 6. Further reduce the DCT.</span><br><span class="line">                 * This is the magic step. Set the 64 hash bits to 0 or 1</span><br><span class="line">                 * depending on whether each of the 64 DCT values is above or</span><br><span class="line">                 * below the average value. The result doesn&apos;t tell us the</span><br><span class="line">                 * actual low frequencies; it just tells us the very-rough</span><br><span class="line">                 * relative scale of the frequencies to the mean. The result</span><br><span class="line">                 * will not vary as long as the overall structure of the image</span><br><span class="line">                 * remains the same; this can survive gamma and color histogram</span><br><span class="line">                 * adjustments without a problem.</span><br><span class="line">                 */</span><br><span class="line">                String hash = &quot;&quot;;</span><br><span class="line">               </span><br><span class="line">                for (int x = 0; x &lt; smallerSize; x++) &#123;</span><br><span class="line">                        for (int y = 0; y &lt; smallerSize; y++) &#123;</span><br><span class="line">                                if (x != 0 &amp;&amp; y != 0) &#123;</span><br><span class="line">                                        hash += (dctVals[x][y] &gt; avg?&quot;1&quot;:&quot;0&quot;);</span><br><span class="line">                                &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">               </span><br><span class="line">                return hash;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">        private BufferedImage resize(BufferedImage image, int width,    int height) &#123;</span><br><span class="line">                BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);</span><br><span class="line">                Graphics2D g = resizedImage.createGraphics();</span><br><span class="line">                g.drawImage(image, 0, 0, width, height, null);</span><br><span class="line">                g.dispose();</span><br><span class="line">                return resizedImage;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">        private ColorConvertOp colorConvert = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);</span><br><span class="line"> </span><br><span class="line">        private BufferedImage grayscale(BufferedImage img) &#123;</span><br><span class="line">        colorConvert.filter(img, img);</span><br><span class="line">        return img;</span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">        private static int getBlue(BufferedImage img, int x, int y) &#123;</span><br><span class="line">                return (img.getRGB(x, y)) &amp; 0xff;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">        // DCT function stolen from http://stackoverflow.com/questions/4240490/problems-with-dct-and-idct-algorithm-in-java</span><br><span class="line"> </span><br><span class="line">        private double[] c;</span><br><span class="line">        private void initCoefficients() &#123;</span><br><span class="line">                c = new double[size];</span><br><span class="line">               </span><br><span class="line">        for (int i=1;i&lt;size;i++) &#123;</span><br><span class="line">            c[i]=1;</span><br><span class="line">        &#125;</span><br><span class="line">        c[0]=1/Math.sqrt(2.0);</span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">        private double[][] applyDCT(double[][] f) &#123;</span><br><span class="line">                int N = size;</span><br><span class="line">               </span><br><span class="line">        double[][] F = new double[N][N];</span><br><span class="line">        for (int u=0;u&lt;N;u++) &#123;</span><br><span class="line">          for (int v=0;v&lt;N;v++) &#123;</span><br><span class="line">            double sum = 0.0;</span><br><span class="line">            for (int i=0;i&lt;N;i++) &#123;</span><br><span class="line">              for (int j=0;j&lt;N;j++) &#123;</span><br><span class="line">                sum+=Math.cos(((2*i+1)/(2.0*N))*u*Math.PI)*Math.cos(((2*j+1)/(2.0*N))*v*Math.PI)*(f[i][j]);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            sum*=((c[u]*c[v])/4.0);</span><br><span class="line">            F[u][v] = sum;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return F;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">        </span><br><span class="line">        public static void main(String[] args) throws FileNotFoundException, Exception &#123;</span><br><span class="line">            ImagePHash p = new ImagePHash();</span><br><span class="line">             </span><br><span class="line">            String image1 = p.getHash(new FileInputStream(new File(&quot;F:/cc/DEF3A6A96A4012ED042AB88DC4DA24B4.png&quot;)));</span><br><span class="line">            String image2 = p.getHash(new FileInputStream(new File(&quot;F:/cc/F16FE1485F11302B5F196B04F7D9BA5B.png&quot;)));</span><br><span class="line">            System.out.println(image1+&quot;\t&quot;+image2);</span><br><span class="line">            </span><br><span class="line">            System.out.println(&quot;Score is &quot; + p.distance(image1, image2));</span><br><span class="line">            System.out.println(&quot;Score is &quot; + ImagePHash.hammingDistance(image1, image2));</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="暂略。"><a href="#暂略。" class="headerlink" title="暂略。"></a>暂略。</h2><p>最近没时间。</p>
+<p>构建Image相似度搜索系统步骤如下：</p>
+<ul>
+<li>通过图像相似度算法，离线将图像（MD5、相似度Hash值、等信息）存储到Elasticsearch中。线下保证增量数据增加。</li>
+<li>开启Elasticsearch <code>script.disable_dynamic: false</code> 。 编写Elasticsearch 嵌入式脚本，用于计算<code>海明距离</code>。</li>
+<li>将<code>海明距离</code>结果交给<code>score</code>值。</li>
+<li>写相关图像相似度搜索APP。 （通过上诉步骤后，可以指定搜索阈值，并输入一张图片，计算当前图片相似度Hash值到Elasticsearch进行搜索，吧啦吧啦）</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/04/2016/使用国内yum源/" itemprop="url">
                   使用国内yum源
                 </a>
@@ -2443,141 +2572,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/08/2015/Hbase异常记录及其解决方案/" itemprop="url">
-                  Hbase异常记录及其解决方案
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-08T10:42:00+08:00" content="2015-04-08">
-              2015-04-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hbase/" itemprop="url" rel="index">
-                    <span itemprop="name">Hbase</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/04/08/2015/Hbase异常记录及其解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/08/2015/Hbase异常记录及其解决方案/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>记录我Hbase 使用的相关问题解决方案，持续更新</strong></p>
-<h2 id="java-net-ConnectException-Connection-refused"><a href="#java-net-ConnectException-Connection-refused" class="headerlink" title="java.net.ConnectException: Connection refused"></a>java.net.ConnectException: Connection refused</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)</span><br><span class="line">at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:739)</span><br><span class="line">at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)</span><br><span class="line">at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1075)</span><br><span class="line">15/04/08 10:42:26 WARN zookeeper.RecoverableZooKeeper: Possibly transient ZooKeeper exception: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /hbase/hbaseid</span><br><span class="line">15/04/08 10:42:26 INFO util.RetryCounter: Sleeping 2000ms before retry #1...</span><br><span class="line">15/04/08 10:42:27 INFO zookeeper.ClientCnxn: Opening socket connection to server localhost/127.0.0.1:2181. Will not attempt to authenticate using SASL (unknown error)</span><br><span class="line">15/04/08 10:42:27 WARN zookeeper.ClientCnxn: Session 0x0 for server null, unexpected error, closing socket connection and attempting reconnect</span><br><span class="line">java.net.ConnectException: Connection refused</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>hbase-site.xml 中没有配置<code>hbase.zookeeper.quorum</code></strong></p>
-<p>应用程序指定ZK地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conf.set(&quot;hbase.zookeeper.quorum&quot;, &quot;datanode01.hadoop&quot;);</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<h2 id="ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper"><a href="#ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper" class="headerlink" title="ConnectionException: An error is preventing HBase from connecting to ZooKeeper"></a>ConnectionException: An error is preventing HBase from connecting to ZooKeeper</h2></blockquote>
-<h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Thu Apr 23 17:38:19 CST 2015, org.apache.hadoop.hbase.client.ScannerCallable@60ac8067, org.apache.hadoop.hbase.ZooKeeperConnectionException: An error is preventing HBase from connecting to ZooKeeper</span><br><span class="line"></span><br><span class="line">        at org.apache.hadoop.hbase.client.AbstractClientScanner$1.hasNext(AbstractClientScanner.java:44)</span><br><span class="line">        at mapreduce.test1.md5ConvertID(test1.java:41)</span><br><span class="line">        at mapreduce.test1.main(test1.java:152)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:606)</span><br><span class="line">        at org.apache.hadoop.util.RunJar.main(RunJar.java:208)</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>检查相关程序，确保scanner开放</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ResultScanner scanner = table.getScanner(scan);</span><br><span class="line">使用scanner 获取数据的时候， Htable 已经关闭。</span><br></pre></td></tr></table></figure></p>
-<h2 id="Too-Many-fetch-failures-Failing-the-attempt"><a href="#Too-Many-fetch-failures-Failing-the-attempt" class="headerlink" title="Too Many fetch failures.Failing the attempt"></a>Too Many fetch failures.Failing the attempt</h2><h3 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong> 某一台服务器上的磁盘满了。 删除临时文件或无效数据。 或者增加磁盘</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2623,7 +2617,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2631,7 +2625,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

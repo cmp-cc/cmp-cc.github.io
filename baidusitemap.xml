@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://cmp-cc.github.io/2016/05/16/%E5%9B%BE%E7%89%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%90%9C%E7%B4%A2/</loc>
+    <lastmod>2016-05-17T07:43:14.375Z</lastmod>
+    <data>
+        <display>
+        <title>图片相似度搜索计算</title>
+        <pubTime>2016-05-15T16:00:00.000Z</pubTime>
+        
+        <tag>图像处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="ImageProcessing" url="http://cmp-cc.github.io/categories/ImageProcessing/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://cmp-cc.github.io/2013/07/12/Spring%20%E5%AE%9E%E4%BE%8B%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2016-05-17T02:08:46.632Z</lastmod>
     <data>
@@ -382,9 +402,9 @@
         <title>Python + OpenCV 环境配置</title>
         <pubTime>2016-04-26T11:12:00.000Z</pubTime>
         
-        <tag>Python</tag>
-         
         <tag>图像处理</tag>
+         
+        <tag>Python</tag>
          
          
            
@@ -747,6 +767,29 @@
     
     
   <url>
+    <loc>http://cmp-cc.github.io/2014/03/11/2014/Git%20%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8/</loc>
+    <lastmod>2015-12-14T09:50:00.000Z</lastmod>
+    <data>
+        <display>
+        <title>Git 遇到的异常</title>
+        <pubTime>2014-03-11T14:53:00.000Z</pubTime>
+        
+        <tag>Git</tag>
+         
+         
+           
+             
+              <breadCrumb title="Version Control" url="http://cmp-cc.github.io/categories/Version-Control/"/>
+          
+             
+              <breadCrumb title="Git" url="http://cmp-cc.github.io/categories/Version-Control/Git/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://cmp-cc.github.io/2014/11/07/2014/Linux%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/</loc>
     <lastmod>2015-12-14T09:50:00.000Z</lastmod>
     <data>
@@ -765,29 +808,6 @@
           
              
               <breadCrumb title="Linux" url="http://cmp-cc.github.io/categories/Operating-System/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://cmp-cc.github.io/2014/03/11/2014/Git%20%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8/</loc>
-    <lastmod>2015-12-14T09:50:00.000Z</lastmod>
-    <data>
-        <display>
-        <title>Git 遇到的异常</title>
-        <pubTime>2014-03-11T14:53:00.000Z</pubTime>
-        
-        <tag>Git</tag>
-         
-         
-           
-             
-              <breadCrumb title="Version Control" url="http://cmp-cc.github.io/categories/Version-Control/"/>
-          
-             
-              <breadCrumb title="Git" url="http://cmp-cc.github.io/categories/Version-Control/Git/"/>
           
         </display>
     </data>
