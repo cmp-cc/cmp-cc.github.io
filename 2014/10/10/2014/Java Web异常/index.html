@@ -60,21 +60,18 @@
 
 
 <meta name="description" content="记录一下Java Web 遇到的一些异常情况.
-
-org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时候发生123456789101112131415161718192021222324252627282930313233严重: ContainerBase.addChild: start: org.apache.catalina.L">
+org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时候发生123456789101112131415161718192021222324252627282930313233严重: ContainerBase.addChild: start: org.apache.catalina.Li">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Web异常">
-<meta property="og:url" content="http://cmp-cc.github.io/2014/10/10/Java Web异常/index.html">
+<meta property="og:url" content="http://cmp-cc.github.io/2014/10/10/2014/Java Web异常/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
 <meta property="og:description" content="记录一下Java Web 遇到的一些异常情况.
-
-org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时候发生123456789101112131415161718192021222324252627282930313233严重: ContainerBase.addChild: start: org.apache.catalina.L">
-<meta property="og:updated_time" content="2016-05-17T09:18:20.626Z">
+org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时候发生123456789101112131415161718192021222324252627282930313233严重: ContainerBase.addChild: start: org.apache.catalina.Li">
+<meta property="og:updated_time" content="2016-05-17T09:23:31.321Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Web异常">
 <meta name="twitter:description" content="记录一下Java Web 遇到的一些异常情况.
-
-org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时候发生123456789101112131415161718192021222324252627282930313233严重: ContainerBase.addChild: start: org.apache.catalina.L">
+org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时候发生123456789101112131415161718192021222324252627282930313233严重: ContainerBase.addChild: start: org.apache.catalina.Li">
 
 
 
@@ -274,8 +271,8 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/10/10/Java Web异常/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/10/Java Web异常/" itemprop="commentsCount"></span>
+                <a href="/2014/10/10/2014/Java Web异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/10/2014/Java Web异常/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -298,11 +295,11 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
 
       
         <p>记录一下Java Web 遇到的一些异常情况.</p>
-<ul>
-<li>org.apache.catalina.LifecycleException<h2 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h2><strong>使用Spring MVC 启动的时候发生</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">严重: ContainerBase.addChild: start: </span><br><span class="line">org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/upload2]]</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:154)</span><br><span class="line">	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:724)</span><br><span class="line">	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:700)</span><br><span class="line">	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:714)</span><br><span class="line">	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:581)</span><br><span class="line">	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1686)</span><br><span class="line">	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)</span><br><span class="line">	at java.util.concurrent.FutureTask.run(FutureTask.java:266)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:744)</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/springframework/web/context/request/async/CallableProcessingInterceptor</span><br><span class="line">	at java.lang.Class.getDeclaredFields0(Native Method)</span><br><span class="line">	at java.lang.Class.privateGetDeclaredFields(Class.java:2570)</span><br><span class="line">	at java.lang.Class.getDeclaredFields(Class.java:1903)</span><br><span class="line">	at org.apache.catalina.util.Introspection.getDeclaredFields(Introspection.java:106)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadFieldsAnnotation(WebAnnotationSet.java:258)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadApplicationServletAnnotations(WebAnnotationSet.java:137)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadApplicationAnnotations(WebAnnotationSet.java:65)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.applicationAnnotationsConfig(ContextConfig.java:331)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.configureStart(ContextConfig.java:770)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.lifecycleEvent(ContextConfig.java:302)</span><br><span class="line">	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:117)</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:90)</span><br><span class="line">	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5083)</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)</span><br><span class="line">	... 10 more</span><br><span class="line">Caused by: java.lang.ClassNotFoundException: org.springframework.web.context.request.async.CallableProcessingInterceptor</span><br><span class="line">	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1324)</span><br><span class="line">	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1177)</span><br><span class="line">	... 24 more</span><br></pre></td></tr></table></figure>
-</li>
+<h2 id="org-apache-catalina-LifecycleException"><a href="#org-apache-catalina-LifecycleException" class="headerlink" title="org.apache.catalina.LifecycleException"></a>org.apache.catalina.LifecycleException</h2><h3 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h3><p><strong>使用Spring MVC 启动的时候发生</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">严重: ContainerBase.addChild: start: </span><br><span class="line">org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/upload2]]</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:154)</span><br><span class="line">	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:724)</span><br><span class="line">	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:700)</span><br><span class="line">	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:714)</span><br><span class="line">	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:581)</span><br><span class="line">	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1686)</span><br><span class="line">	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)</span><br><span class="line">	at java.util.concurrent.FutureTask.run(FutureTask.java:266)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:744)</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/springframework/web/context/request/async/CallableProcessingInterceptor</span><br><span class="line">	at java.lang.Class.getDeclaredFields0(Native Method)</span><br><span class="line">	at java.lang.Class.privateGetDeclaredFields(Class.java:2570)</span><br><span class="line">	at java.lang.Class.getDeclaredFields(Class.java:1903)</span><br><span class="line">	at org.apache.catalina.util.Introspection.getDeclaredFields(Introspection.java:106)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadFieldsAnnotation(WebAnnotationSet.java:258)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadApplicationServletAnnotations(WebAnnotationSet.java:137)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadApplicationAnnotations(WebAnnotationSet.java:65)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.applicationAnnotationsConfig(ContextConfig.java:331)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.configureStart(ContextConfig.java:770)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.lifecycleEvent(ContextConfig.java:302)</span><br><span class="line">	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:117)</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:90)</span><br><span class="line">	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5083)</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)</span><br><span class="line">	... 10 more</span><br><span class="line">Caused by: java.lang.ClassNotFoundException: org.springframework.web.context.request.async.CallableProcessingInterceptor</span><br><span class="line">	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1324)</span><br><span class="line">	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1177)</span><br><span class="line">	... 24 more</span><br></pre></td></tr></table></figure></p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><ul>
+<li>引入<a href="http://mvnrepository.com/artifact/com.paypal.sdk/paypal-core" target="_blank" rel="external">PayPal Core</a> 到<code>WEB-INF\lib</code> 或Maven依赖。</li>
+<li>参考：<br><code>http://stackoverflow.com/questions/18404916/failed-to-start-component-standardenginecatalina-standardhostlocalhost-stan</code></li>
 </ul>
-<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><p>引入<code>PayPal Core</code> 到<code>WEB-INF\lib</code> 或Maven依赖。<code>http://mvnrepository.com/artifact/com.paypal.sdk/paypal-core</code><br>参考：<code>http://stackoverflow.com/questions/18404916/failed-to-start-component-standardenginecatalina-standardhostlocalhost-stan</code></p>
 
       
     </div>
@@ -362,8 +359,8 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2014/10/10/Java Web异常/"
-           data-title="Java Web异常" data-url="http://cmp-cc.github.io/2014/10/10/Java Web异常/">
+      <div class="ds-thread" data-thread-key="2014/10/10/2014/Java Web异常/"
+           data-title="Java Web异常" data-url="http://cmp-cc.github.io/2014/10/10/2014/Java Web异常/">
       </div>
     
   </div>
@@ -408,7 +405,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -416,7 +413,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -425,7 +422,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -476,7 +473,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常信息"><span class="nav-number">1.</span> <span class="nav-text">异常信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案："><span class="nav-number">1.1.</span> <span class="nav-text">解决方案：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#org-apache-catalina-LifecycleException"><span class="nav-number">1.</span> <span class="nav-text">org.apache.catalina.LifecycleException</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常信息"><span class="nav-number">1.1.</span> <span class="nav-text">异常信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案："><span class="nav-number">1.2.</span> <span class="nav-text">解决方案：</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

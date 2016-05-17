@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://cmp-cc.github.io/2014/10/10/Java%20Web%E5%BC%82%E5%B8%B8/</loc>
+    <loc>http://cmp-cc.github.io/2013/03/01/2013/Struts2%20Action/</loc>
     
-    <lastmod>2016-05-17T09:18:20.626Z</lastmod>
+    <lastmod>2016-05-17T09:42:48.611Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://cmp-cc.github.io/2013/02/20/2013/Struts2%20%E6%9D%82%E9%A1%B9/</loc>
+    
+    <lastmod>2016-05-17T09:38:37.642Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://cmp-cc.github.io/2014/10/10/2014/Java%20Web%E5%BC%82%E5%B8%B8/</loc>
+    
+    <lastmod>2016-05-17T09:23:31.321Z</lastmod>
     
   </url>
   
