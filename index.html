@@ -228,6 +228,126 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/17/2014/Java Web异常/" itemprop="url">
+                  Java Web异常
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-17T17:12:04+08:00" content="2016-05-17">
+              2016-05-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/17/2014/Java Web异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/17/2014/Java Web异常/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>记录一下Java Web 遇到的一些异常情况.</p>
+<ul>
+<li>org.apache.catalina.LifecycleException<h2 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h2><strong>使用Spring MVC 启动的时候发生</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">严重: ContainerBase.addChild: start: </span><br><span class="line">org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/upload2]]</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:154)</span><br><span class="line">	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:724)</span><br><span class="line">	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:700)</span><br><span class="line">	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:714)</span><br><span class="line">	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:581)</span><br><span class="line">	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1686)</span><br><span class="line">	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)</span><br><span class="line">	at java.util.concurrent.FutureTask.run(FutureTask.java:266)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:744)</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/springframework/web/context/request/async/CallableProcessingInterceptor</span><br><span class="line">	at java.lang.Class.getDeclaredFields0(Native Method)</span><br><span class="line">	at java.lang.Class.privateGetDeclaredFields(Class.java:2570)</span><br><span class="line">	at java.lang.Class.getDeclaredFields(Class.java:1903)</span><br><span class="line">	at org.apache.catalina.util.Introspection.getDeclaredFields(Introspection.java:106)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadFieldsAnnotation(WebAnnotationSet.java:258)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadApplicationServletAnnotations(WebAnnotationSet.java:137)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadApplicationAnnotations(WebAnnotationSet.java:65)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.applicationAnnotationsConfig(ContextConfig.java:331)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.configureStart(ContextConfig.java:770)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.lifecycleEvent(ContextConfig.java:302)</span><br><span class="line">	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:117)</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:90)</span><br><span class="line">	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5083)</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)</span><br><span class="line">	... 10 more</span><br><span class="line">Caused by: java.lang.ClassNotFoundException: org.springframework.web.context.request.async.CallableProcessingInterceptor</span><br><span class="line">	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1324)</span><br><span class="line">	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1177)</span><br><span class="line">	... 24 more</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><p>引入<code>PayPal Core</code> 到<code>WEB-INF\lib</code> 或Maven依赖。<code>http://mvnrepository.com/artifact/com.paypal.sdk/paypal-core</code><br>参考：<code>http://stackoverflow.com/questions/18404916/failed-to-start-component-standardenginecatalina-standardhostlocalhost-stan</code></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/16/图片相似度搜索/" itemprop="url">
                   图片相似度搜索计算
                 </a>
@@ -2441,137 +2561,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/22/2015/Hbase常规操作/" itemprop="url">
-                  Hbase常规操作
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-22T16:53:00+08:00" content="2015-04-22">
-              2015-04-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hbase/" itemprop="url" rel="index">
-                    <span itemprop="name">Hbase</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/04/22/2015/Hbase常规操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/22/2015/Hbase常规操作/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>记录Hbase 一些常规操作</strong></p>
-<h2 id="获取rowkey"><a href="#获取rowkey" class="headerlink" title="获取rowkey"></a>获取rowkey</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> String table_name = <span class="string">"avml_test"</span>;</span><br><span class="line">    Set&lt;String&gt; sampleSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    Configuration conf = HBaseConfiguration.create();</span><br><span class="line">    conf.set(<span class="string">"hbase.zookeeper.quorum"</span>, <span class="string">"datanode01.hadoop"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        HTable table = <span class="keyword">new</span> HTable(conf,table_name);</span><br><span class="line">        Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">        ResultScanner scanner1 =  table.getScanner(scan);</span><br><span class="line">        <span class="keyword">for</span>(Result res : scanner1)&#123;</span><br><span class="line">            <span class="keyword">for</span>(KeyValue kv : res.raw())&#123;</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">    rowkey 为一个md5 ，你需要做截取操作</span><br><span class="line">    \x00 01CCC0C34CD54B2C915237F3C848840A\x06resultavml_qq\x00\x00\x01L\xBB\x1A&#125;\xCA\x04</span><br><span class="line">        */</span></span><br><span class="line">            sampleSet.add(kv.getKeyString().split(<span class="string">" "</span>)[<span class="number">1</span>].substring(<span class="number">0</span>,<span class="number">32</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        table.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
-<p>也可以使用如下方法,获取真实rowkey</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static String getRealRowKey(KeyValue kv) &#123;  </span><br><span class="line">        int rowlength = Bytes.toShort(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET);  </span><br><span class="line">        String rowKey = Bytes.toStringBinary(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET + Bytes.SIZEOF_SHORT, rowlength);  </span><br><span class="line">        return rowKey;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>获取rowkey(这个代码是有问题的，没有修改)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ResultScanner <span class="title">readHbaseRowkey</span><span class="params">(Configuration conf,String tableName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    HTable table = <span class="keyword">new</span> HTable(conf, tableName);</span><br><span class="line">    Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">    KeyOnlyFilter rowKeyFilter = <span class="keyword">new</span> KeyOnlyFilter();</span><br><span class="line">    scan.setFilter(rowKeyFilter);</span><br><span class="line">    ResultScanner scanner = table.getScanner(scan);</span><br><span class="line">    <span class="comment">// 关闭table scanner 会失效的。 异常？</span></span><br><span class="line">    table.close();</span><br><span class="line">    <span class="keyword">return</span> scanner;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2617,7 +2606,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2634,7 +2623,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
