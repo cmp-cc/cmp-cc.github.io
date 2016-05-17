@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="软件工程," />
+  <meta name="keywords" content="Java Web," />
 
 
 
@@ -59,97 +59,25 @@
 
 
 
-<meta name="description" content="老是看到一些系统专有名词，还有部分不认识~ 很尴尬，总结一下，便于以后区分。
-
-
-
-缩写名称
-全称
-中文名称
-
-
-
-
-CMS
-Content Management System
-内容管理系统
-
-
-DRP
-Distribution Resource Planning
-分销资源计划
-
-
-OA
-Office Automation
-办公自动化
-
-
-CRM
-Customer Relationship Man">
+<meta name="description" content="需要部分前后端分离，首先要解决跨越问题，虽然可以使用jsoup，但无法解决ajax 文件上传问题（iframe方法是一个例外）。
+使用jsoup script 解决跨域问题有点….. 不爽
+参考：http://software.dzhuvinov.com/cors-filter.html 提供的解决方案
+如下演示如何使用core-filter来解决跨域问题， 不是在每一个action reqeus">
 <meta property="og:type" content="article">
-<meta property="og:title" content="常见系统缩写">
-<meta property="og:url" content="http://cmp-cc.github.io/2013/03/14/2013/常见系统缩写/index.html">
+<meta property="og:title" content="Java Web 跨域共享问题（core-filter）">
+<meta property="og:url" content="http://cmp-cc.github.io/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="老是看到一些系统专有名词，还有部分不认识~ 很尴尬，总结一下，便于以后区分。
-
-
-
-缩写名称
-全称
-中文名称
-
-
-
-
-CMS
-Content Management System
-内容管理系统
-
-
-DRP
-Distribution Resource Planning
-分销资源计划
-
-
-OA
-Office Automation
-办公自动化
-
-
-CRM
-Customer Relationship Man">
-<meta property="og:updated_time" content="2016-04-29T10:47:10.998Z">
+<meta property="og:description" content="需要部分前后端分离，首先要解决跨越问题，虽然可以使用jsoup，但无法解决ajax 文件上传问题（iframe方法是一个例外）。
+使用jsoup script 解决跨域问题有点….. 不爽
+参考：http://software.dzhuvinov.com/cors-filter.html 提供的解决方案
+如下演示如何使用core-filter来解决跨域问题， 不是在每一个action reqeus">
+<meta property="og:updated_time" content="2016-05-17T10:12:35.344Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="常见系统缩写">
-<meta name="twitter:description" content="老是看到一些系统专有名词，还有部分不认识~ 很尴尬，总结一下，便于以后区分。
-
-
-
-缩写名称
-全称
-中文名称
-
-
-
-
-CMS
-Content Management System
-内容管理系统
-
-
-DRP
-Distribution Resource Planning
-分销资源计划
-
-
-OA
-Office Automation
-办公自动化
-
-
-CRM
-Customer Relationship Man">
+<meta name="twitter:title" content="Java Web 跨域共享问题（core-filter）">
+<meta name="twitter:description" content="需要部分前后端分离，首先要解决跨越问题，虽然可以使用jsoup，但无法解决ajax 文件上传问题（iframe方法是一个例外）。
+使用jsoup script 解决跨域问题有点….. 不爽
+参考：http://software.dzhuvinov.com/cors-filter.html 提供的解决方案
+如下演示如何使用core-filter来解决跨域问题， 不是在每一个action reqeus">
 
 
 
@@ -167,7 +95,7 @@ Customer Relationship Man">
   };
 </script>
 
-  <title> 常见系统缩写 | I am cmp-cc </title>
+  <title> Java Web 跨域共享问题（core-filter） | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -307,7 +235,7 @@ Customer Relationship Man">
             
             
               
-                常见系统缩写
+                Java Web 跨域共享问题（core-filter）
               
             
           </h1>
@@ -319,8 +247,8 @@ Customer Relationship Man">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-03-14T17:53:00+08:00" content="2013-03-14">
-              2013-03-14
+            <time itemprop="dateCreated" datetime="2015-01-11T18:10:00+08:00" content="2015-01-11">
+              2015-01-11
             </time>
           </span>
 
@@ -333,8 +261,8 @@ Customer Relationship Man">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Software-Engineering/" itemprop="url" rel="index">
-                    <span itemprop="name">Software Engineering</span>
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
                   </a>
                 </span>
 
@@ -349,8 +277,8 @@ Customer Relationship Man">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2013/03/14/2013/常见系统缩写/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/14/2013/常见系统缩写/" itemprop="commentsCount"></span>
+                <a href="/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/11/2015/Java Web 跨域共享问题（core-filter）/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -372,114 +300,19 @@ Customer Relationship Man">
       
 
       
-        <p>老是看到一些系统专有名词，还有部分不认识~ 很尴尬，总结一下，便于以后区分。</p>
-<table>
-<thead>
-<tr>
-<th>缩写名称</th>
-<th>全称</th>
-<th>中文名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CMS</td>
-<td>Content Management System</td>
-<td>内容管理系统</td>
-</tr>
-<tr>
-<td>DRP</td>
-<td>Distribution Resource Planning</td>
-<td>分销资源计划</td>
-</tr>
-<tr>
-<td>OA</td>
-<td>Office Automation</td>
-<td>办公自动化</td>
-</tr>
-<tr>
-<td>CRM</td>
-<td>Customer Relationship Management</td>
-<td>客户关系管理系统</td>
-</tr>
-<tr>
-<td>ERP</td>
-<td>Enterprise Resource Planning</td>
-<td>企业资源计划</td>
-</tr>
-<tr>
-<td>EAM</td>
-<td>Enterprise Asset Management</td>
-<td>企业资产管理</td>
-</tr>
-<tr>
-<td>PLM</td>
-<td>Product Lift Cycle management</td>
-<td>产品生命周期管理</td>
-</tr>
-<tr>
-<td>PDM</td>
-<td>Product Data Management</td>
-<td>产品数据管理</td>
-</tr>
-<tr>
-<td>HRS</td>
-<td>Human Resource Suite</td>
-<td>人力资源平台</td>
-</tr>
-<tr>
-<td>KM</td>
-<td>Knowledge Management</td>
-<td>知识管理</td>
-</tr>
-<tr>
-<td>MES</td>
-<td>Manufacturing Execution System</td>
-<td>制造执行系统</td>
-</tr>
-<tr>
-<td>SCM</td>
-<td>Supply Chain Management</td>
-<td>供应链管理</td>
-</tr>
-<tr>
-<td>BPM</td>
-<td>Business Process Management</td>
-<td>业务流程管理</td>
-</tr>
-<tr>
-<td>BI</td>
-<td>Business Intelligence</td>
-<td>商业智能</td>
-</tr>
-<tr>
-<td>MDM</td>
-<td>Mobile Device Management</td>
-<td>移动设备管理</td>
-</tr>
-<tr>
-<td>MIS</td>
-<td>Management Information System</td>
-<td>管理信息系统</td>
-</tr>
-<tr>
-<td>DSS</td>
-<td>Decision Support System</td>
-<td>决策支持系统</td>
-</tr>
-<tr>
-<td>GIS</td>
-<td>Geographic Information System</td>
-<td>地理信息系统</td>
-</tr>
-<tr>
-<td>SOA</td>
-<td>Service-Oriented Architecture</td>
-<td>面向服务的体系结构 </td>
-</tr>
-</tbody>
-</table>
-<p><strong>SOA并不属于系统，而是一种架构设计</strong></p>
+        <p>需要部分前后端分离，首先要解决跨越问题，虽然可以使用<code>jsoup</code>，但无法解决ajax 文件上传问题（iframe方法是一个例外）。</p>
+<p><strong>使用<code>jsoup script</code> 解决跨域问题有点….. 不爽</strong></p>
+<p>参考：<a href="http://software.dzhuvinov.com/cors-filter.html" target="_blank" rel="external">http://software.dzhuvinov.com/cors-filter.html</a> 提供的解决方案</p>
+<p><strong>如下演示如何使用<code>core-filter</code>来解决跨域问题， 不是在每一个<code>action reqeust</code> 设置允许跨域</strong></p>
+<h2 id="Maven-引入依赖"><a href="#Maven-引入依赖" class="headerlink" title="Maven 引入依赖"></a>Maven 引入依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;cors-filter&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;java-property-utils&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="添加Cores-配置到web-xml"><a href="#添加Cores-配置到web-xml" class="headerlink" title="添加Cores 配置到web.xml"></a>添加Cores 配置到web.xml</h2><p>XML 声明CORS过滤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br></pre></td></tr></table></figure></p>
+<p>或者使用变种的CORS过滤器，它可以自动检测更改配置文件，并重新配置CORS过滤器，声明如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;com.thetransactioncompany.cors.autoreconf.AutoReconfigurableCORSFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br></pre></td></tr></table></figure></p>
+<p>声明过滤器Mapper ，说明哪些URL启动跨越请求( cross-domain-request ),如下 作用于所有URL:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：默认情况是CORS Filter采用public access的跨源资源共享策略，允许通过包括用户凭据/cookies在内安全机制的全部跨站请求。这一默认配置其实适用于大多数情况，因为CORS本来就不是以增强服务端安全性为主要目标的；CORS的基本意向是保护浏览器端的数据安全，即保护浏览器上合法运行的JavaScript应用及其用户凭据信息例如cookies数据不会泄露。</p>
+</blockquote>
+<h2 id="web-xml-完整实例"><a href="#web-xml-完整实例" class="headerlink" title="web,xml 完整实例"></a>web,xml 完整实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;</span><br><span class="line">         version=&quot;2.4&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;CORS demo&lt;/display-name&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;description&gt;Simple CORS demo&lt;/description&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;servlet&gt;</span><br><span class="line">		&lt;!-- Some servlet --&gt;</span><br><span class="line">		&lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">		&lt;servlet-class&gt;com.thetransactioncompany.cors.demo.HelloWorldServlet&lt;/servlet-class&gt;</span><br><span class="line">	&lt;/servlet&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;servlet-mapping&gt;</span><br><span class="line">		&lt;!-- Some servlet mapping --&gt;</span><br><span class="line">		&lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/cors-resource.html&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/servlet-mapping&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;filter&gt;</span><br><span class="line">		&lt;!-- The CORS filter with parameters --&gt;</span><br><span class="line">		&lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">		&lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- Note: All parameters are options, if omitted the CORS </span><br><span class="line">		     Filter will fall back to the respective default values.</span><br><span class="line">		  --&gt;</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowGenericHttpRequests&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowOrigin&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;*&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowSubdomains&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;false&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportedMethods&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;GET, HEAD, POST, OPTIONS&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportedHeaders&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;*&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.exposedHeaders&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;X-Test-1, X-Test-2&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportsCredentials&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.maxAge&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;3600&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/filter&gt;</span><br><span class="line"></span><br><span class="line">	&lt;filter-mapping&gt;</span><br><span class="line">		&lt;!-- CORS Filter mapping --&gt;</span><br><span class="line">		&lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/cors-resource.html&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/filter-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+<p>参考：<br><a href="http://www.2cto.com/kf/201604/503408.html" target="_blank" rel="external">http://www.2cto.com/kf/201604/503408.html</a></p>
 
       
     </div>
@@ -494,7 +327,7 @@ Customer Relationship Man">
       
         <div class="post-tags">
           
-            <a href="/tags/软件工程/" rel="tag">#软件工程</a>
+            <a href="/tags/Java-Web/" rel="tag">#Java Web</a>
           
         </div>
       
@@ -503,16 +336,16 @@ Customer Relationship Man">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/03/05/2013/JSPServlet3.0总结/" rel="next" title="JSP/Servlet3.0总结">
-                <i class="fa fa-chevron-left"></i> JSP/Servlet3.0总结
+              <a href="/2014/12/28/2014/Hadoop 日常实战 文件压缩/" rel="next" title="Hadoop 日常实战 文件压缩">
+                <i class="fa fa-chevron-left"></i> Hadoop 日常实战 文件压缩
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/05/17/2013/Mysql 异常及其解决方案/" rel="prev" title="Mysql 异常及其解决方案">
-                Mysql 异常及其解决方案 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/04/08/2015/Hbase异常记录及其解决方案/" rel="prev" title="Hbase异常记录及其解决方案">
+                Hbase异常记录及其解决方案 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -539,8 +372,8 @@ Customer Relationship Man">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2013/03/14/2013/常见系统缩写/"
-           data-title="常见系统缩写" data-url="http://cmp-cc.github.io/2013/03/14/2013/常见系统缩写/">
+      <div class="ds-thread" data-thread-key="2015/01/11/2015/Java Web 跨域共享问题（core-filter）/"
+           data-title="Java Web 跨域共享问题（core-filter）" data-url="http://cmp-cc.github.io/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/">
       </div>
     
   </div>
@@ -653,7 +486,7 @@ Customer Relationship Man">
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven-引入依赖"><span class="nav-number">1.</span> <span class="nav-text">Maven 引入依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Cores-配置到web-xml"><span class="nav-number">2.</span> <span class="nav-text">添加Cores 配置到web.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-xml-完整实例"><span class="nav-number">3.</span> <span class="nav-text">web,xml 完整实例</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
