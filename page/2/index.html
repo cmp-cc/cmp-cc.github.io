@@ -228,137 +228,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/04/22/2015/Hbase常规操作/" itemprop="url">
-                  Hbase常规操作
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-22T16:53:00+08:00" content="2015-04-22">
-              2015-04-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hbase/" itemprop="url" rel="index">
-                    <span itemprop="name">Hbase</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/04/22/2015/Hbase常规操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/22/2015/Hbase常规操作/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>记录Hbase 一些常规操作</strong></p>
-<h2 id="获取rowkey"><a href="#获取rowkey" class="headerlink" title="获取rowkey"></a>获取rowkey</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> String table_name = <span class="string">"avml_test"</span>;</span><br><span class="line">    Set&lt;String&gt; sampleSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    Configuration conf = HBaseConfiguration.create();</span><br><span class="line">    conf.set(<span class="string">"hbase.zookeeper.quorum"</span>, <span class="string">"datanode01.hadoop"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        HTable table = <span class="keyword">new</span> HTable(conf,table_name);</span><br><span class="line">        Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">        ResultScanner scanner1 =  table.getScanner(scan);</span><br><span class="line">        <span class="keyword">for</span>(Result res : scanner1)&#123;</span><br><span class="line">            <span class="keyword">for</span>(KeyValue kv : res.raw())&#123;</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">    rowkey 为一个md5 ，你需要做截取操作</span><br><span class="line">    \x00 01CCC0C34CD54B2C915237F3C848840A\x06resultavml_qq\x00\x00\x01L\xBB\x1A&#125;\xCA\x04</span><br><span class="line">        */</span></span><br><span class="line">            sampleSet.add(kv.getKeyString().split(<span class="string">" "</span>)[<span class="number">1</span>].substring(<span class="number">0</span>,<span class="number">32</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        table.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
-<p>也可以使用如下方法,获取真实rowkey</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static String getRealRowKey(KeyValue kv) &#123;  </span><br><span class="line">        int rowlength = Bytes.toShort(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET);  </span><br><span class="line">        String rowKey = Bytes.toStringBinary(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET + Bytes.SIZEOF_SHORT, rowlength);  </span><br><span class="line">        return rowKey;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>获取rowkey(这个代码是有问题的，没有修改)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ResultScanner <span class="title">readHbaseRowkey</span><span class="params">(Configuration conf,String tableName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    HTable table = <span class="keyword">new</span> HTable(conf, tableName);</span><br><span class="line">    Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">    KeyOnlyFilter rowKeyFilter = <span class="keyword">new</span> KeyOnlyFilter();</span><br><span class="line">    scan.setFilter(rowKeyFilter);</span><br><span class="line">    ResultScanner scanner = table.getScanner(scan);</span><br><span class="line">    <span class="comment">// 关闭table scanner 会失效的。 异常？</span></span><br><span class="line">    table.close();</span><br><span class="line">    <span class="keyword">return</span> scanner;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/04/08/2015/Hbase异常记录及其解决方案/" itemprop="url">
                   Hbase异常记录及其解决方案
                 </a>
@@ -2017,6 +1886,367 @@
             
               
                 
+                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Generator/" itemprop="url">
+                  MyBatis Generator
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-05-11T22:53:00+08:00" content="2014-05-11">
+              2014-05-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/MyBatis/" itemprop="url" rel="index">
+                    <span itemprop="name">MyBatis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/05/11/2014/MyBatis Generator/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Generator/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MyBatis 也提供了一些工具如 MyBatis Generator(<a href="http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库" target="_blank" rel="external">http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库</a> schema 中，产生持久化代码如数据库实体（database entities）,映射器 Mapper 接口，MapperXML 配置文件。</p>
+<h2 id="MyBatis-Generator-介绍"><a href="#MyBatis-Generator-介绍" class="headerlink" title="MyBatis Generator 介绍"></a>MyBatis Generator 介绍</h2><ul>
+<li>MyBatis Generator (MBG) 是一个Mybatis的代码生成器</li>
+<li>它可以将数据库表生成基础对象。(不再需要手工创建对象和配置文件)</li>
+<li>MBG 能够创建简单的CDUR(增删改查)。（仍然需要手写SQL和对象，用于级联查询和存储过程）</li>
+</ul>
+<hr>
+<p>MyBatis 生成如下：</p>
+<ul>
+<li>匹配表结构的Java POJO 对象， 可能包括<ul>
+<li>一个和表主键匹配的类（如果存在主键）</li>
+<li>一个包含了非主键字段的类（BLOB字段除外）</li>
+<li>一个包含BLOB字段的类（如果表包含了BLOB字段）</li>
+<li>一个允许动态查询、更新和删除的类<br>这些类之间会有适当的继承关系。 可以配置生成器来生成不同类型的 POJO 的层次结构。 例如，您可能会选择针对每个表生成一个单独的实体对象。</li>
+</ul>
+</li>
+<li>MBG在配置中为每个表简单的生成 CRUD SQL 操作。生成的SQL 语句包括：<ul>
+<li>insert (插入)</li>
+<li>update by primary key (根据主键更新记录)</li>
+<li>update by example (根据条件更新记录)</li>
+<li>delete by primary key (根据主键删除记录)</li>
+<li>delete by example (根据条件删除记录)</li>
+<li>select by primary key (根据主键查询记录)</li>
+<li>select by example (根据条件查询记录集)</li>
+<li>count by example (根据条件查询记录总数)<br>根据表的结构，生成的这些语句会有不同的变化（例如，如果表中没有主键，那么 MBG 将不会生成update by primary key方法）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>注意<ul>
+<li>MBG 会自动合并重名XML文件（是合并，保留修改），从而可以反复运行，而不必担心修改丢失。</li>
+<li>MBG 不会合并Java文件，它可以覆盖或保留不同命名的文件。Eclipse插件时，MBG自动合并Java文件。</li>
+</ul>
+</li>
+</ul>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><p>快速使用MBG步骤如下：</p>
+<ul>
+<li>1、创建并填写适当的配置文件，必须包含如下：(查看 XML配置参考)<ul>
+<li><code>&lt;jdbcConnection&gt;</code> 元素定义如何连接目标数据库</li>
+<li><code>&lt;javaModelGenerator&gt;</code> 元素来指定生成 Java 模型对象所属的包</li>
+<li><code>&lt;sqlMapGenerator&gt;</code> 元素来指定生成 SQL 映射文件所属的包和的目标项目</li>
+<li>(可选) <code>&lt;javaClientGenerator&gt;</code> 元素来指定目标包和目标项目生成的客户端接口和类（如果您不想生成 Java 客户端代码您可以省略<code>&lt;javaClientGenerator&gt;</code>元素）</li>
+<li>至少一个数据库<code>&lt;table&gt;</code>元素</li>
+</ul>
+</li>
+<li>2、将文件保存适当的位置（例如：<code>\temp\generatorConfig.xml</code>）</li>
+<li><p>3、执行如下命令运行MBG:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile \temp\generatorConfig.xml -overwrite</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>MBG使用配置文件运行，<code>-overwrite</code> 表示覆盖同名Java文件。如果有冲突，MBG会生成一个唯一的文件。（e.g MyClass.java）</p>
+</blockquote>
+</li>
+<li>4、MBG运行后，你需要创建或修改标准的MyBatis配置文件来使用新生成的代码。</li>
+</ul>
+<h2 id="XML配置参考"><a href="#XML配置参考" class="headerlink" title="XML配置参考"></a>XML配置参考</h2><h3 id="MyBatis-Generator-XML-配置参考"><a href="#MyBatis-Generator-XML-配置参考" class="headerlink" title="MyBatis Generator XML 配置参考"></a>MyBatis Generator XML 配置参考</h3><p>如下是MBG的一个XML配置文件驱动。配置文件告诉MBG：</p>
+<ul>
+<li>如何链接到数据库</li>
+<li>生成什么对象，及其如何生成</li>
+<li>哪些表生成对象</li>
+</ul>
+<p><strong>如下是MBG配置文件实例。你应当查阅每一个元素说明</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line"></span><br><span class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</span><br><span class="line">        userId=&quot;db2admin&quot;</span><br><span class="line">        password=&quot;db2admin&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</span><br><span class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="MBG-XML-元素说明"><a href="#MBG-XML-元素说明" class="headerlink" title="MBG XML 元素说明"></a>MBG XML 元素说明</h3><p>查看官方元素说明：<a href="http://www.mybatis.org/generator/configreference/xmlconfig.html" target="_blank" rel="external">http://www.mybatis.org/generator/configreference/xmlconfig.html</a></p>
+<h2 id="通过Maven-plugin-运行MBG"><a href="#通过Maven-plugin-运行MBG" class="headerlink" title="通过Maven plugin 运行MBG"></a>通过Maven plugin 运行MBG</h2><p>运行MBG 可以使用<code>命令提示符</code>、<code>Ant任务</code>、<code>Maven Plugin</code>、<code>Java程序</code>。 这里介绍Maven 形式。</p>
+<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    ...</span><br><span class="line">  &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>MBG插件将会绑定到Maven生命周期的 <code>generate-sources</code> 阶段。 所以他会在编译步骤之前执行。 此外注意MBG目标将绑定生成Java和XML资源文件的建立，他们都将包括在生成的JAR包内。</p>
+</blockquote>
+<ul>
+<li><p>通过如下命令执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn mybatis-generator:generate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>或则 标准的Maven命令属性传递参数执行 (这条命令会是使MBG覆盖重名的文件)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="MBG-参考参数"><a href="#MBG-参考参数" class="headerlink" title="MBG 参考参数"></a>MBG 参考参数</h3><p>如下简单参考参数实例（大多数情况下为默认设置）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">            &lt;configurationFile&gt;src/main/resources/generatorConfig.xml&lt;/configurationFile&gt;</span><br><span class="line">            &lt;sqlScript&gt;classpath:mbg/test/common/scripts/CreateDB.sql&lt;/sqlScript&gt;</span><br><span class="line">            &lt;jdbcDriver&gt;org.hsqldb.jdbcDriver&lt;/jdbcDriver&gt;</span><br><span class="line">            &lt;jdbcURL&gt;jdbc:hsqldb:mem:aname&lt;/jdbcURL&gt;</span><br><span class="line">            &lt;jdbcUserId&gt;sa&lt;/jdbcUserId&gt;</span><br><span class="line">            &lt;verbose&gt;true&lt;/verbose&gt;</span><br><span class="line">            &lt;overwrite&gt;true&lt;/overwrite&gt;</span><br><span class="line">             ....</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如下是参考参数，均为可选，部分默认。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>configurationFile</td>
+<td>File</td>
+<td>指定配置文件的名称。默认值：<code>${basedir}/src/main/resources/generatorConfig.xml</code></td>
+</tr>
+<tr>
+<td>contexts</td>
+<td>String</td>
+<td>如果指定了该参数，使用逗号隔开<code>context</code>会被执行。 这些指定的<code>context</code>必须和配置文件中 <code>&lt;context&gt;</code> 元素的 <code>id</code> 属性一致。只有指定的这些<code>contextid</code>会被激活执行。如果没有指定该参数，所有的<code>context</code>都会被激活执行。</td>
+</tr>
+<tr>
+<td>jdbcDriver</td>
+<td>String</td>
+<td>如果您指定了 sqlScript 参数, 当连接数据库时这里的值是JDBC驱动类的权限定名称。</td>
+</tr>
+<tr>
+<td>jdbcPassword</td>
+<td>String</td>
+<td>如果您指定了 <code>sqlScript</code> 参数, 这是连接数据库的密码。</td>
+</tr>
+<tr>
+<td>jdbcURL</td>
+<td>String</td>
+<td>如果您指定了 <code>sqlScript</code> 参数, 这是连接数据库的<code>JDBC URL</code></td>
+</tr>
+<tr>
+<td>jdbcUserId</td>
+<td>String</td>
+<td>如果您指定了 <code>sqlScript</code> 参数, 这里是连接数据库的用户<code>id</code></td>
+</tr>
+<tr>
+<td>outputDirectory</td>
+<td>File</td>
+<td>将放置 MBG 所生成文件的目录。 这个目录是用于当<code>targetProject</code> 在配置文件中设置特殊值的”MAVEN”时使用(大小写敏感)。 默认值: <code>${project.build.directory}/generated-sources/mybatis-generator</code></td>
+</tr>
+<tr>
+<td>overwrite</td>
+<td>boolean</td>
+<td>如果为<code>true</code>，新生成的Java文件会覆盖原有的文件。 如果没有指定该参数，存在同名的文件，MBG会给新生成的代码文件生成一个唯一的名字(例如： MyClass.java.1, MyClass.java.2 等等)。 <strong>重要: 生成器一定会自动合并或覆盖已经生成的XML文件。</strong> 默认值: <code>false</code></td>
+</tr>
+<tr>
+<td>sqlScript</td>
+<td>String</td>
+<td>要在生成代码之前运行的 SQL 脚本文件的位置。 如果为空，不会执行任何脚本。 如果不为空，<code>jdbcDriver</code>, <code>jdbcURL</code> 参数必须提供。 另外如果连接数据库需要认证也需要提供<code>jdbcUserId</code> 和 <code>jdbcPassword</code> 参数。 值可以使一个文件系统的绝对路径或者是一个使用<code>&quot;classpath:&quot;</code>开头放在构建的类路径下的路径。</td>
+</tr>
+<tr>
+<td>tableNames</td>
+<td>String</td>
+<td>如果指定了该参数，逗号隔开的这个表会被运行， 这些表名必须和<code>&lt;table&gt;</code> 配置中的表面完全一致。只有指定的这些表会被执行。 如果没有指定该参数，所有的表都会被执行。按如下方式指定表明:  table 、schema.table 、catalog..table 等等。</td>
+</tr>
+<tr>
+<td>verbose</td>
+<td>boolean</td>
+<td>如果指定该参数，执行过程会输出到控制台。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用生成的对象"><a href="#使用生成的对象" class="headerlink" title="使用生成的对象"></a>使用生成的对象</h2><p>MBG生成如下类型的对象：</p>
+<ul>
+<li>Java 模型对象</li>
+<li>SQL映射文件（可选）</li>
+<li>一个xxxByExample方法的使用类。</li>
+</ul>
+<h3 id="Java-模型对象"><a href="#Java-模型对象" class="headerlink" title="Java 模型对象"></a>Java 模型对象</h3><ul>
+<li>MBG 根据数据库表字段生成Java POJO 对象。（根据表特性和配置生成不同类型的实体对象）</li>
+<li>如果不使用Eclipse插件，需要手工合并修改后生成的Java对象</li>
+<li>任何字段配置<code>&lt;ignoreColumn&gt;</code>,自动生成时不会添加到Java对象中</li>
+</ul>
+<h4 id="主键类"><a href="#主键类" class="headerlink" title="主键类"></a>主键类</h4><ul>
+<li>表中包含一个主键的字段属性,根据表的列名自动生成属性名称。可配置<code>&lt;columnOverride&gt;</code>属性覆盖。</li>
+<li>类名默认是<code>&lt;TableName&gt;Key</code>,如果<code>&lt;table&gt;</code>元素配置domainObjectName属性，那么类名是<code>&lt;domainObjectName&gt;Key</code></li>
+<li>This class will be generated in the hierarchical model if the table has a primary key. This class will be generated in the conditional model if the table has more then one column in the primary key. This class will not be generated in the flat model.</li>
+</ul>
+<h4 id="记录类"><a href="#记录类" class="headerlink" title="记录类"></a>记录类</h4><ul>
+<li>表中不包含主键、BLOB字段属性.如果这个类集成了主键类，MBG会根据表的列名自动生成属性名称。可通过<code>columnOverride</code>属性覆盖属性名称。</li>
+<li>类名默认是<code>&lt;TableName&gt;</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性，类名为<code>&lt;domainObjectName&gt;</code></li>
+<li>This class will be generated in the hierarchical model if the table has non-BLOB and non-primary key columns. This class will be generated in the conditional model if the table has non-BLOB and non-primary key columns, or if there is only one primary key column or one BLOB column. This class is always generated in the flat model.</li>
+</ul>
+<h4 id="BLOB-记录类"><a href="#BLOB-记录类" class="headerlink" title="BLOB 记录类"></a>BLOB 记录类</h4><ul>
+<li>表中包含BLOB字段属性，如果表中只存在一个字段，该类将继承基础类，或将继承主键类。（注意：MBG 不支持表中只包含BLBO列）MBG 根据表列名自动生成属性名称，可以配置<code>&lt;columnOverride&gt;</code>属性覆盖</li>
+<li>BLOB 记录类调用<code>selectByPrimaryKey</code>或<code>selectByExampleWithBLOBs</code>方法返回BLOB字段值.</li>
+<li>类名默认是<code>&lt;TableName&gt;WithBLOBs</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性那么类名是<code>&lt;domainObjectName&gt;WithBLOBs</code>.</li>
+<li>如果表中存在一个BLOB列将生成<code>hierarchical 模式</code>实体对象，如果表中存在多个BLOB列将生成<code>conditional 模式</code>实体对象。 BLOB记录类不会生<code>flat 模式</code> 实体对象</li>
+</ul>
+<h4 id="Example-类"><a href="#Example-类" class="headerlink" title="Example 类"></a>Example 类</h4><ul>
+<li>Example类用来处理MBG动态查询功能. 下列条件方法用于动态生成WHERE子句:<ul>
+<li>selectByExample</li>
+<li>selectByExampleWithBLOBs</li>
+<li>deleteByExample</li>
+<li>countByExample</li>
+<li>updateByExample</li>
+</ul>
+</li>
+<li>Example类不继承任何实体对象</li>
+<li>类名默认是<code>&lt;TableName&gt;Example</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性那么类名是<code>&lt;domainObjectName&gt;Example</code>.</li>
+<li>如果方法被启动Example类将生成任何*ByExample方法.注意:如果表中有非常多的字段该类可能很大,但 DAO生成的XML是比较小的. 如果您不需要使用动态WHERE子句,您可以禁用生成这些方法.</li>
+</ul>
+<h3 id="SQL-映射文件"><a href="#SQL-映射文件" class="headerlink" title="SQL 映射文件"></a>SQL 映射文件</h3><ul>
+<li>MBG生成SQL映射文件遵循 MyBatis和IBatis DTD规范。</li>
+<li>MBG按照配置表生成SQL映射文件，在表的基础上还包含了不同的标签和属性配置。</li>
+<li>表名就是SQL映射文件的命名控制。（前提是数据库支持schema 和 catalog）</li>
+<li>你需要手工将生成<code>xxxMapper.xml</code> 加入到<code>mybatis-conf.xml</code>文件。 或者使用Spring的自动扫描。（注入）</li>
+</ul>
+<h4 id="结果集-Result-Map"><a href="#结果集-Result-Map" class="headerlink" title="结果集(Result Map)"></a>结果集(Result Map)</h4><ul>
+<li>resultMap元素（结果集对象）用于数据库表列映射Java对象的属性，不包括如下情况：<ul>
+<li>任何列配置<code>&lt;ignoreColumn&gt;</code>属性将被会被忽略</li>
+<li>任何BLOB字段</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>配置<code>&lt;columnOverride&gt;</code>属性覆盖默认的属性和JDBC类型</li>
+<li>对与自定义连接查询结果集<strong>继承一个结果集</strong>是一种常见的用法。对于其他连接查询也想使用（继承）该结果集。在MBG自动生成的时候需要配置前缀.详见<code>&lt;table&gt;</code>元素<code>alias</code>配置前缀，这样可以区分表中相同字段</li>
+<li>如果<code>table</code>存在BLOB字段且配置了<code>enableSelectByExample</code>、<code>enableSelectByPrimaryKey</code>属性,MBG会生成BLOB结果集,table默认这两个配置都是true所以大部分情况下都会生成resultMap.</li>
+</ul>
+<h4 id="Where条件SQL语句"><a href="#Where条件SQL语句" class="headerlink" title="Where条件SQL语句"></a>Where条件SQL语句</h4><ul>
+<li><p>This element contains a reusable where clause that is used by the “by example” methods. The where clause will not include any BLOB fields if they exist in the table. Most databases do not support BLOB fields in the WHERE clause.</p>
+</li>
+<li><p>This element will be generated if any of the “by example” statements are enabled.</p>
+</li>
+</ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>略，请参考官方文档。 官方文档这一部分写的也太烂了。</p>
+<h3 id="Java-客户端对象"><a href="#Java-客户端对象" class="headerlink" title="Java 客户端对象"></a>Java 客户端对象</h3><ul>
+<li>MBG 生成几种类型的Java客户端对象，使得Java的客户端对象更容易与生成的XML进行交互</li>
+<li>生成Java客户端对象是可选的。通过配置<code>&lt;javaClientGenerator&gt;</code> MyBatis 3 生成Java客户端对象类型：<ul>
+<li>XMLMAPPER 与 支持MyBatis3.x的映射</li>
+</ul>
+</li>
+</ul>
+<h4 id="通用DAO方法"><a href="#通用DAO方法" class="headerlink" title="通用DAO方法"></a>通用DAO方法</h4><p>根据表的特性，以及配置选项，Java客户端自动生成如下方法：</p>
+<ul>
+<li>countByExample</li>
+<li>deleteByPrimaryKey</li>
+<li>deleteByExample</li>
+<li>insert</li>
+<li>insertSelective</li>
+<li>selectByPrimaryKey</li>
+<li>selectByExample</li>
+<li>selectByExampleWithBLOBs</li>
+<li>updateByPrimaryKey (否更新BLOB字段需要重写方法)</li>
+<li>updateByPrimaryKeySelective (只更新参数类非空字段)</li>
+<li>updateByExample (否更新BLOB字段需要重写方法)</li>
+<li>updateByExampleSelective (只更新参数类非空字段)</li>
+</ul>
+<p>对于包含BLOB的表,MBG通过生成不同的对象和方法使您更容易使用BLOB字段,是否忽略它们,这取决于具体情况.</p>
+<h4 id="XMLMAPPER-客户端"><a href="#XMLMAPPER-客户端" class="headerlink" title="XMLMAPPER 客户端"></a>XMLMAPPER 客户端</h4><p>XMLMAPPER客户端是将接口方法映射到生成的XML映射文件中.例如,MBG自动生成的接口名为<code>MyTableMapper.</code>您可以如下使用该接口:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  MyTableMapper mapper = sqlSession.getMapper(MyTableMapper.class);</span><br><span class="line">  List&lt;MyTable&gt; allRecords = mapper.selectByExample(null);</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Example-用法"><a href="#Example-用法" class="headerlink" title="Example 用法"></a>Example 用法</h4><p>略，实际项目中很少用。 一般不会生成Example 对象。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/05/11/2014/MyBatis Boostrap/" itemprop="url">
                   MyBatis Generator
                 </a>
@@ -2402,7 +2632,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
