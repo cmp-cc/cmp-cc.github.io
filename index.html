@@ -228,6 +228,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/18/2016/Jython 异常及其解决方案/" itemprop="url">
+                  Jython 异常及其解决方案
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-18T17:26:00+08:00" content="2016-05-18">
+              2016-05-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Jython/" itemprop="url" rel="index">
+                    <span itemprop="name">Jython</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/18/2016/Jython 异常及其解决方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/18/2016/Jython 异常及其解决方案/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Jython 确实很少玩，也记录一下异常信息和解决方案把,如果以后有涉及，持续更新。</p>
+<h2 id="cp0"><a href="#cp0" class="headerlink" title="cp0"></a>cp0</h2><h3 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console: Failed to install &apos;&apos;: java.nio.charset.UnsupportedCharsetException: cp0.</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">eclipse.ini 设置 -Dpython.console.encoding=UTF-8</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">Window -&gt; Preferences -&gt; Java -&gt; installed JRES -&gt; Edit 设置如下：</span><br><span class="line">Default VM arguments: -Dpython.console.encoding=UTF-8</span><br></pre></td></tr></table></figure>
+<img src="/2016/05/18/2016/Jython%20异常及其解决方案/6c1429b8-0e58-4c24-b2c4-58e63a4b771e.png" alt="JVM 设置" title="JVM 设置">
+<h2 id="No-module-named-site"><a href="#No-module-named-site" class="headerlink" title="No module named site"></a>No module named site</h2><h3 id="异常信息-1"><a href="#异常信息-1" class="headerlink" title="异常信息"></a>异常信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ImportError: Cannot import site module and its dependencies: No module named site</span><br><span class="line">Determine if the following attributes are correct:</span><br><span class="line">  * sys.path: [&apos;C:\\Users\\root\\.m2\\repository\\org\\python\\jython\\2.7.0\\Lib&apos;, &apos;__classpath__&apos;, &apos;__pyclasspath__/&apos;]</span><br><span class="line">    This attribute might be including the wrong directories, such as from CPython</span><br><span class="line">  * sys.prefix: C:\Users\root\.m2\repository\org\python\jython\2.7.0</span><br><span class="line">    This attribute is set by the system property python.home, although it can</span><br><span class="line">    be often automatically determined by the location of the Jython jar file</span><br><span class="line"></span><br><span class="line">You can use the -S option or python.import.site=false to not import the site module</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static &#123;</span><br><span class="line">	System.setProperty(&quot;python.import.site&quot;, &quot;false&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/16/图片相似度搜索/" itemprop="url">
                   图片相似度搜索计算
                 </a>
@@ -2441,142 +2572,11 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/22/2015/Hbase常规操作/" itemprop="url">
-                  Hbase常规操作
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-22T16:53:00+08:00" content="2015-04-22">
-              2015-04-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hbase/" itemprop="url" rel="index">
-                    <span itemprop="name">Hbase</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/04/22/2015/Hbase常规操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/22/2015/Hbase常规操作/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>记录Hbase 一些常规操作</strong></p>
-<h2 id="获取rowkey"><a href="#获取rowkey" class="headerlink" title="获取rowkey"></a>获取rowkey</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> String table_name = <span class="string">"avml_test"</span>;</span><br><span class="line">    Set&lt;String&gt; sampleSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    Configuration conf = HBaseConfiguration.create();</span><br><span class="line">    conf.set(<span class="string">"hbase.zookeeper.quorum"</span>, <span class="string">"datanode01.hadoop"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        HTable table = <span class="keyword">new</span> HTable(conf,table_name);</span><br><span class="line">        Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">        ResultScanner scanner1 =  table.getScanner(scan);</span><br><span class="line">        <span class="keyword">for</span>(Result res : scanner1)&#123;</span><br><span class="line">            <span class="keyword">for</span>(KeyValue kv : res.raw())&#123;</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">    rowkey 为一个md5 ，你需要做截取操作</span><br><span class="line">    \x00 01CCC0C34CD54B2C915237F3C848840A\x06resultavml_qq\x00\x00\x01L\xBB\x1A&#125;\xCA\x04</span><br><span class="line">        */</span></span><br><span class="line">            sampleSet.add(kv.getKeyString().split(<span class="string">" "</span>)[<span class="number">1</span>].substring(<span class="number">0</span>,<span class="number">32</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        table.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
-<p>也可以使用如下方法,获取真实rowkey</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static String getRealRowKey(KeyValue kv) &#123;  </span><br><span class="line">        int rowlength = Bytes.toShort(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET);  </span><br><span class="line">        String rowKey = Bytes.toStringBinary(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET + Bytes.SIZEOF_SHORT, rowlength);  </span><br><span class="line">        return rowKey;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>获取rowkey(这个代码是有问题的，没有修改)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ResultScanner <span class="title">readHbaseRowkey</span><span class="params">(Configuration conf,String tableName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    HTable table = <span class="keyword">new</span> HTable(conf, tableName);</span><br><span class="line">    Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">    KeyOnlyFilter rowKeyFilter = <span class="keyword">new</span> KeyOnlyFilter();</span><br><span class="line">    scan.setFilter(rowKeyFilter);</span><br><span class="line">    ResultScanner scanner = table.getScanner(scan);</span><br><span class="line">    <span class="comment">// 关闭table scanner 会失效的。 异常？</span></span><br><span class="line">    table.close();</span><br><span class="line">    <span class="keyword">return</span> scanner;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2617,7 +2617,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2625,7 +2625,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2634,7 +2634,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
