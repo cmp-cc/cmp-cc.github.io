@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hbase," />
+  <meta name="keywords" content="Spring," />
 
 
 
@@ -59,19 +59,25 @@
 
 
 
-<meta name="description" content="记录Hbase 一些常规操作
-获取rowkey1234567891011121314151617181920212223final String table_name = &quot;avml_test&quot;;    Set&amp;lt;String&amp;gt; sampleSet = new HashSet&amp;lt;String&amp;gt;();    Configuration conf = HBaseConfigurat">
+<meta name="description" content="BeanFactoryPostProcessor
+PropertyPlaceholderConfigurer 
+
+PropertyPlaceholderConfigurer它用于配置环境变量、系统属性、等变量。PropertyPlaceholderConfigurer 是BeanFactoryPostProcessor（Bean工厂后置处理器）的一个实现通过Spring Bean 配置，将pro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hbase常规操作">
-<meta property="og:url" content="http://cmp-cc.github.io/2015/04/22/2015/Hbase常规操作/index.html">
+<meta property="og:title" content="Spring Bean 扩展点">
+<meta property="og:url" content="http://cmp-cc.github.io/2016/05/23/Spring Bean 扩展点/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="记录Hbase 一些常规操作
-获取rowkey1234567891011121314151617181920212223final String table_name = &quot;avml_test&quot;;    Set&amp;lt;String&amp;gt; sampleSet = new HashSet&amp;lt;String&amp;gt;();    Configuration conf = HBaseConfigurat">
-<meta property="og:updated_time" content="2016-04-28T07:50:06.881Z">
+<meta property="og:description" content="BeanFactoryPostProcessor
+PropertyPlaceholderConfigurer 
+
+PropertyPlaceholderConfigurer它用于配置环境变量、系统属性、等变量。PropertyPlaceholderConfigurer 是BeanFactoryPostProcessor（Bean工厂后置处理器）的一个实现通过Spring Bean 配置，将pro">
+<meta property="og:updated_time" content="2016-05-23T03:07:40.205Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hbase常规操作">
-<meta name="twitter:description" content="记录Hbase 一些常规操作
-获取rowkey1234567891011121314151617181920212223final String table_name = &quot;avml_test&quot;;    Set&amp;lt;String&amp;gt; sampleSet = new HashSet&amp;lt;String&amp;gt;();    Configuration conf = HBaseConfigurat">
+<meta name="twitter:title" content="Spring Bean 扩展点">
+<meta name="twitter:description" content="BeanFactoryPostProcessor
+PropertyPlaceholderConfigurer 
+
+PropertyPlaceholderConfigurer它用于配置环境变量、系统属性、等变量。PropertyPlaceholderConfigurer 是BeanFactoryPostProcessor（Bean工厂后置处理器）的一个实现通过Spring Bean 配置，将pro">
 
 
 
@@ -89,7 +95,7 @@
   };
 </script>
 
-  <title> Hbase常规操作 | I am cmp-cc </title>
+  <title> Spring Bean 扩展点 | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -229,7 +235,7 @@
             
             
               
-                Hbase常规操作
+                Spring Bean 扩展点
               
             
           </h1>
@@ -241,8 +247,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-22T16:53:00+08:00" content="2015-04-22">
-              2015-04-22
+            <time itemprop="dateCreated" datetime="2016-05-23T11:06:00+08:00" content="2016-05-23">
+              2016-05-23
             </time>
           </span>
 
@@ -255,8 +261,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
                   </a>
                 </span>
 
@@ -267,8 +273,8 @@
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hbase/" itemprop="url" rel="index">
-                    <span itemprop="name">Hbase</span>
+                  <a href="/categories/JavaWeb/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
                   </a>
                 </span>
 
@@ -283,8 +289,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/04/22/2015/Hbase常规操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/22/2015/Hbase常规操作/" itemprop="commentsCount"></span>
+                <a href="/2016/05/23/Spring Bean 扩展点/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/23/Spring Bean 扩展点/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -306,12 +312,33 @@
       
 
       
-        <p><strong>记录Hbase 一些常规操作</strong></p>
-<h2 id="获取rowkey"><a href="#获取rowkey" class="headerlink" title="获取rowkey"></a>获取rowkey</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> String table_name = <span class="string">"avml_test"</span>;</span><br><span class="line">    Set&lt;String&gt; sampleSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    Configuration conf = HBaseConfiguration.create();</span><br><span class="line">    conf.set(<span class="string">"hbase.zookeeper.quorum"</span>, <span class="string">"datanode01.hadoop"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        HTable table = <span class="keyword">new</span> HTable(conf,table_name);</span><br><span class="line">        Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">        ResultScanner scanner1 =  table.getScanner(scan);</span><br><span class="line">        <span class="keyword">for</span>(Result res : scanner1)&#123;</span><br><span class="line">            <span class="keyword">for</span>(KeyValue kv : res.raw())&#123;</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">    rowkey 为一个md5 ，你需要做截取操作</span><br><span class="line">    \x00 01CCC0C34CD54B2C915237F3C848840A\x06resultavml_qq\x00\x00\x01L\xBB\x1A&#125;\xCA\x04</span><br><span class="line">        */</span></span><br><span class="line">            sampleSet.add(kv.getKeyString().split(<span class="string">" "</span>)[<span class="number">1</span>].substring(<span class="number">0</span>,<span class="number">32</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        table.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
-<p>也可以使用如下方法,获取真实rowkey</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static String getRealRowKey(KeyValue kv) &#123;  </span><br><span class="line">        int rowlength = Bytes.toShort(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET);  </span><br><span class="line">        String rowKey = Bytes.toStringBinary(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET + Bytes.SIZEOF_SHORT, rowlength);  </span><br><span class="line">        return rowKey;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>获取rowkey(这个代码是有问题的，没有修改)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ResultScanner <span class="title">readHbaseRowkey</span><span class="params">(Configuration conf,String tableName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    HTable table = <span class="keyword">new</span> HTable(conf, tableName);</span><br><span class="line">    Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">    KeyOnlyFilter rowKeyFilter = <span class="keyword">new</span> KeyOnlyFilter();</span><br><span class="line">    scan.setFilter(rowKeyFilter);</span><br><span class="line">    ResultScanner scanner = table.getScanner(scan);</span><br><span class="line">    <span class="comment">// 关闭table scanner 会失效的。 异常？</span></span><br><span class="line">    table.close();</span><br><span class="line">    <span class="keyword">return</span> scanner;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+        <ul>
+<li>BeanFactoryPostProcessor</li>
+<li>PropertyPlaceholderConfigurer </li>
+</ul>
+<h2 id="PropertyPlaceholderConfigurer"><a href="#PropertyPlaceholderConfigurer" class="headerlink" title="PropertyPlaceholderConfigurer"></a>PropertyPlaceholderConfigurer</h2><p>它用于配置环境变量、系统属性、等变量。<br>PropertyPlaceholderConfigurer 是BeanFactoryPostProcessor（Bean工厂后置处理器）的一个实现<br>通过Spring Bean 配置，将properties文件装配到一个对象中。<br><strong>在设置数据源的时候（C3P0、DBCP），<code>BasicDataSource</code>对象继承了<code>PropertyPlaceholderConfigurer</code> 完成<code>properties</code>注入</strong></p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><ul>
+<li>properties 文件（jdbc.properties）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdbc.driverClass=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://127.0.0.1:3306/cmpcc?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>PropertyPlaceholderConfigurer</code>配置Bean<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;propertyConfigurer2&quot; class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;location&quot;&gt;</span><br><span class="line">        &lt;list&gt;</span><br><span class="line">            &lt;value&gt;classpath:jdbc.properties&lt;/value&gt;</span><br><span class="line">        &lt;/list&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;fileEncoding&quot;&gt;</span><br><span class="line">        &lt;value&gt;UTF-8&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="在开发中的应用。"><a href="#在开发中的应用。" class="headerlink" title="在开发中的应用。"></a>在开发中的应用。</h3><p>用于配置站点信息、系统属性、环境变量等</p>
+<ul>
+<li></li>
+<li><p>系统属性工具类<br><strong>用于保存配置属性，继承PropertyPlaceholderConfigurer</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class PropertyUtils extends PropertyPlaceholderConfigurer &#123;</span><br><span class="line"></span><br><span class="line">	public static final Logger logger = Logger.getLogger(PropertyUtils.class);</span><br><span class="line"></span><br><span class="line">	private static Map&lt;String, String&gt; propertyMap;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	protected void processProperties(</span><br><span class="line">			ConfigurableListableBeanFactory beanFactoryToProcess,</span><br><span class="line">			Properties props) throws BeansException &#123;</span><br><span class="line">		super.processProperties(beanFactoryToProcess, props);</span><br><span class="line">		propertyMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">		</span><br><span class="line">		for(Entry&lt;Object, Object&gt; entry : props.entrySet())&#123;</span><br><span class="line">			propertyMap.put(entry.getKey().toString(), entry.getValue().toString());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static String getValue(String name) &#123;</span><br><span class="line">		String value = propertyMap.get(name);</span><br><span class="line">		if (StringUtils.isBlank(value)) &#123;</span><br><span class="line">			return &quot;&quot;;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			return value;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>beans.xml 配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;propertyConfigurer&quot; class=&quot;org.freecode.util.PropertyUtils&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;locations&quot;&gt;</span><br><span class="line">        &lt;list&gt;</span><br><span class="line">            &lt;value&gt;classpath:systemconfig.properties&lt;/value&gt;</span><br><span class="line">        &lt;/list&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>systemconfig.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#超级管理员</span><br><span class="line">system.admin=admin</span><br><span class="line">#存储方式（server | local）</span><br><span class="line">system.storage=server</span><br><span class="line">#数据库配置</span><br><span class="line">jdbc.driverClass=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://127.0.0.1:3306/systemname?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br><span class="line">jdbc.initialPoolSize=2</span><br><span class="line">jdbc.minPoolSize=2</span><br><span class="line">jdbc.maxPoolSize=5</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="BeanFactoryPostProcessor"><a href="#BeanFactoryPostProcessor" class="headerlink" title="BeanFactoryPostProcessor"></a>BeanFactoryPostProcessor</h2>
       
     </div>
 
@@ -325,7 +352,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hbase/" rel="tag">#Hbase</a>
+            <a href="/tags/Spring/" rel="tag">#Spring</a>
           
         </div>
       
@@ -334,17 +361,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/04/08/2015/Hbase异常记录及其解决方案/" rel="next" title="Hbase异常记录及其解决方案">
-                <i class="fa fa-chevron-left"></i> Hbase异常记录及其解决方案
+              <a href="/2016/05/18/2016/Jython 异常及其解决方案/" rel="next" title="Jython 异常及其解决方案">
+                <i class="fa fa-chevron-left"></i> Jython 异常及其解决方案
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/04/28/2015/配置环境变量脚本/" rel="prev" title="配置环境变量脚本">
-                配置环境变量脚本 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -370,8 +393,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/04/22/2015/Hbase常规操作/"
-           data-title="Hbase常规操作" data-url="http://cmp-cc.github.io/2015/04/22/2015/Hbase常规操作/">
+      <div class="ds-thread" data-thread-key="2016/05/23/Spring Bean 扩展点/"
+           data-title="Spring Bean 扩展点" data-url="http://cmp-cc.github.io/2016/05/23/Spring Bean 扩展点/">
       </div>
     
   </div>
@@ -484,7 +507,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取rowkey"><span class="nav-number">1.</span> <span class="nav-text">获取rowkey</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PropertyPlaceholderConfigurer"><span class="nav-number">1.</span> <span class="nav-text">PropertyPlaceholderConfigurer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">1.1.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在开发中的应用。"><span class="nav-number">1.2.</span> <span class="nav-text">在开发中的应用。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BeanFactoryPostProcessor"><span class="nav-number">2.</span> <span class="nav-text">BeanFactoryPostProcessor</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
