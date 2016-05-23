@@ -10,51 +10,58 @@ tags:
 - 安装部署
 ----
 
+
 **我的Linux (Centos)开发、应用部署环境，持续更新**
+**更新：2016-04-27 **
 
-## 安装JDK1.8
+## 安装JDK
 
-### 查看Linux 自带的JDK是否安装
+**如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）**
+**详细安装步骤参考：` tar.gz 格式`安装 **
+
+### `tar.gz 格式`安装
+* 查看Linux 自带的JDK是否安装
 ```
 java -version
 ```
 
 {% asset_img 596f24a9-b58f-40e3-b02c-6cfdf4c58dab.png  已安装OpenJDK7 运行环境，但没有编译环境%}
-### 卸载自带JDK
-#### 查看相关依赖
-```
-rpm -qa | grep java
-
-或则
-
-rmp -qa |grep jdk
-```
-
-{% asset_img 2310dfba-98e6-478a-890e-11291c66f2d1.png  已安装OpenJDK7的相关依赖%}
-#### 卸载
-```
-rpm -e --nodeps java-1.7.0-openjdk-1.7.0.75-2.5.4.2.el7_0.x86_64
-rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.75-2.5.4.2.el7_0.x86_64
-```
-### 下载JDK1.8
+* 卸载自带JDK
+   * 查看相关依赖
+   ```
+   rpm -qa | grep java
+   
+   或则
+   
+   rmp -qa |grep jdk
+   ```
+ 
+ {% asset_img 2310dfba-98e6-478a-890e-11291c66f2d1.png  已安装OpenJDK7的相关依赖%}
+   * 卸载
+   ```
+   rpm -e --nodeps java-1.7.0-openjdk-1.7.0.75-2.5.4.2.el7_0.x86_64
+   rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.75-2.5.4.2.el7_0.x86_64
+   ```
+* 下载JDK1.8
 在Oracle 选择合适的版本，进行JDK安装，这里更新至JDK1.8
 **Oracle官网上下载jdk，需要点击accept licence的才能下载，使用下面的命令，直接可以下载。**
 ```
 wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz
 ```
-### 解压
+* 解压
 -C 表示解压路径
 ```
 tar zxvf jdk-8u73-linux-x64.tar.gz -C /usr/local/jdk/
 ```
-### 环境变量配置
+* 环境变量配置
 * 修改 `/etc/profile`文件,添加如下
 ```
 vi /etc/profile
 //添加如下
 
-JAVA_HOME=/usr/local/jdk/jdk1.8.0_73
-CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:.
+export JAVA_HOME=/usr/local/jdk/jdk1.8.0_73
+export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:.
+
 PATH=$PATH:$JAVA_HOME/bin
 
 export PATH
@@ -63,6 +70,32 @@ export PATH
 ```
 source /etc/profile
 ```
+### rpm 格式安装JDK
+* 下载`jdk-xxx-linux-x64.rmp`
+* `rpm -ivh` 命令安装 
+```
+[root@salt ~]# rpm -ivh jdk-8u60-linux-x64.rpm 
+Preparing...                ########################################### [100%]
+   1:jdk1.8.0_60            ########################################### [100%]
+Unpacking JAR files...
+        tools.jar...
+        plugin.jar...
+        javaws.jar...
+        deploy.jar...
+        rt.jar...
+        jsse.jar...
+        charsets.jar...
+        localedata.jar...
+        jfxrt.jar...
+```
+> 默认安装的路径为:`/usr/java/`
+> 它会自动配置环境、并覆盖当前Java环境。
+
+### yum 安装JDK
+* `yum search java` (选择一个penJDK版本)
+* `yum install xxxx` (安装OpenJDK)
+> 是的，通过`yum`安装，你只能使用OpenJDK
+
 
 
 ## 安装 Mysql 5.7.11
