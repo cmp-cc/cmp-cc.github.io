@@ -578,20 +578,18 @@
             <h2 id="1、格式转换"><a href="#1、格式转换" class="headerlink" title="1、格式转换"></a>1、格式转换</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><strong>需要查询具体的某一天的数据。 由于存储方式不一样。要对数据库中的last_record_time字段进行转化。</strong></p>
 <img src="/2015/03/11/PostgreSQL%20遇到的问题/9744abfd-e724-4655-ac6b-eada2768ab42.png" alt="数据显示" title="数据显示">
 <ul>
-<li>使用substring函数。 (失败,应该是类型不匹配)。<br><strong>函数：substring(string from pattern for escape)</strong><blockquote>
-<p>说 明：Extract substring matching SQL regular expression. See Section 9.7 for more information on pattern matching. 利于正则表达式对某类字符进行删除，以得到子字符串</p>
-<ul>
-<li>例子<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trim(both &apos;x&apos; from &apos;xTomxx&apos;) = Tom</span><br></pre></td></tr></table></figure>
+<li>使用substring函数。 (失败,应该是类型不匹配)。<br><strong>函数：substring(string from pattern for escape)</strong><br><strong>Extract substring matching SQL regular expression. See Section 9.7 for more information on pattern matching. 利于正则表达式对某类字符进行删除，以得到子字符串</strong><ul>
+<li>实例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trim(both &apos;x&apos; from &apos;xTomxx&apos;) = Tom</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-</blockquote>
 </li>
 </ul>
 <ul>
-<li>使用 TO_CHAR 函数 可以进行格式类型转化。<br><strong>postgresql 8.1以后有个函数可以直接接受UNIX时间戳  TO_TIMESTAMP函数 可以处理时间戳。</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sample_hash,sample_crc32 from t_black as s where  TO_CHAR(s.last_record_time,&apos;YYYY-MM-DD&apos;) = &apos;2015-03-10&apos;</span><br></pre></td></tr></table></figure>
+<li>使用 TO_CHAR 函数 可以进行格式类型转化。<br><strong>postgresql 8.1以后有个函数可以直接接受UNIX时间戳  TO_TIMESTAMP函数 可以处理时间戳。</strong><br><strong>select sample_hash,sample_crc32 from t_black as s where  TO_CHAR(s.last_record_time,’YYYY-MM-DD’) = ‘2015-03-10’</strong><ul>
+<li>实例<br><strong>１０年到现在的白样本，分月分统计出每个月的白灰样本数量</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;),count(*) from t_black as s  group by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;) order by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;)</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 </ul>
-<p>例如： １０年到现在的白样本，分月分统计出每个月的白灰样本数量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;),count(*) from t_black as s  group by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;) order by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;)</span><br></pre></td></tr></table></figure></p>
 
           
         
