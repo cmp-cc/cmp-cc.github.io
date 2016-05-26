@@ -1464,6 +1464,47 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
   </entry>
   
   <entry>
+    <title>PostgreSQL 遇到的问题</title>
+    <link href="http://cmp-cc.github.io/2015/03/11/PostgreSQL%20%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://cmp-cc.github.io/2015/03/11/PostgreSQL 遇到的问题/</id>
+    <published>2015-03-11T08:53:00.000Z</published>
+    <updated>2016-05-26T03:05:12.264Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;1、格式转换&quot;&gt;&lt;a href=&quot;#1、格式转换&quot; class=&quot;headerlink&quot; title=&quot;1、格式转换&quot;&gt;&lt;/a&gt;1、格式转换&lt;/h2&gt;&lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;需要查询具体的某一天的数据。 由于存储方式不一样。要对数据库中的last_record_time字段进行转化。&lt;/strong&gt;&lt;/p&gt;
+&lt;img src=&quot;/2015/03/11/PostgreSQL%20遇到的问题/9744abfd-e724-4655-ac6b-eada2768ab42.png&quot; alt=&quot;数据显示&quot; title=&quot;数据显示&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;使用substring函数。 (失败,应该是类型不匹配)。&lt;br&gt;&lt;strong&gt;函数：substring(string from pattern for escape)&lt;/strong&gt;&lt;blockquote&gt;
+&lt;p&gt;说 明：Extract substring matching SQL regular expression. See Section 9.7 for more information on pattern matching. 利于正则表达式对某类字符进行删除，以得到子字符串&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例子&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;trim(both &amp;apos;x&amp;apos; from &amp;apos;xTomxx&amp;apos;) = Tom&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;使用 TO_CHAR 函数 可以进行格式类型转化。&lt;br&gt;&lt;strong&gt;postgresql 8.1以后有个函数可以直接接受UNIX时间戳  TO_TIMESTAMP函数 可以处理时间戳。&lt;/strong&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select sample_hash,sample_crc32 from t_black as s where  TO_CHAR(s.last_record_time,&amp;apos;YYYY-MM-DD&amp;apos;) = &amp;apos;2015-03-10&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例如： １０年到现在的白样本，分月分统计出每个月的白灰样本数量&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select TO_CHAR(s.last_record_time,&amp;apos;YYYY-MM&amp;apos;),count(*) from t_black as s  group by TO_CHAR(s.last_record_time,&amp;apos;YYYY-MM&amp;apos;) order by TO_CHAR(s.last_record_time,&amp;apos;YYYY-MM&amp;apos;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1、格式转换&quot;&gt;&lt;a href=&quot;#1、格式转换&quot; class=&quot;headerlink&quot; title=&quot;1、格式转换&quot;&gt;&lt;/a&gt;1、格式转换&lt;/h2&gt;&lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问
+    
+    </summary>
+    
+      <category term="Data Base Management System" scheme="http://cmp-cc.github.io/categories/Data-Base-Management-System/"/>
+    
+      <category term="Postgresql" scheme="http://cmp-cc.github.io/categories/Data-Base-Management-System/Postgresql/"/>
+    
+    
+      <category term="Postgresql" scheme="http://cmp-cc.github.io/tags/Postgresql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java Web 跨域共享问题（core-filter）</title>
     <link href="http://cmp-cc.github.io/2015/01/11/2015/Java%20Web%20%E8%B7%A8%E5%9F%9F%E5%85%B1%E4%BA%AB%E9%97%AE%E9%A2%98%EF%BC%88core-filter%EF%BC%89/"/>
     <id>http://cmp-cc.github.io/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/</id>
@@ -2129,60 +2170,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     
       <category term="Java Web" scheme="http://cmp-cc.github.io/tags/Java-Web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Bean 扩展点</title>
-    <link href="http://cmp-cc.github.io/2014/08/11/2014/Spring%20Bean%20%E6%89%A9%E5%B1%95%E7%82%B9/"/>
-    <id>http://cmp-cc.github.io/2014/08/11/2014/Spring Bean 扩展点/</id>
-    <published>2014-08-11T15:53:00.000Z</published>
-    <updated>2016-05-24T06:24:26.872Z</updated>
-    
-    <content type="html">&lt;ul&gt;
-&lt;li&gt;BeanFactoryPostProcessor&lt;/li&gt;
-&lt;li&gt;PropertyPlaceholderConfigurer &lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;PropertyPlaceholderConfigurer&quot;&gt;&lt;a href=&quot;#PropertyPlaceholderConfigurer&quot; class=&quot;headerlink&quot; title=&quot;PropertyPlaceholderConfigurer&quot;&gt;&lt;/a&gt;PropertyPlaceholderConfigurer&lt;/h2&gt;&lt;p&gt;它用于配置环境变量、系统属性、等变量。&lt;br&gt;PropertyPlaceholderConfigurer 是BeanFactoryPostProcessor（Bean工厂后置处理器）的一个实现&lt;br&gt;通过Spring Bean 配置，将properties文件装配到一个对象中。&lt;br&gt;&lt;strong&gt;在设置数据源的时候（C3P0、DBCP），&lt;code&gt;BasicDataSource&lt;/code&gt;对象继承了&lt;code&gt;PropertyPlaceholderConfigurer&lt;/code&gt; 完成&lt;code&gt;properties&lt;/code&gt;注入&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&quot;实例&quot;&gt;&lt;a href=&quot;#实例&quot; class=&quot;headerlink&quot; title=&quot;实例&quot;&gt;&lt;/a&gt;实例&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;properties 文件（jdbc.properties）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;jdbc.driverClass=com.mysql.jdbc.Driver&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.url=jdbc:mysql://127.0.0.1:3306/cmpcc?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;zeroDateTimeBehavior=convertToNull&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.username=root&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.password=123456&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;PropertyPlaceholderConfigurer&lt;/code&gt;配置Bean&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;bean id=&amp;quot;propertyConfigurer&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    class=&amp;quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;property name=&amp;quot;locations&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;list&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;value&amp;gt;classpath:jdbc.properties&amp;lt;/value&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/list&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;property name=&amp;quot;fileEncoding&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;value&amp;gt;UTF-8&amp;lt;/value&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;property name=&amp;quot;ignoreResourceNotFound&amp;quot; value=&amp;quot;true&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;property name=&amp;quot;searchSystemEnvironment&amp;quot; value=&amp;quot;true&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;property name=&amp;quot;systemPropertiesModeName&amp;quot; value=&amp;quot;SYSTEM_PROPERTIES_MODE_OVERRIDE&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;在开发中的应用。&quot;&gt;&lt;a href=&quot;#在开发中的应用。&quot; class=&quot;headerlink&quot; title=&quot;在开发中的应用。&quot;&gt;&lt;/a&gt;在开发中的应用。&lt;/h3&gt;&lt;p&gt;用于配置站点信息、系统属性、环境变量等&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;系统属性工具类&lt;br&gt;&lt;strong&gt;用于保存配置属性，继承PropertyPlaceholderConfigurer&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public class PropertyUtils extends PropertyPlaceholderConfigurer &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	public static final Logger logger = Logger.getLogger(PropertyUtils.class);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	private static Map&amp;lt;String, String&amp;gt; propertyMap;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@Override&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	protected void processProperties(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			ConfigurableListableBeanFactory beanFactoryToProcess,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			Properties props) throws BeansException &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		super.processProperties(beanFactoryToProcess, props);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		propertyMap = new HashMap&amp;lt;String, String&amp;gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		for(Entry&amp;lt;Object, Object&amp;gt; entry : props.entrySet())&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			propertyMap.put(entry.getKey().toString(), entry.getValue().toString());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	public static String getValue(String name) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		String value = propertyMap.get(name);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		if (StringUtils.isBlank(value)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			return &amp;quot;&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			return value;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;beans.xml 配置&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;bean id=&amp;quot;propertyConfigurer&amp;quot; class=&amp;quot;org.freecode.util.PropertyUtils&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;property name=&amp;quot;locations&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;list&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;lt;value&amp;gt;classpath:systemconfig.properties&amp;lt;/value&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;/list&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/property&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;systemconfig.properties&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#超级管理员&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;system.admin=admin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#存储方式（server | local）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;system.storage=server&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#数据库配置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.driverClass=com.mysql.jdbc.Driver&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.url=jdbc:mysql://127.0.0.1:3306/systemname?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;zeroDateTimeBehavior=convertToNull&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.username=root&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.password=123456&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.initialPoolSize=2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.minPoolSize=2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;jdbc.maxPoolSize=5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;BeanFactoryPostProcessor&quot;&gt;&lt;a href=&quot;#BeanFactoryPostProcessor&quot; class=&quot;headerlink&quot; title=&quot;BeanFactoryPostProcessor&quot;&gt;&lt;/a&gt;BeanFactoryPostProcessor&lt;/h2&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;BeanFactoryPostProcessor&lt;/li&gt;
-&lt;li&gt;PropertyPlaceholderConfigurer &lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;PropertyPlaceholderConfigurer&quot;&gt;&lt;a href=&quot;#Proper
-    
-    </summary>
-    
-      <category term="JavaWeb" scheme="http://cmp-cc.github.io/categories/JavaWeb/"/>
-    
-      <category term="Spring" scheme="http://cmp-cc.github.io/categories/JavaWeb/Spring/"/>
-    
-    
-      <category term="Spring" scheme="http://cmp-cc.github.io/tags/Spring/"/>
     
   </entry>
   
