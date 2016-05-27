@@ -666,6 +666,214 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/27/Azkaban 工作流升级3.0/" itemprop="url">
+                  大数据工作流 Azkaban 环境搭建
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-27T20:55:00+08:00" content="2016-04-27">
+              2016-04-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Workflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Workflow</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Workflow/Bigdata-Workflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Bigdata Workflow</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/27/Azkaban 工作流升级3.0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/27/Azkaban 工作流升级3.0/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前一段时间安装部署Azkaban 2.5 版本，数据运维的童鞋在使用中，确实解决了脚本工作流（依赖）、调度、监控等问题。</p>
+<ul>
+<li>但是Azkaban还是存在很多问题和不足<ul>
+<li>不支持远程脚本调度（必须在固定的机器、没有远程登陆）</li>
+<li>创建项目不支持中文 （这个Bug一直没有修复）</li>
+<li>日志使用高级查询，通过Filter过滤时间，会出现时间格式转换异常。</li>
+<li>等等</li>
+</ul>
+</li>
+</ul>
+<p><strong>Azkaban 3.0 虽然没有正式推出，但可以投入使用，也希望解决一下简单问题</strong></p>
+<p>Azkaban 3.0 目前只能源码安装。</p>
+<ul>
+<li>升级Azkaban 3.0 分为如下三个步骤<ul>
+<li>构建Azkaban源码，生成Zip或者Gz包</li>
+<li>导入Azkaban3.0 数据库</li>
+<li>配置启动<code>azkaban-web-server</code> 和 <code>azkaban-exec-server</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="构建Azkaban-源码"><a href="#构建Azkaban-源码" class="headerlink" title="构建Azkaban 源码"></a>构建Azkaban 源码</h2><p>你可以选择如下方式的一种</p>
+<h3 id="一个新环境下构建"><a href="#一个新环境下构建" class="headerlink" title="一个新环境下构建"></a>一个新环境下构建</h3><p><strong>安装Linux 基础工具、Java环境、Git</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum groupinstall -y &quot;Development Tools&quot;</span><br><span class="line">sudo yum install -y java-1.7.0-openjdk.x86_64 java-1.7.0-openjdk-devel.x86_64 git mysql-connector-java</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如果有<code>Java环境 和Git</code>忽略如上</p>
+</blockquote>
+<p><strong>编译azkaban</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/azkaban/azkaban.git</span><br><span class="line">cd azkaban</span><br><span class="line">./gradlew distZip</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>distZip</code> 构建zip文件。如果使用<code>distTar</code>表示生成tar文件。 </p>
+</blockquote>
+<hr>
+<h3 id="可能遇到的异常"><a href="#可能遇到的异常" class="headerlink" title="可能遇到的异常"></a>可能遇到的异常</h3><p><strong>你需要多少执行，甚至需要手工编译</strong></p>
+<ul>
+<li>无法更新依赖<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">FAILURE: Build failed with an exception.</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">A problem occurred configuring root project &apos;azkaban&apos;.</span><br><span class="line">&gt; Could not resolve all dependencies for configuration &apos;:classpath&apos;.</span><br><span class="line">   &gt; Could not resolve net.ltgt.gradle:gradle-errorprone-plugin:0.0.8.</span><br><span class="line">     Required by:</span><br><span class="line">         com.linkedin:azkaban:3.0.0</span><br><span class="line">      &gt; Could not GET &apos;https://plugins.gradle.org/m2/net/ltgt/gradle/gradle-errorprone-plugin/0.0.8/gradle-errorprone-plugin-0.0.8.pom&apos;.</span><br><span class="line">         &gt; peer not authenticated</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.</span><br><span class="line"></span><br><span class="line">BUILD FAILED</span><br><span class="line"></span><br><span class="line">Total time: 45.497 secs</span><br><span class="line">[root@test-liupengwei azkaban]# vi build.gradle</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>如上是网络的原因，无法到<code>https://plugins.gradle.org/m2/</code>下载Gradle 插件</p>
+</blockquote>
+<ul>
+<li>构建失败<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    (see http://errorprone.info/bugpattern/WaitNotInLoop)</span><br><span class="line">/root/build2/azkaban-3.0.0/azkaban-execserver/src/test/java/azkaban/execapp/event/BlockingStatusTest.java:86: warning: [WaitNotInLoop] Because of spurious wakeups, wait(long) must always be called in a loop</span><br><span class="line">      wait(3000);</span><br><span class="line">          ^</span><br><span class="line">    (see http://errorprone.info/bugpattern/WaitNotInLoop)</span><br><span class="line">/root/build2/azkaban-3.0.0/azkaban-execserver/src/test/java/azkaban/execapp/event/BlockingStatusTest.java:92: warning: [WaitNotInLoop] Because of spurious wakeups, wait(long) must always be called in a loop</span><br><span class="line">      wait(1000);</span><br><span class="line">          ^</span><br><span class="line">    (see http://errorprone.info/bugpattern/WaitNotInLoop)</span><br><span class="line">/root/build2/azkaban-3.0.0/azkaban-execserver/src/test/java/azkaban/execapp/event/BlockingStatusTest.java:111: warning: [WaitNotInLoop] Because of spurious wakeups, wait(long) must always be called in a loop</span><br><span class="line">      wait(2000);</span><br><span class="line">          ^</span><br><span class="line">    (see http://errorprone.info/bugpattern/WaitNotInLoop)</span><br><span class="line">/root/build2/azkaban-3.0.0/azkaban-execserver/src/test/java/azkaban/execapp/event/BlockingStatusTest.java:118: warning: [WaitNotInLoop] Because of spurious wakeups, wait(long) must always be called in a loop</span><br><span class="line">      wait(2000);</span><br><span class="line">          ^</span><br><span class="line">    (see http://errorprone.info/bugpattern/WaitNotInLoop)</span><br><span class="line">16 warnings</span><br><span class="line">:azkaban-execserver:processTestResources UP-TO-DATE</span><br><span class="line">:azkaban-execserver:testClasses</span><br><span class="line">:azkaban-execserver:test</span><br><span class="line"></span><br><span class="line">azkaban.execapp.event.BlockingStatusTest &gt; testUnfinishedBlockSeveralChanges FAILED</span><br><span class="line">    java.lang.AssertionError at BlockingStatusTest.java:100</span><br><span class="line"></span><br><span class="line">71 tests completed, 1 failed, 40 skipped</span><br><span class="line">:azkaban-execserver:test FAILED</span><br><span class="line"></span><br><span class="line">FAILURE: Build failed with an exception.</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">Execution failed for task &apos;:azkaban-execserver:test&apos;.</span><br><span class="line">&gt; There were failing tests. See the report at: file:///root/build2/azkaban-3.0.0/azkaban-execserver/build/reports/tests/index.html</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.</span><br><span class="line"></span><br><span class="line">BUILD FAILED</span><br><span class="line"></span><br><span class="line">Total time: 15 mins 44.721 secs</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>如上异常是因为构建过程中部分单元测试无法通过。</p>
+</blockquote>
+<h3 id="手工-构建（Gradle）Azkaban"><a href="#手工-构建（Gradle）Azkaban" class="headerlink" title="手工 构建（Gradle）Azkaban"></a>手工 构建（Gradle）Azkaban</h3><ul>
+<li><p>下载Gradle，并配置环境变量</p>
+<ul>
+<li><a href="https://services.gradle.org/distributions/gradle-2.13-all.zip" target="_blank" rel="external">https://services.gradle.org/distributions/gradle-2.13-all.zip</a></li>
+<li>环境path 下添加bin路径</li>
+</ul>
+</li>
+<li><p>修改build.gradle Maven数据源 （可选）<br><strong>如果下载依赖缓慢可配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">  repositories &#123;</span><br><span class="line">   /**</span><br><span class="line">    * 如下增加 jcenter()  源 或 oschain源</span><br><span class="line">    */</span><br><span class="line">    jcenter()  </span><br><span class="line">    mavenCentral()</span><br><span class="line">    maven &#123;</span><br><span class="line">      url &apos;https://plugins.gradle.org/m2/&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  dependencies &#123;</span><br><span class="line">    classpath &apos;com.linkedin:gradle-dustjs-plugin:1.0.0&apos;</span><br><span class="line">    classpath &apos;de.obqo.gradle:gradle-lesscss-plugin:1.0-1.3.3&apos;</span><br><span class="line">    classpath &apos;net.ltgt.gradle:gradle-errorprone-plugin:0.0.8&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">apply plugin: &apos;distribution&apos;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">  repositories &#123;</span><br><span class="line">    /**</span><br><span class="line">    * 如下增加 jcenter()  源 或 oschain源</span><br><span class="line">    */</span><br><span class="line">    jcenter()</span><br><span class="line">    mavenCentral()</span><br><span class="line">    mavenLocal()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>忽略部分单元测试<br><strong>有些Unit命令无法执行</strong></p>
+<ul>
+<li><p>修改<code>azkaban\azkaban-common\src\test\java\azkaban\jobExecutor\ProcessJobTest.java</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/*</span><br><span class="line">  @Test</span><br><span class="line">  public void testFailedUnixCommand() throws Exception &#123;</span><br><span class="line">    // Initialize the Props</span><br><span class="line">    props.put(ProcessJob.COMMAND, &quot;xls -al&quot;);</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">      job.run();</span><br><span class="line">    &#125; catch (RuntimeException e) &#123;</span><br><span class="line">      Assert.assertTrue(true);</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">*/</span><br><span class="line">/*  @Test</span><br><span class="line">  public void testMultipleUnixCommands() throws Exception &#123;</span><br><span class="line">    // Initialize the Props</span><br><span class="line">    props.put(ProcessJob.COMMAND, &quot;pwd&quot;);</span><br><span class="line">    props.put(&quot;command.1&quot;, &quot;date&quot;);</span><br><span class="line">    props.put(&quot;command.2&quot;, &quot;whoami&quot;);</span><br><span class="line"></span><br><span class="line">    job.run();</span><br><span class="line">  &#125;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>azkaban\azkaban-common\src\test\java\azkaban\jobExecutor\PythonJobTest.java</code><br><strong>Window 构建修改，Linux构建不需要修改</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    @BeforeClass</span><br><span class="line">public static void init() &#123;</span><br><span class="line"></span><br><span class="line">  long time = (new Date()).getTime();</span><br><span class="line">  scriptFile = &quot;d:/tmp/azkaban_python&quot; + time + &quot;.py&quot;;   //选择一个window盘符</span><br><span class="line">  // dump script file</span><br><span class="line">  try &#123;</span><br><span class="line">    Utils.dumpFile(scriptFile, scriptContent);</span><br><span class="line">  &#125; catch (IOException e) &#123;</span><br><span class="line">    e.printStackTrace(System.err);</span><br><span class="line">    Assert.fail(&quot;error in creating script file:&quot; + e.getLocalizedMessage());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>执行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle distZip --debug</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构建成功<br><strong>查看：azkaban\build\distributions目录</strong></p>
+</li>
+</ul>
+<img src="/2016/04/27/Azkaban%20工作流升级3.0/a3c3e5d8-87b1-46fc-bd60-36892b1861e1.png" alt="安装成功文件" title="安装成功文件">
+<h2 id="安装Azkaban"><a href="#安装Azkaban" class="headerlink" title="安装Azkaban"></a>安装Azkaban</h2><p>关于Azkaban的安装，请参考<a href="http://cmp-cc.github.io/2016/04/27/2016/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%20Azkaban%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">这篇文件：Azkaban2.5安装指南</a></p>
+<ul>
+<li><p>不同之处，你需要使用自己编译的3.0进行配置。 数据库导入<code>azkaban.sql-3.0.0.zip</code>中<code>create-all-sql-3.0.0.sql</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd azkaban/build/distributions/ </span><br><span class="line">zunip azkaban-sql-3.0.0.zip</span><br><span class="line">cd azkaban-sql-3.0.0</span><br><span class="line">mysql -uroot -p -D azkaban &lt; create-all-sql-3.0.0.sql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果已经安装了azkaban2.5，现在进行版本升级，只需要执行<code>azkaban.sql-3.0.0.zip</code>中<code>update.active_executing_flows.3.0.sql</code>和<code>update.execution_flows.3.0.sql</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p -D azkaban &lt; update.active_executing_flows.3.0.sql</span><br><span class="line">mysql -uroot -p -D azkaban &lt; update.execution_flows.3.0.sql</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其他相关步骤查看如上文章，安装过程过程大同小异。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/27/2016/大数据工作流 Azkaban 环境搭建/" itemprop="url">
                   大数据工作流 Azkaban 环境搭建
                 </a>
@@ -2436,142 +2644,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/28/2015/配置环境变量脚本/" itemprop="url">
-                  配置环境变量脚本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-28T21:54:00+08:00" content="2015-04-28">
-              2015-04-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Work-Efficiency/" itemprop="url" rel="index">
-                    <span itemprop="name">Work Efficiency</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/04/28/2015/配置环境变量脚本/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/28/2015/配置环境变量脚本/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率</strong></p>
-<h2 id="Window-环境下自动化配置各种环境变量"><a href="#Window-环境下自动化配置各种环境变量" class="headerlink" title="Window 环境下自动化配置各种环境变量"></a>Window 环境下自动化配置各种环境变量</h2><h3 id="1、修改注册表的方法，重启永久有效"><a href="#1、修改注册表的方法，重启永久有效" class="headerlink" title="1、修改注册表的方法，重启永久有效"></a>1、修改注册表的方法，重启永久有效</h3><p>reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%path%;C:\”  /f</p>
-<hr>
-<h3 id="2、setx-命令-（永久）"><a href="#2、setx-命令-（永久）" class="headerlink" title="2、setx 命令 （永久）"></a>2、setx 命令 （永久）</h3><ul>
-<li>setx 默认写入的是用户变量，想写入环境变量，加 /M<br>&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setx JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="3、set-命令（非永久，只针对于当前命令行）"><a href="#3、set-命令（非永久，只针对于当前命令行）" class="headerlink" title="3、set 命令（非永久，只针对于当前命令行）"></a>3、set 命令（非永久，只针对于当前命令行）</h3><p>同上 (setx命令)</p>
-<h2 id="自动环境配置脚本"><a href="#自动环境配置脚本" class="headerlink" title="自动环境配置脚本"></a>自动环境配置脚本</h2><p><strong>参考如下 EnvironmentConfiguration.bat 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF </span><br><span class="line">IF EXIST %systemroot%\system32\setx.exe ( </span><br><span class="line"></span><br><span class="line">@ECHO 开始配置JAVA环境</span><br><span class="line">@SETX JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br><span class="line">@SETX CLASSPATH &quot;.;%%JAVA_HOME%%\lib&quot;</span><br><span class="line">@SETX PATH &quot;%%PATH%%;%%JAVA_HOME%%\bin&quot;</span><br><span class="line">@ECHO JDK配置完成</span><br><span class="line"></span><br><span class="line">) else (</span><br><span class="line"></span><br><span class="line">@ECHO ON</span><br><span class="line">@ECHO 未能找到%systemroot%\system32\setx.exe，请下载setx.exe程序 </span><br><span class="line"></span><br><span class="line">)</span><br><span class="line">@PAUSE</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2617,7 +2689,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

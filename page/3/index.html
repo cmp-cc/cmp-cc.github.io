@@ -228,6 +228,126 @@
             
               
                 
+                <a class="post-title-link" href="/2014/10/10/2014/Java Web异常/" itemprop="url">
+                  Java Web异常
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-10-10T20:05:17+08:00" content="2014-10-10">
+              2014-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/10/10/2014/Java Web异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/10/2014/Java Web异常/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>记录一下Java Web 遇到的一些异常情况.</p>
+<h2 id="org-apache-catalina-LifecycleException"><a href="#org-apache-catalina-LifecycleException" class="headerlink" title="org.apache.catalina.LifecycleException"></a>org.apache.catalina.LifecycleException</h2><h3 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h3><p><strong>使用Spring MVC 启动的时候发生</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">严重: ContainerBase.addChild: start: </span><br><span class="line">org.apache.catalina.LifecycleException: Failed to start component [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/upload2]]</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:154)</span><br><span class="line">	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:724)</span><br><span class="line">	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:700)</span><br><span class="line">	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:714)</span><br><span class="line">	at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:581)</span><br><span class="line">	at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:1686)</span><br><span class="line">	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)</span><br><span class="line">	at java.util.concurrent.FutureTask.run(FutureTask.java:266)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:744)</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/springframework/web/context/request/async/CallableProcessingInterceptor</span><br><span class="line">	at java.lang.Class.getDeclaredFields0(Native Method)</span><br><span class="line">	at java.lang.Class.privateGetDeclaredFields(Class.java:2570)</span><br><span class="line">	at java.lang.Class.getDeclaredFields(Class.java:1903)</span><br><span class="line">	at org.apache.catalina.util.Introspection.getDeclaredFields(Introspection.java:106)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadFieldsAnnotation(WebAnnotationSet.java:258)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadApplicationServletAnnotations(WebAnnotationSet.java:137)</span><br><span class="line">	at org.apache.catalina.startup.WebAnnotationSet.loadApplicationAnnotations(WebAnnotationSet.java:65)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.applicationAnnotationsConfig(ContextConfig.java:331)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.configureStart(ContextConfig.java:770)</span><br><span class="line">	at org.apache.catalina.startup.ContextConfig.lifecycleEvent(ContextConfig.java:302)</span><br><span class="line">	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:117)</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:90)</span><br><span class="line">	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5083)</span><br><span class="line">	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)</span><br><span class="line">	... 10 more</span><br><span class="line">Caused by: java.lang.ClassNotFoundException: org.springframework.web.context.request.async.CallableProcessingInterceptor</span><br><span class="line">	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1324)</span><br><span class="line">	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1177)</span><br><span class="line">	... 24 more</span><br></pre></td></tr></table></figure></p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><ul>
+<li>引入<a href="http://mvnrepository.com/artifact/com.paypal.sdk/paypal-core" target="_blank" rel="external">PayPal Core</a> 到<code>WEB-INF\lib</code> 或Maven依赖。</li>
+<li>参考：<br><code>http://stackoverflow.com/questions/18404916/failed-to-start-component-standardenginecatalina-standardhostlocalhost-stan</code></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/08/11/2014/Spring Bean 扩展点/" itemprop="url">
                   Spring Bean 扩展点
                 </a>
@@ -1083,7 +1203,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Boostrap/" itemprop="url">
+                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Generator/" itemprop="url">
                   MyBatis Generator
                 </a>
               
@@ -1139,8 +1259,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/05/11/2014/MyBatis Boostrap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Boostrap/" itemprop="commentsCount"></span>
+                <a href="/2014/05/11/2014/MyBatis Generator/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Generator/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1228,8 +1348,8 @@
 <p><strong>如下是MBG配置文件实例。你应当查阅每一个元素说明</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line"></span><br><span class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</span><br><span class="line">        userId=&quot;db2admin&quot;</span><br><span class="line">        password=&quot;db2admin&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</span><br><span class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
 <h3 id="MBG-XML-元素说明"><a href="#MBG-XML-元素说明" class="headerlink" title="MBG XML 元素说明"></a>MBG XML 元素说明</h3><p>查看官方元素说明：<a href="http://www.mybatis.org/generator/configreference/xmlconfig.html" target="_blank" rel="external">http://www.mybatis.org/generator/configreference/xmlconfig.html</a></p>
 <h2 id="通过Maven-plugin-运行MBG"><a href="#通过Maven-plugin-运行MBG" class="headerlink" title="通过Maven plugin 运行MBG"></a>通过Maven plugin 运行MBG</h2><p>运行MBG 可以使用<code>命令提示符</code>、<code>Ant任务</code>、<code>Maven Plugin</code>、<code>Java程序</code>。 这里介绍Maven 形式。</p>
-<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">	  &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">	  &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">     ...</span><br><span class="line">     &lt;plugin&gt;</span><br><span class="line">   	  &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">   	  &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">       &lt;executions&gt;</span><br><span class="line">         &lt;execution&gt;</span><br><span class="line">           &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">           &lt;goals&gt;</span><br><span class="line">             &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">           &lt;/goals&gt;</span><br><span class="line">         &lt;/execution&gt;</span><br><span class="line">       &lt;/executions&gt;</span><br><span class="line">     &lt;/plugin&gt;</span><br><span class="line">     ...</span><br><span class="line">   &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    ...</span><br><span class="line">  &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>MBG插件将会绑定到Maven生命周期的 <code>generate-sources</code> 阶段。 所以他会在编译步骤之前执行。 此外注意MBG目标将绑定生成Java和XML资源文件的建立，他们都将包括在生成的JAR包内。</p>
 </blockquote>
@@ -1444,7 +1564,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Generator/" itemprop="url">
+                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Boostrap/" itemprop="url">
                   MyBatis Generator
                 </a>
               
@@ -1500,8 +1620,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/05/11/2014/MyBatis Generator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Generator/" itemprop="commentsCount"></span>
+                <a href="/2014/05/11/2014/MyBatis Boostrap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Boostrap/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1589,8 +1709,8 @@
 <p><strong>如下是MBG配置文件实例。你应当查阅每一个元素说明</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line"></span><br><span class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</span><br><span class="line">        userId=&quot;db2admin&quot;</span><br><span class="line">        password=&quot;db2admin&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</span><br><span class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
 <h3 id="MBG-XML-元素说明"><a href="#MBG-XML-元素说明" class="headerlink" title="MBG XML 元素说明"></a>MBG XML 元素说明</h3><p>查看官方元素说明：<a href="http://www.mybatis.org/generator/configreference/xmlconfig.html" target="_blank" rel="external">http://www.mybatis.org/generator/configreference/xmlconfig.html</a></p>
 <h2 id="通过Maven-plugin-运行MBG"><a href="#通过Maven-plugin-运行MBG" class="headerlink" title="通过Maven plugin 运行MBG"></a>通过Maven plugin 运行MBG</h2><p>运行MBG 可以使用<code>命令提示符</code>、<code>Ant任务</code>、<code>Maven Plugin</code>、<code>Java程序</code>。 这里介绍Maven 形式。</p>
-<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    ...</span><br><span class="line">  &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">	  &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">	  &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">     ...</span><br><span class="line">     &lt;plugin&gt;</span><br><span class="line">   	  &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">   	  &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">       &lt;executions&gt;</span><br><span class="line">         &lt;execution&gt;</span><br><span class="line">           &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">           &lt;goals&gt;</span><br><span class="line">             &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">           &lt;/goals&gt;</span><br><span class="line">         &lt;/execution&gt;</span><br><span class="line">       &lt;/executions&gt;</span><br><span class="line">     &lt;/plugin&gt;</span><br><span class="line">     ...</span><br><span class="line">   &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>MBG插件将会绑定到Maven生命周期的 <code>generate-sources</code> 阶段。 所以他会在编译步骤之前执行。 此外注意MBG目标将绑定生成Java和XML资源文件的建立，他们都将包括在生成的JAR包内。</p>
 </blockquote>
@@ -2616,156 +2736,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/02/2014/MyBatis井号和$的区别/" itemprop="url">
-                  Mybatis ${}和#{} 区别
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-02T12:53:00+08:00" content="2014-04-02">
-              2014-04-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/MyBatis/" itemprop="url" rel="index">
-                    <span itemprop="name">MyBatis</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/02/2014/MyBatis井号和$的区别/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/2014/MyBatis井号和$的区别/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这两个标示符均会出现在MyBatis XML SQL 映射文件中。</p>
-<ul>
-<li>参照理解：<ul>
-<li><code>#{}</code>  相当于 PrepareStatement 类<br><strong>以占位符的形式进行数值传递，有效的防止SQL注入</strong></li>
-<li><code>${}</code> 相当于 Statement 类<br><strong>值传递，不能能防止SQL注入</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>需要理解JDBC中的PrepareStatement 和 Statement 的关系。</p>
-</blockquote>
-<h2 id="占位符替换，能够防止SQL-注入问题。"><a href="#占位符替换，能够防止SQL-注入问题。" class="headerlink" title="#{} 占位符替换，能够防止SQL 注入问题。"></a><code>#{}</code> 占位符替换，能够防止SQL 注入问题。</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES(#&#123;Id&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
-<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES ?,?,?,?</span><br></pre></td></tr></table></figure></p>
-<p><strong>?会对应顺序的数值进行赋值传递，并检查数值的合法性.(这里有个预编译阶段，用于检验SQL)</strong></p>
-<h2 id="值传递，不能防止SQL注入"><a href="#值传递，不能防止SQL注入" class="headerlink" title="${} 值传递，不能防止SQL注入"></a><code>${}</code> 值传递，不能防止SQL注入</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES($&#123;Id&#125;,$&#123;name&#125;,$&#123;email&#125;,$&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
-<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES 4,飞车,baiwoyidao@163.com,游戏</span><br></pre></td></tr></table></figure></p>
-<p><strong>直接的SQL生成，没有预编译阶段。</strong></p>
-<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><ul>
-<li>使用<code>#{}</code>替代<code>${}</code><ul>
-<li><code>#{}</code>更加安全</li>
-<li><code>#{}</code> 性能好一些（部分数据库会对预编译语句进行性能优化）</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2811,7 +2781,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
