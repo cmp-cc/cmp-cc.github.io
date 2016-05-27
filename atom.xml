@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-05-27T06:07:18.763Z</updated>
+  <updated>2016-05-27T06:09:21.523Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>大数据工作流 Azkaban 环境搭建</title>
+    <title>Azkaban 工作流升级3.0</title>
     <link href="http://cmp-cc.github.io/2016/05/27/Azkaban%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%8D%87%E7%BA%A73.0/"/>
     <id>http://cmp-cc.github.io/2016/05/27/Azkaban 工作流升级3.0/</id>
     <published>2016-05-27T06:06:00.000Z</published>
-    <updated>2016-05-27T06:07:18.763Z</updated>
+    <updated>2016-05-27T06:09:21.523Z</updated>
     
     <content type="html">&lt;p&gt;前一段时间安装部署Azkaban 2.5 版本，数据运维的童鞋在使用中，确实解决了脚本工作流（依赖）、调度、监控等问题。&lt;/p&gt;
 &lt;ul&gt;
