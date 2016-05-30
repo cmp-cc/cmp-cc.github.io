@@ -71,8 +71,8 @@
 
 Azkaban 3.0 虽然没有正式推出，但可以投">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Azkaban 工作流升级3.0">
-<meta property="og:url" content="http://cmp-cc.github.io/2016/05/27/Azkaban 工作流升级3.0/index.html">
+<meta property="og:title" content="大数据工作流 Azkaban 环境搭建">
+<meta property="og:url" content="http://cmp-cc.github.io/2016/05/27/2016/Azkaban 工作流升级3.0/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
 <meta property="og:description" content="前一段时间安装部署Azkaban 2.5 版本，数据运维的童鞋在使用中，确实解决了脚本工作流（依赖）、调度、监控等问题。
 
@@ -85,10 +85,10 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
 
 
 Azkaban 3.0 虽然没有正式推出，但可以投">
-<meta property="og:image" content="http://cmp-cc.github.io/2016/05/27/Azkaban%20工作流升级3.0/a3c3e5d8-87b1-46fc-bd60-36892b1861e1.png">
-<meta property="og:updated_time" content="2016-05-27T06:09:21.523Z">
+<meta property="og:image" content="http://cmp-cc.github.io/2016/05/27/2016/Azkaban%20工作流升级3.0/a3c3e5d8-87b1-46fc-bd60-36892b1861e1.png">
+<meta property="og:updated_time" content="2016-05-27T07:53:26.959Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Azkaban 工作流升级3.0">
+<meta name="twitter:title" content="大数据工作流 Azkaban 环境搭建">
 <meta name="twitter:description" content="前一段时间安装部署Azkaban 2.5 版本，数据运维的童鞋在使用中，确实解决了脚本工作流（依赖）、调度、监控等问题。
 
 但是Azkaban还是存在很多问题和不足
@@ -100,7 +100,7 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
 
 
 Azkaban 3.0 虽然没有正式推出，但可以投">
-<meta name="twitter:image" content="http://cmp-cc.github.io/2016/05/27/Azkaban%20工作流升级3.0/a3c3e5d8-87b1-46fc-bd60-36892b1861e1.png">
+<meta name="twitter:image" content="http://cmp-cc.github.io/2016/05/27/2016/Azkaban%20工作流升级3.0/a3c3e5d8-87b1-46fc-bd60-36892b1861e1.png">
 
 
 
@@ -118,7 +118,7 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
   };
 </script>
 
-  <title> Azkaban 工作流升级3.0 | I am cmp-cc </title>
+  <title> 大数据工作流 Azkaban 环境搭建 | I am cmp-cc </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +258,7 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
             
             
               
-                Azkaban 工作流升级3.0
+                大数据工作流 Azkaban 环境搭建
               
             
           </h1>
@@ -312,8 +312,8 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/27/Azkaban 工作流升级3.0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/27/Azkaban 工作流升级3.0/" itemprop="commentsCount"></span>
+                <a href="/2016/05/27/2016/Azkaban 工作流升级3.0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/27/2016/Azkaban 工作流升级3.0/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -406,17 +406,28 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
 <li><p>构建成功<br><strong>查看：azkaban\build\distributions目录</strong></p>
 </li>
 </ul>
-<img src="/2016/05/27/Azkaban%20工作流升级3.0/a3c3e5d8-87b1-46fc-bd60-36892b1861e1.png" alt="安装成功文件" title="安装成功文件">
+<img src="/2016/05/27/2016/Azkaban%20工作流升级3.0/a3c3e5d8-87b1-46fc-bd60-36892b1861e1.png" alt="安装成功文件" title="安装成功文件">
 <h2 id="安装Azkaban"><a href="#安装Azkaban" class="headerlink" title="安装Azkaban"></a>安装Azkaban</h2><p>关于Azkaban的安装，请参考<a href="http://cmp-cc.github.io/2016/04/27/2016/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%20Azkaban%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">这篇文件：Azkaban2.5安装指南</a></p>
 <ul>
-<li><p>不同之处，你需要使用自己编译的3.0进行配置。 数据库导入<code>azkaban.sql-3.0.0.zip</code>中<code>create-all-sql-3.0.0.sql</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd azkaban/build/distributions/ </span><br><span class="line">zunip azkaban-sql-3.0.0.zip</span><br><span class="line">cd azkaban-sql-3.0.0</span><br><span class="line">mysql -uroot -p -D azkaban &lt; create-all-sql-3.0.0.sql</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果已经安装了azkaban2.5，现在进行版本升级，只需要执行<code>azkaban.sql-3.0.0.zip</code>中<code>update.active_executing_flows.3.0.sql</code>和<code>update.execution_flows.3.0.sql</code>文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p -D azkaban &lt; update.active_executing_flows.3.0.sql</span><br><span class="line">mysql -uroot -p -D azkaban &lt; update.execution_flows.3.0.sql</span><br></pre></td></tr></table></figure>
+<li>不同之处，你需要使用自己编译的Azkaban3.0进行配置。 数据库导入<code>azkaban.sql-3.0.0.zip</code>中<code>create-all-sql-3.0.0.sql</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd azkaban/build/distributions/ </span><br><span class="line">zunip azkaban-sql-3.0.0.zip</span><br><span class="line">cd azkaban-sql-3.0.0</span><br><span class="line">mysql -uroot -p -D azkaban2 &lt; create-all-sql-3.0.0.sql</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<blockquote>
+<p>注意：azkaban2 数据库必须存在</p>
+</blockquote>
+<ul>
+<li>同时你需要要执行<code>azkaban.sql-3.0.0.zip</code>中<code>update.active_executing_flows.3.0.sql</code>和<code>update.execution_flows.3.0.sql</code>文件,如果不执行，可能会出现如下异常<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; azkaban.executor.ExecutorManagerException: Error fetching active flows</span><br><span class="line">        at azkaban.executor.JdbcExecutorLoader.fetchActiveFlows(JdbcExecutorLoader.java:216)</span><br><span class="line">        at azkaban.executor.ExecutorManager.loadRunningFlows(ExecutorManager.java:431)</span><br><span class="line">        at azkaban.executor.ExecutorManager.&lt;init&gt;(ExecutorManager.java:126)</span><br><span class="line">        at azkaban.webapp.AzkabanWebServer.loadExecutorManager(AzkabanWebServer.java:261)</span><br><span class="line">        at azkaban.webapp.AzkabanWebServer.&lt;init&gt;(AzkabanWebServer.java:197)</span><br><span class="line">        at azkaban.webapp.AzkabanWebServer.main(AzkabanWebServer.java:739)</span><br><span class="line">Caused by: java.sql.SQLException: Unknown column &apos;ex.executor_id&apos; in &apos;on clause&apos; Query: SELECT ex.exec_id exec_id, ex.enc_type enc_type, ex.flow_data flow_data, et.host host, et.port port, ax.update_time axUpdateTime, et.id executorId, et.active executorStatus FROM execution_flows ex INNER JOIN  active_executing_flows ax ON ex.exec_id = ax.exec_id INNER JOIN  executors et ON ex.executor_id = et.id Parameters: []</span><br><span class="line">        at org.apache.commons.dbutils.AbstractQueryRunner.rethrow(AbstractQueryRunner.java:363)</span><br><span class="line">        at org.apache.commons.dbutils.QueryRunner.query(QueryRunner.java:350)</span><br><span class="line">        at org.apache.commons.dbutils.QueryRunner.query(QueryRunner.java:306)</span><br><span class="line">        at azkaban.executor.JdbcExecutorLoader.fetchActiveFlows(JdbcExecutorLoader.java:212)</span><br><span class="line">        ... 5 more</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p -D azkaban2 &lt; update.active_executing_flows.3.0.sql</span><br><span class="line">mysql -uroot -p -D azkaban2 &lt; update.execution_flows.3.0.sql</span><br></pre></td></tr></table></figure>
 <p>其他相关步骤查看如上文章，安装过程过程大同小异。</p>
+<h2 id="可能会遇到的异常"><a href="#可能会遇到的异常" class="headerlink" title="可能会遇到的异常"></a>可能会遇到的异常</h2><ul>
+<li><p><strong>解压后的<code>azkaban-web-server-3.0.0</code>和<code>azkaban-exec-server-3.0.0</code>的bin目录下的<code>.sh</code> 均没有可执行权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd azkaban-web-server-3.0.0</span><br><span class="line">chown -R 777 bin/*.sh</span><br><span class="line"></span><br><span class="line">// exec 同理</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>执行sh出现/bin/bash^M: bad interpreter: No such file or directory</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 如上原因是因为使用了window构建，linux不识别此文件</span><br><span class="line"></span><br><span class="line">vi azkaban-web-start.sh</span><br><span class="line"></span><br><span class="line">:set ff=nuix</span><br><span class="line">:wq</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -450,6 +461,10 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2016/05/30/2016/Gradle 使用异常处理/" rel="prev" title="Gradle 使用异常处理">
+                Gradle 使用异常处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -474,8 +489,8 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/27/Azkaban 工作流升级3.0/"
-           data-title="Azkaban 工作流升级3.0" data-url="http://cmp-cc.github.io/2016/05/27/Azkaban 工作流升级3.0/">
+      <div class="ds-thread" data-thread-key="2016/05/27/2016/Azkaban 工作流升级3.0/"
+           data-title="大数据工作流 Azkaban 环境搭建" data-url="http://cmp-cc.github.io/2016/05/27/2016/Azkaban 工作流升级3.0/">
       </div>
     
   </div>
@@ -520,7 +535,7 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -528,7 +543,7 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -537,7 +552,7 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -588,7 +603,7 @@ Azkaban 3.0 虽然没有正式推出，但可以投">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#构建Azkaban-源码"><span class="nav-number">1.</span> <span class="nav-text">构建Azkaban 源码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个新环境下构建"><span class="nav-number">1.1.</span> <span class="nav-text">一个新环境下构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的异常"><span class="nav-number">1.2.</span> <span class="nav-text">可能遇到的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手工-构建（Gradle）Azkaban"><span class="nav-number">1.3.</span> <span class="nav-text">手工 构建（Gradle）Azkaban</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Azkaban"><span class="nav-number">2.</span> <span class="nav-text">安装Azkaban</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#构建Azkaban-源码"><span class="nav-number">1.</span> <span class="nav-text">构建Azkaban 源码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个新环境下构建"><span class="nav-number">1.1.</span> <span class="nav-text">一个新环境下构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的异常"><span class="nav-number">1.2.</span> <span class="nav-text">可能遇到的异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手工-构建（Gradle）Azkaban"><span class="nav-number">1.3.</span> <span class="nav-text">手工 构建（Gradle）Azkaban</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Azkaban"><span class="nav-number">2.</span> <span class="nav-text">安装Azkaban</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可能会遇到的异常"><span class="nav-number">3.</span> <span class="nav-text">可能会遇到的异常</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

@@ -4,11 +4,34 @@
 
     
   <url>
-    <loc>http://cmp-cc.github.io/2016/05/27/Azkaban%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%8D%87%E7%BA%A73.0/</loc>
-    <lastmod>2016-05-27T06:09:21.523Z</lastmod>
+    <loc>http://cmp-cc.github.io/2016/05/30/2016/Gradle%20%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2016-05-30T06:44:14.693Z</lastmod>
     <data>
         <display>
-        <title>Azkaban 工作流升级3.0</title>
+        <title>Gradle 使用异常处理</title>
+        <pubTime>2016-05-30T06:43:00.000Z</pubTime>
+        
+        <tag>Gradle</tag>
+         
+         
+           
+             
+              <breadCrumb title="Project Build" url="http://cmp-cc.github.io/categories/Project-Build/"/>
+          
+             
+              <breadCrumb title="Gradle" url="http://cmp-cc.github.io/categories/Project-Build/Gradle/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://cmp-cc.github.io/2016/05/27/2016/Azkaban%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%8D%87%E7%BA%A73.0/</loc>
+    <lastmod>2016-05-27T07:53:26.959Z</lastmod>
+    <data>
+        <display>
+        <title>大数据工作流 Azkaban 环境搭建</title>
         <pubTime>2016-05-27T06:06:00.000Z</pubTime>
         
         <tag>Workflow</tag>
@@ -1030,29 +1053,6 @@
     
     
   <url>
-    <loc>http://cmp-cc.github.io/2014/03/11/2014/Git%20%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8/</loc>
-    <lastmod>2015-12-14T09:50:00.000Z</lastmod>
-    <data>
-        <display>
-        <title>Git 遇到的异常</title>
-        <pubTime>2014-03-11T14:53:00.000Z</pubTime>
-        
-        <tag>Git</tag>
-         
-         
-           
-             
-              <breadCrumb title="Version Control" url="http://cmp-cc.github.io/categories/Version-Control/"/>
-          
-             
-              <breadCrumb title="Git" url="http://cmp-cc.github.io/categories/Version-Control/Git/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://cmp-cc.github.io/2014/11/07/2014/Linux%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/</loc>
     <lastmod>2015-12-14T09:50:00.000Z</lastmod>
     <data>
@@ -1071,6 +1071,29 @@
           
              
               <breadCrumb title="Linux" url="http://cmp-cc.github.io/categories/Operating-System/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://cmp-cc.github.io/2014/03/11/2014/Git%20%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8/</loc>
+    <lastmod>2015-12-14T09:50:00.000Z</lastmod>
+    <data>
+        <display>
+        <title>Git 遇到的异常</title>
+        <pubTime>2014-03-11T14:53:00.000Z</pubTime>
+        
+        <tag>Git</tag>
+         
+         
+           
+             
+              <breadCrumb title="Version Control" url="http://cmp-cc.github.io/categories/Version-Control/"/>
+          
+             
+              <breadCrumb title="Git" url="http://cmp-cc.github.io/categories/Version-Control/Git/"/>
           
         </display>
     </data>
