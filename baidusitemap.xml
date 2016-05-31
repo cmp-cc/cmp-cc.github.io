@@ -4,22 +4,22 @@
 
     
   <url>
-    <loc>http://cmp-cc.github.io/2016/05/30/2016/Gradle%20%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2016-05-30T06:44:14.693Z</lastmod>
+    <loc>http://cmp-cc.github.io/2014/07/07/FreeMarker%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2016-05-31T03:02:15.371Z</lastmod>
     <data>
         <display>
-        <title>Gradle 使用异常处理</title>
-        <pubTime>2016-05-30T06:43:00.000Z</pubTime>
+        <title>FreeMarker入门</title>
+        <pubTime>2014-07-07T08:53:00.000Z</pubTime>
         
-        <tag>Gradle</tag>
+        <tag>FreeMarker</tag>
          
          
            
              
-              <breadCrumb title="Project Build" url="http://cmp-cc.github.io/categories/Project-Build/"/>
+              <breadCrumb title="JavaWeb" url="http://cmp-cc.github.io/categories/JavaWeb/"/>
           
              
-              <breadCrumb title="Gradle" url="http://cmp-cc.github.io/categories/Project-Build/Gradle/"/>
+              <breadCrumb title="FreeMarker" url="http://cmp-cc.github.io/categories/JavaWeb/FreeMarker/"/>
           
         </display>
     </data>
@@ -28,7 +28,7 @@
     
   <url>
     <loc>http://cmp-cc.github.io/2016/05/27/2016/Azkaban%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%8D%87%E7%BA%A73.0/</loc>
-    <lastmod>2016-05-27T07:53:26.959Z</lastmod>
+    <lastmod>2016-05-30T07:28:56.060Z</lastmod>
     <data>
         <display>
         <title>大数据工作流 Azkaban 环境搭建</title>
@@ -45,6 +45,29 @@
           
              
               <breadCrumb title="Bigdata Workflow" url="http://cmp-cc.github.io/categories/Workflow/Bigdata-Workflow/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://cmp-cc.github.io/2016/05/30/2016/Gradle%20%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2016-05-30T06:44:14.693Z</lastmod>
+    <data>
+        <display>
+        <title>Gradle 使用异常处理</title>
+        <pubTime>2016-05-30T06:43:00.000Z</pubTime>
+        
+        <tag>Gradle</tag>
+         
+         
+           
+             
+              <breadCrumb title="Project Build" url="http://cmp-cc.github.io/categories/Project-Build/"/>
+          
+             
+              <breadCrumb title="Gradle" url="http://cmp-cc.github.io/categories/Project-Build/Gradle/"/>
           
         </display>
     </data>
