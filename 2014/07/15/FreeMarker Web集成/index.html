@@ -59,39 +59,42 @@
 
 
 
-<meta name="description" content="FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）
+<meta name="description" content="已更新
+FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）
 
 init : 在Servlet init()方法中创建Configuration 对象
-service: 在服务器（Service）填充Model，实例化模板
+service: 在服务层填充Model，实例化模板
 controller: 指定输出到servlet PrintWriter中或者生成静态页面
 
 
-FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似">
+FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似JSP)，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FreeMarker Web集成">
 <meta property="og:url" content="http://cmp-cc.github.io/2014/07/15/FreeMarker Web集成/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）
+<meta property="og:description" content="已更新
+FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）
 
 init : 在Servlet init()方法中创建Configuration 对象
-service: 在服务器（Service）填充Model，实例化模板
+service: 在服务层填充Model，实例化模板
 controller: 指定输出到servlet PrintWriter中或者生成静态页面
 
 
-FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似">
+FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似JSP)，">
 <meta property="og:image" content="http://cmp-cc.github.io/2014/07/15/FreeMarker%20Web集成/dce51fbe-0642-47b6-b35a-b5024d288632.png">
 <meta property="og:image" content="http://cmp-cc.github.io/2014/07/15/FreeMarker%20Web集成/c1b083f7-d483-4112-a1a3-14c638c358be.png">
-<meta property="og:updated_time" content="2016-06-01T07:28:59.654Z">
+<meta property="og:updated_time" content="2016-06-01T07:37:56.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FreeMarker Web集成">
-<meta name="twitter:description" content="FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）
+<meta name="twitter:description" content="已更新
+FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）
 
 init : 在Servlet init()方法中创建Configuration 对象
-service: 在服务器（Service）填充Model，实例化模板
+service: 在服务层填充Model，实例化模板
 controller: 指定输出到servlet PrintWriter中或者生成静态页面
 
 
-FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似">
+FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似JSP)，">
 <meta name="twitter:image" content="http://cmp-cc.github.io/2014/07/15/FreeMarker%20Web集成/dce51fbe-0642-47b6-b35a-b5024d288632.png">
 
 
@@ -327,10 +330,11 @@ FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似">
       
 
       
-        <p>FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）</p>
+        <p><strong>已更新</strong></p>
+<p>FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）</p>
 <ul>
 <li>init : 在Servlet <code>init()</code>方法中创建<code>Configuration</code> 对象</li>
-<li>service: 在服务器（Service）填充Model，实例化模板</li>
+<li>service: 在服务层填充Model，实例化模板</li>
 <li>controller: 指定输出到servlet PrintWriter中或者生成静态页面</li>
 </ul>
 <blockquote>
@@ -387,7 +391,7 @@ FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似">
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Freemarker MVC Integration Test Page&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"> </span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;a href=&quot;hello&quot;&gt;Spring MVC Example&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="额外的配置"><a href="#额外的配置" class="headerlink" title="额外的配置"></a>额外的配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- FreeMarker的配置 --&gt;</span><br><span class="line">&lt;bean id=&quot;freeMarkerConfigurer&quot;  class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;templateLoaderPaths&quot; value=&quot;/WEB-INF/static/&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;defaultEncoding&quot; value=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;freemarkerSettings&quot;&gt;</span><br><span class="line">        &lt;props&gt;</span><br><span class="line">            &lt;prop key=&quot;template_update_delay&quot;&gt;10&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;defaultEncoding&quot;&gt;UTF-8&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;url_escaping_charset&quot;&gt;UTF-8&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;locale&quot;&gt;zh_CN&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;boolean_format&quot;&gt;true,false&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;time_format&quot;&gt;HH:mm:ss&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;datetime_format&quot;&gt;yyyy-MM-dd HH:mm:ss&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;date_format&quot;&gt;yyyy-MM-dd&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;number_format&quot;&gt;#.##&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;whitespace_stripping&quot;&gt;true&lt;/prop&gt;</span><br><span class="line">        &lt;/props&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;!-- 配置 FreeMarker视图解析器 --&gt;</span><br><span class="line">&lt;bean id=&quot;viewResolver&quot;  class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;viewClass&quot;</span><br><span class="line">        value=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerView&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;cache&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;&lt;!--可为空 --&gt;</span><br><span class="line">    &lt;property name=&quot;contentType&quot; value=&quot;text/html;charset=utf-8&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeRequestAttributes&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeSessionAttributes&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeSpringMacroHelpers&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="FreeMarker-详细配置"><a href="#FreeMarker-详细配置" class="headerlink" title="FreeMarker 详细配置"></a>FreeMarker 详细配置</h3><p><strong>如下是一个详细Spring MVC 集成FreeMarker的详细配置，</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- FreeMarker的配置 --&gt;</span><br><span class="line">&lt;bean id=&quot;freeMarkerConfigurer&quot;  class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;templateLoaderPaths&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;defaultEncoding&quot; value=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;freemarkerSettings&quot;&gt;</span><br><span class="line">        &lt;props&gt;</span><br><span class="line">            &lt;prop key=&quot;incompatible_improvements&quot;&gt;2.3.23&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;template_exception_handler&quot;&gt;rethrow&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;default_encoding&quot;&gt;UTF-8&lt;/prop&gt;  </span><br><span class="line">            &lt;prop key=&quot;template_update_delay&quot;&gt;10&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;url_escaping_charset&quot;&gt;UTF-8&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;locale&quot;&gt;zh_CN&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;boolean_format&quot;&gt;true,false&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;time_format&quot;&gt;HH:mm:ss&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;datetime_format&quot;&gt;yyyy-MM-dd HH:mm:ss&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;date_format&quot;&gt;yyyy-MM-dd&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;number_format&quot;&gt;#.##&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;whitespace_stripping&quot;&gt;true&lt;/prop&gt;</span><br><span class="line">        &lt;/props&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;!-- 配置 FreeMarker视图解析器 --&gt;</span><br><span class="line">&lt;bean id=&quot;viewResolver&quot;  class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;viewClass&quot;</span><br><span class="line">        value=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerView&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;cache&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;&lt;!--可为空 --&gt;</span><br><span class="line">    &lt;property name=&quot;contentType&quot; value=&quot;text/html;charset=utf-8&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeRequestAttributes&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeSessionAttributes&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeSpringMacroHelpers&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -561,7 +565,7 @@ FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-集成"><span class="nav-number">1.</span> <span class="nav-text">Servlet 集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC-集成"><span class="nav-number">2.</span> <span class="nav-text">Spring MVC 集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#额外的配置"><span class="nav-number">2.1.</span> <span class="nav-text">额外的配置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-集成"><span class="nav-number">1.</span> <span class="nav-text">Servlet 集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC-集成"><span class="nav-number">2.</span> <span class="nav-text">Spring MVC 集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FreeMarker-详细配置"><span class="nav-number">2.1.</span> <span class="nav-text">FreeMarker 详细配置</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
