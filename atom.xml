@@ -1651,6 +1651,70 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
   
   <entry>
     <title>Postfix 邮件服务器</title>
+    <link href="http://cmp-cc.github.io/2015/01/17/Postfix%20%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://cmp-cc.github.io/2015/01/17/Postfix 邮件服务器/</id>
+    <published>2015-01-17T01:11:00.000Z</published>
+    <updated>2016-06-08T02:04:51.184Z</updated>
+    
+    <content type="html">&lt;p&gt;配置Postfix 使用&lt;code&gt;国内邮箱SMTP&lt;/code&gt;代发&lt;/p&gt;
+&lt;h2 id=&quot;Postfix-配置&quot;&gt;&lt;a href=&quot;#Postfix-配置&quot; class=&quot;headerlink&quot; title=&quot;Postfix 配置&quot;&gt;&lt;/a&gt;Postfix 配置&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;保证系统包含&lt;code&gt;cyrus-sasl-devel cyrus-sasl-plain cyrus-sasl cyrus-sasl-lib cyrus-imapd&lt;/code&gt;&lt;br&gt;如果没有通过yum安装&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;安装Postfix&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum install postfix&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;系统一般默认安装postfix，你可能需要卸载&lt;code&gt;sendmail&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;vi /etc/postfix/main.cf&lt;/code&gt; 添加如下&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# sets 163 as relay&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;relayhost = [smtp.163.com]:25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#  use tls&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;smtp_use_tls = yes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# use sasl when authenticating to foreign SMTP servers&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;smtp_sasl_auth_enable = yes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# path to password map file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# list of CAs to trust when verifying server certificate&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;smtp_tls_CAfile = /etc/pki/tls/certs/ca-bundle.crt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# eliminates default security options which are imcompatible&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;smtp_sasl_security_options = noanonymous&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;vi /etc/postfix/sasl_passwd&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[smtp.163.com]:25  baiwoyidao@163.com:xxxx&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[mail.host]:port 用户邮箱:密码&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;执行如下命令&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 重载配置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo postmap /etc/postfix/sasl_passwd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/init.d/postfix reload&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 重新启动Postfix服务&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; /etc/init.d/postfix restart&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;或者&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;service postfix restart&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;测试：给指定邮箱发送邮件&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;echo &amp;quot;hello world cmp-cc&amp;quot; | mail -s Postfix_Test_Mail 452143877@qq.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;如果找不到&lt;code&gt;ca-certificates.crt&lt;/code&gt;文件&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd /etc/ssl/certs&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -s ca-bundle.crt ca-certificates.crt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;/etc/ssl/certs&lt;/code&gt; 中有&lt;code&gt;.pen&lt;/code&gt;的证书也是可以使用的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;当无法接收短信，查看异常信息&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd /var/spool/mail&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi root&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;配置Postfix 使用&lt;code&gt;国内邮箱SMTP&lt;/code&gt;代发&lt;/p&gt;
+&lt;h2 id=&quot;Postfix-配置&quot;&gt;&lt;a href=&quot;#Postfix-配置&quot; class=&quot;headerlink&quot; title=&quot;Postfix 配置&quot;&gt;&lt;/a&gt;Postfix 配置&lt;/h
+    
+    </summary>
+    
+      <category term="Operating System" scheme="http://cmp-cc.github.io/categories/Operating-System/"/>
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/categories/Operating-System/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Postfix 邮件服务器</title>
     <link href="http://cmp-cc.github.io/2015/01/17/2015/Postfix%20%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     <id>http://cmp-cc.github.io/2015/01/17/2015/Postfix 邮件服务器/</id>
     <published>2015-01-17T01:11:00.000Z</published>
@@ -1974,196 +2038,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     
       <category term="Hadoop" scheme="http://cmp-cc.github.io/tags/Hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux sftp 进行文件传输</title>
-    <link href="http://cmp-cc.github.io/2014/11/28/2014/Linux%20sftp%20%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/"/>
-    <id>http://cmp-cc.github.io/2014/11/28/2014/Linux sftp 进行文件传输/</id>
-    <published>2014-11-28T12:32:00.000Z</published>
-    <updated>2016-04-28T07:40:47.118Z</updated>
-    
-    <content type="html">&lt;p&gt;使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。&lt;/p&gt;
-&lt;p&gt;Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。&lt;/p&gt;
-&lt;p&gt;这里介绍 sftp 进行文件传输， 我习惯使用SecureCRT（SSH终端仿真程序）进行sftp操作。&lt;/p&gt;
-&lt;p&gt;同样，你可以使用rs、sz 进行文件传输，它只作用于单文件传输。&lt;/p&gt;
-&lt;h2 id=&quot;sftp-基础命令&quot;&gt;&lt;a href=&quot;#sftp-基础命令&quot; class=&quot;headerlink&quot; title=&quot;sftp 基础命令&quot;&gt;&lt;/a&gt;sftp 基础命令&lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;命令&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;ascii&lt;/td&gt;
-&lt;td&gt;Set transfer mode to ASCII&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;binary&lt;/td&gt;
-&lt;td&gt;Set transfer mode to binary&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;cd path&lt;/td&gt;
-&lt;td&gt;更改远程目录到”路径”&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;detail remote-path&lt;/td&gt;
-&lt;td&gt;显示系统信息关于远程文件或文件夹&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ldetail local-path&lt;/td&gt;
-&lt;td&gt;显示系统信息关于本地文件或文件夹&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;lcd path&lt;/td&gt;
-&lt;td&gt;更改本地目录到”路径” &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;chgrp group path&lt;/td&gt;
-&lt;td&gt;将文件”path”的权限更改为”mode” &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;chmod mode path&lt;/td&gt;
-&lt;td&gt;将文件”path”的权限更改为”mode” &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;chown owner path&lt;/td&gt;
-&lt;td&gt;将文件”path”的属主更改为”owner” &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;exit&lt;/td&gt;
-&lt;td&gt;退出 sftp &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;help&lt;/td&gt;
-&lt;td&gt;显示帮助文本&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;include filename&lt;/td&gt;
-&lt;td&gt;Include commands from ‘filename’ Alternate: &amp;lt; filename&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;get [-a l -b] remote-path&lt;/td&gt;
-&lt;td&gt;Download file force ascii (-a) or binary (-b) mode 下载文件&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ln [-s] existingpath linkpath&lt;/td&gt;
-&lt;td&gt;Hardlink / symlink remote file&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ls [options] [path]&lt;/td&gt;
-&lt;td&gt;符号链接远程文件 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;lls [options] [path]&lt;/td&gt;
-&lt;td&gt;显示本地目录列表 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;mkdir path&lt;/td&gt;
-&lt;td&gt;创建远程目录 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;lmkdir path&lt;/td&gt;
-&lt;td&gt;创建本地目录&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;mv oldpath newpath&lt;/td&gt;
-&lt;td&gt;移动远程文件&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;open [user@]host[:port]&lt;/td&gt;
-&lt;td&gt;连接到远程主机&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;put [-a l -b] local-path&lt;/td&gt;
-&lt;td&gt;Upload file force ascii (-a) or binary (-b) mode 上传文件&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;pwd&lt;/td&gt;
-&lt;td&gt;打印本地工作目录&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;lpwd&lt;/td&gt;
-&lt;td&gt;打印本地工作目录&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;quit&lt;/td&gt;
-&lt;td&gt;退出 sftp&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;rmdir path&lt;/td&gt;
-&lt;td&gt;移除远程目录&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;lrmdir path&lt;/td&gt;
-&lt;td&gt;移除本地目录 &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;rm path&lt;/td&gt;
-&lt;td&gt;删除远程文件&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;lrm path&lt;/td&gt;
-&lt;td&gt;删除本地文件&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;su username&lt;/td&gt;
-&lt;td&gt;Substitutes the current user This is only supported with VShell for Windows 3.5 or later.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;type [transfer-mode]&lt;/td&gt;
-&lt;td&gt;Display or set file transfer mode&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;view remote-path&lt;/td&gt;
-&lt;td&gt;Download and open file&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;version&lt;/td&gt;
-&lt;td&gt;显示协议版本&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&quot;进入sftp-模式&quot;&gt;&lt;a href=&quot;#进入sftp-模式&quot; class=&quot;headerlink&quot; title=&quot;进入sftp 模式&quot;&gt;&lt;/a&gt;进入sftp 模式&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;命令行模式下输入 ：&lt;code&gt;sftp 用户名@IP地址&lt;/code&gt; ， 然后会提示你输入密码&lt;/li&gt;
-&lt;li&gt;如果是SecureCRT。 &lt;code&gt;Alt+p&lt;/code&gt; 或者 &lt;code&gt;File -&amp;gt; 链接sftp&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;sftp-基本使用&quot;&gt;&lt;a href=&quot;#sftp-基本使用&quot; class=&quot;headerlink&quot; title=&quot;sftp 基本使用&quot;&gt;&lt;/a&gt;sftp 基本使用&lt;/h2&gt;&lt;p&gt;sftp主要是用来传输文件的，所以我们主要使用两个命令。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;提示 &lt;/p&gt;
-&lt;h3 id=&quot;文件上传-（从本机到远程主机）&quot;&gt;&lt;a href=&quot;#文件上传-（从本机到远程主机）&quot; class=&quot;headerlink&quot; title=&quot;文件上传 （从本机到远程主机）&quot;&gt;&lt;/a&gt;文件上传 （从本机到远程主机）&lt;/h3&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;使用 put [-Ppr] local [remote]&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;实例1： 上传单个文件&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 查看Window 当前目录&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; lpwd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;C:/Users/root/Documents&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 切换Window 上传目录&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; lcd d:/temp &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 查看roles.csv文件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; lls -l&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 23, 2014 14:30 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 21, 2014 11:21 actors.csv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Nov 10, 2014 11:01 ali&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 21, 2014 11:19 movies.csv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Jan 14, 2014 16:56 neo4j&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 28, 2014 17:40 package.json&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Oct 21, 2014 11:21 roles.csv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; Nov 30, 2014 20:54 TV.war&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; // 查看当前终端路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; pwd                &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/usr/local/program/server_tool/apache-tomcat-7.0.32/webapps&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 切换到上传路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; cd ~&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; pwd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/home/centos&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 使用put 进行文件上传&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; put roles.csv ./&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Uploading roles.csv to /home/centos/roles.csv&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Skipping directory d:/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  100% 367 bytes    367 bytes/s 00:00:00     &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;d:/temp/roles.csv: 367 bytes transferred in 0 seconds (367 bytes/s)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 查看，ok 成功的。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sftp&amp;gt; ls&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;roles.csv&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;实例2： 上传文件目录&lt;/strong&gt;&lt;br&gt;&lt;code&gt;put -r 目录名称 目录名称&lt;/code&gt; &lt;code&gt;-r&lt;/code&gt; 表示文件夹。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 很简单，参考实例1。 默认上传当前路径&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;put -r download/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;实例3： 上传所有文件&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;上传当前所有文件 到 远程目录&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;put *&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;上传当前所有文件及其文件夹 到 远程目录&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;put -r *&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;文件下载-从远程主机到本机&quot;&gt;&lt;a href=&quot;#文件下载-从远程主机到本机&quot; class=&quot;headerlink&quot; title=&quot;文件下载(从远程主机到本机)&quot;&gt;&lt;/a&gt;文件下载(从远程主机到本机)&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;使用 get [-Ppr] remote [local]&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;关于get (文件下载)说明和实例 略。   参考put (文件上传) 。 两则异曲同工&lt;/strong&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。&lt;/p&gt;
-&lt;p&gt;Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。&lt;/p&gt;
-&lt;p&gt;这里介绍 sftp 进行文件传输， 我习惯使用Secu
-    
-    </summary>
-    
-      <category term="Operating System" scheme="http://cmp-cc.github.io/categories/Operating-System/"/>
-    
-      <category term="Linux" scheme="http://cmp-cc.github.io/categories/Operating-System/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
     
   </entry>
   
