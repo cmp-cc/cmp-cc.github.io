@@ -1651,20 +1651,12 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
   
   <entry>
     <title>Postfix 邮件服务器</title>
-    <link href="http://cmp-cc.github.io/2015/01/17/Postfix%20%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    <id>http://cmp-cc.github.io/2015/01/17/Postfix 邮件服务器/</id>
+    <link href="http://cmp-cc.github.io/2015/01/17/2015/Postfix%20%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://cmp-cc.github.io/2015/01/17/2015/Postfix 邮件服务器/</id>
     <published>2015-01-17T01:11:00.000Z</published>
-    <updated>2016-06-08T02:00:04.242Z</updated>
+    <updated>2016-06-08T02:02:41.486Z</updated>
     
-    <content type="html">&lt;hr&gt;
-&lt;p&gt;title: Postfix 邮件服务器&lt;br&gt;date: 2015-01-17 09:11:00&lt;br&gt;updated:&lt;br&gt;categories: &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Operating System&lt;/li&gt;
-&lt;li&gt;Linux&lt;/li&gt;
-&lt;li&gt;Work Efficiency&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;tags:&lt;/p&gt;
-&lt;h2 id=&quot;Linux&quot;&gt;&lt;a href=&quot;#Linux&quot; class=&quot;headerlink&quot; title=&quot;- Linux&quot;&gt;&lt;/a&gt;- Linux&lt;/h2&gt;&lt;p&gt;配置Postfix 使用&lt;code&gt;国内邮箱SMTP&lt;/code&gt;代发&lt;/p&gt;
+    <content type="html">&lt;p&gt;配置Postfix 使用&lt;code&gt;国内邮箱SMTP&lt;/code&gt;代发&lt;/p&gt;
 &lt;h2 id=&quot;Postfix-配置&quot;&gt;&lt;a href=&quot;#Postfix-配置&quot; class=&quot;headerlink&quot; title=&quot;Postfix 配置&quot;&gt;&lt;/a&gt;Postfix 配置&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;保证系统包含&lt;code&gt;cyrus-sasl-devel cyrus-sasl-plain cyrus-sasl cyrus-sasl-lib cyrus-imapd&lt;/code&gt;&lt;br&gt;如果没有通过yum安装&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1708,12 +1700,8 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     <summary type="html">
     
-      &lt;hr&gt;
-&lt;p&gt;title: Postfix 邮件服务器&lt;br&gt;date: 2015-01-17 09:11:00&lt;br&gt;updated:&lt;br&gt;categories: &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Operating System&lt;/li&gt;
-&lt;li&gt;Linux&lt;/li&gt;
-&lt;li&gt;
+      &lt;p&gt;配置Postfix 使用&lt;code&gt;国内邮箱SMTP&lt;/code&gt;代发&lt;/p&gt;
+&lt;h2 id=&quot;Postfix-配置&quot;&gt;&lt;a href=&quot;#Postfix-配置&quot; class=&quot;headerlink&quot; title=&quot;Postfix 配置&quot;&gt;&lt;/a&gt;Postfix 配置&lt;/h
     
     </summary>
     
