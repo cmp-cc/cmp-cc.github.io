@@ -89,7 +89,7 @@ Postfix 配置
 
 
 vi /etc/">
-<meta property="og:updated_time" content="2016-06-08T02:02:41.486Z">
+<meta property="og:updated_time" content="2016-06-08T02:04:51.184Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Postfix 邮件服务器">
 <meta name="twitter:description" content="配置Postfix 使用国内邮箱SMTP代发
@@ -307,18 +307,6 @@ vi /etc/">
 
                 
                 
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/Work-Efficiency/" itemprop="url" rel="index">
-                    <span itemprop="name">Work Efficiency</span>
-                  </a>
-                </span>
-
-                
-                
 
               
             </span>
@@ -372,12 +360,11 @@ vi /etc/">
 </ul>
 <blockquote>
 <p>[mail.host]:port 用户邮箱:密码</p>
-<ul>
-<li>执行如下命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 重载配置</span><br><span class="line">sudo postmap /etc/postfix/sasl_passwd</span><br><span class="line">/etc/init.d/postfix reload</span><br><span class="line"></span><br><span class="line">// 重新启动Postfix服务</span><br><span class="line"> /etc/init.d/postfix restart</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line">service postfix restart</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
 </blockquote>
 <ul>
+<li><p>执行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 重载配置</span><br><span class="line">sudo postmap /etc/postfix/sasl_passwd</span><br><span class="line">/etc/init.d/postfix reload</span><br><span class="line"></span><br><span class="line">// 重新启动Postfix服务</span><br><span class="line"> /etc/init.d/postfix restart</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line">service postfix restart</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>测试：给指定邮箱发送邮件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;hello world cmp-cc&quot; | mail -s Postfix_Test_Mail 452143877@qq.com</span><br></pre></td></tr></table></figure>
 </li>
@@ -387,10 +374,10 @@ vi /etc/">
 </ul>
 <blockquote>
 <p><code>/etc/ssl/certs</code> 中有<code>.pen</code>的证书也是可以使用的。</p>
+</blockquote>
 <ul>
 <li>当无法接收短信，查看异常信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/spool/mail</span><br><span class="line">vi root</span><br></pre></td></tr></table></figure></li>
 </ul>
-</blockquote>
 
       
     </div>
@@ -422,8 +409,8 @@ vi /etc/">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/01/17/Postfix 邮件服务器/" rel="prev" title="Postfix 邮件服务器">
-                Postfix 邮件服务器 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/03/11/PostgreSQL 遇到的问题/" rel="prev" title="PostgreSQL 遇到的问题">
+                PostgreSQL 遇到的问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -496,7 +483,7 @@ vi /etc/">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
