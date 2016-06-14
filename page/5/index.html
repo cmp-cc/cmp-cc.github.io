@@ -228,6 +228,218 @@
             
               
                 
+                <a class="post-title-link" href="/2013/12/14/2013/贫血模型和充血模型/" itemprop="url">
+                  贫血模型和充血模型
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-12-14T16:53:00+08:00" content="2013-12-14">
+              2013-12-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/12/14/2013/贫血模型和充血模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/12/14/2013/贫血模型和充血模型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>大多数情况下，我忍不住赋予Model行为，我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己（cmp-cc）的理解：</p>
+<h2 id="模型-（Model）"><a href="#模型-（Model）" class="headerlink" title="模型 （Model）"></a>模型 （Model）</h2><ul>
+<li>无论是贫血模型还是充血模型，他们都符合POJO （也可以认为JavaBean）。<br><strong>Model包含属性的<code>get</code>、<code>set</code>方法</strong></li>
+<li>模型的本质充当数据容器（保存状态，传递状态）。<br><strong>模型是一种特殊的数据结构</strong></li>
+</ul>
+<h2 id="失血模型"><a href="#失血模型" class="headerlink" title="失血模型"></a>失血模型</h2><p><strong>失血模型就是POJO对象，模型仅仅包含数据的定义和getter/setter方法，业务逻辑和应用逻辑都放到服务层（Service）中。</strong> </p>
+<p>层次表示：</p>
+<blockquote>
+<p>UI(视图层) -&gt; Control(控制层) -&gt; Service（服务层） -&gt; DAO （持久化层） -&gt;domain object （领域对象 Model ）</p>
+</blockquote>
+<ul>
+<li>领域对象不具备任何行为（仅仅是一个POJO对象），所有的行为都在Service层。</li>
+<li>领域对象的作用。<ul>
+<li>充当数据容器。</li>
+<li>对象关系映射（ORM）</li>
+</ul>
+</li>
+<li>这种模型很容易理解和掌握。</li>
+<li>优点<ul>
+<li>层次结构清晰，单项依赖，易于维护。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>Service 层挤压严重。（业务逻辑职责） </li>
+<li>部分与数据操作相关的行为，必须通过Service层进行修改。</li>
+</ul>
+</li>
+</ul>
+<h2 id="贫血模型"><a href="#贫血模型" class="headerlink" title="贫血模型"></a>贫血模型</h2><p><strong>贫血模型中包含了一些业务逻辑，但不包含依赖持久层的业务逻辑。这部分依赖于持久层的业务逻辑将会放到服务层中。</strong></p>
+<p>层次表示：</p>
+<blockquote>
+<p>UI(视图层) -&gt; Control(控制层) -&gt; Service（服务层） -&gt; DAO （持久化层） -&gt;domain object （Model）</p>
+</blockquote>
+<ul>
+<li>继承失血模型特性</li>
+<li>领域对象具备简单行为，如下特点。<ul>
+<li>行为不具备持久化特性。（不与数据库打交道，也就是不依赖于DAO层）</li>
+<li>具备与数据相关的业务行为。（部分Service行为 移至 Model）</li>
+</ul>
+</li>
+<li>同样与失血模型同样的痛处<ul>
+<li>系统越复杂，维护成本越高，Service层（业务逻辑）挤压严重。</li>
+</ul>
+</li>
+</ul>
+<h2 id="充血模型"><a href="#充血模型" class="headerlink" title="充血模型"></a>充血模型</h2><p>**充血模型中包含了所有的业务逻辑，包括依赖于持久层的业务逻辑。所以，使用充血模型的领域层是依赖于持久层。</p>
+<p>层次表示：</p>
+<blockquote>
+<p>UI -&gt; Control -&gt; Service -&gt; domain object &lt;–&gt; DAO</p>
+</blockquote>
+<ul>
+<li>Service 层被减轻，不和DAO打交道，只包含业务逻辑。</li>
+<li>领域对象 和 DAO 双向依赖。</li>
+<li>优点<ul>
+<li>减轻了Service层。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>Service 将直接依赖于领域对象。 领域对象同样具备部分业务，可能会造成职责混乱，或者使领域对象不具备业务I行为</li>
+<li>领域对象与DAO双向依赖，部分职责容易混响。</li>
+</ul>
+</li>
+</ul>
+<h2 id="胀血模型"><a href="#胀血模型" class="headerlink" title="胀血模型"></a>胀血模型</h2><p><strong>胀血模型就是把和业务逻辑不想关的其他应用逻辑（如授权、事务等）都放到领域模型中。我感觉胀血模型反而是另外一种的失血模型，因为服务层消失了，领域层干了服务层的事，到头来还是什么都没变。</strong></p>
+<p>层次表示：</p>
+<blockquote>
+<p>UI -&gt; Control -&gt; domain object &lt;–&gt; DAO</p>
+</blockquote>
+<ul>
+<li>没有了服务层，领域对象包含所有业务逻辑，并双向依赖与持久化层。</li>
+<li>优点<ul>
+<li>分层极其简单</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>领域对象职责过多，挤压严重，极其不稳定，不易维护。</li>
+<li>控制层访问领域对象能够看到不必要的行为。</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>失血模型和胀血模型并不被提倡，主要原因：领域模型内聚职责过少，或者过多。<br>关于贫血模型和充血模型的选型，其实跟语言架构有关（Robin提出）：</p>
+<ul>
+<li>如果使用Spring，必须贫血模型。</li>
+<li>如果使用RoR，直接充血模型。</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://blog.csdn.net/always_my_fault/article/details/2063612" target="_blank" rel="external">http://blog.csdn.net/always_my_fault/article/details/2063612</a><br><a href="http://www.oschina.net/question/54100_10400" target="_blank" rel="external">http://www.oschina.net/question/54100_10400</a><br><a href="http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml" target="_blank" rel="external">http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/11/25/2013/Linux iptable 防火墙/" itemprop="url">
                   Linux iptable 防火墙
                 </a>
@@ -2707,155 +2919,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/03/03/2013/Linux curl 和 wget/" itemprop="url">
-                  Linux curl 和wget
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-03-03T16:53:00+08:00" content="2013-03-03">
-              2013-03-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/03/03/2013/Linux curl 和 wget/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/03/2013/Linux curl 和 wget/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><p>如果yum找不到使用如下安装</p>
-<ul>
-<li>下载<br>wget <a href="http://curl.haxx.se/download/curl-7.17.1.tar.gz" target="_blank" rel="external">http://curl.haxx.se/download/curl-7.17.1.tar.gz</a></li>
-<li>解压<br>tar -zxf curl-7.17.1.tar.gz</li>
-<li><p>配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./curl-7.17.1/configure --prefix=/usr/local/curl</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/curl/bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://www.baidu.com</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><p>系统找不到wget，可使用yum安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum isntall wget</span><br></pre></td></tr></table></figure></p>
-<h2 id="wget-参数"><a href="#wget-参数" class="headerlink" title="wget 参数"></a>wget 参数</h2><p>其他常用参数略，如下两个参数也经常被使用到</p>
-<ul>
-<li>-P 下载到指定目录  </li>
-<li>-c 支持断点下载</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2901,7 +2964,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

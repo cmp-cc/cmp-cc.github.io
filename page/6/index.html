@@ -228,6 +228,155 @@
             
               
                 
+                <a class="post-title-link" href="/2013/03/03/2013/Linux curl 和 wget/" itemprop="url">
+                  Linux curl 和wget
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-03-03T16:53:00+08:00" content="2013-03-03">
+              2013-03-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/03/03/2013/Linux curl 和 wget/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/03/2013/Linux curl 和 wget/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><p>如果yum找不到使用如下安装</p>
+<ul>
+<li>下载<br>wget <a href="http://curl.haxx.se/download/curl-7.17.1.tar.gz" target="_blank" rel="external">http://curl.haxx.se/download/curl-7.17.1.tar.gz</a></li>
+<li>解压<br>tar -zxf curl-7.17.1.tar.gz</li>
+<li><p>配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./curl-7.17.1/configure --prefix=/usr/local/curl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/curl/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://www.baidu.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><p>系统找不到wget，可使用yum安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum isntall wget</span><br></pre></td></tr></table></figure></p>
+<h2 id="wget-参数"><a href="#wget-参数" class="headerlink" title="wget 参数"></a>wget 参数</h2><p>其他常用参数略，如下两个参数也经常被使用到</p>
+<ul>
+<li>-P 下载到指定目录  </li>
+<li>-c 支持断点下载</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/02/28/2013/Struts2 Action/" itemprop="url">
                   Struts2 Action
                 </a>
@@ -785,7 +934,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
