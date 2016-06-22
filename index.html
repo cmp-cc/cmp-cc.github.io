@@ -306,7 +306,7 @@
 <li>同样你可以只构建一个<code>Plugin</code>，如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd plugins/jobtype/</span><br><span class="line">ant package</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="Hadoop-Secutriy"><a href="#Hadoop-Secutriy" class="headerlink" title="Hadoop Secutriy"></a>Hadoop Secutriy</h2><h2 id="Azkaban-HDFS-Browser"><a href="#Azkaban-HDFS-Browser" class="headerlink" title="Azkaban HDFS Browser"></a>Azkaban HDFS Browser</h2><p>Azkaban HDFS Browser插件允许你查看HDFS 文件系统和文件类型。<br>默认情况下 Azkaban HDFS Browser 使用启动Linux 用户冒充用户登陆 （Linux 用户 == Hadoop HDFS 用户）。</p>
+<h2 id="HDFS-Browser-3-0-安装"><a href="#HDFS-Browser-3-0-安装" class="headerlink" title="HDFS Browser 3.0 安装"></a>HDFS Browser 3.0 安装</h2><p>Azkaban HDFS Browser插件允许你查看HDFS 文件系统和文件类型。<br>默认情况下 Azkaban HDFS Browser 使用启动Linux 用户冒充用户登陆 （Linux 用户 == Hadoop HDFS 用户）。</p>
 <ul>
 <li><p>Azkaban <code>azkaban-web-server-3.0.0/conf/azkaban.properties</code> 配置文件 配置加载<code>hdfs viewer plugin</code>:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/azkaban3.0/azkaban-web-server-3.0.0/conf/</span><br><span class="line">vi azkaban.properties</span><br><span class="line"></span><br><span class="line">// 增加如下</span><br><span class="line">viewer.plugins=hdfs</span><br></pre></td></tr></table></figure>
@@ -342,7 +342,7 @@
 <blockquote>
 <p>如果当前环境已经配置，无需在配置</p>
 </blockquote>
-<h2 id="HDFS-2-5-安装"><a href="#HDFS-2-5-安装" class="headerlink" title="HDFS 2.5 安装"></a>HDFS 2.5 安装</h2><p>如果你安装3.0失败，可以安装2.5版本。 显示效果一模一样</p>
+<h2 id="HDFS-Browser-2-5-安装"><a href="#HDFS-Browser-2-5-安装" class="headerlink" title="HDFS Browser 2.5 安装"></a>HDFS Browser 2.5 安装</h2><p>如果你安装3.0失败，可以安装2.5版本。 显示效果一模一样</p>
 <p> 将Hadoop 2.x 相关Jar 放到<code>extlib</code>目录中。 （不像3.0，如下即可）</p>
 <img src="/2016/06/22/Azkaban%20插件/11f40929-8ecb-4f67-9e0c-6795f3f32c4d.png" alt="HDFS2.5 所需Jar" title="HDFS2.5 所需Jar">
 <p><strong>配置成功</strong></p>
