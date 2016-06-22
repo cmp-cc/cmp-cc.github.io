@@ -4,15 +4,25 @@
 
     
   <url>
-    <loc>http://cmp-cc.github.io/2016/06/22/Azkaban%20%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2016-06-22T02:36:10.203Z</lastmod>
+    <loc>http://cmp-cc.github.io/2016/05/29/Azkaban%20%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2016-06-22T02:38:07.742Z</lastmod>
     <data>
         <display>
-        <title></title>
-        <pubTime>2016-06-22T02:13:00.580Z</pubTime>
+        <title>Azkaban 插件</title>
+        <pubTime>2016-05-29T11:53:00.000Z</pubTime>
         
+        <tag>Workflow</tag>
+         
+        <tag>Azkaban</tag>
+         
          
            
+             
+              <breadCrumb title="Workflow" url="http://cmp-cc.github.io/categories/Workflow/"/>
+          
+             
+              <breadCrumb title="Bigdata Workflow" url="http://cmp-cc.github.io/categories/Workflow/Bigdata-Workflow/"/>
+          
         </display>
     </data>
     </url>
