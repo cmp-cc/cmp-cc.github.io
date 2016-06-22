@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-06-22T02:34:48.454Z</updated>
+  <updated>2016-06-22T02:36:10.203Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://cmp-cc.github.io/2016/06/22/Azkaban%20%E6%8F%92%E4%BB%B6/"/>
     <id>http://cmp-cc.github.io/2016/06/22/Azkaban 插件/</id>
     <published>2016-06-22T02:13:00.580Z</published>
-    <updated>2016-06-22T02:34:48.454Z</updated>
+    <updated>2016-06-22T02:36:10.203Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;Azkaban 官网只提供了2.5版本的zip，3.0 Plugin 需要手工构建，这篇文章介绍如下：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -77,11 +77,11 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;推荐将&lt;code&gt;plugin extlib&lt;/code&gt;中的jar移至&lt;code&gt;azkaban-web/extlib&lt;/code&gt;目录中,Hadoop 环境检查成功可能会找到不到&lt;code&gt;plugins extlib&lt;/code&gt;目录&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;配置 Hadoop&lt;br&gt;确保当前环境存在Hadoop环境变量&lt;code&gt;HADOOP_HOME&lt;/code&gt;和&lt;code&gt;HADOOP_CONF_DIR&lt;/code&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 添加如下&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export HADOOP_HOME=/opt/cloudera/parcels/CDH-5.5.2-1.cdh5.5.2.p0.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop/conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;/blockquote&gt;
 &lt;p&gt;或者&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vi hdfs/conf/plugin.properties&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 添加类似如下&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hadoop.home=/etc/hadoop&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hadoop.conf.dir=/etc/hadoop/conf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如果当前环境已经配置，无需在配置&lt;/p&gt;

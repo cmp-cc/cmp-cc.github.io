@@ -333,11 +333,11 @@
 </ul>
 <blockquote>
 <p>推荐将<code>plugin extlib</code>中的jar移至<code>azkaban-web/extlib</code>目录中,Hadoop 环境检查成功可能会找到不到<code>plugins extlib</code>目录</p>
+</blockquote>
 <ul>
 <li>配置 Hadoop<br>确保当前环境存在Hadoop环境变量<code>HADOOP_HOME</code>和<code>HADOOP_CONF_DIR</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line">// 添加如下</span><br><span class="line">export HADOOP_HOME=/opt/cloudera/parcels/CDH-5.5.2-1.cdh5.5.2.p0.4</span><br><span class="line">export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop/conf</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-</blockquote>
 <p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi hdfs/conf/plugin.properties</span><br><span class="line"></span><br><span class="line">// 添加类似如下</span><br><span class="line">hadoop.home=/etc/hadoop</span><br><span class="line">hadoop.conf.dir=/etc/hadoop/conf</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>如果当前环境已经配置，无需在配置</p>
