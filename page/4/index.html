@@ -228,6 +228,188 @@
             
               
                 
+                <a class="post-title-link" href="/2014/06/13/2014/Linux 时间同步/" itemprop="url">
+                  Linux 时间同步
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-06-13T19:00:00+08:00" content="2014-06-13">
+              2014-06-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/Work-Efficiency/" itemprop="url" rel="index">
+                    <span itemprop="name">Work Efficiency</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/06/13/2014/Linux 时间同步/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/13/2014/Linux 时间同步/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我们需要使用到时间同步服务器，来保证Linux时间为北京时间,这一点非常重要，尤其是服务器不在国内的情况。</p>
+<ul>
+<li>使用<code>date</code>命令查看Linux系统的当前时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 17:43:52 CST 2014</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>可以通过<code>date -s</code> 修改时间或者日期</p>
+</blockquote>
+<h2 id="Linux-同步时区"><a href="#Linux-同步时区" class="headerlink" title="Linux 同步时区"></a>Linux 同步时区</h2><ul>
+<li>删除本地时间</li>
+<li>软连接为北京时间</li>
+<li>查看当前时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# rm -rf /etc/localtime </span><br><span class="line">[root@salt ~]# ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 17:50:11 CST 2014</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这里没有任何变化，因为Linux 默认当前时间为CST时间而不是EDT，如果在国外，通过如下方法改为<code>北京时间</code></p>
+</blockquote>
+<h2 id="Linux-时间同步"><a href="#Linux-时间同步" class="headerlink" title="Linux 时间同步"></a>Linux 时间同步</h2><p>Linux 时间，有时候莫名其妙与当前时间相差几个小时。 如果是Linux 集群，就会造成时间混乱，非常严重 。使用时间服务器同步Linux 时间。</p>
+<ul>
+<li>安装<code>ntpdate</code> 时间同步服务器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ntpdate ntp</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>设置 <code>ntpdate</code></p>
+<ul>
+<li><p><code>vi /etc/ntp.conf</code> 增加如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server 210.72.145.44</span><br><span class="line">server cn.pool.ntp.org</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>vi /etc/ntp/step-tickers</code> 加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">210.72.145.44</span><br><span class="line">cn.pool.ntp.org</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>启动<code>ntpdate</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service ntpdate start</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# service ntp start</span><br><span class="line">ntp: unrecognized service</span><br><span class="line">[root@salt ~]# service ntpdate start</span><br><span class="line">ntpdate: Synchronizing with time server: [  OK  ]</span><br><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 18:49:34 CST 2014</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查看时间同步服务器地址 : <a href="http://www.pool.ntp.org/zone/asia" target="_blank" rel="external">http://www.pool.ntp.org/zone/asia</a> (cn.pool.ntp.org)<br>查看中国授时中心:<a href="http://zqscm.qiniucdn.com/data/20101229110057/index.html" target="_blank" rel="external">http://zqscm.qiniucdn.com/data/20101229110057/index.html</a>   (210.72.145.44)</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/06/10/Spring MVC 入门/" itemprop="url">
                   Spring MVC 入门
                 </a>
@@ -2495,316 +2677,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/01/03/2014/HTML5 语义化标签/" itemprop="url">
-                  HTML5 语义化标签
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-01-03T16:43:00+08:00" content="2014-01-03">
-              2014-01-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTML/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/01/03/2014/HTML5 语义化标签/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/03/2014/HTML5 语义化标签/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>前段时间看了一本《HTML5 实战》 ，也只是为了关注一下HTML5的发展和趋势。</p>
-<p>看的我头大，这本书只是做个了HTML5的介绍，算不上实战，很多例子含糊不清。</p>
-<p>HTML5 中新的语义化标签，还是让我眼前一亮。</p>
-<h2 id="HTML5-中的新特性"><a href="#HTML5-中的新特性" class="headerlink" title="HTML5 中的新特性"></a>HTML5 中的新特性</h2><p><strong>HTML5 中的核心特性，先记录一下,方便日后查阅</strong></p>
-<ul>
-<li>新的语义化标签</li>
-<li>表单与表单API</li>
-<li>Canvas API</li>
-<li>拖放 API</li>
-<li>地理位置 API</li>
-<li>WEB存储 API</li>
-<li>IndexedDB API</li>
-<li>文件</li>
-<li>通信API</li>
-<li>WEB workers API</li>
-<li>历史 API</li>
-<li>脱机 API</li>
-</ul>
-<h2 id="HTML5-语义化标签"><a href="#HTML5-语义化标签" class="headerlink" title="HTML5 语义化标签"></a>HTML5 语义化标签</h2><h3 id="HTML-结构语义"><a href="#HTML-结构语义" class="headerlink" title="HTML 结构语义"></a>HTML 结构语义</h3><p><strong>HTML 整体结构所需的标签语义</strong></p>
-<table>
-<thead>
-<tr>
-<th>标签</th>
-<th>语义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>header</td>
-<td>这个元素表示一组介绍性的内容，适用于文档的不同节，他既可以包含节标题，也可以包含索引、搜索表单、logo等</td>
-</tr>
-<tr>
-<td>nav</td>
-<td>这个元素表示包含导航链接的节，如菜单或索引，并非所有的网页链接都要加<nav>元素中，只有主要的导航块才需要加到元素中。</nav></td>
-</tr>
-<tr>
-<td>section</td>
-<td>这个元素表示文档中的普通的节，通常，它可用于创建多个内容块（如：列） 从而对具有特定主题的内容进行分组，如图书的章</td>
-</tr>
-<tr>
-<td>aside</td>
-<td>这个元素表示与内容相关但不属于它的内容，如：引用，边侧栏，广告</td>
-</tr>
-<tr>
-<td>footer</td>
-<td>这个元素表示与父级元素相关的额外信息。</td>
-</tr>
-<tr>
-<td>article</td>
-<td>这个元素表示重要信息的独立部分–例如，报纸上或博客中的文章，<article>可以嵌套，也可以用于在相关项列表中显示一个</article></td>
-</tr>
-<tr>
-<td>hgroup</td>
-<td>如果有多级标题，请使用。</td>
-</tr>
-<tr>
-<td>figure</td>
-<td>这个元素表示主内容引用内容独立部分(图像，图表，视频)，这个信息可以从主内容删除，而不会影响其常规流。</td>
-</tr>
-<tr>
-<td>figcaption</td>
-<td>这个元素可以用于显示表题，或者与figure 一起用，例如： 图形的描述信息。</td>
-</tr>
-<tr>
-<td>mark</td>
-<td>这个元素可以突出显示特殊情况下的重要文字，或者是对应的用户输入。</td>
-</tr>
-<tr>
-<td>small</td>
-<td>这个元素表示边侧评论，如附属细则(负责声明，法律限制，版权)</td>
-</tr>
-<tr>
-<td>cite</td>
-<td>这个元素可以用于显示作品标题(图书、电影、诗歌)</td>
-</tr>
-<tr>
-<td>address</td>
-<td>显示article或者整个文档的合同信息，且应该位于footer中。</td>
-</tr>
-<tr>
-<td>time</td>
-<td>显示人和机器可读的日期和时间。 datetime属性，pubdate表示出版日期</td>
-</tr>
-</tbody>
-</table>
-<h3 id="HTML-文档语义"><a href="#HTML-文档语义" class="headerlink" title="HTML 文档语义"></a>HTML 文档语义</h3><p><strong>HTML 作用于文本标签语义</strong></p>
-<table>
-<thead>
-<tr>
-<th>标签</th>
-<th>语义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>time</td>
-<td>定义日期或时间</td>
-</tr>
-<tr>
-<td>em</td>
-<td>强调</td>
-</tr>
-<tr>
-<td>strong</td>
-<td>重要</td>
-</tr>
-<tr>
-<td>small</td>
-<td>旁注</td>
-</tr>
-<tr>
-<td>cite</td>
-<td>作品引用 （标题）</td>
-</tr>
-<tr>
-<td>q</td>
-<td>引用</td>
-</tr>
-<tr>
-<td>dfn</td>
-<td>举例</td>
-</tr>
-<tr>
-<td>abbr</td>
-<td>缩写</td>
-</tr>
-<tr>
-<td>code</td>
-<td>计算机代码</td>
-</tr>
-<tr>
-<td>var</td>
-<td>变量</td>
-</tr>
-<tr>
-<td>samp</td>
-<td>计算机输出</td>
-</tr>
-<tr>
-<td>kbd</td>
-<td>用户输入</td>
-</tr>
-<tr>
-<td>sub</td>
-<td>下标</td>
-</tr>
-<tr>
-<td>sup</td>
-<td>上标</td>
-</tr>
-<tr>
-<td>i</td>
-<td>备选项 大部分用于发言、技术短语等情况。</td>
-</tr>
-<tr>
-<td>b</td>
-<td>关键字 表示在不增加额外重要性的同时将词或短语高亮显示</td>
-</tr>
-<tr>
-<td>mart</td>
-<td>高亮</td>
-</tr>
-<tr>
-<td>ruby、rb、rt、rp</td>
-<td>注释 [一种排版注释系统(位于横排文本上方的简短文字)]</td>
-</tr>
-<tr>
-<td>bdi</td>
-<td>文本方向间离</td>
-</tr>
-<tr>
-<td>bdo</td>
-<td>文本方向格式</td>
-</tr>
-<tr>
-<td>span</td>
-<td>其他</td>
-</tr>
-<tr>
-<td>br</td>
-<td>换行</td>
-</tr>
-<tr>
-<td>wbr</td>
-<td>可选折行 [长单词的破择号 (让浏览器决定是否换行)]</td>
-</tr>
-<tr>
-<td>h1 ~ h6</td>
-<td>一级标题 至 六级标题</td>
-</tr>
-<tr>
-<td>figure、figcaption</td>
-<td>figure 独立的流（图片、图像、图表）figcaption 标题</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2850,7 +2722,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2858,7 +2730,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

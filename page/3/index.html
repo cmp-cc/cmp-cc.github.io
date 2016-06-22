@@ -228,6 +228,195 @@
             
               
                 
+                <a class="post-title-link" href="/2014/12/16/2014/Hadoop日常实战 计数器/" itemprop="url">
+                  Hadoop日常实战 计数器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-12-16T17:26:00+08:00" content="2014-12-16">
+              2014-12-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/16/2014/Hadoop日常实战 计数器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/16/2014/Hadoop日常实战 计数器/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>计数器是一种收集作业统计信息的有效有段</p>
+<p>  <strong>在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。</strong></p>
+<h2 id="内置计数器控制台视图"><a href="#内置计数器控制台视图" class="headerlink" title="内置计数器控制台视图"></a>内置计数器控制台视图</h2><p>Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的具体状体。</p>
+<p>如下是<code>Hadoop 2.0.0-cdh4.7.0</code> Hadoop Mapreudce执行程序控制台显示</p>
+<img src="/2014/12/16/2014/Hadoop日常实战%20计数器/QQ图片20141211110508.png" alt="内置计数器" title="内置计数器">
+<p> <strong>Counter有组（group）的概念，用于表示逻辑上相同范围的所有数值。</strong><br>上图默认输出Counter分为三个组，从中我们可以分析出程序运行使用 CPU、内存、IO读写、网络流量的一个基本情况 </p>
+<p>文章推荐: <a href="http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html</a></p>
+<h2 id="内置计数器的分类："><a href="#内置计数器的分类：" class="headerlink" title="内置计数器的分类："></a>内置计数器的分类：</h2><table>
+<thead>
+<tr>
+<th>分组</th>
+<th>属性名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mapreduce任务计数器</td>
+<td>org.apache.hadoop.mapreduce. TaskCounter</td>
+</tr>
+<tr>
+<td>任务计数器</td>
+<td>org.apache.hadoop.mapreduce. JobCounter</td>
+</tr>
+<tr>
+<td>文件系统计数器</td>
+<td>org.apache.hadoop.mapreduce.FileSystemCounter</td>
+</tr>
+<tr>
+<td>输入文件计数器</td>
+<td>org.apache.hadoop.mapreduce.lib.input. FileInputFormatCounter</td>
+</tr>
+<tr>
+<td>输出文件计数器</td>
+<td>org.apache.hadoop.mapreduce.lib.output. FileOutputFormatCounter</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这些就是hadoop 内置的计数器类（组），均是枚举类型。</strong></p>
+<h2 id="静态计数器和动态计数器"><a href="#静态计数器和动态计数器" class="headerlink" title="静态计数器和动态计数器"></a>静态计数器和动态计数器</h2><ul>
+<li><p>静态计数器<br><strong>定义一个枚举(enum) 枚举的名称即使Counter组的名称。 枚举属性即使要记录的数值名称，Mapreduce框架将跨所有map和reduce聚集这些计数器，并在作业结束时产生一个结果。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static enum ReporInfo&#123;</span><br><span class="line">    // 统计map端读取数据是否按预期。 MISSING输出为0，表示没有输入数据完整或无缺损。</span><br><span class="line">  MISSING</span><br><span class="line">&#125;</span><br><span class="line">//通过Mapper中的context对象进行计数</span><br><span class="line">context.getCounter(Temperature.MISSING).increment(1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>动态计数器<br><strong>动态计数器使用更加简单,你需要指定两个变量，这个变量均是动态指定。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 组的名称  和  动态计数的字段名称</span><br><span class="line">context.getCounter(&quot;group name&quot;,&quot;dynamic args&quot;).increment(1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较<br><strong>静态类型： 先将java枚举类型转换成String类型，再通过RPC发送计数器，两种创建和访问计数器方法(枚举类型和String类型) 实际是等价的。<br>相比之下，枚举类型易于使用，还提供类型安全，使用与大多数作业，特定场合使用动态计数器。</strong></p>
+</li>
+</ul>
+<h2 id="通过计数器获取Mapreduce的运行情况"><a href="#通过计数器获取Mapreduce的运行情况" class="headerlink" title="通过计数器获取Mapreduce的运行情况"></a>通过计数器获取Mapreduce的运行情况</h2><p>获取计数器：  作业长时间运行，我们需要通过计数器了解运行情况。我们只需要写一个监听类就可以。<br>如下是Mapreduce2.0写法，同样需要引用1.0中的JobClient类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String jobID = args[0];</span><br><span class="line">JobClient jobClient = new JobClient(new JobConf(getConf()));</span><br><span class="line">RunningJob job = jobClient.getJob(JobID.forName(jobID));</span><br><span class="line">Counters counters = job.getCounters();</span><br><span class="line">long missing = counters.getCounter(</span><br><span class="line">MaxTemperatureWithCounters.Temperature.MISSING);</span><br><span class="line">    </span><br><span class="line">long total = counters.getCounter(Task.Counter.MAP_INPUT_RECORDS);</span><br><span class="line"></span><br><span class="line">System.out.printf(&quot;Records with missing temperature fields: %.2f%%\n&quot;,100.0 * missing / total);</span><br></pre></td></tr></table></figure></p>
+<h2 id="计数器原理"><a href="#计数器原理" class="headerlink" title="计数器原理"></a>计数器原理</h2><img src="/2014/12/16/2014/Hadoop日常实战%20计数器/c5c20a58-0087-49b2-a5d5-91ca4ae38066.jpg" alt="计数器原理图" title="计数器原理图">
+<ul>
+<li>计数器实质是由JobTracker维护，计数器值会定期传到tasktracker，在由tasktracker传递给jobtracker。也就是说所有的计数器信息都是存在jobTracker的内存中，计数器序列化并状态更新同步到JobTracker。</li>
+<li>TaskTracker中累加计数器 记录单节点中的计数个数。通过“心跳“ 传递信息给JobTracker。</li>
+<li>JobTracker会下运行结束之前最终汇总时剔除掉失败任务计数器。</li>
+</ul>
+<p>Mapreduce1.0中并没有限制计数器的个数，极其影响程序性能。<br>为了不对JobTracker产生印象。计数器数目应当控制到100以下。</p>
+<p>如果你的计数器超过了120个就会报如下错误：<br>org.apache.hadoop.mapreduce.counters.LimitExceededException: Too many counters: 121 max=120</p>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>你可能遇到如下异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">14/12/12 09:56:48 INFO mapred.JobClient: Task Id : attempt_201412091419_0236_m_000028_0, Status : FAILED</span><br><span class="line">Error: Found interface org.apache.hadoop.mapreduce.Counter, but class was expected</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>原因：<br><strong>你本地的使用的编译环境是Hadoop1.0(MR1) 而你的集群环境为hadoop2.0(MR2) 所以默认没有找到。</strong></li>
+<li>解决方案<br>更改为hadoop2.0(hadoop-mapreduce-client-core-2.0.0-cdh4.7.0.jar，hadoop-common-2.0.0-cdh4.7.0.jar)的jar。和集群环境保持一致。</li>
+</ul>
+<p>推荐Blog：<br><a href="http://langyu.iteye.com/blog/1171091" target="_blank" rel="external">http://langyu.iteye.com/blog/1171091</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/11/28/2014/Linux sftp 进行文件传输/" itemprop="url">
                   Linux sftp 进行文件传输
                 </a>
@@ -2005,188 +2194,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/06/13/2014/Linux 时间同步/" itemprop="url">
-                  Linux 时间同步
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-06-13T19:00:00+08:00" content="2014-06-13">
-              2014-06-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/Work-Efficiency/" itemprop="url" rel="index">
-                    <span itemprop="name">Work Efficiency</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/06/13/2014/Linux 时间同步/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/13/2014/Linux 时间同步/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>我们需要使用到时间同步服务器，来保证Linux时间为北京时间,这一点非常重要，尤其是服务器不在国内的情况。</p>
-<ul>
-<li>使用<code>date</code>命令查看Linux系统的当前时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 17:43:52 CST 2014</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>可以通过<code>date -s</code> 修改时间或者日期</p>
-</blockquote>
-<h2 id="Linux-同步时区"><a href="#Linux-同步时区" class="headerlink" title="Linux 同步时区"></a>Linux 同步时区</h2><ul>
-<li>删除本地时间</li>
-<li>软连接为北京时间</li>
-<li>查看当前时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# rm -rf /etc/localtime </span><br><span class="line">[root@salt ~]# ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 17:50:11 CST 2014</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>这里没有任何变化，因为Linux 默认当前时间为CST时间而不是EDT，如果在国外，通过如下方法改为<code>北京时间</code></p>
-</blockquote>
-<h2 id="Linux-时间同步"><a href="#Linux-时间同步" class="headerlink" title="Linux 时间同步"></a>Linux 时间同步</h2><p>Linux 时间，有时候莫名其妙与当前时间相差几个小时。 如果是Linux 集群，就会造成时间混乱，非常严重 。使用时间服务器同步Linux 时间。</p>
-<ul>
-<li>安装<code>ntpdate</code> 时间同步服务器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ntpdate ntp</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<ul>
-<li><p>设置 <code>ntpdate</code></p>
-<ul>
-<li><p><code>vi /etc/ntp.conf</code> 增加如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server 210.72.145.44</span><br><span class="line">server cn.pool.ntp.org</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>vi /etc/ntp/step-tickers</code> 加入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">210.72.145.44</span><br><span class="line">cn.pool.ntp.org</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li>启动<code>ntpdate</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service ntpdate start</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# service ntp start</span><br><span class="line">ntp: unrecognized service</span><br><span class="line">[root@salt ~]# service ntpdate start</span><br><span class="line">ntpdate: Synchronizing with time server: [  OK  ]</span><br><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 18:49:34 CST 2014</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>查看时间同步服务器地址 : <a href="http://www.pool.ntp.org/zone/asia" target="_blank" rel="external">http://www.pool.ntp.org/zone/asia</a> (cn.pool.ntp.org)<br>查看中国授时中心:<a href="http://zqscm.qiniucdn.com/data/20101229110057/index.html" target="_blank" rel="external">http://zqscm.qiniucdn.com/data/20101229110057/index.html</a>   (210.72.145.44)</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2232,7 +2239,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2240,7 +2247,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

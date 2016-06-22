@@ -228,6 +228,140 @@
             
               
                 
+                <a class="post-title-link" href="/2015/10/14/2015/CDH开启HA 访问HDFS/" itemprop="url">
+                  CDH开启HA 访问HDFS
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-10-14T17:53:00+08:00" content="2015-10-14">
+              2015-10-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/10/14/2015/CDH开启HA 访问HDFS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/14/2015/CDH开启HA 访问HDFS/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="常规的访问HDFS"><a href="#常规的访问HDFS" class="headerlink" title="常规的访问HDFS"></a>常规的访问HDFS</h3><p><strong>你可以通过如下指定<code>hdfs</code>地址访问hdfs，进行数据读写</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String inputDirFile = &quot;hdfs://namenode.hadoop:8020/user/hive/warehouse/mds_crawler_inf&quot;; </span><br><span class="line"> fs = FileSystem.newInstance(URI.create(directoryAddress.toString()),conf);</span><br></pre></td></tr></table></figure></p>
+<p><strong>如果打开HA（高可用）后，这么方式是不可行的，Hadoop集群不知道你要访问的Master节点地址是哪一个（因为有两个HDFS访问地址）</strong><br>你可以将Hadoop配置文件<code>core-site.xml</code>和<code>hdfs-site.xml</code>放到根目录下（resources）<code>Configuration</code>会自动读取文件识别配置文件中定义的Master节点。假设为<code>master01.hadoop:8020</code>和<code>master02.hadoop:8020</code>而<code>dfs.nameservices</code>为<code>nameservice1</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.nameservices&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;nameservice1&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt; </span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.namenode.rpc-address.nameservice1.namenode26&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;master01.hadoop:8020&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;  </span><br><span class="line">   &lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.namenode.rpc-address.nameservice1.namenode39&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;master02.hadoop:8020&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">.....</span><br></pre></td></tr></table></figure></p>
+<p>当然也可以手动读取：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static Configuration conf = new Configuration();  </span><br><span class="line">conf.addResource(ClassLoader.getSystemResourceAsStream(&quot;hdfs-site.xml&quot;));</span><br><span class="line">conf.addResource(ClassLoader.getSystemResourceAsStream(&quot;core-site.xml&quot;));  </span><br><span class="line">conf.addResource(ClassLoader.getSystemResourceAsStream(&quot;yarn-site.xml&quot;));</span><br></pre></td></tr></table></figure></p>
+<p>你可以在项目中使用相对路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String inputDirFile = &quot;/user/hive/warehouse/ods_intelligence_victim/dt=20160131&quot;</span><br></pre></td></tr></table></figure></p>
+<p>此时，你需要打成Jar运行，你会发现包如下错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.io.IOException: No FileSystem for scheme: hdfs</span><br><span class="line">        at org.apache.hadoop.fs.FileSystem.getFileSystemClass(FileSystem.java:2584)</span><br><span class="line">        at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:2591)</span><br><span class="line">        at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:91)</span><br><span class="line">        at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:2630)</span><br><span class="line">        at org.apache.hadoop.fs.FileSystem$Cache.getUnique(FileSystem.java:2618)</span><br><span class="line">        at org.apache.hadoop.fs.FileSystem.newInstance(FileSystem.java:417)</span><br></pre></td></tr></table></figure></p>
+<p>解决方案：<br><strong>明确指定使用哪一个Master</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conf.addResource(ClassLoader.getSystemResourceAsStream(&quot;hdfs-site.xml&quot;));</span><br><span class="line">conf.addResource(ClassLoader.getSystemResourceAsStream(&quot;core-site.xml&quot;));</span><br><span class="line">conf.addResource(ClassLoader.getSystemResourceAsStream(&quot;yarn-site.xml&quot;));</span><br><span class="line"></span><br><span class="line">conf.set(&quot;fs.defaultFS&quot;,&quot; hdfs://nameservice1:8020/&quot;);</span><br><span class="line">conf.set(&quot;hadoop.job.ugi&quot;, &quot;cloudera&quot;);</span><br><span class="line">conf.set(&quot;fs.hdfs.impl&quot;, org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());</span><br></pre></td></tr></table></figure></p>
+<p><strong>并且使用绝对路径</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String inputDirFile = &quot;hdfs://nameservice1:8020/user/hive/warehouse/ods_intelligence_victim/dt=20160131&quot;</span><br></pre></td></tr></table></figure></p>
+<p>参考：<br><a href="http://stackoverflow.com/questions/27805820/cant-access-hdfs-via-java-api-cloudera-cdh4-4-0" target="_blank" rel="external">http://stackoverflow.com/questions/27805820/cant-access-hdfs-via-java-api-cloudera-cdh4-4-0</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/10/08/2015/Airbnb JavaScript 编码规范/" itemprop="url">
                   Airbnb JavaScript 编码规范
                 </a>
@@ -2003,195 +2137,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/12/16/2014/Hadoop日常实战 计数器/" itemprop="url">
-                  Hadoop日常实战 计数器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-12-16T17:26:00+08:00" content="2014-12-16">
-              2014-12-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/12/16/2014/Hadoop日常实战 计数器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/16/2014/Hadoop日常实战 计数器/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>计数器是一种收集作业统计信息的有效有段</p>
-<p>  <strong>在一般情况下，我很需要了解一下Mapreduce 的运行情况，运行的过程是不可见，程序运行成功，但我们不能保证数据是正确的。我们需要质量控制、应用级统计。计数器可以辅助诊断系统故障，检测某一事件是否发生。计数特定属性、方法、异常。然后进一步分析程序数据的正确性。</strong></p>
-<h2 id="内置计数器控制台视图"><a href="#内置计数器控制台视图" class="headerlink" title="内置计数器控制台视图"></a>内置计数器控制台视图</h2><p>Hadoop 中的内置计数器，用于帮助你分析Mapreduce执行程序的具体状体。</p>
-<p>如下是<code>Hadoop 2.0.0-cdh4.7.0</code> Hadoop Mapreudce执行程序控制台显示</p>
-<img src="/2014/12/16/2014/Hadoop日常实战%20计数器/QQ图片20141211110508.png" alt="内置计数器" title="内置计数器">
-<p> <strong>Counter有组（group）的概念，用于表示逻辑上相同范围的所有数值。</strong><br>上图默认输出Counter分为三个组，从中我们可以分析出程序运行使用 CPU、内存、IO读写、网络流量的一个基本情况 </p>
-<p>文章推荐: <a href="http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html" target="_blank" rel="external">http://www.cnblogs.com/ggjucheng/archive/2013/05/08/3065220.html</a></p>
-<h2 id="内置计数器的分类："><a href="#内置计数器的分类：" class="headerlink" title="内置计数器的分类："></a>内置计数器的分类：</h2><table>
-<thead>
-<tr>
-<th>分组</th>
-<th>属性名</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Mapreduce任务计数器</td>
-<td>org.apache.hadoop.mapreduce. TaskCounter</td>
-</tr>
-<tr>
-<td>任务计数器</td>
-<td>org.apache.hadoop.mapreduce. JobCounter</td>
-</tr>
-<tr>
-<td>文件系统计数器</td>
-<td>org.apache.hadoop.mapreduce.FileSystemCounter</td>
-</tr>
-<tr>
-<td>输入文件计数器</td>
-<td>org.apache.hadoop.mapreduce.lib.input. FileInputFormatCounter</td>
-</tr>
-<tr>
-<td>输出文件计数器</td>
-<td>org.apache.hadoop.mapreduce.lib.output. FileOutputFormatCounter</td>
-</tr>
-</tbody>
-</table>
-<p><strong>这些就是hadoop 内置的计数器类（组），均是枚举类型。</strong></p>
-<h2 id="静态计数器和动态计数器"><a href="#静态计数器和动态计数器" class="headerlink" title="静态计数器和动态计数器"></a>静态计数器和动态计数器</h2><ul>
-<li><p>静态计数器<br><strong>定义一个枚举(enum) 枚举的名称即使Counter组的名称。 枚举属性即使要记录的数值名称，Mapreduce框架将跨所有map和reduce聚集这些计数器，并在作业结束时产生一个结果。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">static enum ReporInfo&#123;</span><br><span class="line">    // 统计map端读取数据是否按预期。 MISSING输出为0，表示没有输入数据完整或无缺损。</span><br><span class="line">  MISSING</span><br><span class="line">&#125;</span><br><span class="line">//通过Mapper中的context对象进行计数</span><br><span class="line">context.getCounter(Temperature.MISSING).increment(1);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>动态计数器<br><strong>动态计数器使用更加简单,你需要指定两个变量，这个变量均是动态指定。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 组的名称  和  动态计数的字段名称</span><br><span class="line">context.getCounter(&quot;group name&quot;,&quot;dynamic args&quot;).increment(1);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>比较<br><strong>静态类型： 先将java枚举类型转换成String类型，再通过RPC发送计数器，两种创建和访问计数器方法(枚举类型和String类型) 实际是等价的。<br>相比之下，枚举类型易于使用，还提供类型安全，使用与大多数作业，特定场合使用动态计数器。</strong></p>
-</li>
-</ul>
-<h2 id="通过计数器获取Mapreduce的运行情况"><a href="#通过计数器获取Mapreduce的运行情况" class="headerlink" title="通过计数器获取Mapreduce的运行情况"></a>通过计数器获取Mapreduce的运行情况</h2><p>获取计数器：  作业长时间运行，我们需要通过计数器了解运行情况。我们只需要写一个监听类就可以。<br>如下是Mapreduce2.0写法，同样需要引用1.0中的JobClient类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String jobID = args[0];</span><br><span class="line">JobClient jobClient = new JobClient(new JobConf(getConf()));</span><br><span class="line">RunningJob job = jobClient.getJob(JobID.forName(jobID));</span><br><span class="line">Counters counters = job.getCounters();</span><br><span class="line">long missing = counters.getCounter(</span><br><span class="line">MaxTemperatureWithCounters.Temperature.MISSING);</span><br><span class="line">    </span><br><span class="line">long total = counters.getCounter(Task.Counter.MAP_INPUT_RECORDS);</span><br><span class="line"></span><br><span class="line">System.out.printf(&quot;Records with missing temperature fields: %.2f%%\n&quot;,100.0 * missing / total);</span><br></pre></td></tr></table></figure></p>
-<h2 id="计数器原理"><a href="#计数器原理" class="headerlink" title="计数器原理"></a>计数器原理</h2><img src="/2014/12/16/2014/Hadoop日常实战%20计数器/c5c20a58-0087-49b2-a5d5-91ca4ae38066.jpg" alt="计数器原理图" title="计数器原理图">
-<ul>
-<li>计数器实质是由JobTracker维护，计数器值会定期传到tasktracker，在由tasktracker传递给jobtracker。也就是说所有的计数器信息都是存在jobTracker的内存中，计数器序列化并状态更新同步到JobTracker。</li>
-<li>TaskTracker中累加计数器 记录单节点中的计数个数。通过“心跳“ 传递信息给JobTracker。</li>
-<li>JobTracker会下运行结束之前最终汇总时剔除掉失败任务计数器。</li>
-</ul>
-<p>Mapreduce1.0中并没有限制计数器的个数，极其影响程序性能。<br>为了不对JobTracker产生印象。计数器数目应当控制到100以下。</p>
-<p>如果你的计数器超过了120个就会报如下错误：<br>org.apache.hadoop.mapreduce.counters.LimitExceededException: Too many counters: 121 max=120</p>
-<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>你可能遇到如下异常<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">14/12/12 09:56:48 INFO mapred.JobClient: Task Id : attempt_201412091419_0236_m_000028_0, Status : FAILED</span><br><span class="line">Error: Found interface org.apache.hadoop.mapreduce.Counter, but class was expected</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>原因：<br><strong>你本地的使用的编译环境是Hadoop1.0(MR1) 而你的集群环境为hadoop2.0(MR2) 所以默认没有找到。</strong></li>
-<li>解决方案<br>更改为hadoop2.0(hadoop-mapreduce-client-core-2.0.0-cdh4.7.0.jar，hadoop-common-2.0.0-cdh4.7.0.jar)的jar。和集群环境保持一致。</li>
-</ul>
-<p>推荐Blog：<br><a href="http://langyu.iteye.com/blog/1171091" target="_blank" rel="external">http://langyu.iteye.com/blog/1171091</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2237,7 +2182,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2245,7 +2190,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
