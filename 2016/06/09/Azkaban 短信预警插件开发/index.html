@@ -1,0 +1,866 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Workflow,Azkaban," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="I am cmp-cc" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="Azkaban本身具有邮件预警功能，我们可以通过设置SLA，进行邮件失败警告或成功提示。但是邮件预警一般不能及时响应处理。（我们并不会及时查看邮件）。 为增加强应急响应，开发Azkaban 短信预警插件，及时向管理员、运维人员发出警告提示。
+短信 API这里采用云片 手机短信服务，在此基础上封装一层API，使其发短信更加容易。
+服务器端首先生成apikey，用于身份认证，无消亡时间。API 接口：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azkaban 短信预警插件开发">
+<meta property="og:url" content="http://cmp-cc.github.io/2016/06/09/Azkaban 短信预警插件开发/index.html">
+<meta property="og:site_name" content="I am cmp-cc">
+<meta property="og:description" content="Azkaban本身具有邮件预警功能，我们可以通过设置SLA，进行邮件失败警告或成功提示。但是邮件预警一般不能及时响应处理。（我们并不会及时查看邮件）。 为增加强应急响应，开发Azkaban 短信预警插件，及时向管理员、运维人员发出警告提示。
+短信 API这里采用云片 手机短信服务，在此基础上封装一层API，使其发短信更加容易。
+服务器端首先生成apikey，用于身份认证，无消亡时间。API 接口：">
+<meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/232f9c5a-ec8a-43c9-8907-88a9c4d8cc80.png">
+<meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/21023a17-a161-44e4-bed3-5255ddb801f3.png">
+<meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/ab788c20-ba61-4016-9360-2821f5a110e9.png">
+<meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/49c6172e-6fd4-42c5-9dae-2c5825e41855.png">
+<meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/35af5fe8-f88b-4aed-8957-46d627cdfa90.png">
+<meta property="og:updated_time" content="2016-06-24T08:53:41.758Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Azkaban 短信预警插件开发">
+<meta name="twitter:description" content="Azkaban本身具有邮件预警功能，我们可以通过设置SLA，进行邮件失败警告或成功提示。但是邮件预警一般不能及时响应处理。（我们并不会及时查看邮件）。 为增加强应急响应，开发Azkaban 短信预警插件，及时向管理员、运维人员发出警告提示。
+短信 API这里采用云片 手机短信服务，在此基础上封装一层API，使其发短信更加容易。
+服务器端首先生成apikey，用于身份认证，无消亡时间。API 接口：">
+<meta name="twitter:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/232f9c5a-ec8a-43c9-8907-88a9c4d8cc80.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Azkaban 短信预警插件开发 | I am cmp-cc </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0fb6f1a75a76726c10a144a8257465e3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">I am cmp-cc</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一直在打杂，从未被超越。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Azkaban 短信预警插件开发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-09T22:53:00+08:00" content="2016-06-09">
+              2016-06-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Workflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Workflow</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Workflow/Bigdata-Workflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Bigdata Workflow</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/09/Azkaban 短信预警插件开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/09/Azkaban 短信预警插件开发/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Azkaban本身具有邮件预警功能，我们可以通过设置SLA，进行邮件失败警告或成功提示。但是邮件预警一般不能及时响应处理。（我们并不会及时查看邮件）。 为增加强应急响应，开发Azkaban 短信预警插件，及时向管理员、运维人员发出警告提示。</p>
+<h2 id="短信-API"><a href="#短信-API" class="headerlink" title="短信 API"></a>短信 API</h2><p><strong>这里采用<a href="http://www.yunpian.com/" target="_blank" rel="external">云片</a> 手机短信服务，在此基础上封装一层API，使其发短信更加容易。</strong></p>
+<p>服务器端首先生成<code>apikey</code>，用于身份认证，无消亡时间。<br>API 接口：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -k -X POST --data &quot;apikey=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;mobile=18271932456&amp;text=Azkaban 短信预警API服务&quot; http://sms.avlyun.org/send.json</span><br></pre></td></tr></table></figure></p>
+<h2 id="Azkaban-插件开发"><a href="#Azkaban-插件开发" class="headerlink" title="Azkaban 插件开发"></a>Azkaban 插件开发</h2><p>先吐槽：Azkaban 的文档写的稀巴烂(太多残缺，很多错误)，项目维护不积极，很多人已经投身<code>Airflow</code>。 还有LinkedIn 这家公司确定要卖掉啦~。</p>
+<p><strong>Azkaban 源码提供了约定俗成预警插件写法：</strong></p>
+<ul>
+<li>继承 <code>azkaban.executor.ExecutableFlow.Alerter</code> 接口，实现相关预警方法。</li>
+<li><code>azkaban.properties</code>通过<code>alerter.plugin.dir</code>指定预警插件存放目录，或者默认为：<code>plugins/alerter</code></li>
+<li>插件包含<code>conf/plugin.properties</code>、<code>extlib</code>、<code>lib</code>、插件代码。</li>
+<li><code>plugin.properties</code>必须包含<code>alerter.name</code>(名称)、<code>alerter.external.classpaths</code>(额外jar,就是extlib)、<code>alerter.class</code>(插件主类)</li>
+</ul>
+<h3 id="SMS-插件编码"><a href="#SMS-插件编码" class="headerlink" title="SMS 插件编码"></a>SMS 插件编码</h3><p><strong>原Azkaban Plugin 使用Ant构建，这里就使用Mavne 进行构建。 （效果是一模一样的）</strong></p>
+<ul>
+<li>创建Maven项目，其目录结构如下</li>
+</ul>
+<img src="/2016/06/09/Azkaban%20短信预警插件开发/232f9c5a-ec8a-43c9-8907-88a9c4d8cc80.png" alt="项目目录结构" title="项目目录结构">
+<ul>
+<li><p>pom.xml 依赖及其项目构建插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">    &lt;groupId&gt;org.freecode&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;azkaban-sms&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;packaging&gt;jar&lt;/packaging&gt;</span><br><span class="line">    &lt;name&gt;azkaban-sms&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://maven.apache.org&lt;/url&gt;</span><br><span class="line">    &lt;properties&gt;</span><br><span class="line">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;/properties&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.9&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.linkedin.azkaban&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;azkaban&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.5.0&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;log4j&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;log4j&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.2.16&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;httpclient&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.5.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line">    &lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;3.5.1&lt;/version&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">                    &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">                &lt;/configuration&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;2.6&lt;/version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;Azkaban-sms&lt;/id&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;single&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;descriptors&gt; </span><br><span class="line">                                &lt;descriptor&gt;src/assembly/build.xml&lt;/descriptor&gt;</span><br><span class="line">                            &lt;/descriptors&gt;</span><br><span class="line">                        &lt;/configuration&gt;</span><br><span class="line">                    &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">    &lt;/build&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置<code>src/assembly/build.xml</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;assembly</span><br><span class="line">    xmlns=&quot;http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd&quot;&gt;</span><br><span class="line">    &lt;id&gt;release&lt;/id&gt;</span><br><span class="line">    &lt;formats&gt;</span><br><span class="line">        &lt;format&gt;zip&lt;/format&gt;</span><br><span class="line">    &lt;/formats&gt;</span><br><span class="line">    &lt;baseDirectory&gt;azkaban-sms&lt;/baseDirectory&gt;</span><br><span class="line">    &lt;fileSets&gt;</span><br><span class="line">        &lt;fileSet&gt;</span><br><span class="line">            &lt;directory&gt;src/main/resources&lt;/directory&gt;</span><br><span class="line">            &lt;outputDirectory&gt;conf&lt;/outputDirectory&gt;</span><br><span class="line">            &lt;includes&gt;</span><br><span class="line">                &lt;include&gt;plugin.properties&lt;/include&gt;</span><br><span class="line">            &lt;/includes&gt;</span><br><span class="line">        &lt;/fileSet&gt;</span><br><span class="line">        &lt;fileSet&gt;</span><br><span class="line">            &lt;directory&gt;src/assembly&lt;/directory&gt;</span><br><span class="line">            &lt;outputDirectory&gt;extlib&lt;/outputDirectory&gt;</span><br><span class="line">            &lt;excludes&gt;</span><br><span class="line">                &lt;exclude&gt;*&lt;/exclude&gt;</span><br><span class="line">            &lt;/excludes&gt;</span><br><span class="line">        &lt;/fileSet&gt;</span><br><span class="line">    &lt;/fileSets&gt;</span><br><span class="line">    &lt;dependencySets&gt;</span><br><span class="line">        &lt;dependencySet&gt;</span><br><span class="line">            &lt;useProjectArtifact&gt;true&lt;/useProjectArtifact&gt;</span><br><span class="line">            &lt;outputDirectory&gt;lib&lt;/outputDirectory&gt;</span><br><span class="line">            &lt;scope&gt;runtime&lt;/scope&gt;</span><br><span class="line">        &lt;/dependencySet&gt;</span><br><span class="line">    &lt;/dependencySets&gt;</span><br><span class="line">&lt;/assembly&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SMSAlerter 代码编写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.azkaban;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.regex.Pattern;</span><br><span class="line">import org.apache.http.Consts;</span><br><span class="line">import org.apache.http.NameValuePair;</span><br><span class="line">import org.apache.http.client.ClientProtocolException;</span><br><span class="line">import org.apache.http.client.entity.UrlEncodedFormEntity;</span><br><span class="line">import org.apache.http.client.methods.CloseableHttpResponse;</span><br><span class="line">import org.apache.http.client.methods.HttpPost;</span><br><span class="line">import org.apache.http.impl.client.CloseableHttpClient;</span><br><span class="line">import org.apache.http.impl.client.HttpClients;</span><br><span class="line">import org.apache.http.message.BasicNameValuePair;</span><br><span class="line">import org.apache.log4j.Logger;</span><br><span class="line">import azkaban.alert.Alerter;</span><br><span class="line">import azkaban.executor.ExecutableFlow;</span><br><span class="line">import azkaban.sla.SlaOption;</span><br><span class="line">import azkaban.utils.Props;</span><br><span class="line">import azkaban.utils.Utils;</span><br><span class="line">public class SMSAlerter implements Alerter &#123;</span><br><span class="line">    private static final Logger logger = Logger.getLogger(SMSAlerter.class);</span><br><span class="line">    private SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line">    private CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">    </span><br><span class="line">    // 手机号验证</span><br><span class="line">    private static final Pattern phoneValidPattern = Pattern</span><br><span class="line">            .compile(&quot;1[0-9]&#123;10&#125;&quot;);</span><br><span class="line">    // 短信API地址</span><br><span class="line">    private String smsHost;</span><br><span class="line">    // ApiKey</span><br><span class="line">    private String smsTokenKey;</span><br><span class="line">    // ApiKey</span><br><span class="line">    private String smsToken;</span><br><span class="line">    // 短信手机号参数名称</span><br><span class="line">    private String smsPhoneKey;</span><br><span class="line">    // 预警手机号</span><br><span class="line">    private List&lt;String&gt; smsPhone;</span><br><span class="line">    // 短信内容参数名称</span><br><span class="line">    private String smsTextKey;</span><br><span class="line">    // 测试模式 : 当为true时,只打印日志，不发送短信。</span><br><span class="line">    // 当为false时,打印日志，且发送短信。</span><br><span class="line">    private boolean testMode;</span><br><span class="line">    public SMSAlerter(Props props) &#123;</span><br><span class="line">        /*</span><br><span class="line">         * props.getString 第一个参数获取plugin.propertiy 文件获取对应值，如果没有找到使用第二默认参数</span><br><span class="line">         * </span><br><span class="line">         * 这里没有设置默认值，你可以通过修改源码设置它</span><br><span class="line">         */</span><br><span class="line">        this.smsHost = props.getString(&quot;sms.host&quot;);</span><br><span class="line">        this.smsTokenKey = props.getString(&quot;sms.token.key&quot;);</span><br><span class="line">        this.smsToken = props.getString(&quot;sms.token&quot;);</span><br><span class="line">        this.smsPhoneKey = props.getString(&quot;sms.phone.key&quot;, &quot;mobile&quot;);</span><br><span class="line">        // 多个手机号使用空格、,、:、#、%、&amp; 进行分割</span><br><span class="line">        this.smsPhone = props.getStringList(&quot;sms.phone&quot;, &quot;[ ,:#%&amp;]&quot;);</span><br><span class="line">        this.smsTextKey = props.getString(&quot;sms.text.key&quot;);</span><br><span class="line">        this.testMode = props.getBoolean(&quot;sms.test.model&quot;, true);</span><br><span class="line">        </span><br><span class="line">        /**</span><br><span class="line">         * 可配置一个配置项，通知一个手机号。 提示Azkaban SMS Plugin 加载成功。 当然也可以通过日志 </span><br><span class="line">         */</span><br><span class="line">        //sendSMS(Arrays.asList(&quot;18271932456&quot;), &quot;Azkaban SMS Plugin 加载成功!&quot;);</span><br><span class="line">        logger.info(&quot;Azkaban SMS Plugin 加载成功!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    // 向配置文件中的手机号发送短信</span><br><span class="line">    private void sendSMS(String msg) &#123;</span><br><span class="line">        sendSMS(this.smsPhone, msg);</span><br><span class="line">    &#125;</span><br><span class="line">    private void sendSMS(List&lt;String&gt; phoneList, String msg) &#123;</span><br><span class="line">        if (smsPhone != null) &#123;</span><br><span class="line">            logger.info(String.format(&quot;欲发送%s位联系人,分别为:%s&quot;, smsPhone.size(),</span><br><span class="line">                    smsPhone.toString()));</span><br><span class="line">        &#125;</span><br><span class="line">        for (String phone : phoneList) &#123;</span><br><span class="line">            if (!phoneValidPattern.matcher(phone).matches()) &#123;</span><br><span class="line">                logger.error(&quot;输入手机号无效,请确保手机号长度为11位&quot;);</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            List&lt;NameValuePair&gt; formparams = new ArrayList&lt;NameValuePair&gt;();</span><br><span class="line">            formparams.add(new BasicNameValuePair(this.smsTokenKey,</span><br><span class="line">                    this.smsToken));</span><br><span class="line">            formparams.add(new BasicNameValuePair(this.smsTextKey, msg));</span><br><span class="line">            formparams.add(new BasicNameValuePair(this.smsPhoneKey, phone));</span><br><span class="line">            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams,</span><br><span class="line">                    Consts.UTF_8);</span><br><span class="line">            HttpPost httpPost = new HttpPost(this.smsHost);</span><br><span class="line">            httpPost.setEntity(entity);</span><br><span class="line">            CloseableHttpResponse response = null;</span><br><span class="line">            try &#123;</span><br><span class="line">                if (!testMode) &#123;</span><br><span class="line">                    response = httpclient.execute(httpPost);</span><br><span class="line">                    logger.info(String.format(&quot;当前发送至：%s,发送状态为: %s&quot;, phone,</span><br><span class="line">                            response.getStatusLine()));</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    logger.info(String.format(&quot;当前为测试模式,欲发送至：%s&quot;, phone));</span><br><span class="line">                &#125;</span><br><span class="line">                Thread.sleep(1000); // 延迟一秒</span><br><span class="line">            &#125; catch (ClientProtocolException e) &#123;</span><br><span class="line">                logger.error(&quot;failed to send message &quot; + msg + &quot; to &quot; + phone,</span><br><span class="line">                        e);</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                logger.error(&quot;failed to send message &quot; + msg + &quot; to &quot; + phone,</span><br><span class="line">                        e);</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                logger.warn(&quot;send message interrupted &quot;, e);</span><br><span class="line">                Thread.interrupted();</span><br><span class="line">            &#125; finally &#123;</span><br><span class="line">                if (response != null) &#123;</span><br><span class="line">                    try &#123;</span><br><span class="line">                        response.close();</span><br><span class="line">                    &#125; catch (IOException e) &#123;</span><br><span class="line">                        // TODO Auto-generated catch block</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * </span><br><span class="line">     * @param flow</span><br><span class="line">     * @param status 工作流执行状态，应当为一个枚举值： SUCCESS 和 FAILD、FIRST FAILD</span><br><span class="line">     */</span><br><span class="line">    private void sendEmail(ExecutableFlow flow,List&lt;String&gt; sendList,String status) &#123;</span><br><span class="line">        List&lt;String&gt; phoneList = new ArrayList&lt;&gt;();</span><br><span class="line">        for (String phone : sendList) &#123;</span><br><span class="line">            if (phoneValidPattern.matcher(phone).matches()) &#123;</span><br><span class="line">                phoneList.add(phone);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        logger.info(String.format(&quot;捕获Email列表为：%s,过滤手机号列表为:%s&quot;,sendList,phoneList ));</span><br><span class="line">        </span><br><span class="line">        StringBuffer textMsg = new StringBuffer();</span><br><span class="line">        textMsg.append(String.format(&quot;Antiy Azkaban 3.0 工作流执行状态: %s \n&quot;, status));</span><br><span class="line">        textMsg.append(String.format(&quot;       工作流项目名称为：%s,目前已经执行%s!\n&quot;,</span><br><span class="line">                flow.getFlowId(),status));</span><br><span class="line">        textMsg.append(String.format(&quot;Execution ID:%s\n&quot;, flow.getExecutionId()));</span><br><span class="line">        textMsg.append(String.format(&quot;运行开始时间:%s\n&quot;, dateFormat.format(flow.getStartTime())));</span><br><span class="line">        textMsg.append(String.format(&quot;运行结束时间:%s\n&quot;, dateFormat.format(flow.getStartTime())));</span><br><span class="line">        textMsg.append(String.format(&quot;共耗时：%s\n&quot;,</span><br><span class="line">                Utils.formatDuration(flow.getStartTime(), flow.getEndTime())));</span><br><span class="line">        // 发送至全局手机配置</span><br><span class="line">        sendSMS(textMsg.toString());</span><br><span class="line">        // 发送至局部手机配置</span><br><span class="line">        sendSMS(phoneList, textMsg.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void alertOnSuccess(ExecutableFlow exflow) throws Exception &#123;</span><br><span class="line">        sendEmail(exflow,exflow.getExecutionOptions().getSuccessEmails(),&quot;成功&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void alertOnError(ExecutableFlow exflow, String... extraReasons)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        sendEmail(exflow,exflow.getExecutionOptions().getFailureEmails(),&quot;失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void alertOnFirstError(ExecutableFlow exflow) throws Exception &#123;</span><br><span class="line">        sendEmail(exflow,exflow.getExecutionOptions().getFailureEmails(),&quot;First 失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void alertOnSla(SlaOption slaOption, String slaMessage)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">        List&lt;String&gt; emailList = (List&lt;String&gt;) slaOption.getInfo().get(</span><br><span class="line">                SlaOption.INFO_EMAIL_LIST);</span><br><span class="line">        logger.info(&quot;SAL 信息：&quot; + emailList.toString());</span><br><span class="line">        logger.info(&quot;SAL info :&quot; + slaOption.getInfo().toString());</span><br><span class="line">        logger.info(&quot;SAL type :&quot; + slaOption.getType().toString());</span><br><span class="line">        logger.info(&quot;SAL actions :&quot; + slaOption.getActions().toString());</span><br><span class="line">        List&lt;String&gt; phoneList = new ArrayList&lt;&gt;();</span><br><span class="line">        for (String email : emailList) &#123;</span><br><span class="line">            if (!phoneValidPattern.matcher(email).matches()) &#123;</span><br><span class="line">                phoneList.add(email);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sendSMS(phoneList, slaMessage);</span><br><span class="line">        sendSMS(slaMessage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置<code>plugin.properties</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">alerter.name=sms</span><br><span class="line">alerter.external.classpaths=extlib/</span><br><span class="line">alerter.class=org.freecode.azkaban.SMSAlerter</span><br><span class="line"></span><br><span class="line">#SMSAlerter conf</span><br><span class="line"></span><br><span class="line"># sms api host</span><br><span class="line">sms.host=http://sms.avlyun.org/send.json</span><br><span class="line"># 认证参数名称</span><br><span class="line">sms.token.key=apikey</span><br><span class="line"># 认证token</span><br><span class="line">sms.token=xxxxxxxxxxxxxxxx</span><br><span class="line"># 手机参数名称</span><br><span class="line">sms.phone.key=mobile</span><br><span class="line"># 配置全局手机，可配置多个</span><br><span class="line">sms.phone=18271932456</span><br><span class="line"># 短信内容参数名称</span><br><span class="line">sms.text.key=text</span><br><span class="line"># 是否开启测试模式（false 表示发送短信）</span><br><span class="line">sms.test.model=false</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>你可以需要修改部分代码，来完成与短信接口的映射。</p>
+<ul>
+<li>构建项目<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>查看项目构建</li>
+</ul>
+<img src="/2016/06/09/Azkaban%20短信预警插件开发/21023a17-a161-44e4-bed3-5255ddb801f3.png" alt="Azkaban SMS构建成功" title="Azkaban SMS构建成功">
+<blockquote>
+<p><code>azkaban-sms-0.0.1-SNAPSHOT-release.zip</code> 为Azkaban SMS插件</p>
+</blockquote>
+<h2 id="部署Azkaban-SMS-Plugin"><a href="#部署Azkaban-SMS-Plugin" class="headerlink" title="部署Azkaban SMS Plugin"></a>部署Azkaban SMS Plugin</h2><ul>
+<li><p>plugins 创建<code>alerter</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/azkaban3.0/azkaban-web-server-3.0.0/plugins</span><br><span class="line">mkdir alerter</span><br><span class="line">cd alerter</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拷贝至<code>alerter</code>目录，解压、配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">unzip azkaban-sms-0.0.1-SNAPSHOT-release.zip</span><br><span class="line">rm -f azkaban-sms-0.0.1-SNAPSHOT-release.zip</span><br><span class="line">cd azkaban-sms/</span><br><span class="line">vi conf/plugin.properties </span><br><span class="line"></span><br><span class="line">#配置短信API接口</span><br><span class="line">#配置全局手机接收人（可以为空）</span><br><span class="line">#配置是否为测试模式</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>重新启动<code>Azkaban-web</code>，你可以通过日志<code>logs/azkaban-web.log</code> 参数执行状态</strong></p>
+<h2 id="配置job作业"><a href="#配置job作业" class="headerlink" title="配置job作业"></a>配置job作业</h2><p>想要启动短信预警，必须配置<code>alert.type</code>属性为<code>sms</code>，只有配置<code>alert.type=sms</code>，局部短信和全局短信才能发送，有如下两种方式配置。</p>
+<ul>
+<li>在<code>job</code>文件中添加<code>alert.type=sms</code></li>
+<li>在图形界面执行时配置，如下：</li>
+</ul>
+<img src="/2016/06/09/Azkaban%20短信预警插件开发/ab788c20-ba61-4016-9360-2821f5a110e9.png" alt="图形界面配置alert.type参数" title="图形界面配置alert.type参数">
+<h3 id="全局短信发送"><a href="#全局短信发送" class="headerlink" title="全局短信发送"></a>全局短信发送</h3><p>在<code>/plugin.properties</code>中通过sms.phone配置全局接收人。（每一个设置了<code>alerttype=sms</code> 的工作流作业，全局接收人都会接受到作业状态，无论成功或失败）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sms.phone=18271932456#15290043676#xxxxx</span><br><span class="line"></span><br><span class="line">或者不进行设置</span><br><span class="line"></span><br><span class="line">sms.phone=</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置局部短信发送。"><a href="#配置局部短信发送。" class="headerlink" title="配置局部短信发送。"></a>配置局部短信发送。</h3><p>执行任务进行设置如下，这里不进设置短信联系人，还有邮件接收人</p>
+<img src="/2016/06/09/Azkaban%20短信预警插件开发/49c6172e-6fd4-42c5-9dae-2c5825e41855.png" alt="任务短信配置" title="任务短信配置">
+<h2 id="日志信息"><a href="#日志信息" class="headerlink" title="日志信息"></a>日志信息</h2><ul>
+<li>你可以通过日志信息查看发送状态，如下在测试模式下进行短信发送。</li>
+</ul>
+<img src="/2016/06/09/Azkaban%20短信预警插件开发/35af5fe8-f88b-4aed-8957-46d627cdfa90.png" alt="测试模式日志信息" title="测试模式日志信息">
+<ul>
+<li>当然你也会看到<code>javax.mail.SendFailedException: Invalid Addresses;</code>异常信息<br><strong>这里并没有开发一个新的页面，而是在局部邮件发送，填写了联系人号码（请忽略这个异常）</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">javax.mail.SendFailedException: Invalid Addresses;</span><br><span class="line">  nested exception is:</span><br><span class="line">        com.sun.mail.smtp.SMTPAddressFailedException: 500 Error: bad syntax</span><br><span class="line">;</span><br><span class="line">  nested exception is:</span><br><span class="line">        com.sun.mail.smtp.SMTPAddressFailedException: 500 Error: bad syntax</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Workflow/" rel="tag">#Workflow</a>
+          
+            <a href="/tags/Azkaban/" rel="tag">#Azkaban</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/30/2016/Gradle 使用异常处理/" rel="next" title="Gradle 使用异常处理">
+                <i class="fa fa-chevron-left"></i> Gradle 使用异常处理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/09/Azkaban 短信预警插件开发/"
+           data-title="Azkaban 短信预警插件开发" data-url="http://cmp-cc.github.io/2016/06/09/Azkaban 短信预警插件开发/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="cmp-cc" />
+          <p class="site-author-name" itemprop="name">cmp-cc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cmp-cc" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#短信-API"><span class="nav-number">1.</span> <span class="nav-text">短信 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Azkaban-插件开发"><span class="nav-number">2.</span> <span class="nav-text">Azkaban 插件开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMS-插件编码"><span class="nav-number">2.1.</span> <span class="nav-text">SMS 插件编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Azkaban-SMS-Plugin"><span class="nav-number">3.</span> <span class="nav-text">部署Azkaban SMS Plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置job作业"><span class="nav-number">4.</span> <span class="nav-text">配置job作业</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局短信发送"><span class="nav-number">4.1.</span> <span class="nav-text">全局短信发送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置局部短信发送。"><span class="nav-number">4.2.</span> <span class="nav-text">配置局部短信发送。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志信息"><span class="nav-number">5.</span> <span class="nav-text">日志信息</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cmp-cc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cmp-cc"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+
+
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+ <script type="text/javascript">
+  window.onload = function(){setTimeout(function(){/*无登陆账户*/if(!document.getElementsByClassName("ds-account-control")[0]){var cmp_cc_blog_user=localStorage.getItem("cmp-cc_blog_user");var author_name_value = cmp_cc_blog_user?'value="'+cmp_cc_blog_user+'"':'';var i = '<div class="ds-control-group" style="float:right;padding:6px;"><input type="text" '+author_name_value+'id="author_name_proxy" id="ds-dialog-name"  class="custom_input" style="color:#777;width=80%;font-size:13px;border:1px solid #ccc;height:25px;box-shadow: inset 0 1px 1px;padding: 2px 0px 0px 8px;" placeholder="昵称 or 登陆" required></div>';/*展开一个回复，再关闭。 多说没有参数配置啊~ 让人觉得不优雅*/var $last_ds_post_reply = $(".ds-post-reply:last");$last_ds_post_reply.click().click();$(".ds-post-options.ds-gradient-bg").append(i);$(".ds-post-button").click(function(){$(this).submit();$("#ds-wrapper").hide();var author_name = $("#author_name_proxy").val();$("#ds-wrapper #ds-dialog-name").val(author_name);$("#ds-wrapper form").submit();/*www.cmp-cc.github.com*/localStorage.setItem("cmp-cc_blog_user",author_name);$(".custom_input").val(author_name);});}},300);} 
+ </script>
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

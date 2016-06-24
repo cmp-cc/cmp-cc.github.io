@@ -228,6 +228,186 @@
             
               
                 
+                <a class="post-title-link" href="/2014/07/07/FreeMarker入门/" itemprop="url">
+                  FreeMarker入门
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-07-07T16:53:00+08:00" content="2014-07-07">
+              2014-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/FreeMarker/" itemprop="url" rel="index">
+                    <span itemprop="name">FreeMarker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/07/07/FreeMarker入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/07/FreeMarker入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>FrameMarker 模板语言: FreeMarker Template Language ( FTL )。</p>
+<ul>
+<li><p>FreeMarker 入门实例</p>
+<ul>
+<li>Hello World 实例,了解Freemarkers 执行步骤</li>
+<li>Types 实例，了解FreeMarker 内置类型转换</li>
+</ul>
+</li>
+<li><p>引入依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.3.23&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Hello-World-实例"><a href="#Hello-World-实例" class="headerlink" title="Hello World 实例"></a>Hello World 实例</h2><ul>
+<li>在<code>resources目录</code>创建<code>hello.ftl</code>文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello,$&#123;name&#125;!</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>.ftl</code>文件作为Freemarker 模板语言文件后缀,<code>${name}</code>会替换Model中的属性值</p>
+</blockquote>
+<ul>
+<li><p>编写Java程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import freemarker.template.Configuration;</span><br><span class="line">import freemarker.template.DefaultObjectWrapper;</span><br><span class="line">import freemarker.template.Template;</span><br><span class="line">import freemarker.template.TemplateException;</span><br><span class="line">    </span><br><span class="line">public class HelloFreemarker &#123;</span><br><span class="line">    public static void main(String[] args) </span><br><span class="line">    throws IOException, TemplateException &#123;</span><br><span class="line">        // 创建Freemarker 配置对象(模板工厂对象),并指定当前版本号。</span><br><span class="line">        Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);</span><br><span class="line">        </span><br><span class="line">        //选择一种Model对象包装(Object Wrapper)类型.模板获取Model中的值. 默认如下,可忽略</span><br><span class="line">        cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS));</span><br><span class="line">        </span><br><span class="line">        // 模板目录父类目录地址</span><br><span class="line">        cfg.setDirectoryForTemplateLoading(new File(&quot;src/main/resources/&quot;));</span><br><span class="line">        </span><br><span class="line">        //Model 对象</span><br><span class="line">        Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span><br><span class="line">        model.put(&quot;name&quot;, &quot;world&quot;);</span><br><span class="line">        </span><br><span class="line">        //获取一个模板对象。 需要告诉配置实例对象加载个哪个模板</span><br><span class="line">        Template template = cfg.getTemplate(&quot;hello.tfl&quot;);</span><br><span class="line">        </span><br><span class="line">        /*</span><br><span class="line">         * 处理模板,需要两个参数：</span><br><span class="line">         * 1、使用哪个Model?</span><br><span class="line">         * 2、输出到什么地方?</span><br><span class="line">         */</span><br><span class="line">        template.process(model, new OutputStreamWriter(System.out));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行程序，显示如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>model.put(&quot;name&quot;, &quot;world&quot;);</code> 为<code>model.put(&quot;name&quot;, 123456789);</code> 查看输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello,123,456,789!</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>输出的格式取决默认的语言环境，如果在德国将看到输出为：<code>Hello,123.456.789!</code><br>Freemarker默认使用<code>java.text.DecimalFormat</code>对象数字类型进行格式化输出</p>
+</blockquote>
+<h2 id="types-实例"><a href="#types-实例" class="headerlink" title="types 实例"></a>types 实例</h2><p>为了精确控制对象将模型转换成文本（转换类型值到文本），我们可以使用FreeMarker提供的内置插件控制格式转换，如下：<code>types.ftl</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String: $&#123;string?html&#125;</span><br><span class="line">Number: $&#123;number?c&#125;</span><br><span class="line">Boolean: $&#123;boolean?string(&quot;+++++&quot;, &quot;-----&quot;)&#125;</span><br><span class="line">Date: $&#123;.now?time&#125;</span><br><span class="line">Complex: $&#123;object&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>.now</code>是一个特殊的变量，用于处理日期和时间，<code>?</code>后跟内置插件名称</p>
+</blockquote>
+<ul>
+<li><p>创建一个Java程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Locale;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import freemarker.template.Configuration;</span><br><span class="line">import freemarker.template.Template;</span><br><span class="line">import freemarker.template.TemplateException;</span><br><span class="line">public class FreemarkerTypes &#123;</span><br><span class="line">  public static void main(String[] args) </span><br><span class="line">  throws IOException, TemplateException &#123;</span><br><span class="line">    Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);</span><br><span class="line">    cfg.setDirectoryForTemplateLoading(new File(&quot;src/main/resources&quot;));</span><br><span class="line">    Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span><br><span class="line">    model.put(&quot;string&quot;, &quot;easy &amp; fast &quot;);</span><br><span class="line">    model.put(&quot;number&quot;, new BigDecimal(&quot;1234.5678&quot;));</span><br><span class="line">    model.put(&quot;boolean&quot;, true);</span><br><span class="line">    model.put(&quot;object&quot;, Locale.US);</span><br><span class="line">    Template template = cfg.getTemplate(&quot;types.ftl&quot;);</span><br><span class="line">    template.process(model, new OutputStreamWriter(System.out));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>格式化实例输出如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String: easy &amp;amp; fast </span><br><span class="line">Number: 1234.5678</span><br><span class="line">Boolean: +++++</span><br><span class="line">Date: 10:13:59</span><br><span class="line">Complex: en_US</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内置插件如何影响输出的呢？</p>
+<ul>
+<li>字符串：输出一个字符串，使用内置插件名称<code>html</code>,它将字符串编码为HTML，将<code>&amp;</code>转换为<code>&amp;amp;</code>HTML实体，它确保文本正确显示，并防止跨站脚本攻击(XSS)</li>
+<li>数字：数字对象使用内置<code>c</code>,它告诉FreeMarker将数字类型使用文本解析。</li>
+<li>布尔：这里类似一个三目表达式。FreeMarker不会去格式化布尔值，从概念上讲，<code>true</code>和<code>false</code>并没有通用的文本表示，如果我们不带任何参数(<code>${boolean}</code>),它将抛出一个异常。</li>
+<li>日期：FreeMarker没有内置处理<code>java.util.Date</code>,因为它不知道如何显示日期和时间，或者两则，通过<code>time</code>告诉FreeMarker我们要显示时间。</li>
+<li>复杂对象: 没有使用内置插件。 对于复杂对象，它默认使用<code>toString</code>返回一个字符串类型，所以可以使用内置字符串插件来处理。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/06/13/2014/Linux 时间同步/" itemprop="url">
                   Linux 时间同步
                 </a>
@@ -2519,164 +2699,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/03/11/2014/Git 遇到的异常/" itemprop="url">
-                  Git 遇到的异常
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-03-11T22:53:00+08:00" content="2014-03-11">
-              2014-03-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Version-Control/" itemprop="url" rel="index">
-                    <span itemprop="name">Version Control</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Version-Control/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/03/11/2014/Git 遇到的异常/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/11/2014/Git 遇到的异常/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>更新于 ：2015-12-14 17:50:00</strong></p>
-<p><strong>总结 在使用Git 进行版本控制遇到错误及其相关解决方案，并持续更新</strong></p>
-<h2 id="1-Everything-is-update"><a href="#1-Everything-is-update" class="headerlink" title="1.Everything is update"></a>1.Everything is update</h2><h3 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>git push origin master 的时候出现Everything is update</strong></p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>使用git commit -am “xxxx”</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &quot;modify of part&quot;</span><br><span class="line">git origin master</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-Note-about-fast-forwards-rejected"><a href="#2-Note-about-fast-forwards-rejected" class="headerlink" title="2.Note about fast-forwards (! [rejected])"></a>2.Note about fast-forwards (! [rejected])</h2><h3 id="错误信息-1"><a href="#错误信息-1" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin hexo</span><br><span class="line">To git@github.com:cmp-cc/cmp-cc.github.io.git</span><br><span class="line"> ! [rejected]        hexo -&gt; hexo (fetch first)</span><br><span class="line">error: failed to push some refs to &apos;git@github.com:cmp-cc/cmp-cc.github.io.git&apos;</span><br><span class="line">hint: Updates were rejected because the remote contains work that you do</span><br><span class="line">hint: not have locally. This is usually caused by another repository pushing</span><br><span class="line">hint: to the same ref. You may want to first integrate the remote changes</span><br><span class="line">hint: (e.g., &apos;git pull ...&apos;) before pushing again.</span><br><span class="line">hint: See the &apos;Note about fast-forwards&apos; in &apos;git push --help&apos; for details.</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>一、使用强制push的方法 （不推荐）：</strong><br>这样会使远程修改丢失，一般是不可取的，尤其是多人协作开发的时候，单人协助无所谓。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master -f</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>二、老老实实的merge 分支。（推荐）</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>三、使用<code>git pull --rebase</code> 将本地与远程进行同步（等价于第二种）</strong><br><strong><code>git push --rebase</code> 的含义</strong></p>
-<ul>
-<li>把本地 repo. 从上次 pull 之后的变更暂存起來</li>
-<li>恢复到上次 pull 时的状态</li>
-<li>合并远端的变更到本地</li>
-<li>最后再合并刚刚暂存下來的本地变更</li>
-</ul>
-<h2 id="3-push之后不能访问文件-文件状态为灰色"><a href="#3-push之后不能访问文件-文件状态为灰色" class="headerlink" title="3.push之后不能访问文件(文件状态为灰色)"></a>3.push之后不能访问文件(文件状态为灰色)</h2><h3 id="错误信息-2"><a href="#错误信息-2" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>如下，处于不可打开状态，如果你把整个项目clone下来，你会发现文件为空</strong></p>
-<img src="/2014/03/11/2014/Git%20遇到的异常/4D44727A1CED48A6AF27443A6F1A36D7.png" alt="文件显示状态" title="文件显示状态">
-<h3 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h3><p>你可能需要了解一下<code>git submodule</code>的使用,就知道问题所在了。(git项目中的子目录存在一个git仓库)</p>
-<ul>
-<li>将子目录中的<code>.git</code>目录删掉</li>
-<li>删除子模块子目录</li>
-<li>再执行<code>git push</code> 操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached ./themes/next</span><br><span class="line">git add --all</span><br><span class="line">git commit -m &quot;delete child module&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>可参考：<a href="http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean" target="_blank" rel="external">http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean</a></p>
-<h2 id="pull没有更新（-See-git-pull-1-for-details-）"><a href="#pull没有更新（-See-git-pull-1-for-details-）" class="headerlink" title="pull没有更新（ See git-pull(1) for details ）"></a>pull没有更新（ See git-pull(1) for details ）</h2><h3 id="错误信息-3"><a href="#错误信息-3" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>这个算不上错误，问题是这样的：你有两个分支A 和 B。当前分支为B，你执行git pull 操作，他却pull了A而不是B</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br><span class="line">remote: Counting objects: 174, done.</span><br><span class="line">remote: Compressing objects: 100% (95/95), done.</span><br><span class="line">remote: Total 174 (delta 61), reused 0 (delta 0), pack-reused 0</span><br><span class="line">Receiving objects: 100% (174/174), 251.93 KiB | 206.00 KiB/s, done.</span><br><span class="line">Resolving deltas: 100% (61/61), done.</span><br><span class="line">   69cc25b..1b24763  master     -&gt; origin/master</span><br><span class="line">There is no tracking information for the current branch.</span><br><span class="line">Please specify which branch you want to merge with.</span><br><span class="line">See git-pull(1) for details</span><br><span class="line"></span><br><span class="line">    git pull &lt;remote&gt; &lt;branch&gt;</span><br><span class="line"></span><br><span class="line">If you wish to set tracking information for this branch you can do so with:</span><br><span class="line"></span><br><span class="line">    git branch --set-upstream-to=origin/&lt;branch&gt; stream</span><br></pre></td></tr></table></figure></p>
-<h3 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>进行本地分支和远程分支关联</strong><br><code>git branch --set-upstream-to=origin/&lt;branch&gt; master</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/stream stream</span><br></pre></td></tr></table></figure></p>
-<p>参考：<a href="http://www.tbdazhe.com/archives/238" target="_blank" rel="external">http://www.tbdazhe.com/archives/238</a></p>
-<h2 id="Unlink-of-file-‘xxx’-failed-Should-I-try-again"><a href="#Unlink-of-file-‘xxx’-failed-Should-I-try-again" class="headerlink" title="Unlink of file ‘xxx’ failed. Should I try again?"></a>Unlink of file ‘xxx’ failed. Should I try again?</h2><h3 id="错误信息-4"><a href="#错误信息-4" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">error: refusing to lose untracked file at &apos;stream/next/bower.json&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/_config.yml&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/README.md&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.jshintrc&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.javascript_ignore&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.hound.yml&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.gitignore&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.editorconfig&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.bowerrc&apos;</span><br><span class="line">Unlink of file &apos;stream/next&apos; failed. Should I try again? (y/n)</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案"></a>解决方案</h3><p>出现这种问题，通常意味这有一个进程仍在使用特定的文件，急需要关闭其它程序，然后在尝试执行<code>git pull</code></p>
-<p>参考：<a href="http://stackoverflow.com/questions/10181057/unlink-of-file-failed" target="_blank" rel="external">http://stackoverflow.com/questions/10181057/unlink-of-file-failed</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2722,7 +2744,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
