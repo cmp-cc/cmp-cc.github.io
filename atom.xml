@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-06-24T08:53:41.758Z</updated>
+  <updated>2016-06-24T09:07:09.442Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://cmp-cc.github.io/2016/06/09/Azkaban%20%E7%9F%AD%E4%BF%A1%E9%A2%84%E8%AD%A6%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
     <id>http://cmp-cc.github.io/2016/06/09/Azkaban 短信预警插件开发/</id>
     <published>2016-06-09T14:53:00.000Z</published>
-    <updated>2016-06-24T08:53:41.758Z</updated>
+    <updated>2016-06-24T09:07:09.442Z</updated>
     
     <content type="html">&lt;p&gt;Azkaban本身具有邮件预警功能，我们可以通过设置SLA，进行邮件失败警告或成功提示。但是邮件预警一般不能及时响应处理。（我们并不会及时查看邮件）。 为增加强应急响应，开发Azkaban 短信预警插件，及时向管理员、运维人员发出警告提示。&lt;/p&gt;
 &lt;h2 id=&quot;短信-API&quot;&gt;&lt;a href=&quot;#短信-API&quot; class=&quot;headerlink&quot; title=&quot;短信 API&quot;&gt;&lt;/a&gt;短信 API&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;这里采用&lt;a href=&quot;http://www.yunpian.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;云片&lt;/a&gt; 手机短信服务，在此基础上封装一层API，使其发短信更加容易。&lt;/strong&gt;&lt;/p&gt;
@@ -54,13 +54,13 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你可以需要修改部分代码，来完成与短信接口的映射。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;构建项目&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mvn package&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
-&lt;li&gt;查看项目构建&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;构建项目&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mvn package&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;查看项目构建&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;img src=&quot;/2016/06/09/Azkaban%20短信预警插件开发/21023a17-a161-44e4-bed3-5255ddb801f3.png&quot; alt=&quot;Azkaban SMS构建成功&quot; title=&quot;Azkaban SMS构建成功&quot;&gt;
 &lt;blockquote&gt;
@@ -81,9 +81,8 @@
 &lt;li&gt;在图形界面执行时配置，如下：&lt;/li&gt;
 &lt;/ul&gt;
 &lt;img src=&quot;/2016/06/09/Azkaban%20短信预警插件开发/ab788c20-ba61-4016-9360-2821f5a110e9.png&quot; alt=&quot;图形界面配置alert.type参数&quot; title=&quot;图形界面配置alert.type参数&quot;&gt;
-&lt;h3 id=&quot;全局短信发送&quot;&gt;&lt;a href=&quot;#全局短信发送&quot; class=&quot;headerlink&quot; title=&quot;全局短信发送&quot;&gt;&lt;/a&gt;全局短信发送&lt;/h3&gt;&lt;p&gt;在&lt;code&gt;/plugin.properties&lt;/code&gt;中通过sms.phone配置全局接收人。（每一个设置了&lt;code&gt;alerttype=sms&lt;/code&gt; 的工作流作业，全局接收人都会接受到作业状态，无论成功或失败）&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sms.phone=18271932456#15290043676#xxxxx&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;或者不进行设置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sms.phone=&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h3 id=&quot;配置局部短信发送。&quot;&gt;&lt;a href=&quot;#配置局部短信发送。&quot; class=&quot;headerlink&quot; title=&quot;配置局部短信发送。&quot;&gt;&lt;/a&gt;配置局部短信发送。&lt;/h3&gt;&lt;p&gt;执行任务进行设置如下，这里不进设置短信联系人，还有邮件接收人&lt;/p&gt;
-&lt;img src=&quot;/2016/06/09/Azkaban%20短信预警插件开发/49c6172e-6fd4-42c5-9dae-2c5825e41855.png&quot; alt=&quot;任务短信配置&quot; title=&quot;任务短信配置&quot;&gt;
+&lt;h3 id=&quot;配置全局短信发送&quot;&gt;&lt;a href=&quot;#配置全局短信发送&quot; class=&quot;headerlink&quot; title=&quot;配置全局短信发送&quot;&gt;&lt;/a&gt;配置全局短信发送&lt;/h3&gt;&lt;p&gt;在&lt;code&gt;/plugin.properties&lt;/code&gt;中通过sms.phone配置全局接收人。（每一个设置了&lt;code&gt;alerttype=sms&lt;/code&gt; 的工作流作业，全局接收人都会接受到作业状态，无论成功或失败）&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sms.phone=18271932456#15290043676#xxxxx&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;或者不进行设置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sms.phone=&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;配置局部短信发送&quot;&gt;&lt;a href=&quot;#配置局部短信发送&quot; class=&quot;headerlink&quot; title=&quot;配置局部短信发送&quot;&gt;&lt;/a&gt;配置局部短信发送&lt;/h3&gt;&lt;p&gt;在执行任务时，进行配置，配置如下： （包含手机联系人、Email联系人）&lt;br&gt;&lt;img src=&quot;/2016/06/09/Azkaban%20短信预警插件开发/49c6172e-6fd4-42c5-9dae-2c5825e41855.png&quot; alt=&quot;任务短信配置&quot; title=&quot;任务短信配置&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;日志信息&quot;&gt;&lt;a href=&quot;#日志信息&quot; class=&quot;headerlink&quot; title=&quot;日志信息&quot;&gt;&lt;/a&gt;日志信息&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;你可以通过日志信息查看发送状态，如下在测试模式下进行短信发送。&lt;/li&gt;
 &lt;/ul&gt;

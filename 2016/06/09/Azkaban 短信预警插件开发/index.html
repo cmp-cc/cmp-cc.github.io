@@ -74,7 +74,7 @@
 <meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/ab788c20-ba61-4016-9360-2821f5a110e9.png">
 <meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/49c6172e-6fd4-42c5-9dae-2c5825e41855.png">
 <meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/35af5fe8-f88b-4aed-8957-46d627cdfa90.png">
-<meta property="og:updated_time" content="2016-06-24T08:53:41.758Z">
+<meta property="og:updated_time" content="2016-06-24T09:07:09.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Azkaban 短信预警插件开发">
 <meta name="twitter:description" content="Azkaban本身具有邮件预警功能，我们可以通过设置SLA，进行邮件失败警告或成功提示。但是邮件预警一般不能及时响应处理。（我们并不会及时查看邮件）。 为增加强应急响应，开发Azkaban 短信预警插件，及时向管理员、运维人员发出警告提示。
@@ -347,13 +347,13 @@
 </ul>
 <blockquote>
 <p>你可以需要修改部分代码，来完成与短信接口的映射。</p>
-<ul>
-<li>构建项目<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
 </blockquote>
 <ul>
-<li>查看项目构建</li>
+<li><p>构建项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看项目构建</p>
+</li>
 </ul>
 <img src="/2016/06/09/Azkaban%20短信预警插件开发/21023a17-a161-44e4-bed3-5255ddb801f3.png" alt="Azkaban SMS构建成功" title="Azkaban SMS构建成功">
 <blockquote>
@@ -374,9 +374,8 @@
 <li>在图形界面执行时配置，如下：</li>
 </ul>
 <img src="/2016/06/09/Azkaban%20短信预警插件开发/ab788c20-ba61-4016-9360-2821f5a110e9.png" alt="图形界面配置alert.type参数" title="图形界面配置alert.type参数">
-<h3 id="全局短信发送"><a href="#全局短信发送" class="headerlink" title="全局短信发送"></a>全局短信发送</h3><p>在<code>/plugin.properties</code>中通过sms.phone配置全局接收人。（每一个设置了<code>alerttype=sms</code> 的工作流作业，全局接收人都会接受到作业状态，无论成功或失败）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sms.phone=18271932456#15290043676#xxxxx</span><br><span class="line"></span><br><span class="line">或者不进行设置</span><br><span class="line"></span><br><span class="line">sms.phone=</span><br></pre></td></tr></table></figure></p>
-<h3 id="配置局部短信发送。"><a href="#配置局部短信发送。" class="headerlink" title="配置局部短信发送。"></a>配置局部短信发送。</h3><p>执行任务进行设置如下，这里不进设置短信联系人，还有邮件接收人</p>
-<img src="/2016/06/09/Azkaban%20短信预警插件开发/49c6172e-6fd4-42c5-9dae-2c5825e41855.png" alt="任务短信配置" title="任务短信配置">
+<h3 id="配置全局短信发送"><a href="#配置全局短信发送" class="headerlink" title="配置全局短信发送"></a>配置全局短信发送</h3><p>在<code>/plugin.properties</code>中通过sms.phone配置全局接收人。（每一个设置了<code>alerttype=sms</code> 的工作流作业，全局接收人都会接受到作业状态，无论成功或失败）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sms.phone=18271932456#15290043676#xxxxx</span><br><span class="line"></span><br><span class="line">或者不进行设置</span><br><span class="line"></span><br><span class="line">sms.phone=</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置局部短信发送"><a href="#配置局部短信发送" class="headerlink" title="配置局部短信发送"></a>配置局部短信发送</h3><p>在执行任务时，进行配置，配置如下： （包含手机联系人、Email联系人）<br><img src="/2016/06/09/Azkaban%20短信预警插件开发/49c6172e-6fd4-42c5-9dae-2c5825e41855.png" alt="任务短信配置" title="任务短信配置"></p>
 <h2 id="日志信息"><a href="#日志信息" class="headerlink" title="日志信息"></a>日志信息</h2><ul>
 <li>你可以通过日志信息查看发送状态，如下在测试模式下进行短信发送。</li>
 </ul>
@@ -555,7 +554,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#短信-API"><span class="nav-number">1.</span> <span class="nav-text">短信 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Azkaban-插件开发"><span class="nav-number">2.</span> <span class="nav-text">Azkaban 插件开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMS-插件编码"><span class="nav-number">2.1.</span> <span class="nav-text">SMS 插件编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Azkaban-SMS-Plugin"><span class="nav-number">3.</span> <span class="nav-text">部署Azkaban SMS Plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置job作业"><span class="nav-number">4.</span> <span class="nav-text">配置job作业</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局短信发送"><span class="nav-number">4.1.</span> <span class="nav-text">全局短信发送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置局部短信发送。"><span class="nav-number">4.2.</span> <span class="nav-text">配置局部短信发送。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志信息"><span class="nav-number">5.</span> <span class="nav-text">日志信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#短信-API"><span class="nav-number">1.</span> <span class="nav-text">短信 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Azkaban-插件开发"><span class="nav-number">2.</span> <span class="nav-text">Azkaban 插件开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMS-插件编码"><span class="nav-number">2.1.</span> <span class="nav-text">SMS 插件编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署Azkaban-SMS-Plugin"><span class="nav-number">3.</span> <span class="nav-text">部署Azkaban SMS Plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置job作业"><span class="nav-number">4.</span> <span class="nav-text">配置job作业</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置全局短信发送"><span class="nav-number">4.1.</span> <span class="nav-text">配置全局短信发送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置局部短信发送"><span class="nav-number">4.2.</span> <span class="nav-text">配置局部短信发送</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志信息"><span class="nav-number">5.</span> <span class="nav-text">日志信息</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
