@@ -74,7 +74,7 @@
 <meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/ab788c20-ba61-4016-9360-2821f5a110e9.png">
 <meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/49c6172e-6fd4-42c5-9dae-2c5825e41855.png">
 <meta property="og:image" content="http://cmp-cc.github.io/2016/06/09/Azkaban%20短信预警插件开发/35af5fe8-f88b-4aed-8957-46d627cdfa90.png">
-<meta property="og:updated_time" content="2016-06-24T09:07:09.442Z">
+<meta property="og:updated_time" content="2016-06-24T09:31:50.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Azkaban 短信预警插件开发">
 <meta name="twitter:description" content="Azkaban本身具有邮件预警功能，我们可以通过设置SLA，进行邮件失败警告或成功提示。但是邮件预警一般不能及时响应处理。（我们并不会及时查看邮件）。 为增加强应急响应，开发Azkaban 短信预警插件，及时向管理员、运维人员发出警告提示。
@@ -360,7 +360,7 @@
 <p><code>azkaban-sms-0.0.1-SNAPSHOT-release.zip</code> 为Azkaban SMS插件</p>
 </blockquote>
 <h2 id="部署Azkaban-SMS-Plugin"><a href="#部署Azkaban-SMS-Plugin" class="headerlink" title="部署Azkaban SMS Plugin"></a>部署Azkaban SMS Plugin</h2><ul>
-<li><p>plugins 创建<code>alerter</code></p>
+<li><p><code>plugins</code>目录 创建<code>alerter</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/azkaban3.0/azkaban-web-server-3.0.0/plugins</span><br><span class="line">mkdir alerter</span><br><span class="line">cd alerter</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>拷贝至<code>alerter</code>目录，解压、配置</p>
