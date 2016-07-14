@@ -1780,6 +1780,240 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
             
               
                 
+                <a class="post-title-link" href="/2015/02/17/2015/Webpack入门实例/" itemprop="url">
+                  Webpack入门实例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-02-17T19:50:00+08:00" content="2015-02-17">
+              2015-02-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Project-Build/" itemprop="url" rel="index">
+                    <span itemprop="name">Project Build</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Project-Build/Wepack/" itemprop="url" rel="index">
+                    <span itemprop="name">Wepack</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/02/17/2015/Webpack入门实例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/17/2015/Webpack入门实例/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>参照官网</p>
+</blockquote>
+<h2 id="欢迎"><a href="#欢迎" class="headerlink" title="欢迎"></a>欢迎</h2><p>这个简短的教程将指导您完成一个简单的实例</p>
+<p>你将学习：</p>
+<ul>
+<li>如何安装 <code>webpack</code></li>
+<li>如何使用 <code>webpack</code></li>
+<li>如何使用 <code>webpack loaders 特性</code></li>
+<li>如何使用 <code>webpack development server</code></li>
+</ul>
+<h2 id="安装-Webpack"><a href="#安装-Webpack" class="headerlink" title="安装 Webpack"></a>安装 Webpack</h2><p>首先你需要安装<a href="https://nodejs.org/" target="_blank" rel="external">node.js</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这使得<code>webpack</code>命令是可用的</p>
+</blockquote>
+<h2 id="设置编译"><a href="#设置编译" class="headerlink" title="设置编译"></a>设置编译</h2><p>首先创建一个空的目录<br>创建如下文件</p>
+<ul>
+<li><p>添加<code>entry.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.write(&quot;It works.&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加<code>index.html</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;script type=&quot;text/javascript&quot; src=&quot;bundle.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后运行如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./entry.js bundle.js</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>它将编译你的文件,并创建<code>bundle</code>文件<br>如果成功，显示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hash: ca188ee5789bb780fcec</span><br><span class="line">Version: webpack 1.12.9</span><br><span class="line">Time: 79ms</span><br><span class="line">    Asset     Size  Chunks             Chunk Names</span><br><span class="line">bundle.js  1.42 kB       0  [emitted]  main</span><br><span class="line">   [0] ./entry.js 28 bytes &#123;0&#125; [built]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>浏览器打开<code>index.html</code>，它将显示<code>It works</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器</span><br><span class="line">It works.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="模块化引入"><a href="#模块化引入" class="headerlink" title="模块化引入"></a>模块化引入</h2><p>下一步，我们将移动一些代码到一个额外的文件。</p>
+<ul>
+<li><p>添加<code>content.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &quot;It works from content.js.&quot;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 <code>entry.js</code> 为如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.write(require(&quot;./content.js&quot;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./entry.js bundle.js</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器打开，将显示文本：<code>It works from content.js.</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器</span><br><span class="line">It works from content.js.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>webpack 将分析你的entry文件依赖于哪些其他文件，这些也文件（称为模块）包含在bundle.js.webpack会给每一个模块一个唯一ID标示，防止bundle.js文件访问所有模块。</p>
+</blockquote>
+<h2 id="第一个Loader"><a href="#第一个Loader" class="headerlink" title="第一个Loader"></a>第一个Loader</h2><p>我们想要在我们的应用中添加Css文件.<br><code>webpack</code>本身 只能处理JavaScript 文件，所以我们需要<code>css-loader</code>去处理CSS文件，在<code>CSS</code>文件中应用样式,我们也需要<code>style-loader</code>.<br>运行<code>npm install css-loader style-loader</code> 安装<code>loaders</code> (只是本地安装，无需<code>-g</code>) ，<code>loaders</code> 存在于 <code>node_modules</code>目录中。<br><strong>使用他们</strong></p>
+<ul>
+<li><p>添加<code>style.css</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    background: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>entry.js</code>为如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require(&quot;!style!css!./style.css&quot;);</span><br><span class="line">document.write(require(&quot;./content.js&quot;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新编译，并浏览器打开，会发现增加了黄色背景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器打开，背景：黄色</span><br><span class="line"></span><br><span class="line">It works from content.js.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>By prefixing loaders to a module request, the module went through a loader pipeline. These loaders transform the file content in specific ways. After these transformations are applied, the result is a JavaScript module.</p>
+</blockquote>
+<h2 id="绑定Loaders"><a href="#绑定Loaders" class="headerlink" title="绑定Loaders"></a>绑定Loaders</h2><p>我们不想写如此长的<code>requires</code> : <code>require(&quot;!style!css!./style.css&quot;);</code><br>我们在Loaders中绑定文件扩展名，只需要写:<code>require(&quot;./style.css&quot;)</code></p>
+<ul>
+<li><p>修改<code>entry.js</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require(&quot;./style.css&quot;);</span><br><span class="line">document.write(require(&quot;./content.js&quot;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后编译如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./entry.js bundle.js --module-bind &apos;css=style!css&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>有些环境可能需要双引号: <code>–module-bind &quot;css=style!css&quot;</code></p>
+</blockquote>
+<ul>
+<li>我们将看到同样结果<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器打开，背景：黄色</span><br><span class="line"></span><br><span class="line">It works from content.js.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>我们想要移除配置项到一个配置文件中，如下：</p>
+<ul>
+<li><p>添加 webpack.config.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &quot;./entry.js&quot;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: &quot;.&quot;,</span><br><span class="line">        filename: &quot;bundle.js&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    module: &#123;</span><br><span class="line">        loaders: [</span><br><span class="line">            &#123; test: /\.css$/, loader: &quot;style!css&quot; &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在可以运行它</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Version: webpack 1.12.9</span><br><span class="line">Time: 379ms</span><br><span class="line">    Asset     Size  Chunks             Chunk Names</span><br><span class="line">bundle.js  10.7 kB       0  [emitted]  main</span><br><span class="line">chunk    &#123;0&#125; bundle.js (main) 8.86 kB [rendered]</span><br><span class="line">    [0] ./tutorials/getting-started/config-file/entry.js 65 bytes &#123;0&#125; [built]</span><br><span class="line">    [1] ./tutorials/getting-started/config-file/style.css 943 bytes &#123;0&#125; [built]</span><br><span class="line">    [2] ../~/css-loader!./tutorials/getting-started/config-file/style.css 201 bytes &#123;0&#125; [built]</span><br><span class="line">    [3] ../~/css-loader/lib/css-base.js 1.51 kB &#123;0&#125; [built]</span><br><span class="line">    [4] ../~/style-loader/addStyles.js 6.09 kB &#123;0&#125; [built]</span><br><span class="line">    [5] ./tutorials/getting-started/config-file/content.js 45 bytes &#123;0&#125; [built]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>webpack 命令行</code> 尝试在当前目录加载<code>webpack.config.js</code>文件</p>
+</blockquote>
+<h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><p><strong>美化输出: 项目的编译可能需要更长的时间，所以，我们要显示某种进度条和颜色</strong><br>我们可以通过如下实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --progress --colors</span><br></pre></td></tr></table></figure></p>
+<h2 id="Watch-模式"><a href="#Watch-模式" class="headerlink" title="Watch 模式"></a>Watch 模式</h2><p>观察模式： 我们不希望每次更改后手动重新编译… 开启监听模式，它会自定检测变化文件，并加载，减少编译时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --progress --colors --watch</span><br></pre></td></tr></table></figure></p>
+<p>webpack 可以缓存没有变化的模块。</p>
+<blockquote>
+<p>当使用<code>watch mode</code>,<code>webpack</code>安装文件观察到的所有文件，这只作用在编译过程。如果检测到任何变化，它会再次编译。当缓存是开启的，<code>webpack</code> 在内存中保存所有模块，如果它没有被改变，将重复使用。</p>
+</blockquote>
+<h2 id="开发服务器"><a href="#开发服务器" class="headerlink" title="开发服务器"></a>开发服务器</h2><p><code>mock server</code> 是重要的，<code>webpack</code>中的<code>mock 服务器环境</code> 基于<code>nodejs</code>，而不依赖于其他语言。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-dev-server -g</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack-dev-server --progress --colors</span><br></pre></td></tr></table></figure>
+<p>这里在<code>localhost:8080</code>绑定一个小的<code>Express 服务器</code>，供静态资源完成自动编译，它会自定编译（SockJS），并自动更新浏览器页面，在浏览器中打开<code>http://localhost:8080/webpack-dev-server/bundle</code></p>
+<blockquote>
+<p>The dev server uses webpack’s watch mode. It also prevents webpack from emitting the resulting files to disk. Instead it keeps and serves the resulting files from memory.</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/01/17/2015/Postfix 邮件服务器/" itemprop="url">
                   Postfix 邮件服务器
                 </a>
@@ -1924,133 +2158,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/" itemprop="url">
-                  Java Web 跨域共享问题（core-filter）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-01-11T18:10:00+08:00" content="2015-01-11">
-              2015-01-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/11/2015/Java Web 跨域共享问题（core-filter）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>需要部分前后端分离，首先要解决跨越问题，虽然可以使用<code>jsoup</code>，但无法解决ajax 文件上传问题（iframe方法是一个例外）。</p>
-<p><strong>使用<code>jsoup script</code> 解决跨域问题有点….. 不爽</strong></p>
-<p>参考：<a href="http://software.dzhuvinov.com/cors-filter.html" target="_blank" rel="external">http://software.dzhuvinov.com/cors-filter.html</a> 提供的解决方案</p>
-<p><strong>如下演示如何使用<code>core-filter</code>来解决跨域问题， 不是在每一个<code>action reqeust</code> 设置允许跨域</strong></p>
-<h2 id="Maven-引入依赖"><a href="#Maven-引入依赖" class="headerlink" title="Maven 引入依赖"></a>Maven 引入依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;cors-filter&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;java-property-utils&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="添加Cores-配置到web-xml"><a href="#添加Cores-配置到web-xml" class="headerlink" title="添加Cores 配置到web.xml"></a>添加Cores 配置到web.xml</h2><p>XML 声明CORS过滤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br></pre></td></tr></table></figure></p>
-<p>或者使用变种的CORS过滤器，它可以自动检测更改配置文件，并重新配置CORS过滤器，声明如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;com.thetransactioncompany.cors.autoreconf.AutoReconfigurableCORSFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br></pre></td></tr></table></figure></p>
-<p>声明过滤器Mapper ，说明哪些URL启动跨越请求( cross-domain-request ),如下 作用于所有URL:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意：默认情况是CORS Filter采用public access的跨源资源共享策略，允许通过包括用户凭据/cookies在内安全机制的全部跨站请求。这一默认配置其实适用于大多数情况，因为CORS本来就不是以增强服务端安全性为主要目标的；CORS的基本意向是保护浏览器端的数据安全，即保护浏览器上合法运行的JavaScript应用及其用户凭据信息例如cookies数据不会泄露。</p>
-</blockquote>
-<h2 id="web-xml-完整实例"><a href="#web-xml-完整实例" class="headerlink" title="web.xml 完整实例"></a>web.xml 完整实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;</span><br><span class="line">         version=&quot;2.4&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;CORS demo&lt;/display-name&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;description&gt;Simple CORS demo&lt;/description&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;servlet&gt;</span><br><span class="line">		&lt;!-- Some servlet --&gt;</span><br><span class="line">		&lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">		&lt;servlet-class&gt;com.thetransactioncompany.cors.demo.HelloWorldServlet&lt;/servlet-class&gt;</span><br><span class="line">	&lt;/servlet&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;servlet-mapping&gt;</span><br><span class="line">		&lt;!-- Some servlet mapping --&gt;</span><br><span class="line">		&lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/cors-resource.html&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/servlet-mapping&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;filter&gt;</span><br><span class="line">		&lt;!-- The CORS filter with parameters --&gt;</span><br><span class="line">		&lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">		&lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- Note: All parameters are options, if omitted the CORS </span><br><span class="line">		     Filter will fall back to the respective default values.</span><br><span class="line">		  --&gt;</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowGenericHttpRequests&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowOrigin&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;*&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowSubdomains&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;false&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportedMethods&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;GET, HEAD, POST, OPTIONS&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportedHeaders&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;*&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.exposedHeaders&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;X-Test-1, X-Test-2&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportsCredentials&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.maxAge&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;3600&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/filter&gt;</span><br><span class="line"></span><br><span class="line">	&lt;filter-mapping&gt;</span><br><span class="line">		&lt;!-- CORS Filter mapping --&gt;</span><br><span class="line">		&lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/cors-resource.html&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/filter-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-<p>参考：<br><a href="http://www.2cto.com/kf/201604/503408.html" target="_blank" rel="external">http://www.2cto.com/kf/201604/503408.html</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2096,7 +2203,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2104,7 +2211,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2113,7 +2220,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

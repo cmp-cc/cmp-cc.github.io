@@ -228,6 +228,133 @@
             
               
                 
+                <a class="post-title-link" href="/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/" itemprop="url">
+                  Java Web 跨域共享问题（core-filter）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-01-11T18:10:00+08:00" content="2015-01-11">
+              2015-01-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/11/2015/Java Web 跨域共享问题（core-filter）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>需要部分前后端分离，首先要解决跨越问题，虽然可以使用<code>jsoup</code>，但无法解决ajax 文件上传问题（iframe方法是一个例外）。</p>
+<p><strong>使用<code>jsoup script</code> 解决跨域问题有点….. 不爽</strong></p>
+<p>参考：<a href="http://software.dzhuvinov.com/cors-filter.html" target="_blank" rel="external">http://software.dzhuvinov.com/cors-filter.html</a> 提供的解决方案</p>
+<p><strong>如下演示如何使用<code>core-filter</code>来解决跨域问题， 不是在每一个<code>action reqeust</code> 设置允许跨域</strong></p>
+<h2 id="Maven-引入依赖"><a href="#Maven-引入依赖" class="headerlink" title="Maven 引入依赖"></a>Maven 引入依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;cors-filter&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;java-property-utils&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="添加Cores-配置到web-xml"><a href="#添加Cores-配置到web-xml" class="headerlink" title="添加Cores 配置到web.xml"></a>添加Cores 配置到web.xml</h2><p>XML 声明CORS过滤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br></pre></td></tr></table></figure></p>
+<p>或者使用变种的CORS过滤器，它可以自动检测更改配置文件，并重新配置CORS过滤器，声明如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;com.thetransactioncompany.cors.autoreconf.AutoReconfigurableCORSFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br></pre></td></tr></table></figure></p>
+<p>声明过滤器Mapper ，说明哪些URL启动跨越请求( cross-domain-request ),如下 作用于所有URL:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：默认情况是CORS Filter采用public access的跨源资源共享策略，允许通过包括用户凭据/cookies在内安全机制的全部跨站请求。这一默认配置其实适用于大多数情况，因为CORS本来就不是以增强服务端安全性为主要目标的；CORS的基本意向是保护浏览器端的数据安全，即保护浏览器上合法运行的JavaScript应用及其用户凭据信息例如cookies数据不会泄露。</p>
+</blockquote>
+<h2 id="web-xml-完整实例"><a href="#web-xml-完整实例" class="headerlink" title="web.xml 完整实例"></a>web.xml 完整实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;</span><br><span class="line">         version=&quot;2.4&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;CORS demo&lt;/display-name&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;description&gt;Simple CORS demo&lt;/description&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;servlet&gt;</span><br><span class="line">		&lt;!-- Some servlet --&gt;</span><br><span class="line">		&lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">		&lt;servlet-class&gt;com.thetransactioncompany.cors.demo.HelloWorldServlet&lt;/servlet-class&gt;</span><br><span class="line">	&lt;/servlet&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;servlet-mapping&gt;</span><br><span class="line">		&lt;!-- Some servlet mapping --&gt;</span><br><span class="line">		&lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/cors-resource.html&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/servlet-mapping&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;filter&gt;</span><br><span class="line">		&lt;!-- The CORS filter with parameters --&gt;</span><br><span class="line">		&lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">		&lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- Note: All parameters are options, if omitted the CORS </span><br><span class="line">		     Filter will fall back to the respective default values.</span><br><span class="line">		  --&gt;</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowGenericHttpRequests&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowOrigin&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;*&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowSubdomains&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;false&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportedMethods&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;GET, HEAD, POST, OPTIONS&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportedHeaders&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;*&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.exposedHeaders&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;X-Test-1, X-Test-2&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportsCredentials&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.maxAge&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;3600&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/filter&gt;</span><br><span class="line"></span><br><span class="line">	&lt;filter-mapping&gt;</span><br><span class="line">		&lt;!-- CORS Filter mapping --&gt;</span><br><span class="line">		&lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/cors-resource.html&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/filter-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+<p>参考：<br><a href="http://www.2cto.com/kf/201604/503408.html" target="_blank" rel="external">http://www.2cto.com/kf/201604/503408.html</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/12/28/2014/Hadoop 日常实战 文件压缩/" itemprop="url">
                   Hadoop 日常实战 文件压缩
                 </a>
@@ -1974,285 +2101,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/07/14/Spring MVC 基于注解的控制器/" itemprop="url">
-                  Spring MVC 基于注解的控制器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-07-14T16:53:00+08:00" content="2014-07-14">
-              2014-07-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaWeb</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/Spring-MVC/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring MVC</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/07/14/Spring MVC 基于注解的控制器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/14/Spring MVC 基于注解的控制器/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Spring MVC 提供了两种配置Controller（控制器）的方式</p>
-<ul>
-<li>基于XML的方式。（Spring 2.5 引入）</li>
-<li>基于Annotation的方式。</li>
-</ul>
-<h2 id="Spring-MVC-Annotation-类型"><a href="#Spring-MVC-Annotation-类型" class="headerlink" title="Spring MVC Annotation 类型"></a>Spring MVC Annotation 类型</h2><p>使用基于注解的Controller有几个（两个）优点：</p>
-<ul>
-<li>1、一个控制器类可以处理多个actions,(相比之下，实现Controller接口的控制器只能处理一个action)，也就是说,相关的actions可以写在同一个控制器类，从而减少应用程序类的数量。</li>
-<li>2、基于注解的控制器请求映射文件不需要存储到配置文件中，使用<code>RequestMapping</code>注解类型标注请求处理（request-handling）方法。</li>
-</ul>
-<p>Spring MVC 有两个比较重要的注解类型，Controller 和 RequestMapping 注解类型，和一些不太热门的注解类型。</p>
-<h3 id="Controller-注解类型"><a href="#Controller-注解类型" class="headerlink" title="Controller 注解类型"></a>Controller 注解类型</h3><p><code>org.springframework.stereotype.Controller</code>注解类型标注一个Java类，告诉Spring 该类是一个控制器。注解@Controller 实例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package com.example.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class CustomerController &#123;</span><br><span class="line">    </span><br><span class="line">    // request-handling methods here</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Spring 使用扫描机制，查找应用程序中所有基于注解的控制器，为了保证Spring能够找到控制器，需要做两件事：</p>
-<ul>
-<li><p>1、在Spring MVC配置文件中声明<code>spring-context</code> Schema</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans </span><br><span class="line">    ...</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    ... </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>2、其次在配置文件中使用<code>&lt;component-scan/&gt;</code>元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;basePackage&quot;/&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>整合配置文件显示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:component-scan base-package=&quot;com.example.controller&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="RequestMapping-注解类型"><a href="#RequestMapping-注解类型" class="headerlink" title="RequestMapping 注解类型"></a>RequestMapping 注解类型</h3><p>在控制器类中写请求处理方法，对于每一个将要处理的Action，你要告诉Spring，使用哪些方法处理哪些Action，可以使用<code>org.springframework.web.bind.annotation.RequestMapping</code>注解类型映射URI到Action 方法。</p>
-<p>RequestMapping 注解类型，顾名思义，用于映射一个请求到一个方法（请求处理方法）。 可以使用@RequestMapping注解到一个方法或一个类。</p>
-<p>如下控制器类中实现RequestMapping类型注解方法的实例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.example.controller;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class CustomerController &#123;</span><br><span class="line">    </span><br><span class="line">    @RequestMapping(value = &quot;/input-customer&quot;)</span><br><span class="line">    public String inputCustomer() &#123;</span><br><span class="line"></span><br><span class="line">        // do something here</span><br><span class="line"></span><br><span class="line">        return &quot;CustomerForm&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>RequestMapping 注解中使用value属性指定URI映射到一个方法。如上使用<code>http://domain/context/input-customer</code>访问这个Action。</p>
-</blockquote>
-<p>value 是@RequestMapping 默认的属性，如果使用<strong>唯一属性</strong>，可以省略value属性名称，如下等价。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/input-customer&quot;)</span><br><span class="line">@RequestMapping(&quot;/input-customer&quot;)</span><br></pre></td></tr></table></figure></p>
-<p>@RequestMapping 除value以外还有其他属性值，如下processOrder方法只能调用HTTP POST 和 PUT方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/process-order&quot;,</span><br><span class="line">          method=&#123;RequestMethod.POST, RequestMethod.PUT&#125;)</span><br><span class="line">  public String processOrder() &#123;</span><br><span class="line">  </span><br><span class="line">      // do something here</span><br><span class="line"></span><br><span class="line">      return &quot;OrderForm&quot;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果method属性不存在，请求处理方法将处理所有HTTP方法。<br>同样你可以指定HTTP唯一的请求方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/process-order&quot;, method=RequestMethod.POST)</span><br></pre></td></tr></table></figure></p>
-<p>@RequestMapping 类型可以标注一个控制器类,这种情况，方法级别的请求映射将被视为响度与类级别的请求，参考如下：deleteCustomer方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">@RequestMapping(&quot;/customer&quot;)</span><br><span class="line">public class CustomerController &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value=&quot;/delete&quot;,</span><br><span class="line">            method=&#123;RequestMethod.POST, RequestMethod.PUT&#125;)</span><br><span class="line">    public String deleteCustomer() &#123;</span><br><span class="line"></span><br><span class="line">        // do something here</span><br><span class="line"></span><br><span class="line">        return ...;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>由于控制器类映射使用<code>/customer</code> 和 deleteCustomer方法使用<code>/delete</code>,该Action方法使用<code>http://domain/context/customer/delete</code>访问。</p>
-</blockquote>
-<h3 id="写请求处理方法"><a href="#写请求处理方法" class="headerlink" title="写请求处理方法"></a>写请求处理方法</h3><p>一个请求处理方法（action）可以有多个参数类型，以及各种返回类型。如下实例，你可能需要在方法中访问HttpSession对象，需要添加HttpSession到形参中，Spring将传递正确的对象类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/uri&quot;)</span><br><span class="line">public String myMethod(HttpSession session) &#123;</span><br><span class="line">    ...</span><br><span class="line">    session.addAttribute(key, value);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>或者，你需要访问 <code>Locale</code>和<code>HttpServletRequest</code>对象,你需要在方法中包含这两个参数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/uri&quot;)</span><br><span class="line">public String myOtherMethod(HttpServletRequest request, </span><br><span class="line">        Locale locale) &#123;</span><br><span class="line">    ...</span><br><span class="line">    // access Locale and HttpServletRequest here</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>如下是可以出现在请求处理方法参数的参数类型列表：</p>
-<ul>
-<li><code>javax.servlet.ServletRequest</code> or <code>javax.servlet.http.HttpServletRequest</code></li>
-<li><code>javax.servlet.ServletResponse</code> or <code>javax.servlet.http.HttpServletResponse</code></li>
-<li><code>javax.servlet.http.HttpSession</code></li>
-<li><code>org.springframework.web.context.request.WebRequest</code> or <code>org.springframework.web.context.request.NativeWebRequest</code></li>
-<li><code>java.util.Locale</code></li>
-<li><code>java.io.InputStream</code> or <code>java.io.Reader</code></li>
-<li><code>java.io.OutputStream</code> or <code>java.io.Writer</code></li>
-<li><code>java.security.Principal</code></li>
-<li><code>HttpEntity&lt;?&gt; parameters</code></li>
-<li><code>java.util.Map</code> / <code>org.springframework.ui.Model</code> / <code>org.springframework.ui.ModelMap</code></li>
-<li><code>org.springframework.web.servlet.mvc.support.RedirectAttributes</code></li>
-<li><code>org.springframework.validation.Errors</code> / <code>org.springframework.validation.BindingResult</code></li>
-<li><code>Command</code> or <code>form objects</code></li>
-<li><code>org.springframework.web.bind.support.SessionStatus</code></li>
-<li><code>org.springframework.web.util.UriComponentsBuilder</code></li>
-<li>Types annotated with <code>@PathVariable</code>, <code>@MatrixVariable</code>, <code>@RequestParam</code>, <code>@RequestHeader</code>, <code>@RequestBody</code>, or <code>@RequestPart</code>.</li>
-</ul>
-<hr>
-<p><code>org.springframework.ui.Model</code>类型是一个特别重要的类型，它包含一个<code>Map</code>，每次请求处理方法被调用，Spring MVC 创建一个<code>Model</code>对象，并填充这个<code>Map</code>和潜在对象。</p>
-<p>请求处理方法可以返回这些对象之一：</p>
-<ul>
-<li>一个<code>ModelAndView</code>对象</li>
-<li>一个<code>Model</code>对象</li>
-<li>一个<code>Map</code>,包含model属性</li>
-<li>一个<code>View</code>对象</li>
-<li>一个<code>String(字符串)</code>，表示视图逻辑名称。</li>
-<li><code>void</code></li>
-<li>一个<code>HttpEntity</code>或<code>ResponseEntity</code>对象，提供访问Servlet 响应(Servlet response)的HTTP 请求头(http header)和请求内容(http contents)</li>
-<li>一个<code>Callable</code></li>
-<li>一个<code>DeferredResult</code></li>
-<li>其他任何返回类型. 在这种情况下, 返回值将被视为model属性到一个view</li>
-</ul>
-<h3 id="使用基于注解的控制器"><a href="#使用基于注解的控制器" class="headerlink" title="使用基于注解的控制器"></a>使用基于注解的控制器</h3><ul>
-<li><p>Maven 引入Spring MVC 依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.0.4.RELEASE&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>部署描述文件（web.xml）配置Spring MVC 调度 Servlet 入口 和 Spring MVC配置文件路径。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">    xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee </span><br><span class="line">        http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;</span><br><span class="line">            org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">         &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;</span><br><span class="line">                /WEB-INF/config/springmvc-config.xml</span><br><span class="line">            &lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;!--URL模式为/表示所有请求，包含静态资源请求 --&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置Spring MVC 配置文件（springmvc-config.xml）。</p>
-<blockquote>
-<p>为了让静态资源得到处理,需要在Spring MVC 配置文件中添加多个<code>&lt;resources/&gt;</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/mvc</span><br><span class="line">        http://www.springframework.org/schema/mvc/spring-mvc.xsd     </span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line">    &lt;!-- 告诉Spring MVC Controller 包的路径 --&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;controller&quot;/&gt;</span><br><span class="line">    &lt;!-- 启动注解，允许SpringMVC 调度静态资源 --&gt;</span><br><span class="line">    &lt;mvc:annotation-driven/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 处理静态资源，告诉Spring MVC 哪些静态资源需要servlet 调度 --&gt;</span><br><span class="line">    &lt;!-- 声明/CSS目录下的所有文件是可见的 --&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/css/**&quot; location=&quot;/css/&quot;/&gt;</span><br><span class="line">    &lt;!-- 在应用程序中的所有目录允许显示.html文件 --&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/*.html&quot; location=&quot;/&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">     &lt;!-- 访问路径前缀后缀处理 --&gt;</span><br><span class="line">    &lt;bean id=&quot;viewResolver&quot;  class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>如果没有<code>&lt;annotation-driven/&gt;</code>，<code>&lt;mvc:resources/&gt;</code>元素防止调用任何控制器。如果不使用<code>resources</code>元素将不需要<code>&lt;annotation-driven/&gt;</code>元素</p>
-</blockquote>
-<ul>
-<li>控制器类<br>基于注解的控制器类可以包含多个请求处理方法，例如：ProductController 类包含<code>inputProduct</code>和<code>saveProduct</code>。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import domain.Product;</span><br><span class="line">import form.ProductForm;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class ProductController &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = LogFactory.getLog(ProductController.class);</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value=&quot;/input-product&quot;)</span><br><span class="line">    public String inputProduct() &#123;</span><br><span class="line">        logger.info(&quot;inputProduct called&quot;);</span><br><span class="line">        return &quot;ProductForm&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value=&quot;/save-product&quot;)</span><br><span class="line">    public String saveProduct(ProductForm productForm, Model model) &#123;</span><br><span class="line">        logger.info(&quot;saveProduct called&quot;);</span><br><span class="line">        // no need to create and instantiate a ProductForm</span><br><span class="line">        // create Product</span><br><span class="line">        Product product = new Product();</span><br><span class="line">        product.setName(productForm.getName());</span><br><span class="line">        product.setDescription(productForm.getDescription());</span><br><span class="line">        try &#123;</span><br><span class="line">            product.setPrice(new BigDecimal(productForm.getPrice()));</span><br><span class="line">        &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // add product</span><br><span class="line"></span><br><span class="line">        model.addAttribute(&quot;product&quot;, product);</span><br><span class="line">        return &quot;ProductDetails&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>注意 <code>saveProduct</code> 的参数是<code>org.springframework.ui.Model</code>.用于添加视图属性模型，这里添加一个Product Model。可以通过<code>HttpServletRequest</code>访问该实例。</p>
-</blockquote>
-<ul>
-<li>视图<br>这里有两个JSP视图页面，ProductForm.jsp和ProductDetails.jsp页面<br><strong>ProductForm.jsp</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Add Product Form&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(css/main.css);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">&lt;form action=&quot;save-product&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    &lt;fieldset&gt;</span><br><span class="line">        &lt;legend&gt;Add a product&lt;/legend&gt;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">            &lt;label for=&quot;name&quot;&gt;Product Name: &lt;/label&gt;</span><br><span class="line">            &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; </span><br><span class="line">                tabindex=&quot;1&quot;&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">            &lt;label for=&quot;description&quot;&gt;Description: &lt;/label&gt;</span><br><span class="line">            &lt;input type=&quot;text&quot; id=&quot;description&quot; </span><br><span class="line">                name=&quot;description&quot; tabindex=&quot;2&quot;&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">            &lt;label for=&quot;price&quot;&gt;Price: &lt;/label&gt;</span><br><span class="line">            &lt;input type=&quot;text&quot; id=&quot;price&quot; name=&quot;price&quot; </span><br><span class="line">                tabindex=&quot;3&quot;&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">        &lt;p id=&quot;buttons&quot;&gt;</span><br><span class="line">            &lt;input id=&quot;reset&quot; type=&quot;reset&quot; tabindex=&quot;4&quot;&gt;</span><br><span class="line">            &lt;input id=&quot;submit&quot; type=&quot;submit&quot; tabindex=&quot;5&quot; </span><br><span class="line">                value=&quot;Add Product&quot;&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">    &lt;/fieldset&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>ProductDetails.jsp</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Save Product&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(css/main.css);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">    &lt;h4&gt;The product has been saved.&lt;/h4&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">        &lt;h5&gt;Details:&lt;/h5&gt;</span><br><span class="line">        Product Name: $&#123;product.name&#125;&lt;br/&gt;</span><br><span class="line">        Description: $&#123;product.description&#125;&lt;br/&gt;</span><br><span class="line">        Price: $$&#123;product.price&#125;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>这里你已经可以通过<code>http://localhost:8080/your-project-name/input-product</code> 访问这个Spring MVC 实例。</p>
-</blockquote>
-<h3 id="依赖注入-Autowired-和-Service"><a href="#依赖注入-Autowired-和-Service" class="headerlink" title="依赖注入@Autowired 和 @Service"></a>依赖注入@Autowired 和 @Service</h3><p>使用Spring的依赖注入，获取注入Spring MVC的控制器依赖最简单的方法是使用<code>@Autowired</code>注解，<code>@Autowired</code>注解到一个字段或方法。<br>该<code>@Autowired</code>注解类型属于<code>org.springframework.beans.factory.annotation</code>包</p>
-<p>为了使依赖被发现，该类必须使用@Service注解，它属于<code>org.springframework.stereotype</code>包，<code>@Service</code>注解类型表示该类是一个服务，此外，需要在配置文件添加<code>&lt;component-scan/&gt;</code>扫描依赖基础包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;context:component-scan base-package=&quot;dependencyPackage&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Spring MVC 依赖注入实例，参考如下：被修改的 ProductController2 类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line">import org.springframework.web.servlet.mvc.support.RedirectAttributes;</span><br><span class="line">import domain.Product;</span><br><span class="line">import form.ProductForm;</span><br><span class="line">import service.ProductService;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class ProductController &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = LogFactory</span><br><span class="line">            .getLog(ProductController.class);</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ProductService productService;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value = &quot;/input-product&quot;)</span><br><span class="line">    public String inputProduct() &#123;</span><br><span class="line">        logger.info(&quot;inputProduct called&quot;);</span><br><span class="line">        return &quot;ProductForm&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value = &quot;/save-product&quot;, method = RequestMethod.POST)</span><br><span class="line">    public String saveProduct(ProductForm productForm, </span><br><span class="line">            RedirectAttributes redirectAttributes) &#123;</span><br><span class="line">        logger.info(&quot;saveProduct called&quot;);</span><br><span class="line">        // no need to create and instantiate a ProductForm</span><br><span class="line">        // create Product</span><br><span class="line">        Product product = new Product();</span><br><span class="line">        product.setName(productForm.getName());</span><br><span class="line">        product.setDescription(productForm.getDescription());</span><br><span class="line">        try &#123;</span><br><span class="line">            product.setPrice(new BigDecimal(productForm.getPrice()));</span><br><span class="line">        &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // add product</span><br><span class="line">        Product savedProduct = productService.add(product);</span><br><span class="line">        </span><br><span class="line">        redirectAttributes.addFlashAttribute(&quot;message&quot;, </span><br><span class="line">                &quot;The product was successfully added.&quot;);</span><br><span class="line">        return &quot;redirect:/product_view/&quot; + savedProduct.getId();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value = &quot;/view-product/&#123;id&#125;&quot;)</span><br><span class="line">    public String viewProduct(@PathVariable Long id, Model model) &#123;</span><br><span class="line">        Product product = productService.get(id);</span><br><span class="line">        model.addAttribute(&quot;product&quot;, product);</span><br><span class="line">        return &quot;ProductView&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>如上ProductController实例 productService字段增加@Autowired注解进行依赖注入</p>
-</blockquote>
-<p>ProductService接口和ProductServiceImpl实现类，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package service</span><br><span class="line">import domain.Product;</span><br><span class="line">public interface ProductService &#123;</span><br><span class="line">    Product add(Product product);</span><br><span class="line">    Product get(long id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package service;</span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.concurrent.atomic.AtomicLong;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line">import domain.Product;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">public class ProductServiceImpl implements ProductService &#123;</span><br><span class="line"></span><br><span class="line">    private Map&lt;Long, Product&gt; products = </span><br><span class="line">            new HashMap&lt;Long, Product&gt;();</span><br><span class="line">    private AtomicLong generator = new AtomicLong();</span><br><span class="line"></span><br><span class="line">    public ProductServiceImpl() &#123;</span><br><span class="line">        Product product = new Product();</span><br><span class="line">        product.setName(&quot;JX1 Power Drill&quot;);</span><br><span class="line">        product.setDescription(</span><br><span class="line">                &quot;Powerful hand drill, made to perfection&quot;);</span><br><span class="line">        product.setPrice(new BigDecimal(129.99));</span><br><span class="line"></span><br><span class="line">        add(product);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Product add(Product product) &#123;</span><br><span class="line">        long newId = generator.incrementAndGet();</span><br><span class="line">        product.setId(newId);</span><br><span class="line">        products.put(newId, product);</span><br><span class="line">        return product;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Product get(long id) &#123;</span><br><span class="line">        return products.get(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>SpringMVC 基于注解的配置文件，参考如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/mvc</span><br><span class="line">        http://www.springframework.org/schema/mvc/spring-mvc.xsd     </span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;controller&quot;/&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;service&quot;/&gt;    </span><br><span class="line">    &lt;mvc:annotation-driven/&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/css/**&quot; location=&quot;/css/&quot;/&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/*.html&quot; location=&quot;/&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;bean id=&quot;viewResolver&quot; class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="重定向和闪存属性"><a href="#重定向和闪存属性" class="headerlink" title="重定向和闪存属性"></a>重定向和闪存属性</h3><p>如果你是一个经验丰富的Servlet/JSP 程序员，你肯定知道<code>请求转发(request forward)</code>和<code>请求重定向(request redirect)</code>的区别:</p>
-<ul>
-<li>相比而言，<code>forward</code> 比 <code>redirect</code>更快，因为<code>重定向</code>需要往返服务器，而<code>转发</code>不需要。</li>
-<li>然后，有些情况重定向是首选。（eg: 你需要重定向到一个外部站点,你不能使用转发，yes！）</li>
-</ul>
-<p>通常默认情况使用<code>转发</code>，<code>转发</code>到一个视图或者转发到一个控制。有时候需要重定向（避免重复提交表单）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return &quot;redirect:/view-product/&quot; + savedProduct.getId();</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>如上使用<code>重定向</code>替代<code>转发</code>操作。</p>
-</blockquote>
-<p>众所周知，<code>转发</code>可以很容易的将属性添加到模型对象，属性值将用于视图展示,由于,<code>重定向</code>是往返于服务器，<code>重定向</code>将丢失所有模型。<br>Spring3.1及其更高版本提供一种重定向时保留值，称为闪flash attributes（闪存属性）</p>
-<ul>
-<li>如下ProductController类中saveProduct方法展示<code>flash attributes</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;save-product&quot;, method = RequestMethod.POST)</span><br><span class="line">public String saveProduct(ProductForm productForm, </span><br><span class="line">        RedirectAttributes redirectAttributes) &#123;</span><br><span class="line">    logger.info(&quot;saveProduct called&quot;);</span><br><span class="line">    // no need to create and instantiate a ProductForm</span><br><span class="line">    // create Product</span><br><span class="line">    Product product = new Product();</span><br><span class="line">    product.setName(productForm.getName());</span><br><span class="line">    product.setDescription(productForm.getDescription());</span><br><span class="line">    try &#123;</span><br><span class="line">        product.setPrice(new BigDecimal(productForm.getPrice()));</span><br><span class="line">    &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // add product</span><br><span class="line">    Product savedProduct = productService.add(product);</span><br><span class="line">    </span><br><span class="line">    redirectAttributes.addFlashAttribute(&quot;message&quot;, </span><br><span class="line">            &quot;The product was successfully added.&quot;);</span><br><span class="line"></span><br><span class="line">    return &quot;redirect:/view-product/&quot; + savedProduct.getId();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="请求参数与路径变量"><a href="#请求参数与路径变量" class="headerlink" title="请求参数与路径变量"></a>请求参数与路径变量</h3><p>请求参数和路径变量作为URL的一部分，它将发送到服务器进行访问。key=value形式的请求参数由<code>&amp;</code>符号分割，如下：productId的URL请求参数为3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/annotated2/view-product?productId=3</span><br></pre></td></tr></table></figure></p>
-<p>在servlet编程，你获取请求参数的值通过HttpServletRequest的getParameter方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String productId = httpServletRequest.getParameter(&quot;productId&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>Spring MVC 有更加简单的方法检索请求参数，使用<code>org.springframework.web.bind.annotation.RequestParam</code>注解类型来注解到请求参数，例如：如下的方法将捕获请求参数productId<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void sendProduct(@RequestParam int productId)</span><br></pre></td></tr></table></figure></p>
-<p>路径变量类似与请求参数，他没有key值，eg:<code>/view-product/productId</code></p>
-<ul>
-<li>如下使用路径变量<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/view-product/&#123;id&#125;&quot;)</span><br><span class="line">public String viewProduct(@PathVariable Long id, Model model) &#123;</span><br><span class="line">    Product product = productService.get(id);</span><br><span class="line">    model.addAttribute(&quot;product&quot;, product);</span><br><span class="line">    return &quot;ProductView&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>要使用路径变量，需要使用<code>@RequestMapping</code>注解的value属性设置一个变量。如下RequestMapping注解定义变量为id<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/view-product/&#123;id&#125;&quot;)</span><br></pre></td></tr></table></figure></p>
-<p>然后，在方法中添加同名变量于<code>@PathVariable</code>注解,当调用方法，<code>id</code>值作为URL请求的一部分。</p>
-<hr>
-<p>你可以在你的请求映射方法上使用多路径变量，例如：如下两个不同的路径变量，<code>userId</code>和<code>orderId</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;/view-product/&#123;userId&#125;/&#123;orderId&#125;&quot;)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>访问<code>viewProduct 方法</code>的<code>路径变量</code>, 使用<code>http://localhost:8080/you-project-name/view-product/1</code> </p>
-</blockquote>
-<p>使用路径变量有事有一个小问题：在某些情况下，可能会产生混淆浏览器，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/context/abc</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>浏览器会认为<code>abc</code> 是一个action.(yes！，他确实是一个action),<code>http://example.com/context</code>为上下文路径。<br>如果访问一个静态文件,它应当是这样的:<code>http://example.com/context/logo.png</code>。 但是<code>http://example.com/context/abc/1</code> 跳转到一个JSP。JSP 包含<code>&lt;img src=&quot;logo.png&quot;/&gt;</code>,访问这个图片，你会发现它访问的是<code>http://example.com/abc/logo.png</code>. 它找错了上下文路径？</p>
-</blockquote>
-<p>我们可以使用JSTL标签，解决这个问题(解析正确URL)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:url value=&quot;/img/logo.png&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
-<p>为了避免CSS 文件 或 JS 文件出现未找到情况，同样受用(貌似无所谓)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(&quot;&lt;c:url value=&quot;/css/main.css&quot;/&gt;&quot;);&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="ModelAttribute"><a href="#ModelAttribute" class="headerlink" title="@ModelAttribute"></a>@ModelAttribute</h2><p>我们知道，Spring MVC 每处理一个请求处理方法（action） 都会创建一个Model 对象，你可以在<code>请求处理方法</code>添加Model参数。<br><code>@ModelAttribute</code>注解可以装饰Model的实例化对象。<br><code>@ModelAttribute</code>可以注解在参数或方法中,它将会检索或创建一个Model对象。如下:<code>submitOrder方法</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(method = RequestMethod.POST)</span><br><span class="line">public String submitOrder(@ModelAttribute(&quot;newOrder&quot;) Order order,</span><br><span class="line">    Model model) &#123; </span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>Order</code>  创建实例化并添加至Model 对象，Model对应属性值为<code>newOrder</code>。如果没有定义key的名称，那么类型的名称将会添加到Model中。<br>例如，如下<code>action</code>，每次被访问,都会创建实例化<code>Order</code>对象，设置属性key为<code>order</code>并添加到<code>Model</code>中，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public String submitOrder(@ModelAttribute Order order, Model model)</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>第二个用法:<code>@ModelAttribute</code>标注一个非请求处理方法，在同一个控制器内带<code>@ModelAttribute</code>的方法每次进行请求处理方法调用都会触发该方法。<br>带<code>@ModelAttribute</code>的方法会在请求处理方法之前被调用，它将返回一个对象或<code>void类型</code>。如果返回一个对象，该对象会被自动添加到请求处理方法的Model中。<br>如下返回对象实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@ModelAttribute</span><br><span class="line">public Product addProduct(@RequestParam String productId) &#123;</span><br><span class="line">    return productService.get(productId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果注解方法返回<code>void</code>，则还必须添加一个Model参数，并添加自己的实例，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@ModelAttribute</span><br><span class="line">public void populateModel(@RequestParam String id, Model model) er);</span><br><span class="line">    model.addAttribute(new Account(id));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2298,7 +2146,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2306,7 +2154,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2315,7 +2163,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
