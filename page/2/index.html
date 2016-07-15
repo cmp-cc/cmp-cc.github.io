@@ -381,6 +381,193 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/14/2016/Webpack 能做什么/" itemprop="url">
+                  Webpack 能做什么
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-14T21:37:00+08:00" content="2016-03-14">
+              2016-03-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Project-Build/" itemprop="url" rel="index">
+                    <span itemprop="name">Project Build</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Project-Build/Wepack/" itemprop="url" rel="index">
+                    <span itemprop="name">Wepack</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/14/2016/Webpack 能做什么/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/14/2016/Webpack 能做什么/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>github</code> 看到一篇<code>webpack</code>文章，对新手还是蛮有作用的。<br>github地址：<code>https://github.com/petehunt/webpack-howto</code></p>
+<p><strong>本教程的目标</strong></p>
+<p>这是一本教你如何应用webpack到你的项目中的工具书。它包含了我们在<code>Instagram</code>中用到的绝大多数的内容。</p>
+<p>我的建议：这个教程作为你第一个<code>webpack</code>的文档，学习完以后去看它的官方文档，了解更详细的说明。</p>
+<p><strong>学习的前提</strong></p>
+<ul>
+<li>你了解过类似<code>browserify</code>、<code>RequireJS</code>的东西</li>
+<li>你知道:<ul>
+<li>Bundle的拆分</li>
+<li>异步的加载</li>
+<li>打包images和css的这一类的静态资源</li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么选择-webpack"><a href="#为什么选择-webpack" class="headerlink" title="为什么选择 webpack?"></a>为什么选择 webpack?</h2><ul>
+<li><strong>它和browserify类似</strong> 但是它可以把你的应用拆分成多个文件。如果你的单页应用里有很多页面，用户只会下载当前访问页面的代码。当他们访问应用中的其他页面时，不再需要加载与之前页面重复的通用代码。</li>
+<li><strong>它可以替代gulp和grunt</strong> 因为他可以构建打包css、预处理css、编译js和图片等。</li>
+</ul>
+<p>它支持AMD和CommonJS，以及其他的模块系统(Angular, ES6)。如果你不太熟悉如何使用，就用CommonJS吧。</p>
+<h2 id="对于习惯Browserify的人可以这样使用Webpack"><a href="#对于习惯Browserify的人可以这样使用Webpack" class="headerlink" title="对于习惯Browserify的人可以这样使用Webpack"></a>对于习惯Browserify的人可以这样使用Webpack</h2><p>下面的命令是等价的:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browserify main.js &gt; bundle.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack main.js bundle.js</span><br></pre></td></tr></table></figure>
+<p>然而，webpack要比Browserify强大。所以一般情况下你需要建立一个<code>webpack.config.js</code>文件来配置webpack。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这就是单纯的JS，所有写这个配置文件毫无压力。</p>
+<h2 id="如何调用webpack"><a href="#如何调用webpack" class="headerlink" title="如何调用webpack"></a>如何调用webpack</h2><p>选择一个目录下有<code>webpack.config.js</code>文件的文件夹，然后运行下面的命令:</p>
+<ul>
+<li><code>webpack</code> 开发环境下编译</li>
+<li><code>webpack -p</code> 产品编译及压缩</li>
+<li><code>webpack --watch</code> 开发环境下持续的监听文件变动来进行编译(非常快!)</li>
+<li><code>webpack -d</code> 引入 source maps</li>
+</ul>
+<h2 id="编译js"><a href="#编译js" class="headerlink" title="编译js"></a>编译js</h2><p>webpack可以和browserify、RequireJS一样作为一个<strong>loader</strong>(加载工具)来使用。下面我们来看下如何使用webpack去加载、编译CoffeeScript和JSX+ES6。(这里你必须先 <code>npm install babel-loader coffee-loader</code>):</p>
+<p>你也要看下<a href="https://www.npmjs.com/package/babel-loader" target="_blank" rel="external">babel-loader的介绍</a>，它会作为一个开发环境下的依赖加载到我们的项目中(run <code>npm install babel-core babel-preset-es2015 babel-preset-react</code>)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./main.js'</span>, <span class="comment">// 入口文件</span></span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span> <span class="comment">// 打包输出的文件</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    loaders: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.coffee$/</span>,  <span class="comment">// test 去判断是否为.coffee的文件,是的话就是进行coffee编译</span></span><br><span class="line">        loader: <span class="string">'coffee-loader'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>, <span class="comment">// test 去判断是否为.js,是的话就是进行es6和jsx的编译</span></span><br><span class="line">        loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">        query: &#123;</span><br><span class="line">          presets: [<span class="string">'es2015'</span>, <span class="string">'react'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如果你希望在require文件时省略文件的扩展名，只需要在webpack.config.js中添加 <code>resolve.extensions</code> 来配置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    loaders: [</span><br><span class="line">      &#123; test: <span class="regexp">/\.coffee$/</span>, loader: <span class="string">'coffee-loader'</span> &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">        query: &#123;</span><br><span class="line">          presets: [<span class="string">'es2015'</span>, <span class="string">'react'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    <span class="comment">// 现在你require文件的时候可以直接使用require('file')，不用使用require('file.coffee')</span></span><br><span class="line">    extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.json'</span>, <span class="string">'.coffee'</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Css样式和图片的加载"><a href="#Css样式和图片的加载" class="headerlink" title="Css样式和图片的加载"></a>Css样式和图片的加载</h2><p>首先你需要用<code>require()</code>去加载你的静态资源(named as they would with node’s <code>require()</code>):</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'./bootstrap.css'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./myapp.less'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> img = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>);</span><br><span class="line">img.src = <span class="built_in">require</span>(<span class="string">'./glyph.png'</span>);</span><br></pre></td></tr></table></figure>
+<p>当你require了CSS(less或者其他)文件，webpack会在页面中插入一个内联的<code>&lt;style&gt;</code>，去引入样式。当require图片的时候，bundle文件会包含图片的url，并通过<code>require()</code>返回图片的url。</p>
+<p>但是这需要你在<code>webpack.config.js</code>做相应的配置(这里还是使用loaders)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="string">'./build'</span>, <span class="comment">// 图片和js会放在这</span></span><br><span class="line">    publicPath: <span class="string">'http://mycdn.com/'</span>, <span class="comment">// 这里用来生成图片的地址</span></span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    loaders: [</span><br><span class="line">      &#123; test: <span class="regexp">/\.less$/</span>, loader: <span class="string">'style-loader!css-loader!less-loader'</span> &#125;, <span class="comment">// 用!去链式调用loader</span></span><br><span class="line">      &#123; test: <span class="regexp">/\.css$/</span>, loader: <span class="string">'style-loader!css-loader'</span> &#125;,</span><br><span class="line">      &#123;test: <span class="regexp">/\.(png|jpg)$/</span>, loader: <span class="string">'url-loader?limit=8192'</span>&#125; <span class="comment">// 内联的base64的图片地址，图片要小于8k，直接的url的地址则不解析</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="功能标识（Feature-flags）"><a href="#功能标识（Feature-flags）" class="headerlink" title="功能标识（Feature flags）"></a>功能标识（Feature flags）</h2><p>项目中有些代码我们只为在开发环境（例如日志）或者是内部测试环境（例如那些没有发布的新功能）中使用，那就需要引入下面这些魔法全局变量（magic globals）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">  <span class="built_in">console</span>.warn(<span class="string">'Extra logging'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">if</span> (__PRERELEASE__) &#123;</span><br><span class="line">  showSecretFeature();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时还要在webpack.config.js中配置这些变量，使得webpack能够识别他们。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// definePlugin 会把定义的string 变量插入到Js代码中。</span></span><br><span class="line"><span class="keyword">var</span> definePlugin = <span class="keyword">new</span> webpack.DefinePlugin(&#123;</span><br><span class="line">  __DEV__: <span class="built_in">JSON</span>.stringify(<span class="built_in">JSON</span>.parse(process.env.BUILD_DEV || <span class="string">'true'</span>)),</span><br><span class="line">  __PRERELEASE__: <span class="built_in">JSON</span>.stringify(<span class="built_in">JSON</span>.parse(process.env.BUILD_PRERELEASE || <span class="string">'false'</span>))</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [definePlugin]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>配置完成后，就可以使用 <code>BUILD_DEV=1 BUILD_PRERELEASE=1 webpack</code>来打包代码了。<br>值得注意的是，<code>webpack -p</code> 会删除所有无作用代码，也就是说那些包裹在这些全局变量下的代码块都会被删除，这样就能保证这些代码不会因发布上线而泄露。</p>
+<h2 id="多个入口文件"><a href="#多个入口文件" class="headerlink" title="多个入口文件"></a>多个入口文件</h2><p>如果你有两个页面：profile和feed。如果你希望用户访问profile页面时不加载feed页面的代码，那就需要生成多个bundles文件：为每个页面创建自己的“main module”（入口文件）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    Profile: <span class="string">'./profile.js'</span>,</span><br><span class="line">    Feed: <span class="string">'./feed.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="string">'build'</span>,</span><br><span class="line">    filename: <span class="string">'[name].js'</span> <span class="comment">// name是基于上边entry中定义的key</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在profile页面中插入<code>&lt;script src=&quot;build/Profile.js&quot;&gt;&lt;/script&gt;</code>。feed也一样。</p>
+<h2 id="优化通用代码"><a href="#优化通用代码" class="headerlink" title="优化通用代码"></a>优化通用代码</h2><p>Feed和Profile页面存在大量通用代码(比如React、公共的样式和组件等等)。webpack可以抽离页面间公共的代码，生成一个公共的bundle文件，供这两个页面缓存使用:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> commonsPlugin =</span><br><span class="line">  <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(<span class="string">'common.js'</span>); <span class="comment">// 引入插件</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    Profile: <span class="string">'./profile.js'</span>,</span><br><span class="line">    Feed: <span class="string">'./feed.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="string">'build'</span>,</span><br><span class="line">    filename: <span class="string">'[name].js'</span> <span class="comment">// 为上面entry的key值</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [commonsPlugin]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在上一步引入自己的bundle之前引入<code>&lt;script src=&quot;build/common.js&quot;&gt;&lt;/script&gt;</code></p>
+<h2 id="异步加载"><a href="#异步加载" class="headerlink" title="异步加载"></a>异步加载</h2><p>虽然CommonJS是同步加载的，但是webpack也提供了异步加载的方式。这对于单页应用中使用的客户端路由非常有用。当真正路由到了某个页面的时候，它的代码才会被加载下来。</p>
+<p>指定你要异步加载的 <strong>拆分点</strong>。看下面的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.location.pathname === <span class="string">'/feed'</span>) &#123;</span><br><span class="line">  showLoadingState();</span><br><span class="line">  <span class="built_in">require</span>.ensure([], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 这个语法很奇怪，但是还是可以起作用的</span></span><br><span class="line">    hideLoadingState();</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">'./feed'</span>).show(); <span class="comment">// 当这个函数被调用的时候，此模块是一定已经被同步加载下来了</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.location.pathname === <span class="string">'/profile'</span>) &#123;</span><br><span class="line">  showLoadingState();</span><br><span class="line">  <span class="built_in">require</span>.ensure([], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    hideLoadingState();</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">'./profile'</span>).show();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>剩下的事就可以交给webpack，它会为你生成并加载这些额外的 <strong>chunk</strong> 文件。</p>
+<p>webpack 默认会从项目的根目录下引入这些chunk文件。你也可以通过 <code>output.publicPath</code>来配置chunk文件的引入路径</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line">output: &#123;</span><br><span class="line">    path: <span class="string">"/home/proj/public/assets"</span>, <span class="comment">// webpack的build路径</span></span><br><span class="line">    publicPath: <span class="string">"/assets/"</span> <span class="comment">// 你require的路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>看一个真实的例子，<a href="http://youtu.be/VkTCL6Nqm6Y" target="_blank" rel="external">看看他们是怎么使用webpack</a>。这是Pete Hunt在Instagram.com中谈论webpack的视频。</p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h3 id="webpack-不仅仅是个modular"><a href="#webpack-不仅仅是个modular" class="headerlink" title="webpack 不仅仅是个modular"></a>webpack 不仅仅是个modular</h3><p>相比较browserify和browserify，在你的项目中大量的使用webpack插件才能体现出webpack的优势。当使用了插件后，代码才会被复写。其余的都是默认加载。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/10/14/2015/CDH开启HA 访问HDFS/" itemprop="url">
                   CDH开启HA 访问HDFS
                 </a>
@@ -1993,171 +2180,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/01/17/2015/Postfix 邮件服务器/" itemprop="url">
-                  Postfix 邮件服务器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-01-17T09:11:00+08:00" content="2015-01-17">
-              2015-01-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/17/2015/Postfix 邮件服务器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/17/2015/Postfix 邮件服务器/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>配置Postfix 使用<code>国内邮箱SMTP</code>代发</p>
-<h2 id="Postfix-配置"><a href="#Postfix-配置" class="headerlink" title="Postfix 配置"></a>Postfix 配置</h2><blockquote>
-<p>保证系统包含<code>cyrus-sasl-devel cyrus-sasl-plain cyrus-sasl cyrus-sasl-lib cyrus-imapd</code><br>如果没有通过yum安装</p>
-</blockquote>
-<ul>
-<li>安装Postfix<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install postfix</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>系统一般默认安装postfix，你可能需要卸载<code>sendmail</code></p>
-</blockquote>
-<ul>
-<li><p><code>vi /etc/postfix/main.cf</code> 添加如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># sets 163 as relay</span><br><span class="line">relayhost = [smtp.163.com]:25</span><br><span class="line"></span><br><span class="line">#  use tls</span><br><span class="line">smtp_use_tls = yes</span><br><span class="line"></span><br><span class="line"># use sasl when authenticating to foreign SMTP servers</span><br><span class="line">smtp_sasl_auth_enable = yes</span><br><span class="line"></span><br><span class="line"># path to password map file</span><br><span class="line">smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd</span><br><span class="line"></span><br><span class="line"># list of CAs to trust when verifying server certificate</span><br><span class="line"># smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">smtp_tls_CAfile = /etc/pki/tls/certs/ca-bundle.crt</span><br><span class="line"></span><br><span class="line"># eliminates default security options which are imcompatible</span><br><span class="line">smtp_sasl_security_options = noanonymous</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>vi /etc/postfix/sasl_passwd</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[smtp.163.com]:25  baiwoyidao@163.com:xxxx</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>[mail.host]:port 用户邮箱:密码</p>
-</blockquote>
-<ul>
-<li><p>执行如下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 重载配置</span><br><span class="line">sudo postmap /etc/postfix/sasl_passwd</span><br><span class="line">/etc/init.d/postfix reload</span><br><span class="line"></span><br><span class="line">// 重新启动Postfix服务</span><br><span class="line"> /etc/init.d/postfix restart</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line">service postfix restart</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>测试：给指定邮箱发送邮件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;hello world cmp-cc&quot; | mail -s Postfix_Test_Mail 452143877@qq.com</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果找不到<code>ca-certificates.crt</code>文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/ssl/certs</span><br><span class="line">ln -s ca-bundle.crt ca-certificates.crt</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p><code>/etc/ssl/certs</code> 中有<code>.pen</code>的证书也是可以使用的。</p>
-</blockquote>
-<ul>
-<li>当无法接收短信，查看异常信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/spool/mail</span><br><span class="line">vi root</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2203,7 +2225,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
