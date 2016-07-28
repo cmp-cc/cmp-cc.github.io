@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://cmp-cc.github.io/2016/05/16/%E5%9B%BE%E7%89%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%90%9C%E7%B4%A2/</loc>
+    <lastmod>2016-07-28T01:39:09.883Z</lastmod>
+    <data>
+        <display>
+        <title>图片相似度搜索计算</title>
+        <pubTime>2016-05-15T16:00:00.000Z</pubTime>
+        
+        <tag>图像处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="ImageProcessing" url="http://cmp-cc.github.io/categories/ImageProcessing/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://cmp-cc.github.io/2016/04/27/2016/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%20Azkaban%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2016-07-27T03:49:45.354Z</lastmod>
     <data>
@@ -545,26 +565,6 @@
            
              
               <breadCrumb title="Java Web" url="http://cmp-cc.github.io/categories/Java-Web/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://cmp-cc.github.io/2016/05/16/%E5%9B%BE%E7%89%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%90%9C%E7%B4%A2/</loc>
-    <lastmod>2016-05-17T07:43:14.375Z</lastmod>
-    <data>
-        <display>
-        <title>图片相似度搜索计算</title>
-        <pubTime>2016-05-15T16:00:00.000Z</pubTime>
-        
-        <tag>图像处理</tag>
-         
-         
-           
-             
-              <breadCrumb title="ImageProcessing" url="http://cmp-cc.github.io/categories/ImageProcessing/"/>
           
         </display>
     </data>
