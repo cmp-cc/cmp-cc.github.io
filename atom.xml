@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-08-02T01:38:18.088Z</updated>
+  <updated>2016-06-24T09:31:50.121Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -14,42 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://cmp-cc.github.io/2016/08/02/2015/Yum%20%E4%B8%8D%E5%8F%AF%E7%94%A8%EF%BC%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://cmp-cc.github.io/2016/08/02/2015/Yum 不可用，解决方案/</id>
-    <published>2016-08-02T01:38:18.087Z</published>
-    <updated>2016-08-02T01:38:18.088Z</updated>
-    
-    <content type="html">&lt;hr&gt;
-&lt;p&gt;title: Yum不可用,解决方案&lt;br&gt;date: 2015-11-14 16:53:00&lt;br&gt;updated:&lt;br&gt;categories: &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Operating System&lt;/li&gt;
-&lt;li&gt;Linux&lt;br&gt;tags:&lt;/li&gt;
-&lt;li&gt;Linux&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;可能是谁，误删了服务器部分资源导致。&lt;/p&gt;
-&lt;p&gt;使用yum，发现如下异常错误。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@salt ~]# yum&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;There was a problem importing one of the Python modules&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;required to run yum. The error leading to this problem was:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   libsasl2.so.2: cannot open shared object file: No such file or directory&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Please install a package which provides this module, or&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;verify that the module is installed correctly.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;It&amp;apos;s possible that the above module doesn&amp;apos;t match the&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;current version of Python, which is:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2.6.6 (r266:84292, Jul 23 2015, 15:22:56) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[GCC 4.4.7 20120313 (Red Hat 4.4.7-11)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;If you cannot solve this problem yourself, please go to &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;the yum faq at:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  http://yum.baseurl.org/wiki/Faq&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;傻逼的我，下了一些&lt;code&gt;rpm&lt;/code&gt;,也没有解决实际问题。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rpm -ivh cyrus-sasl-lib-2.1.23-15.el6_6.2.i686.rpm glibc-2.12-1.192.el6.i686.rpm nss-softokn-freebl-3.14.3-23.el6_7.i686.rpm db4-4.7.25-20.el6_7.i686.rpm glibc-common-2.12-1.192.el6.i686.rpm libcap-2.16-5.5.el6.i686.rpm tzdata-2016c-1.el6.noarch.rpm libattr-2.4.44-7.el6.i686.rpm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;仔细分析： yum 是python 写的。 执行yum失败，意味着缺失&lt;code&gt;libsasl2.so.2&lt;/code&gt;库，只需要找一个&lt;code&gt;libsasl2.so.2&lt;/code&gt;库，即可解决问题。 找了一个包含&lt;code&gt;libsasl2.so.2&lt;/code&gt;的机器&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;scp /usr/lib64/libsasl2.so.2 root@192.168.12.153:/usr/lib64/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;解决了。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-&lt;p&gt;title: Yum不可用,解决方案&lt;br&gt;date: 2015-11-14 16:53:00&lt;br&gt;updated:&lt;br&gt;categories: &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Operating System&lt;/li&gt;
-&lt;li&gt;Linux&lt;br&gt;tags:&lt;/l
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>Azkaban 短信预警插件开发</title>
@@ -1312,6 +1276,40 @@
     
     
       <category term="Wepack" scheme="http://cmp-cc.github.io/tags/Wepack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Yum 不可用，解决方案</title>
+    <link href="http://cmp-cc.github.io/2015/11/14/2015/Yum%20%E4%B8%8D%E5%8F%AF%E7%94%A8%EF%BC%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://cmp-cc.github.io/2015/11/14/2015/Yum 不可用，解决方案/</id>
+    <published>2015-11-14T08:53:00.000Z</published>
+    <updated>2016-08-02T01:41:37.056Z</updated>
+    
+    <content type="html">&lt;p&gt;可能是谁，误删了服务器部分资源导致。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;使用yum，发现如下异常错误。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@salt ~]# yum&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;There was a problem importing one of the Python modules&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;required to run yum. The error leading to this problem was:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   libsasl2.so.2: cannot open shared object file: No such file or directory&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Please install a package which provides this module, or&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;verify that the module is installed correctly.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;It&amp;apos;s possible that the above module doesn&amp;apos;t match the&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;current version of Python, which is:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2.6.6 (r266:84292, Jul 23 2015, 15:22:56) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[GCC 4.4.7 20120313 (Red Hat 4.4.7-11)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;If you cannot solve this problem yourself, please go to &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;the yum faq at:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  http://yum.baseurl.org/wiki/Faq&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;傻逼的我，下了一些&lt;code&gt;rpm&lt;/code&gt;,也没有解决实际问题。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rpm -ivh cyrus-sasl-lib-2.1.23-15.el6_6.2.i686.rpm glibc-2.12-1.192.el6.i686.rpm nss-softokn-freebl-3.14.3-23.el6_7.i686.rpm db4-4.7.25-20.el6_7.i686.rpm glibc-common-2.12-1.192.el6.i686.rpm libcap-2.16-5.5.el6.i686.rpm tzdata-2016c-1.el6.noarch.rpm libattr-2.4.44-7.el6.i686.rpm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;仔细分析： yum 是python 写的。 执行yum失败，意味着缺失&lt;code&gt;libsasl2.so.2&lt;/code&gt;库，只需要找一个&lt;code&gt;libsasl2.so.2&lt;/code&gt;库，即可解决问题。 找了一个包含&lt;code&gt;libsasl2.so.2&lt;/code&gt;的机器&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;scp /usr/lib64/libsasl2.so.2 root@192.168.12.153:/usr/lib64/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;解决了。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;可能是谁，误删了服务器部分资源导致。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;使用yum，发现如下异常错误。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;
+    
+    </summary>
+    
+      <category term="Operating System" scheme="http://cmp-cc.github.io/categories/Operating-System/"/>
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/categories/Operating-System/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://cmp-cc.github.io/tags/Linux/"/>
     
   </entry>
   
