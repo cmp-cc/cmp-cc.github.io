@@ -1562,6 +1562,162 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
             
               
                 
+                <a class="post-title-link" href="/2015/07/17/2015/Elasticsearch 多字段Distinct 、Group By 操作/" itemprop="url">
+                  Elasticsearch 多字段Distinct 、Group By 操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-17T22:33:00+08:00" content="2015-07-17">
+              2015-07-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/17/2015/Elasticsearch 多字段Distinct 、Group By 操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/17/2015/Elasticsearch 多字段Distinct 、Group By 操作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用Elasticsearch 进行数据操作时，获取聚合信息是常规操作，那么如果使用ES进行多字段聚合操作。</p>
+<p>ES聚合语法<code>aggregations</code> 中<code>terms</code> 可以完成单字段的<code>Distinct</code> 和 <code>Group by</code> 操作,如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;aggs&quot; : &#123;</span><br><span class="line">        &quot;groupBy&quot; : &#123;</span><br><span class="line">            &quot;terms&quot; : &#123; &quot;field&quot; : &quot; client_host  &quot; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">   &quot;size&quot;:0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>Java 代码实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SearchResponse sr =  client.prepareSearch(es_index)</span><br><span class="line">                .setSize(0)</span><br><span class="line">                .addAggregation(AggregationBuilders</span><br><span class="line">                                    .terms(&quot;groupBy&quot;)</span><br><span class="line">                                    .field(&quot;client_host&quot;)</span><br><span class="line">                                    )</span><br><span class="line">                .execute().actionGet();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>响应结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot; : 1338,</span><br><span class="line">  &quot;timed_out&quot; : false,</span><br><span class="line">  &quot;_shards&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : 16,</span><br><span class="line">    &quot;successful&quot; : 16,</span><br><span class="line">    &quot;failed&quot; : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : 12918553,</span><br><span class="line">    &quot;max_score&quot; : 0.0,</span><br><span class="line">    &quot;hits&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;groupBy&quot; : &#123;</span><br><span class="line">      &quot;doc_count_error_upper_bound&quot; : 1331,</span><br><span class="line">      &quot;sum_other_doc_count&quot; : 12896564,</span><br><span class="line">      &quot;buckets&quot; : [ &#123;</span><br><span class="line">        &quot;key&quot; : &quot;101.40.86.140&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 6062</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;188.11.182.230&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 4583</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;78.20.241.66&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 1846</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;108.26.11.12&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 1743</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;68.20.241.67&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 1733</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;11.159.63.124&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 1501</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;11.159.63.13&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 1488</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;11.159.63.110&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 1414</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;11.159.63.3&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 1396</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;11.159.63.100&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 1392</span><br><span class="line">      &#125; ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>key 为聚合名称，doc_count 为聚合数量</p>
+</blockquote>
+<h2 id="多字段-Group-By"><a href="#多字段-Group-By" class="headerlink" title="多字段 Group By"></a>多字段 Group By</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;agg1&quot;: &#123;</span><br><span class="line">      &quot;terms&quot;: &#123;</span><br><span class="line">        &quot;field&quot;: &quot;field1&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;aggs&quot;: &#123;</span><br><span class="line">        &quot;agg2&quot;: &#123;</span><br><span class="line">          &quot;terms&quot;: &#123;</span><br><span class="line">            &quot;field&quot;: &quot;field2&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;aggs&quot;: &#123;</span><br><span class="line">            &quot;agg3&quot;: &#123;</span><br><span class="line">              &quot;terms&quot;: &#123;</span><br><span class="line">                &quot;field&quot;: &quot;field3&quot;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;          </span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,&quot;size&quot;:0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Java 代码实现<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SearchResponse sr =  client.prepareSearch(es_index)</span><br><span class="line">                        .setSize(0)</span><br><span class="line">                        .addAggregation(AggregationBuilders</span><br><span class="line">                                            .terms(&quot;agg1&quot;)</span><br><span class="line">                                            .field(&quot;field1&quot;)</span><br><span class="line">                                            .subAggregation(AggregationBuilders</span><br><span class="line">                                                    .terms(&quot;agg2&quot;)</span><br><span class="line">                                                    .field(&quot;field3&quot;)</span><br><span class="line">                                                    .subAggregation(AggregationBuilders</span><br><span class="line">                                                            .terms(&quot;aggs3&quot;)</span><br><span class="line">                                                            .field(&quot;field3&quot;)</span><br><span class="line">                                                    )))</span><br><span class="line">                        .execute().actionGet();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p> 同样响应结果属于层次聚合关系</p>
+</blockquote>
+<h2 id="多字段Distinct"><a href="#多字段Distinct" class="headerlink" title="多字段Distinct"></a>多字段Distinct</h2><p>这是对字段：client_ip 和 server_ip 进行<code>distinct</code> 操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &quot;aggs&quot;:&#123;</span><br><span class="line">        &quot;distinct&quot;:&#123;</span><br><span class="line">             &quot;terms&quot;:&#123;</span><br><span class="line">                &quot;script&quot;:&quot;doc[&apos;client_host&apos;].values[0] + &apos;  &apos;+ doc[&apos;SOURCEIP&apos;].values[0]&quot;</span><br><span class="line">                &#125;</span><br><span class="line">           &#125;</span><br><span class="line">   &#125;,</span><br><span class="line">   &quot;size&quot;:0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Java代码实现</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SearchResponse sr =  client.prepareSearch(es_index)</span><br><span class="line">                .setSize(0)</span><br><span class="line">                .addAggregation(AggregationBuilders</span><br><span class="line">                                    .terms(&quot;distinct&quot;)</span><br><span class="line">                                    .script(new Script(&quot;doc[&apos;client_ip &apos;].values[0]+&apos; &apos;+doc[&apos;server_ip&apos;].values[0]&quot;))</span><br><span class="line">                                    )</span><br><span class="line">                .execute().actionGet();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>响应结果如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot; : 3262,</span><br><span class="line">  &quot;timed_out&quot; : false,</span><br><span class="line">  &quot;_shards&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : 16,</span><br><span class="line">    &quot;successful&quot; : 16,</span><br><span class="line">    &quot;failed&quot; : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : 182082,</span><br><span class="line">    &quot;max_score&quot; : 0.0,</span><br><span class="line">    &quot;hits&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;distinct&quot; : &#123;</span><br><span class="line">      &quot;doc_count_error_upper_bound&quot; : 32,</span><br><span class="line">      &quot;sum_other_doc_count&quot; : 181909,</span><br><span class="line">      &quot;buckets&quot; : [ &#123;</span><br><span class="line">        &quot;key&quot; : &quot;117.167.87.3 114.215.200.204&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 37</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;10.159.95.158 115.28.6.58&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 19</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;10.159.94.34 115.28.175.67&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 18</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;188.191.209.103 52.59.247.188&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 17</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;10.159.94.41 115.28.6.58&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 15</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;10.159.63.32 114.55.34.111&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 14</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;10.159.95.158 115.28.175.67&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 14</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;10.159.63.100 114.215.200.204&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 13</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;10.159.94.33 115.28.6.58&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 13</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        &quot;key&quot; : &quot;10.159.94.76 115.28.6.58&quot;,</span><br><span class="line">        &quot;doc_count&quot; : 13</span><br><span class="line">      &#125; ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/04/28/2015/配置环境变量脚本/" itemprop="url">
                   配置环境变量脚本
                 </a>
@@ -1943,147 +2099,11 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/03/11/PostgreSQL 遇到的问题/" itemprop="url">
-                  PostgreSQL 遇到的问题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-03-11T16:53:00+08:00" content="2015-03-11">
-              2015-03-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Data-Base-Management-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Base Management System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Data-Base-Management-System/Postgresql/" itemprop="url" rel="index">
-                    <span itemprop="name">Postgresql</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/03/11/PostgreSQL 遇到的问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/11/PostgreSQL 遇到的问题/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><strong>需要查询具体的某一天的数据。 由于存储方式不一样。要对数据库中的last_record_time字段（时间格式）进行转化。</strong></p>
-<img src="/2015/03/11/PostgreSQL%20遇到的问题/9744abfd-e724-4655-ac6b-eada2768ab42.png" alt="数据显示" title="数据显示">
-<ul>
-<li>使用函数：substring(string from pattern for escape)函数。<br><strong>失败,类型不匹配</strong></li>
-<li><p>使用 TO_CHAR 函数 可以进行格式类型转化。<br><strong>postgresql 8.1以后有个函数可以直接接受UNIX时间戳  TO_TIMESTAMP函数 可以处理时间戳。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sample_hash,sample_crc32 from t_black as s where  TO_CHAR(s.last_record_time,&apos;YYYY-MM-DD&apos;) = &apos;2015-03-10&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个统计实例<br><strong>１０年到现在的白样本，分月分统计出每个月的白灰样本数量</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;),count(*) from t_black as s  group by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;) order by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;)</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2124,7 +2144,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2132,7 +2152,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2141,7 +2161,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

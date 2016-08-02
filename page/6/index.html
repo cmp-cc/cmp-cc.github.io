@@ -228,6 +228,381 @@
             
               
                 
+                <a class="post-title-link" href="/2013/11/12/Spring 实例教程/" itemprop="url">
+                  Spring 实例教程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-11-12T13:53:00+08:00" content="2013-11-12">
+              2013-11-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/11/12/Spring 实例教程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/11/12/Spring 实例教程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="构建Spring-环境"><a href="#构建Spring-环境" class="headerlink" title="构建Spring 环境"></a>构建Spring 环境</h2><ul>
+<li>引入依赖<ul>
+<li>下载Spring，引入dist目录下所有Jar，附加commons-logging.jar 。</li>
+<li>或者，使用Maven构建项目,如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  &lt;dependencies&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.2.5.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>spring-context 会将Spring 其他相关依赖引入</p>
+<ul>
+<li>创建beans.xml ,并引入相关的Shema<br><strong>不限定名称，也可以为:ApplicationContext.xml</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">  xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">  xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span><br><span class="line">         http://www.springframework.org/schema/context</span><br><span class="line">         http://www.springframework.org/schema/context/spring-context-3.0.xsd</span><br><span class="line">         http://www.springframework.org/schema/aop</span><br><span class="line">         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd</span><br><span class="line">         http://www.springframework.org/schema/tx </span><br><span class="line">         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd&quot;&gt;</span><br><span class="line">&lt;/beas&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>一般情况下，Shema去官方文档里找（但是，如果你使用STS工具，可以直接创建Spring 配置文件。），如上是一个全貌，对于新的版本可能过时了。<br>如果你只使用Spring Bean 容器，你可能只需要引入<code>spring-beans-3.0.xsd</code></p>
+</blockquote>
+<ul>
+<li><p>演示配置Bean 对象</p>
+<ul>
+<li><p>创建相关对象(如下一个Helloworl对象)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.model;</span><br><span class="line">public class HelloWorld &#123;</span><br><span class="line">    public String hello()&#123;</span><br><span class="line">    return &quot;HelloWorld !!&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>beans.xml 配置Bean</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;hellWorld&quot; class=&quot;org.freecode.spring.model.HelloWorld&quot;&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如上Bean 对象，实际等同于<code>HelloWorld hellWorld = new HelloWorld()</code><br>只是创建于Spring Bean容器中，也就是说HelloWorld对象交给Spring进行管理。</p>
+</blockquote>
+</li>
+<li><p>测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.model;</span><br><span class="line"></span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.springframework.beans.factory.BeanFactory;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">public class HelloWorldTest &#123;</span><br><span class="line"></span><br><span class="line">    //1、创建Spring Bean 工厂 (Bean 容器)</span><br><span class="line">    private BeanFactory factory = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);</span><br><span class="line">    @Test</span><br><span class="line">    public void testHello() &#123;</span><br><span class="line">   </span><br><span class="line">      //2、通过Bean 工厂 获取相应的类对象</span><br><span class="line">      //getBean() 方法可以接受bean的id 或这对象class。 (都可以获取HelloWorld 对象)</span><br><span class="line">      HelloWorld helloWorld = factory.getBean(HelloWorld.class);</span><br><span class="line">      System.out.println(helloWorld.hello());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="ICO"><a href="#ICO" class="headerlink" title="ICO"></a>ICO</h2><p>ICO【依赖注入、控制反转】，使用ICO有两个步骤。</p>
+<ul>
+<li>1、<code>beans.xml</code>配置相关依赖注入对象（只有交给Spring管理的对象才能进行依赖注入，如上环境测试中的Bean。）</li>
+<li>2、对依赖的类完成注入（我们有如下多种注入方式）<ul>
+<li>2.1、<code>setter</code> 方法注入。通过<code>property</code>元素注入（每一个依赖注入对象必须创建<code>getter</code>和<code>setter</code>方法）</li>
+<li>2.2、构造方法注入。通过<code>constructor-arg</code>元素注入</li>
+<li>2.3、自动注入 （自动装配）。通过<code>autowire</code> 属性完成注入</li>
+</ul>
+</li>
+</ul>
+<h3 id="IOC-XML-实例"><a href="#IOC-XML-实例" class="headerlink" title="IOC XML 实例"></a>IOC XML 实例</h3><p><strong>在一个Web 项目中Service 层一般会依赖于DAO层对象，我们使用ICO完成，来演示这个实例</strong></p>
+<h4 id="通过setter方法注入"><a href="#通过setter方法注入" class="headerlink" title="通过setter方法注入"></a>通过<code>setter</code>方法注入</h4><p>通过IOC XML <code>property</code>属性实现注入（通过setter方法）</p>
+<ul>
+<li><p>Model</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.model;</span><br><span class="line"></span><br><span class="line">public class User &#123;</span><br><span class="line">  private String id;</span><br><span class="line">  private String name;</span><br><span class="line">  private String age;</span><br><span class="line">  public String getId() &#123;</span><br><span class="line">    return id;</span><br><span class="line">  &#125;</span><br><span class="line">  public void setId(String id) &#123;</span><br><span class="line">    this.id = id;</span><br><span class="line">  &#125;</span><br><span class="line">  public String getName() &#123;</span><br><span class="line">    return name;</span><br><span class="line">  &#125;</span><br><span class="line">  public void setName(String name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  public String getAge() &#123;</span><br><span class="line">    return age;</span><br><span class="line">  &#125;</span><br><span class="line">  public void setAge(String age) &#123;</span><br><span class="line">    this.age = age;</span><br><span class="line">  &#125;</span><br><span class="line">  @Override</span><br><span class="line">  public String toString() &#123;</span><br><span class="line">    return &quot;User [id=&quot; + id + &quot;, name=&quot; + name + &quot;, age=&quot; + age + &quot;]&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DAO</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.dao;</span><br><span class="line"></span><br><span class="line">import org.freecode.spring.model.User;</span><br><span class="line"></span><br><span class="line">public interface IUserDao &#123;</span><br><span class="line">  // 由于只是一个演示IOC,只有一个演示方法</span><br><span class="line">  public void addUser(User user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>DAO 接口实现类</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.dao;</span><br><span class="line">import org.freecode.spring.model.User;</span><br><span class="line">public class UserDao implements IUserDao &#123;</span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Service<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.service;</span><br><span class="line">import org.freecode.spring.model.User;</span><br><span class="line">public interface IUserService &#123;</span><br><span class="line">    public void addUser(User user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>Service 接口实现类，注意：1、我们依赖的为DAO接口。2、并创建依赖类的<code>getter</code>和<code>setter</code>方法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.service;</span><br><span class="line">import org.freecode.spring.dao.IUserDao;</span><br><span class="line">import org.freecode.spring.model.User;</span><br><span class="line">public class UserService implements IUserService&#123;</span><br><span class="line">    private IUserDao userDao;</span><br><span class="line">    </span><br><span class="line">    public IUserDao getUserDao() &#123;</span><br><span class="line">        return userDao;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void setUserDao(IUserDao userDao) &#123;</span><br><span class="line">        this.userDao = userDao;</span><br><span class="line">    &#125;</span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">        userDao.addUser(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>配置bean.xml 文件，通过<code>property</code>属性注入相关依赖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;userDao&quot; class=&quot;org.freecode.spring.dao.UserDao&quot;&gt;&lt;/bean&gt;</span><br><span class="line">     </span><br><span class="line">     &lt;bean id=&quot;userService&quot; class=&quot;org.freecode.spring.service.UserService&quot;&gt;</span><br><span class="line">         &lt;!-- 这里会将UserDao注入到userService中。(这就是所谓的依赖注入) --&gt;</span><br><span class="line">         &lt;!-- 实际是通过userService中setter(IUserDao userDao)方法完成注入。(知道为什么写getter、setter方法了把) --&gt;</span><br><span class="line">         &lt;!-- name属性为要注入的set后缀名称(setUserDao),ref属性为要注入的bean的 id --&gt;</span><br><span class="line">         &lt;property name=&quot;userDao&quot; ref=&quot;userDao&quot;&gt;&lt;/property&gt;</span><br><span class="line">     &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试类（测试IOC）<br><strong>测试通过Spring 为UserService 注入 UserDAO是否成功</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.model;</span><br><span class="line">import java.util.UUID;</span><br><span class="line">import org.freecode.spring.service.IUserService;</span><br><span class="line">import org.freecode.spring.service.UserService;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.springframework.beans.factory.BeanFactory;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line">public class SpringTest &#123;</span><br><span class="line">    private BeanFactory factory = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);</span><br><span class="line">    </span><br><span class="line">    @Test</span><br><span class="line">    public void testIOC()&#123;</span><br><span class="line">        IUserService userService = factory.getBean(&quot;userService&quot;,UserService.class);</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setId(UUID.randomUUID().toString());</span><br><span class="line">        user.setName(&quot;天王盖地虎&quot;);</span><br><span class="line">        user.setAge(&quot;21&quot;);</span><br><span class="line">        userService.addUser(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>控制台打印如下：表示注入成功了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User [id=00621890-01cf-4573-8610-7d737936459c, name=天王盖地虎, age=21]</span><br></pre></td></tr></table></figure></p>
+<h4 id="通过构造函数注入"><a href="#通过构造函数注入" class="headerlink" title="通过构造函数注入"></a>通过构造函数注入</h4><p><strong>如下，将该改为使用构造函数完成如上注入。</strong></p>
+<ul>
+<li><p>修改 UserService  (不需要<code>getter</code>、<code>setter</code>方法了，需要一个构造函数)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    private IUserDao userDao;</span><br><span class="line">    </span><br><span class="line">    public UserService(IUserDao userDao) &#123;</span><br><span class="line">        super();</span><br><span class="line">        this.userDao = userDao;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">/* //通过property 完成注入,实际是通过setter方法注入</span><br><span class="line">   public void setUserDao(IUserDao userDao) &#123;</span><br><span class="line">        this.userDao = userDao;</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   public IUserDao getUserDao() &#123;</span><br><span class="line">        return userDao;</span><br><span class="line">    &#125;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改beans.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 如下使用使用构造方法完成注入，不常用，一般情况还是使用setter实现注入 --&gt;</span><br><span class="line">     &lt;bean id=&quot;userService&quot; class=&quot;org.freecode.spring.service.UserService&quot;&gt;</span><br><span class="line">         &lt;constructor-arg ref=&quot;userDao&quot;&gt;&lt;/constructor-arg&gt;</span><br><span class="line">     &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行测试方法<code>testIOC</code>，验证结果</p>
+</li>
+</ul>
+<h4 id="自动注入（自动装配）"><a href="#自动注入（自动装配）" class="headerlink" title="自动注入（自动装配）"></a>自动注入（自动装配）</h4><ul>
+<li><p>需要实现<code>setter</code>方法、而不是构造函数。（也就是说自动注入使用setter方法后名称来完成注入）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">略</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改beans.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// byName 根据Class中的setter属性名称查找beans.xml中id名称，完成注入</span><br><span class="line">&lt;bean id=&quot;userService&quot; class=&quot;org.freecode.spring.service.UserService&quot; autowire=&quot;byName&quot;&gt;</span><br><span class="line"> &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行测试方法</p>
+</li>
+<li><p><code>autowire</code>属性值</p>
+<ul>
+<li><code>default</code><br><strong>由上级标签<beans>的<code>default-autowire</code>属性决定，bean元素默认值</beans></strong></li>
+<li>byName<br><strong>通过属性的名字的方式查找JavaBean依赖的对象并为其注入</strong><blockquote>
+<p>Spring IoC容器会在配置文件中查找对应的<code>id/name</code>属性,然后使用Setter方法将其注入</p>
+</blockquote>
+</li>
+<li>byType （一般不使用）<br><strong>通过属性的类型查找JavaBean依赖的对象并为其注入。</strong><blockquote>
+<p>注意： 有个两个要注入的对象，实现了同一个接口。这时，根据实现接口注入两个不同对象，就会报错，Spring不知道怎么注入二个多态对象。</p>
+</blockquote>
+</li>
+<li>constructor<br><strong>通byType一样，也是通过类型查找依赖对象。与byType的区别在于它不是使用Seter方法注入，而是使用构造子注入</strong></li>
+<li>no<br><strong>不启用自动装配，beans元素默认值</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>使用Spring XML 配置IOC 选择问题</strong></p>
+<ul>
+<li>1、开发中不建议使用<code>autowire</code>属性完成自动注入。<br><strong>原因：虽然他可以减少配置，但是beans文件无法直观了解类的整体面貌，所以不建议使用<code>autowire</code></strong></li>
+<li>2、常规开发中一般使用<code>property</code>注入，而不是构造方法注入。</li>
+</ul>
+<h3 id="依赖注入属性实例"><a href="#依赖注入属性实例" class="headerlink" title="依赖注入属性实例"></a>依赖注入属性实例</h3><p><strong>上一个实例，通过<code>ref</code> 引用一个类，将其注入，如果是具体的值呢？   使用<code>value</code>属性，完成具体值注入</strong></p>
+<ul>
+<li><p>注入一个默认的 User Model 属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;ser&quot; class=&quot;org.freecode.spring.model.User&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;id&quot; value=&quot;1&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;name&quot; value=&quot;生命宛如，静静相拥的河&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;age&quot; value=&quot;21&quot;&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testUser()&#123;</span><br><span class="line">    User user = factory.getBean(&quot;user&quot;,User.class);</span><br><span class="line">    System.out.println(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>ok，<code>User [id=1, name=生命宛如，静静相拥的河, age=21]</code></p>
+</blockquote>
+<ul>
+<li>其他<ul>
+<li>可以注入一个List对象、Set对象类，过于简单，就略了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于Annotation的注入实例"><a href="#基于Annotation的注入实例" class="headerlink" title="基于Annotation的注入实例"></a>基于Annotation的注入实例</h3><p>上面两个实例都是通过XML实现注入，Spring3.0以后支持注解注入，如下演示基于Annotation注入。</p>
+<ul>
+<li><p>修改第一个实例XML配置，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd&quot;&gt;</span><br><span class="line">    &lt;!-- 开启使用注解配置 --&gt;</span><br><span class="line">    &lt;context:annotation-config /&gt;</span><br><span class="line">    &lt;!-- 告诉Spring 去哪写包找注入Bean --&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;org.freecode.srping&quot; /&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/beans&gt;</span><br><span class="line">&gt; Shema 中引入了`spring-context`</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>@component</code>注解将类交给Spring管理<br>class 类中声明<code>@Compent</code> 等价于在Beans.xml 配置当前Bean对象（<code>&lt;bean id=&quot;userDao&quot; class=&quot;org...UserDao&quot;&gt;</code>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Component(&quot;userDao&quot;)  </span><br><span class="line">public class UserDao implements IUserDao &#123;</span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>依赖注入<code>UserDao</code>到<code>UserService</code><br><strong>有如下三个注解可以完成依赖注入</strong></p>
+<ul>
+<li><code>@Autowired</code>，我们很熟悉，由Spring提供，默认<code>通过类型注入</code>。</li>
+<li><code>@Resource</code>,由J2EE提供，需要引入<code>javax.annotation.Resource</code>包，默认<code>通过名称注入</code></li>
+<li><code>@Inject</code>，JSR330中提供,需要引入<code>Inject</code>jar。（等价于Resource）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.service;</span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line">import org.freecode.spring.dao.IUserDao;</span><br><span class="line">import org.freecode.spring.model.User;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">@Component(&quot;userService&quot;)</span><br><span class="line">public class UserService implements IUserService&#123;</span><br><span class="line">  </span><br><span class="line">   private IUserDao userDao;</span><br><span class="line">   // 使用Spring 依赖注入,它默认基于类型注入</span><br><span class="line">   @Autowired</span><br><span class="line">   public void setUserDao(IUserDao userDao) &#123;</span><br><span class="line">        this.userDao = userDao;</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   public IUserDao getUserDao() &#123;</span><br><span class="line">        return userDao;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void addUser(User user) &#123;</span><br><span class="line">        userDao.addUser(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>执行测试方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private BeanFactory factory = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void testIOC()&#123;</span><br><span class="line">    IUserService userService = factory.getBean(&quot;userService&quot;,UserService.class);</span><br><span class="line">    User user = new User();</span><br><span class="line">    user.setId(UUID.randomUUID().toString());</span><br><span class="line">    user.setName(&quot;天王盖地虎&quot;);</span><br><span class="line">    user.setAge(&quot;21&quot;);</span><br><span class="line">    userService.addUser(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>ok, 如此简单的完成了依赖注入</p>
+<ul>
+<li>使用<code>@Resouce</code> 注解完成注入<br><strong>我们不推荐使用<code>@Autowired</code>,而是使用<code>@Resouce</code></strong><ul>
+<li>引入J2EE中的<code>javax.anntation.resource</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   &lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;javax.annotation&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;javax.annotation-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>将<code>@Autowired</code> 改为 <code>@Resouce</code> 即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   // 使用J2EE提供的依赖注入完成</span><br><span class="line">@Resource</span><br><span class="line">public void setUserDao(IUserDao userDao) &#123;</span><br><span class="line">     this.userDao = userDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>你可以将注入写在<code>setter方法</code>上、属性上和构造方法上。这里只是举了个<code>setter</code>的例子</p>
+</blockquote>
+</li>
+<li>你可以测试了<h4 id="不推荐使用-Component完成所有Bean的创建"><a href="#不推荐使用-Component完成所有Bean的创建" class="headerlink" title="不推荐使用@Component完成所有Bean的创建"></a>不推荐使用<code>@Component</code>完成所有Bean的创建</h4>除了<code>@Component</code>注解以外，还有如下功能一样，名称不同的注入注解。<ul>
+<li><code>@Componentt</code> 作用于<code>公共代码层</code>。</li>
+<li><code>@Repository</code> 作用于<code>持久化层(DAO)</code></li>
+<li><code>@Service</code> 作用于<code>业务层</code></li>
+<li><code>@Controller</code> 作用于<code>MVC控制层</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>你可修改上一个实例的<code>@Component</code> 实际相符的注入类型，并完成测试。</p>
+</blockquote>
+<h3 id="scope-实例周期"><a href="#scope-实例周期" class="headerlink" title="scope 实例周期"></a><code>scope</code> 实例周期</h3><p>使用XML管理Bean 可以在Bean中配置<code>scope</code>属性。<br>或者，使用@Scope注解配置Bean的周期。<br>Bean 实例周期属性<code>scope</code>有四个属性。</p>
+<ul>
+<li><code>singleton</code><br><strong>单例模式，默认值</strong></li>
+<li><code>prototype</code><br><strong>多例模式</strong></li>
+<li><code>request</code></li>
+<li><code>session</code><blockquote>
+<p><code>scope</code>默认为单例默认。当一个对象的状态不会发生改变，使用单例。当实例对象的状态肯能改变，使用多例。<br>例如：DAO层和Service层一般都是单例，而Model 则为多例，Model中的属性状态一直在变化。Action 层则为多例（状态总是改变的）。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>注解scope</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@Scope(&quot;prototype&quot;)</span><br><span class="line">public class User &#123; </span><br><span class="line">....</span><br></pre></td></tr></table></figure></p>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>AOP 直意过来为：<code>面向方面编程</code>,更为正确的叫法为：<code>面向切面编程</code></p>
+<h3 id="AOP-Annotation-实例"><a href="#AOP-Annotation-实例" class="headerlink" title="AOP Annotation 实例"></a>AOP Annotation 实例</h3><p><strong>这个实例是建立在IOC Annotation 的基础上</strong></p>
+<ul>
+<li><p>引入AOP依赖包，依赖如下（Spring使用的是第三方的切面库：`Aspect.jar）</p>
+<ul>
+<li><code>aopalliance.jar</code></li>
+<li><code>aspectrt.jar</code></li>
+<li><code>aspectjweaver.jar</code></li>
+<li>或者使用Maven构建如下(其中<code>aopllicance</code>,<code>spring-context</code> 默认引入依赖)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.aspectj&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;aspectjrt&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.7.3&lt;/version&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br><span class="line"> </span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.aspectj&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.7.3&lt;/version&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>beans.xml 引入<code>spring-aop shema</code> (主要目的自动检索或代码补全)</p>
+</li>
+<li><p>开启注解AOP 自动代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd</span><br><span class="line">        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd&quot;&gt;</span><br><span class="line">    &lt;!-- 开启使用注解配置 --&gt;</span><br><span class="line">    &lt;context:annotation-config /&gt;</span><br><span class="line">    &lt;!-- 告诉Spring 去哪写包找注入Bean --&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;org.freecode.spring&quot; /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- AOP.1、引入AOP Schema --&gt;</span><br><span class="line">    &lt;!-- AOP.2、开启AOP自动代理 --&gt;</span><br><span class="line">    &lt;aop:aspectj-autoproxy&gt;&lt;/aop:aspectj-autoproxy&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个切面类。（代理对象）</p>
+<ul>
+<li>通过<code>@Aspect</code> 注解，申明为一个切面对象。</li>
+<li>声明AOP切点。声明AOP 方法的位置。这里使用<code>@After</code>方法后执行。</li>
+<li><p>声明<code>execution表达式</code>，表明当前的方法允许访问范围</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    1、execution 表达式标示</span><br><span class="line">    2、必须是 public 范围的方法</span><br><span class="line">    3、* 不显示返回类型</span><br><span class="line">    4、作用范围 包名下的所有类，必须add开头</span><br><span class="line">    5、(..) 不限制输入类型</span><br><span class="line">execution(public * org.freecode.spring.dao.*.add*(..))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果有多个<code>execution</code> 表达式使用<code>||</code> 运算符即可。<br><strong>参照如下</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.aspect;</span><br><span class="line">import org.aspectj.lang.annotation.After;</span><br><span class="line">import org.aspectj.lang.annotation.Aspect;</span><br><span class="line">import org.aspectj.lang.annotation.Before;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">/**</span><br><span class="line"> *1、 @Component IOC注解,将当前对象交给Spring管理</span><br><span class="line"> *2、@Aspect 申明这是一个切面类。(也可以理解为代理对象)</span><br><span class="line"> */</span><br><span class="line">@Component(&quot;logAspect&quot;)</span><br><span class="line">@Aspect</span><br><span class="line">public class LogAspect &#123;</span><br><span class="line">    @After(&quot;execution(public * org.freecode.spring.dao.*.add*(..))&quot;)</span><br><span class="line">    public void startLog()&#123;</span><br><span class="line">        Logger.info(&quot;方法调用结束&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static class Logger&#123;</span><br><span class="line">        </span><br><span class="line">        public static void info(String message)&#123;</span><br><span class="line">            System.out.println(message);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void error(String message)&#123;</span><br><span class="line">            System.err.println(message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>执行测试<br><strong>结果如下，很简单吧！！</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">User [id=d7ee1ecd-a50a-4c38-9358-52233d70af4e, name=天王盖地虎, age=21]</span><br><span class="line">方法调用结束</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="AOP-切点方法"><a href="#AOP-切点方法" class="headerlink" title="AOP 切点方法"></a>AOP 切点方法</h3><p>实例中，只是使用<code>@After</code>，在方法后执行。</p>
+<ul>
+<li>AOP 切点<ul>
+<li><code>@After</code>  函数调用之前执行。</li>
+<li><code>@Before</code> 函数调用之后执行。 </li>
+<li><code>@Around</code>  函数调用过程执行。（用法如下）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Around(&quot;execution(public * org.freecode.spring.dao.*.add*(..))&quot;)</span><br><span class="line">public void AroundLog(ProceedingJoinPoint pjp) throws Throwable&#123;</span><br><span class="line">    Logger.info(&quot;方法执行开始&quot;);</span><br><span class="line">    pjp.proceed();</span><br><span class="line">    Logger.info(&quot;方法执行结束&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="AOP-XML-实例"><a href="#AOP-XML-实例" class="headerlink" title="AOP XML 实例"></a>AOP XML 实例</h3><p><strong>在IOC Annotation 的代码的基础上</strong></p>
+<ul>
+<li>引入依赖</li>
+<li><p>创建一个切面类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.spring.aspect;</span><br><span class="line">import org.aspectj.lang.ProceedingJoinPoint;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">@Component(&quot;logAspect&quot;)</span><br><span class="line">public class LogAspect &#123;</span><br><span class="line">    public void startLog()&#123;</span><br><span class="line">        Logger.info(&quot;进入日志管理&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void AroundLog(ProceedingJoinPoint pjp) throws Throwable&#123;</span><br><span class="line">        Logger.info(&quot;方法执行开始&quot;);</span><br><span class="line">        pjp.proceed();</span><br><span class="line">        Logger.info(&quot;方法执行结束&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void endLog()&#123;</span><br><span class="line">        Logger.info(&quot;结束日志管理&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    public static class Logger&#123;</span><br><span class="line">        </span><br><span class="line">        public static void info(String message)&#123;</span><br><span class="line">            System.out.println(message);</span><br><span class="line">        &#125;</span><br><span class="line">        public static void error(String message)&#123;</span><br><span class="line">            System.err.println(message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Spring 配置文件配置切面类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-.0.xsd</span><br><span class="line">        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd&quot;&gt;</span><br><span class="line">    &lt;!-- 开启使用注解配置 --&gt;</span><br><span class="line">    &lt;context:annotation-config /&gt;</span><br><span class="line">    &lt;!-- 告诉Spring 去哪写包找注入Bean --&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;org.freecode.spring&quot; /&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- ===== 如下AOP 定义LogAspect实例 =====  --&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- AOP 配置 --&gt;</span><br><span class="line">    &lt;aop:config&gt;</span><br><span class="line">        &lt;!-- 定义切面类(1..N) --&gt;</span><br><span class="line">        &lt;aop:aspect id=&quot;logAspect&quot; ref=&quot;logAspect&quot;&gt;</span><br><span class="line">            &lt;!-- 定义 execution 表达式(1..N)--&gt;</span><br><span class="line">            &lt;aop:pointcut id=&quot;LogPointcut&quot; </span><br><span class="line">                    expression=&quot;execution(public * org.freecode.spring.dao.*.add*(..))&quot; /&gt;</span><br><span class="line">            </span><br><span class="line">            &lt;!-- 哪种切点类型，作用于logAspect哪个方法，并引入哪个execution表达式 --&gt;</span><br><span class="line">            &lt;aop:before method=&quot;startLog&quot; pointcut-ref=&quot;LogPointcut&quot;/&gt;</span><br><span class="line">            &lt;aop:around method=&quot;AroundLog&quot; pointcut-ref=&quot;LogPointcut&quot;/&gt;</span><br><span class="line">            &lt;aop:after method=&quot;endLog&quot; pointcut-ref=&quot;LogPointcut&quot;/&gt;</span><br><span class="line">        &lt;/aop:aspect&gt;</span><br><span class="line">    &lt;/aop:config&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行测试，测试结果如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">进入日志管理</span><br><span class="line">方法执行开始</span><br><span class="line">User [id=c5064ec5-bc49-4d88-8e8a-8d721807157b, name=天王盖地虎, age=21]</span><br><span class="line">方法执行结束</span><br><span class="line">结束日志管理</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>Spring 的路还有很长，IOC和AOP只是Spring最最基础的两大核心。<br>这就像天梯一样，满满爬。</p>
+<ul>
+<li>Spring 基于XML的IOC，用到人并不多，一般都是Annotation的。</li>
+<li>Spring 基于XML的AOP，更加的清楚，很多人愿意使用，同样Annotation也蛮方便的，那就折中把~ 用哪一个看心情</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/08/12/2013/Java项目开发中的简称/" itemprop="url">
                   Java项目开发中的简称
                 </a>
@@ -2410,246 +2785,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/02/16/2013/Ajax/" itemprop="url">
-                  Ajax
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-16T13:43:00+08:00" content="2013-02-16">
-              2013-02-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming Language</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/02/16/2013/Ajax/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/16/2013/Ajax/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="略略略"><a href="#略略略" class="headerlink" title="略略略"></a>略略略</h2><p>随便记录一下。 日后再补充。</p>
-<h2 id="XMLHttpRequest-对象"><a href="#XMLHttpRequest-对象" class="headerlink" title="XMLHttpRequest 对象"></a>XMLHttpRequest 对象</h2><h3 id="XMLHttpRequest-对象属性"><a href="#XMLHttpRequest-对象属性" class="headerlink" title="XMLHttpRequest 对象属性"></a>XMLHttpRequest 对象属性</h3><table>
-<thead>
-<tr>
-<th>属性名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>onreadystatechange</td>
-<td>指定当readState状态改变时使用的操作，一般用于指定具体的回调函数</td>
-</tr>
-<tr>
-<td>readyState</td>
-<td>返回当前请求的状态，只读</td>
-</tr>
-<tr>
-<td>responseBody</td>
-<td>将回应信息正文以unsigned byte数组的形式返回，只读</td>
-</tr>
-<tr>
-<td>responseStream</td>
-<td>以Ado Stream对象的形式返回响应信息，只读</td>
-</tr>
-<tr>
-<td>responseText</td>
-<td>接收以文本返回的数据，只读</td>
-</tr>
-<tr>
-<td>responseXML</td>
-<td>接收以XML文档形式回应的数据，只读</td>
-</tr>
-<tr>
-<td>status</td>
-<td>返回当前请求的http状态码，只读</td>
-</tr>
-<tr>
-<td>statusText</td>
-<td>返回当前请求的响应行装填，只读</td>
-</tr>
-</tbody>
-</table>
-<p><strong>statusText 的五种取值状体</strong></p>
-<table>
-<thead>
-<tr>
-<th>状体码</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>请求没有发出（在调用open()函数之前）</td>
-</tr>
-<tr>
-<td>1</td>
-<td>请求已经建立但还没有发出（在调用send()函数之前）</td>
-</tr>
-<tr>
-<td>2</td>
-<td>请求已经发出正在处理之中(这里通常可以从响应得到内容头部)</td>
-</tr>
-<tr>
-<td>3</td>
-<td>请求已经处理，正在接受服务器的信息，响应中通常有部分数据可用，但是服务器还有完成响应    </td>
-</tr>
-<tr>
-<td>4</td>
-<td>请求已完成，可以访问服务器响应并使用它</td>
-</tr>
-</tbody>
-</table>
-<h3 id="XMLHttpRequest-对象方法"><a href="#XMLHttpRequest-对象方法" class="headerlink" title="XMLHttpRequest 对象方法"></a>XMLHttpRequest 对象方法</h3><table>
-<thead>
-<tr>
-<th>方法名称</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>abort()</td>
-<td>取消当前所发出的请求</td>
-</tr>
-<tr>
-<td>getAllRespnseHeaders()</td>
-<td>取得所有的HTTP头信息</td>
-</tr>
-<tr>
-<td>getResponseHeader()</td>
-<td>取得一个指定的HTTP头信息</td>
-</tr>
-<tr>
-<td>open()</td>
-<td>创建一个HTTP请求，并指定请求模式，如GET请求或POST请求</td>
-</tr>
-<tr>
-<td>send()</td>
-<td>将创建的请求发送到服务器，并接受回应信息</td>
-</tr>
-<tr>
-<td>setRequestHeader()</td>
-<td>设置一个指定的请求的HTTP头信息</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Ajax-实例"><a href="#Ajax-实例" class="headerlink" title="Ajax 实例"></a>Ajax 实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type = &quot;text/javascript&quot;&gt;</span><br><span class="line">var getAjax; // 欲初始化ajax函数</span><br><span class="line">function invidate() &#123;</span><br><span class="line">    if (window.XMLHttpRequest) &#123; // 判断浏览器类型， N 为IE</span><br><span class="line">		getAjax = new XMLHttpRequest();</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		getAjax = new ActiveXObject(&quot;Misrosoft.XMLHTTP&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function useGetAjax() &#123;</span><br><span class="line">	invidate(); // 初始化XMLHttpRequest对象</span><br><span class="line">	getAjax.open(&quot;POST&quot;, &quot;testAJax&quot;, true);</span><br><span class="line">    // 以POST方式发开请求连接</span><br><span class="line">	getAjax.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">	getAjax.onreadystatechange = function() &#123; // 回调函数</span><br><span class="line">		if (getAjax.readyState == 4) &#123;</span><br><span class="line">		    if (getAjax.status == 200) &#123;</span><br><span class="line">		        var text = getAjax.responseText; // 接收响应信息</span><br><span class="line">		        alert(text);</span><br><span class="line">		        document.getElementById(&quot;ajax&quot;).innerHTML = text;</span><br><span class="line"></span><br><span class="line">		    &#125;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    getAjax.send(&quot;username=1&quot;); // 发送请求体</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2690,7 +2830,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2698,7 +2838,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2707,7 +2847,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
