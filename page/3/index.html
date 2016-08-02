@@ -228,6 +228,240 @@
             
               
                 
+                <a class="post-title-link" href="/2015/02/17/2015/Webpack入门实例/" itemprop="url">
+                  Webpack入门实例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-02-17T19:50:00+08:00" content="2015-02-17">
+              2015-02-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Project-Build/" itemprop="url" rel="index">
+                    <span itemprop="name">Project Build</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Project-Build/Wepack/" itemprop="url" rel="index">
+                    <span itemprop="name">Wepack</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/02/17/2015/Webpack入门实例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/17/2015/Webpack入门实例/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>参照官网</p>
+</blockquote>
+<h2 id="欢迎"><a href="#欢迎" class="headerlink" title="欢迎"></a>欢迎</h2><p>这个简短的教程将指导您完成一个简单的实例</p>
+<p>你将学习：</p>
+<ul>
+<li>如何安装 <code>webpack</code></li>
+<li>如何使用 <code>webpack</code></li>
+<li>如何使用 <code>webpack loaders 特性</code></li>
+<li>如何使用 <code>webpack development server</code></li>
+</ul>
+<h2 id="安装-Webpack"><a href="#安装-Webpack" class="headerlink" title="安装 Webpack"></a>安装 Webpack</h2><p>首先你需要安装<a href="https://nodejs.org/" target="_blank" rel="external">node.js</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这使得<code>webpack</code>命令是可用的</p>
+</blockquote>
+<h2 id="设置编译"><a href="#设置编译" class="headerlink" title="设置编译"></a>设置编译</h2><p>首先创建一个空的目录<br>创建如下文件</p>
+<ul>
+<li><p>添加<code>entry.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.write(&quot;It works.&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加<code>index.html</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;script type=&quot;text/javascript&quot; src=&quot;bundle.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后运行如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./entry.js bundle.js</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>它将编译你的文件,并创建<code>bundle</code>文件<br>如果成功，显示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hash: ca188ee5789bb780fcec</span><br><span class="line">Version: webpack 1.12.9</span><br><span class="line">Time: 79ms</span><br><span class="line">    Asset     Size  Chunks             Chunk Names</span><br><span class="line">bundle.js  1.42 kB       0  [emitted]  main</span><br><span class="line">   [0] ./entry.js 28 bytes &#123;0&#125; [built]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>浏览器打开<code>index.html</code>，它将显示<code>It works</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器</span><br><span class="line">It works.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="模块化引入"><a href="#模块化引入" class="headerlink" title="模块化引入"></a>模块化引入</h2><p>下一步，我们将移动一些代码到一个额外的文件。</p>
+<ul>
+<li><p>添加<code>content.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &quot;It works from content.js.&quot;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 <code>entry.js</code> 为如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.write(require(&quot;./content.js&quot;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./entry.js bundle.js</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器打开，将显示文本：<code>It works from content.js.</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器</span><br><span class="line">It works from content.js.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>webpack 将分析你的entry文件依赖于哪些其他文件，这些也文件（称为模块）包含在bundle.js.webpack会给每一个模块一个唯一ID标示，防止bundle.js文件访问所有模块。</p>
+</blockquote>
+<h2 id="第一个Loader"><a href="#第一个Loader" class="headerlink" title="第一个Loader"></a>第一个Loader</h2><p>我们想要在我们的应用中添加Css文件.<br><code>webpack</code>本身 只能处理JavaScript 文件，所以我们需要<code>css-loader</code>去处理CSS文件，在<code>CSS</code>文件中应用样式,我们也需要<code>style-loader</code>.<br>运行<code>npm install css-loader style-loader</code> 安装<code>loaders</code> (只是本地安装，无需<code>-g</code>) ，<code>loaders</code> 存在于 <code>node_modules</code>目录中。<br><strong>使用他们</strong></p>
+<ul>
+<li><p>添加<code>style.css</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    background: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>entry.js</code>为如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require(&quot;!style!css!./style.css&quot;);</span><br><span class="line">document.write(require(&quot;./content.js&quot;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新编译，并浏览器打开，会发现增加了黄色背景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器打开，背景：黄色</span><br><span class="line"></span><br><span class="line">It works from content.js.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>By prefixing loaders to a module request, the module went through a loader pipeline. These loaders transform the file content in specific ways. After these transformations are applied, the result is a JavaScript module.</p>
+</blockquote>
+<h2 id="绑定Loaders"><a href="#绑定Loaders" class="headerlink" title="绑定Loaders"></a>绑定Loaders</h2><p>我们不想写如此长的<code>requires</code> : <code>require(&quot;!style!css!./style.css&quot;);</code><br>我们在Loaders中绑定文件扩展名，只需要写:<code>require(&quot;./style.css&quot;)</code></p>
+<ul>
+<li><p>修改<code>entry.js</code> 文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require(&quot;./style.css&quot;);</span><br><span class="line">document.write(require(&quot;./content.js&quot;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后编译如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./entry.js bundle.js --module-bind &apos;css=style!css&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>有些环境可能需要双引号: <code>–module-bind &quot;css=style!css&quot;</code></p>
+</blockquote>
+<ul>
+<li>我们将看到同样结果<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器打开，背景：黄色</span><br><span class="line"></span><br><span class="line">It works from content.js.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>我们想要移除配置项到一个配置文件中，如下：</p>
+<ul>
+<li><p>添加 webpack.config.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &quot;./entry.js&quot;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: &quot;.&quot;,</span><br><span class="line">        filename: &quot;bundle.js&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    module: &#123;</span><br><span class="line">        loaders: [</span><br><span class="line">            &#123; test: /\.css$/, loader: &quot;style!css&quot; &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在可以运行它</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Version: webpack 1.12.9</span><br><span class="line">Time: 379ms</span><br><span class="line">    Asset     Size  Chunks             Chunk Names</span><br><span class="line">bundle.js  10.7 kB       0  [emitted]  main</span><br><span class="line">chunk    &#123;0&#125; bundle.js (main) 8.86 kB [rendered]</span><br><span class="line">    [0] ./tutorials/getting-started/config-file/entry.js 65 bytes &#123;0&#125; [built]</span><br><span class="line">    [1] ./tutorials/getting-started/config-file/style.css 943 bytes &#123;0&#125; [built]</span><br><span class="line">    [2] ../~/css-loader!./tutorials/getting-started/config-file/style.css 201 bytes &#123;0&#125; [built]</span><br><span class="line">    [3] ../~/css-loader/lib/css-base.js 1.51 kB &#123;0&#125; [built]</span><br><span class="line">    [4] ../~/style-loader/addStyles.js 6.09 kB &#123;0&#125; [built]</span><br><span class="line">    [5] ./tutorials/getting-started/config-file/content.js 45 bytes &#123;0&#125; [built]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>webpack 命令行</code> 尝试在当前目录加载<code>webpack.config.js</code>文件</p>
+</blockquote>
+<h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><p><strong>美化输出: 项目的编译可能需要更长的时间，所以，我们要显示某种进度条和颜色</strong><br>我们可以通过如下实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --progress --colors</span><br></pre></td></tr></table></figure></p>
+<h2 id="Watch-模式"><a href="#Watch-模式" class="headerlink" title="Watch 模式"></a>Watch 模式</h2><p>观察模式： 我们不希望每次更改后手动重新编译… 开启监听模式，它会自定检测变化文件，并加载，减少编译时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --progress --colors --watch</span><br></pre></td></tr></table></figure></p>
+<p>webpack 可以缓存没有变化的模块。</p>
+<blockquote>
+<p>当使用<code>watch mode</code>,<code>webpack</code>安装文件观察到的所有文件，这只作用在编译过程。如果检测到任何变化，它会再次编译。当缓存是开启的，<code>webpack</code> 在内存中保存所有模块，如果它没有被改变，将重复使用。</p>
+</blockquote>
+<h2 id="开发服务器"><a href="#开发服务器" class="headerlink" title="开发服务器"></a>开发服务器</h2><p><code>mock server</code> 是重要的，<code>webpack</code>中的<code>mock 服务器环境</code> 基于<code>nodejs</code>，而不依赖于其他语言。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-dev-server -g</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack-dev-server --progress --colors</span><br></pre></td></tr></table></figure>
+<p>这里在<code>localhost:8080</code>绑定一个小的<code>Express 服务器</code>，供静态资源完成自动编译，它会自定编译（SockJS），并自动更新浏览器页面，在浏览器中打开<code>http://localhost:8080/webpack-dev-server/bundle</code></p>
+<blockquote>
+<p>The dev server uses webpack’s watch mode. It also prevents webpack from emitting the resulting files to disk. Instead it keeps and serves the resulting files from memory.</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/01/17/2015/Postfix 邮件服务器/" itemprop="url">
                   Postfix 邮件服务器
                 </a>
@@ -1869,194 +2103,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/07/15/FreeMarker Web集成/" itemprop="url">
-                  FreeMarker Web集成
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-07-15T22:53:00+08:00" content="2014-07-15">
-              2014-07-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaWeb</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/FreeMarker/" itemprop="url" rel="index">
-                    <span itemprop="name">FreeMarker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/07/15/FreeMarker Web集成/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/15/FreeMarker Web集成/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>已更新</strong></p>
-<p>FreeMarker 操作流程（其实开发中肯定不是这样的~~~！！）</p>
-<ul>
-<li>init : 在Servlet <code>init()</code>方法中创建<code>Configuration</code> 对象</li>
-<li>service: 在服务层填充Model，实例化模板</li>
-<li>controller: 指定输出到servlet PrintWriter中或者生成静态页面</li>
-</ul>
-<blockquote>
-<p>FreeMarker 提供如上行为(直接将ftl文件转换为文本信息，类似JSP)，我们只需要配置FreeMarker Servlet 进行渲染即可。<br>同样你可以实现自己的Servlet 操作FreeMarker的行为</p>
-</blockquote>
-<h2 id="Servlet-集成"><a href="#Servlet-集成" class="headerlink" title="Servlet 集成"></a>Servlet 集成</h2><p>使用FreeMarker的Servlet创建一个简单的项目实例。</p>
-<ul>
-<li><p>引入依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.3.23&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>目录基本结构</p>
-</li>
-</ul>
-<img src="/2014/07/15/FreeMarker%20Web集成/dce51fbe-0642-47b6-b35a-b5024d288632.png" alt="目录结构" title="目录结构">
-<ul>
-<li><p>配置 <code>web.xml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">    version=&quot;3.0&quot;&gt;</span><br><span class="line">    &lt;welcome-file-list&gt;</span><br><span class="line">        &lt;welcome-file&gt;index.html&lt;/welcome-file&gt;</span><br><span class="line">    &lt;/welcome-file-list&gt;</span><br><span class="line">    &lt;!-- FREEMARKER SERVLET CONFIGURATION --&gt;</span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;freemarker&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;</span><br><span class="line">            freemarker.ext.servlet.FreemarkerServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;TemplatePath&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;/WEB-INF/freemarker&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;NoCache&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;ContentType&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;text/html; charset=UTF-8&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;freemarker&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;*.ftl&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;HelloFreemarkerServlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;org.freecode.ftl.HelloFreemarkerServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;HelloFreemarkerServlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/HelloFreemarkerServlet&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>目录基本结构</p>
-</li>
-</ul>
-<img src="/2014/07/15/FreeMarker%20Web集成/c1b083f7-d483-4112-a1a3-14c638c358be.png" alt="目录结构" title="目录结构">
-<ul>
-<li><p>创建一个控制器 <code>HelloFreemarkerServlet</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">public class HelloFreemarkerServlet extends HttpServlet &#123;</span><br><span class="line">  private static final long serialVersionUID = 1L;</span><br><span class="line">  </span><br><span class="line">  @Override</span><br><span class="line">  protected void service(HttpServletRequest request,  HttpServletResponse response)</span><br><span class="line">  throws ServletException, IOException &#123;</span><br><span class="line">    // Populated model in request attributes</span><br><span class="line">    request.setAttribute(&quot;message&quot;, request.getParameter(&quot;message&quot;));</span><br><span class="line">    // Dispatch to Freemarker Servlet</span><br><span class="line">    request.getRequestDispatcher(&quot;hello.ftl&quot;).forward(request, response);    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>FreeMarker 页面 <code>WEB-INF/freemarker/hello.ftl</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;Freemarker MVC Example&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;form action=&quot;HelloFreemarkerServlet&quot; method=&quot;post&quot;&gt;</span><br><span class="line">            Message: &lt;input type=&quot;text&quot; name=&quot;message&quot;&gt;&lt;br/&gt;</span><br><span class="line">            &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">        &lt;br/&gt;</span><br><span class="line">        &lt;#if message??&gt;$&#123;message?html&#125;&lt;/#if&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建一个欢迎页面<code>index.html</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Freemarker MVC Integration Test Page&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"> </span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;a href=&quot;HelloFreemarkerServlet&quot;&gt;Servlet Example&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>访问页面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/ftl_servlet</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Spring-MVC-集成"><a href="#Spring-MVC-集成" class="headerlink" title="Spring MVC 集成"></a>Spring MVC 集成</h2><ul>
-<li><p>引入依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.3.23&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.2.6.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.2.6.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置 <code>web.xml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">    version=&quot;3.0&quot;&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">           &lt;servlet-name&gt;springMvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;</span><br><span class="line">           org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springMvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置applicationContext.xml文件<br><strong>如下配置FreeMarker的最小配置</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">	xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd</span><br><span class="line">		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;context:component-scan base-package=&quot;org.freecode.ftl&quot; /&gt;</span><br><span class="line">	&lt;mvc:annotation-driven /&gt;</span><br><span class="line">	</span><br><span class="line">        &lt;!-- FreeMarker的配置 --&gt;</span><br><span class="line">	&lt;bean id=&quot;freemarkerConfig&quot; class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;templateLoaderPath&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">        &lt;!-- 处理静态资源 --&gt;</span><br><span class="line">	&lt;mvc:resources mapping=&quot;/*.html&quot; location=&quot;/&quot; /&gt;</span><br><span class="line"></span><br><span class="line">         &lt;!-- 配置 FreeMarker视图解析器 --&gt;</span><br><span class="line">	&lt;bean id=&quot;viewResolver&quot;  class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;</span><br><span class="line">		&lt;property name=&quot;cache&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">		&lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;</span><br><span class="line">		&lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建 HelloController</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.ModelAttribute;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line">@Controller</span><br><span class="line">public class HelloController &#123;</span><br><span class="line">  @RequestMapping(&quot;/hello&quot;)</span><br><span class="line">  public String hello(@ModelAttribute(&quot;message&quot;) String message) &#123;</span><br><span class="line">    return &quot;hello-spring&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  /**</span><br><span class="line">   * 欢迎页面</span><br><span class="line">   */</span><br><span class="line">  @RequestMapping(value =&quot;/&quot;, method =RequestMethod.GET)</span><br><span class="line">  public String index()&#123;</span><br><span class="line">      return &quot;redirect:/index.html&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>FreeMarker 页面 <code>WEB-INF/freemarker/hello-spring.ftl</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;Freemarker MVC Example&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;form action=&quot;hello&quot; method=&quot;post&quot;&gt;</span><br><span class="line">            Message: &lt;input type=&quot;text&quot; name=&quot;message&quot;&gt;&lt;br/&gt;</span><br><span class="line">            &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">        &lt;br/&gt;</span><br><span class="line">        &lt;#if message??&gt;$&#123;message?html&#125;&lt;/#if&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>欢迎页面 index.html </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Freemarker MVC Integration Test Page&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"> </span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;a href=&quot;hello&quot;&gt;Spring MVC Example&lt;/a&gt;&lt;br/&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="FreeMarker-详细配置"><a href="#FreeMarker-详细配置" class="headerlink" title="FreeMarker 详细配置"></a>FreeMarker 详细配置</h3><p><strong>如下是一个详细Spring MVC 集成FreeMarker的详细配置，</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- FreeMarker的配置 --&gt;</span><br><span class="line">&lt;bean id=&quot;freeMarkerConfigurer&quot;  class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;templateLoaderPaths&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;defaultEncoding&quot; value=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;freemarkerSettings&quot;&gt;</span><br><span class="line">        &lt;props&gt;</span><br><span class="line">            &lt;prop key=&quot;incompatible_improvements&quot;&gt;2.3.23&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;template_exception_handler&quot;&gt;rethrow&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;default_encoding&quot;&gt;UTF-8&lt;/prop&gt;  </span><br><span class="line">            &lt;prop key=&quot;template_update_delay&quot;&gt;10&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;url_escaping_charset&quot;&gt;UTF-8&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;locale&quot;&gt;zh_CN&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;boolean_format&quot;&gt;true,false&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;time_format&quot;&gt;HH:mm:ss&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;datetime_format&quot;&gt;yyyy-MM-dd HH:mm:ss&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;date_format&quot;&gt;yyyy-MM-dd&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;number_format&quot;&gt;#.##&lt;/prop&gt;</span><br><span class="line">            &lt;prop key=&quot;whitespace_stripping&quot;&gt;true&lt;/prop&gt;</span><br><span class="line">        &lt;/props&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;!-- 配置 FreeMarker视图解析器 --&gt;</span><br><span class="line">&lt;bean id=&quot;viewResolver&quot;  class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;viewClass&quot;</span><br><span class="line">        value=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerView&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;cache&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;&lt;!--可为空 --&gt;</span><br><span class="line">    &lt;property name=&quot;contentType&quot; value=&quot;text/html;charset=utf-8&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeRequestAttributes&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeSessionAttributes&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;exposeSpringMacroHelpers&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2102,7 +2148,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

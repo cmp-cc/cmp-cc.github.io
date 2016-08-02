@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-06-24T09:31:50.121Z</updated>
+  <updated>2016-08-02T01:30:11.903Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://cmp-cc.github.io/2016/08/02/2015/Yum%20%E4%B8%8D%E5%8F%AF%E7%94%A8%EF%BC%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://cmp-cc.github.io/2016/08/02/2015/Yum 不可用，解决方案/</id>
+    <published>2016-08-02T01:26:50.483Z</published>
+    <updated>2016-08-02T01:30:11.903Z</updated>
+    
+    <content type="html">&lt;hr&gt;
+&lt;p&gt;title: Yum 不可用，解决方案&lt;br&gt;date: 2015-11-14 16:53:00&lt;br&gt;updated:&lt;br&gt;categories: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Operating System&lt;/li&gt;
+&lt;li&gt;Linux&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;tags:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;可能是谁，误删了服务器部分资源导致。&lt;/p&gt;
+&lt;p&gt;使用yum，发现如下异常错误。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@salt ~]# yum&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;There was a problem importing one of the Python modules&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;required to run yum. The error leading to this problem was:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   libsasl2.so.2: cannot open shared object file: No such file or directory&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Please install a package which provides this module, or&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;verify that the module is installed correctly.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;It&amp;apos;s possible that the above module doesn&amp;apos;t match the&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;current version of Python, which is:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2.6.6 (r266:84292, Jul 23 2015, 15:22:56) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[GCC 4.4.7 20120313 (Red Hat 4.4.7-11)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;If you cannot solve this problem yourself, please go to &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;the yum faq at:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  http://yum.baseurl.org/wiki/Faq&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;傻逼的我，下了一些&lt;code&gt;rpm&lt;/code&gt;,也没有解决实际问题。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rpm -ivh cyrus-sasl-lib-2.1.23-15.el6_6.2.i686.rpm glibc-2.12-1.192.el6.i686.rpm nss-softokn-freebl-3.14.3-23.el6_7.i686.rpm db4-4.7.25-20.el6_7.i686.rpm glibc-common-2.12-1.192.el6.i686.rpm libcap-2.16-5.5.el6.i686.rpm tzdata-2016c-1.el6.noarch.rpm libattr-2.4.44-7.el6.i686.rpm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;仔细分析： yum 是python 写的。 执行yum失败，意味着缺失&lt;code&gt;libsasl2.so.2&lt;/code&gt;库，只需要找一个&lt;code&gt;libsasl2.so.2&lt;/code&gt;库，即可解决问题。 找了一个包含&lt;code&gt;libsasl2.so.2&lt;/code&gt;的机器&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;scp /usr/lib64/libsasl2.so.2 root@192.168.12.153:/usr/lib64/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;解决了。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;title: Yum 不可用，解决方案&lt;br&gt;date: 2015-11-14 16:53:00&lt;br&gt;updated:&lt;br&gt;categories: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Operating System&lt;/li&gt;
+&lt;li&gt;Linux&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Azkaban 短信预警插件开发</title>
@@ -1966,142 +2006,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
     
       <category term="Postgresql" scheme="http://cmp-cc.github.io/tags/Postgresql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Webpack入门实例</title>
-    <link href="http://cmp-cc.github.io/2015/02/17/2015/Webpack%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/"/>
-    <id>http://cmp-cc.github.io/2015/02/17/2015/Webpack入门实例/</id>
-    <published>2015-02-17T11:50:00.000Z</published>
-    <updated>2016-07-14T01:10:03.940Z</updated>
-    
-    <content type="html">&lt;blockquote&gt;
-&lt;p&gt;参照官网&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;欢迎&quot;&gt;&lt;a href=&quot;#欢迎&quot; class=&quot;headerlink&quot; title=&quot;欢迎&quot;&gt;&lt;/a&gt;欢迎&lt;/h2&gt;&lt;p&gt;这个简短的教程将指导您完成一个简单的实例&lt;/p&gt;
-&lt;p&gt;你将学习：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;如何安装 &lt;code&gt;webpack&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;如何使用 &lt;code&gt;webpack&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;如何使用 &lt;code&gt;webpack loaders 特性&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;如何使用 &lt;code&gt;webpack development server&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;安装-Webpack&quot;&gt;&lt;a href=&quot;#安装-Webpack&quot; class=&quot;headerlink&quot; title=&quot;安装 Webpack&quot;&gt;&lt;/a&gt;安装 Webpack&lt;/h2&gt;&lt;p&gt;首先你需要安装&lt;a href=&quot;https://nodejs.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;node.js&lt;/a&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install webpack -g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;这使得&lt;code&gt;webpack&lt;/code&gt;命令是可用的&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;设置编译&quot;&gt;&lt;a href=&quot;#设置编译&quot; class=&quot;headerlink&quot; title=&quot;设置编译&quot;&gt;&lt;/a&gt;设置编译&lt;/h2&gt;&lt;p&gt;首先创建一个空的目录&lt;br&gt;创建如下文件&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;添加&lt;code&gt;entry.js&lt;/code&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;document.write(&amp;quot;It works.&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;添加&lt;code&gt;index.html&lt;/code&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;bundle.js&amp;quot; charset=&amp;quot;utf-8&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;/body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;然后运行如下&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webpack ./entry.js bundle.js&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;它将编译你的文件,并创建&lt;code&gt;bundle&lt;/code&gt;文件&lt;br&gt;如果成功，显示如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Hash: ca188ee5789bb780fcec&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Version: webpack 1.12.9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Time: 79ms&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Asset     Size  Chunks             Chunk Names&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bundle.js  1.42 kB       0  [emitted]  main&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   [0] ./entry.js 28 bytes &amp;#123;0&amp;#125; [built]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;浏览器打开&lt;code&gt;index.html&lt;/code&gt;，它将显示&lt;code&gt;It works&lt;/code&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 浏览器&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;It works.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;模块化引入&quot;&gt;&lt;a href=&quot;#模块化引入&quot; class=&quot;headerlink&quot; title=&quot;模块化引入&quot;&gt;&lt;/a&gt;模块化引入&lt;/h2&gt;&lt;p&gt;下一步，我们将移动一些代码到一个额外的文件。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;添加&lt;code&gt;content.js&lt;/code&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;module.exports = &amp;quot;It works from content.js.&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;entry.js&lt;/code&gt; 为如下&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;document.write(require(&amp;quot;./content.js&amp;quot;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;重新编译&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webpack ./entry.js bundle.js&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;浏览器打开，将显示文本：&lt;code&gt;It works from content.js.&lt;/code&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 浏览器&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;It works from content.js.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;webpack 将分析你的entry文件依赖于哪些其他文件，这些也文件（称为模块）包含在bundle.js.webpack会给每一个模块一个唯一ID标示，防止bundle.js文件访问所有模块。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;第一个Loader&quot;&gt;&lt;a href=&quot;#第一个Loader&quot; class=&quot;headerlink&quot; title=&quot;第一个Loader&quot;&gt;&lt;/a&gt;第一个Loader&lt;/h2&gt;&lt;p&gt;我们想要在我们的应用中添加Css文件.&lt;br&gt;&lt;code&gt;webpack&lt;/code&gt;本身 只能处理JavaScript 文件，所以我们需要&lt;code&gt;css-loader&lt;/code&gt;去处理CSS文件，在&lt;code&gt;CSS&lt;/code&gt;文件中应用样式,我们也需要&lt;code&gt;style-loader&lt;/code&gt;.&lt;br&gt;运行&lt;code&gt;npm install css-loader style-loader&lt;/code&gt; 安装&lt;code&gt;loaders&lt;/code&gt; (只是本地安装，无需&lt;code&gt;-g&lt;/code&gt;) ，&lt;code&gt;loaders&lt;/code&gt; 存在于 &lt;code&gt;node_modules&lt;/code&gt;目录中。&lt;br&gt;&lt;strong&gt;使用他们&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;添加&lt;code&gt;style.css&lt;/code&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;body &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    background: yellow;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;修改&lt;code&gt;entry.js&lt;/code&gt;为如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;require(&amp;quot;!style!css!./style.css&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;document.write(require(&amp;quot;./content.js&amp;quot;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;重新编译，并浏览器打开，会发现增加了黄色背景&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 浏览器打开，背景：黄色&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;It works from content.js.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;By prefixing loaders to a module request, the module went through a loader pipeline. These loaders transform the file content in specific ways. After these transformations are applied, the result is a JavaScript module.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;绑定Loaders&quot;&gt;&lt;a href=&quot;#绑定Loaders&quot; class=&quot;headerlink&quot; title=&quot;绑定Loaders&quot;&gt;&lt;/a&gt;绑定Loaders&lt;/h2&gt;&lt;p&gt;我们不想写如此长的&lt;code&gt;requires&lt;/code&gt; : &lt;code&gt;require(&amp;quot;!style!css!./style.css&amp;quot;);&lt;/code&gt;&lt;br&gt;我们在Loaders中绑定文件扩展名，只需要写:&lt;code&gt;require(&amp;quot;./style.css&amp;quot;)&lt;/code&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;修改&lt;code&gt;entry.js&lt;/code&gt; 文件&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;require(&amp;quot;./style.css&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;document.write(require(&amp;quot;./content.js&amp;quot;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;然后编译如下&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webpack ./entry.js bundle.js --module-bind &amp;apos;css=style!css&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;有些环境可能需要双引号: &lt;code&gt;–module-bind &amp;quot;css=style!css&amp;quot;&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;我们将看到同样结果&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 浏览器打开，背景：黄色&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;It works from content.js.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;配置文件&quot;&gt;&lt;a href=&quot;#配置文件&quot; class=&quot;headerlink&quot; title=&quot;配置文件&quot;&gt;&lt;/a&gt;配置文件&lt;/h2&gt;&lt;p&gt;我们想要移除配置项到一个配置文件中，如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;添加 webpack.config.js&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;module.exports = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    entry: &amp;quot;./entry.js&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    output: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        path: &amp;quot;.&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        filename: &amp;quot;bundle.js&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    module: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        loaders: [&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#123; test: /\.css$/, loader: &amp;quot;style!css&amp;quot; &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;现在可以运行它&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webpack&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;编译如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Version: webpack 1.12.9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Time: 379ms&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Asset     Size  Chunks             Chunk Names&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bundle.js  10.7 kB       0  [emitted]  main&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chunk    &amp;#123;0&amp;#125; bundle.js (main) 8.86 kB [rendered]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [0] ./tutorials/getting-started/config-file/entry.js 65 bytes &amp;#123;0&amp;#125; [built]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [1] ./tutorials/getting-started/config-file/style.css 943 bytes &amp;#123;0&amp;#125; [built]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [2] ../~/css-loader!./tutorials/getting-started/config-file/style.css 201 bytes &amp;#123;0&amp;#125; [built]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [3] ../~/css-loader/lib/css-base.js 1.51 kB &amp;#123;0&amp;#125; [built]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [4] ../~/style-loader/addStyles.js 6.09 kB &amp;#123;0&amp;#125; [built]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    [5] ./tutorials/getting-started/config-file/content.js 45 bytes &amp;#123;0&amp;#125; [built]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;webpack 命令行&lt;/code&gt; 尝试在当前目录加载&lt;code&gt;webpack.config.js&lt;/code&gt;文件&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;格式化输出&quot;&gt;&lt;a href=&quot;#格式化输出&quot; class=&quot;headerlink&quot; title=&quot;格式化输出&quot;&gt;&lt;/a&gt;格式化输出&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;美化输出: 项目的编译可能需要更长的时间，所以，我们要显示某种进度条和颜色&lt;/strong&gt;&lt;br&gt;我们可以通过如下实现&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webpack --progress --colors&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Watch-模式&quot;&gt;&lt;a href=&quot;#Watch-模式&quot; class=&quot;headerlink&quot; title=&quot;Watch 模式&quot;&gt;&lt;/a&gt;Watch 模式&lt;/h2&gt;&lt;p&gt;观察模式： 我们不希望每次更改后手动重新编译… 开启监听模式，它会自定检测变化文件，并加载，减少编译时间&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webpack --progress --colors --watch&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;webpack 可以缓存没有变化的模块。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;当使用&lt;code&gt;watch mode&lt;/code&gt;,&lt;code&gt;webpack&lt;/code&gt;安装文件观察到的所有文件，这只作用在编译过程。如果检测到任何变化，它会再次编译。当缓存是开启的，&lt;code&gt;webpack&lt;/code&gt; 在内存中保存所有模块，如果它没有被改变，将重复使用。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;开发服务器&quot;&gt;&lt;a href=&quot;#开发服务器&quot; class=&quot;headerlink&quot; title=&quot;开发服务器&quot;&gt;&lt;/a&gt;开发服务器&lt;/h2&gt;&lt;p&gt;&lt;code&gt;mock server&lt;/code&gt; 是重要的，&lt;code&gt;webpack&lt;/code&gt;中的&lt;code&gt;mock 服务器环境&lt;/code&gt; 基于&lt;code&gt;nodejs&lt;/code&gt;，而不依赖于其他语言。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install webpack-dev-server -g&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webpack-dev-server --progress --colors&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;这里在&lt;code&gt;localhost:8080&lt;/code&gt;绑定一个小的&lt;code&gt;Express 服务器&lt;/code&gt;，供静态资源完成自动编译，它会自定编译（SockJS），并自动更新浏览器页面，在浏览器中打开&lt;code&gt;http://localhost:8080/webpack-dev-server/bundle&lt;/code&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The dev server uses webpack’s watch mode. It also prevents webpack from emitting the resulting files to disk. Instead it keeps and serves the resulting files from memory.&lt;/p&gt;
-&lt;/blockquote&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;参照官网&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;欢迎&quot;&gt;&lt;a href=&quot;#欢迎&quot; class=&quot;headerlink&quot; title=&quot;欢迎&quot;&gt;&lt;/a&gt;欢迎&lt;/h2&gt;&lt;p&gt;这个简短的教程将指导您完成一个简单的实例&lt;/p&gt;
-&lt;p&gt;你将学
-    
-    </summary>
-    
-      <category term="Project Build" scheme="http://cmp-cc.github.io/categories/Project-Build/"/>
-    
-      <category term="Wepack" scheme="http://cmp-cc.github.io/categories/Project-Build/Wepack/"/>
-    
-    
-      <category term="Wepack" scheme="http://cmp-cc.github.io/tags/Wepack/"/>
     
   </entry>
   
