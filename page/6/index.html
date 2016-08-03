@@ -228,6 +228,384 @@
             
               
                 
+                <a class="post-title-link" href="/2013/12/09/2013/软件版本周期/" itemprop="url">
+                  软件版本周期
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-12-09T17:50:00+08:00" content="2013-12-09">
+              2013-12-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Software-Engineering/" itemprop="url" rel="index">
+                    <span itemprop="name">Software Engineering</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/12/09/2013/软件版本周期/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/12/09/2013/软件版本周期/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>软件版本周期过程</p>
+<hr>
+<img src="/2013/12/09/2013/软件版本周期/2013-12-09.png" alt="软件版本周期过程" title="软件版本周期过程">
+<ul>
+<li>base<br>表示软件开始阶段，base 是一种标示，标示软件开始到软件第一次发布这一过程（base -&gt; Alpha）</li>
+<li>Pre-alpha<br>有时候软件会在Alpha或Beta版本前先发布Pre-alpha版本。一般而言相对于Alpha或Beta版本，Pre-alpha版本是一个功能不完整的版本。</li>
+<li>Alpha<pre><code>Alpha是内部测试版,一般不向外部发布,会有很多Bug.除非你也是测试人员,否则不建议使用.是希腊字母的第一位,表示最初级的版本，alpha 就是α，此版本表示该软件在此阶段主要是以实现软件功能为主，该版本软件的Bug较多，需要继续修改。(大多数是内部小组测试，基于软件功能测试，寻找其Bug)
+</code></pre><strong>预览版，基于内部测试，未发布</strong></li>
+<li>Beta<br> beta 就是β ，alpha 版就是比beta还早的测试版，一般都是内部测试的版本。,该版本相对于α版已有了很大的改进，消除了严重的错误，但还是存在着一缺陷，需要经过多次测试来进一步消除。这个阶段的版本会一直加入新的功能。该版本相对于α版已有了很大的改进，消除了严重的错误，但还是存在着一些缺陷，需要经过多次测试来进一步消除，此版本主要的修改对像是软件的UI。<br><strong>公开测试版，对外发布，主要是给“部落”用户和忠实用户测试用的，该版本任然存 在很多BUG，但是相对alpha版要稳定一些。这个阶段版本的软件还会不断增加新功能。</strong></li>
+<li>RC：(Release Candidate)<br>Candidate是候选人的意思，用在软件上就是候选版本。Release.Candidate.就是发行候选版本。和Beta版最大的差别在于Beta阶段会一直加入新的功能，但是到了RC版本，几乎就不会加入新的功能了，而主要着重于除错!  RC版本是最终发放给用户的最接近正式版的版本，发行后改正bug就是正式版了，就是正式版之前的最后一个测试版<br><strong>候选版本，版本又较beta版更进一步了，该版本功能不再增加，和最终发布版功能一样。这个版本有点像最终发行版之前的一个类似 预览版，这个的发布就标明离最终发行版不远了。</strong>该版本已经相当成熟了，基本上不存在导致错误的BUG，与即将发行的正式版相差无几。</li>
+<li>GA：（general availability）<br>比如：Apache Struts 2 GA这是Apache Struts 2首次发行稳定的版本，GA意味着General Availability，也就是官方开始推荐广泛使用了</li>
+<li>Release:<br> 该版本意味“最终版本”，在前面版本的一系列测试版之后，终归会有一个正式版本，是最终交付用户使用的一个版本。该版本有时也称为标准版。一般情况下，Release不会以单词形式出现在软件封面上，取而代之的是符号(R)。该版本意味“最终版本”，在前面版本的一系列测试版之后，终归会有一个正式版本，是最终交付用户使用的一个版本。该版本有时也称为标准版。一般情况下，Release不会以单词形式出现在软件封面上，取而代之的是符号(R)。</li>
+</ul>
+<blockquote>
+<p>其他：stable版：稳定版。在开源软件中，都有stable版，这个就是开源软件的最终发行版，用户可以放心大胆的用了。另外，对于商业软件，还有一下版本：RTM版：全称为Release to Manufacture。工厂版。改版程序已经固定，就差工厂包装、光盘印图案等工作了。OEM版：厂商定制版。EVAL版：评估版。就是有30或者60天等使用期限的版本。RTL版：Retail.(零售版)，这个版本就是真正发售的版本，有漂亮的包装、光盘、说明书等东西和高昂的价格。final：最终版。</p>
+</blockquote>
+<h4 id="一、软件版本阶段说明"><a href="#一、软件版本阶段说明" class="headerlink" title="一、软件版本阶段说明"></a>一、软件版本阶段说明</h4><p>Alpha版: 此版本表示该软件在此阶段主要是以实现软件功能为主，通常只在软件开发者内部交流，一般而言，该版本软件的Bug较多，需要继续修改。<br>Beta版: 该版本相对于α版已有了很大的改进，消除了严重的错误，但还是存在着一些缺陷，需要经过多次测试来进一步消除，此版本主要的修改对像是软件的UI。<br>RC版: 该版本已经相当成熟了，基本上不存在导致错误的BUG，与即将发行的正式版相差无几。<br>Release版: 该版本意味“最终版本”，在前面版本的一系列测试版之后，终归会有一个正式版本，是最终交付用户使用的一个版本。该版本有时也称为标准版。一般情况下，Release不会以单词形式出现在软件封面上，取而代之的是符号(R)。</p>
+<h4 id="二、-版本命名规范"><a href="#二、-版本命名规范" class="headerlink" title="二、 版本命名规范"></a>二、 版本命名规范</h4><p>软件版本号由四部分组成：<br>第一个1为主版本号，<br>第二个1为子版本号，<br>第三个1为阶段版本号，<br>第四部分为日期版本号加希腊字母版本号，希腊字母版本号共有5种，分别为：base、alpha、beta、RC、release。例如：1.1.1.051021_beta。<br>软件版本号由四部分组成，第一个1为主版本号，第二个1为子版本号，第三个1为阶段版本号，第四部分为日期版本号加希腊字母版本号，希腊字母版本号共有5种，分别为：base、alpha、beta、RC、release。例如：1.1.1.051021_beta。</p>
+<h4 id="三、版本号定修改规则"><a href="#三、版本号定修改规则" class="headerlink" title="三、版本号定修改规则"></a>三、版本号定修改规则</h4><ul>
+<li>主版本号(1)：当功能模块有较大的变动，比如增加多个模块或者整体架构发生变化。此版本号由项目决定 是否修改。</li>
+<li>子版本号(1)：当功能有一定的增加或变化，比如增加了对权限控制、增加自定义视图等功能。此版本号由项目决定 是否修改。</li>
+<li>阶段版本号(1)：一般是 Bug 修复或是一些小的变动，要经常发布修订版，时间间隔不限，修复一个严重的bug即可发布一个修订版。此版本号由项目经理决定 是否修改。</li>
+<li>日期版本号(051021):用于记录修改项目的当前日期，每天对项目的修改都需要更改日期版本号。此版本号由开发人员决定 是否修改。</li>
+<li>希腊字母版本号(beta):此版本号用于标注当前版本的软件处于哪个开发阶段，当软件进入到另一个阶段时需要修改此版本号。此版本号由项目决定 是否修改。</li>
+</ul>
+<h4 id="文件命名规范"><a href="#文件命名规范" class="headerlink" title="文件命名规范"></a>文件命名规范</h4><p>文件名称由四部分组成：第一部分为项目名称，第二部分为文件的描述，第三部分为当前软件的版本号，第四部分为文件阶段标识加文件后缀，例如：项目外 包平台测试报告1.1.1.051021_beta_b.xls，此文件为项目外包平台的测试报告文档，版本号为：1.1.1.051021_beta。</p>
+<p>如果是同一版本同一阶段的文件修改过两次以上，则在阶段标识后面加以数字标识，每次修改数字加1，项目外包平台测试报告1.1.1.051021_beta_b1.xls。<br>当有多人同时提交同一份文件时，可以在阶段标识的后面加入人名或缩写来区别，例如：项目外包平台测试报告 1.1.1.051021_beta_b_LiuQi.xls。当此文件再次提交时也可以在人名或人名缩写的后面加入序号来区别，例如：项目外包平台测试 报告1.1.1.051021_beta_b_LiuQi2.xls</p>
+<h5 id="版本号的阶段标识"><a href="#版本号的阶段标识" class="headerlink" title="版本号的阶段标识"></a>版本号的阶段标识</h5><p>软件的每个版本中包括11个阶段，详细阶段描述如下：<br>阶段名称                            阶段标识<br>需求控制                               a<br>设计阶段                               b<br>编码阶段                               c<br>单元测试                               d<br>单元测试修改                           e<br>集成测试                               f<br>集成测试修改                           g<br>系统测试                               h<br>系统测试修改                           i<br>验收测试                               j<br>验收测试修改                           k</p>
+<h4 id="版本变动说明规范"><a href="#版本变动说明规范" class="headerlink" title="版本变动说明规范"></a>版本变动说明规范</h4><p><strong>相对于上一个版本增加Version Blog 信息</strong></p>
+<ul>
+<li>修复说明</li>
+<li>增加说明</li>
+</ul>
+<p>参考:<br><a href="https://zh.wikipedia.org/wiki/%E8%BB%9F%E4%BB%B6%E7%89%88%E6%9C%AC%E9%80%B1%E6%9C%9F" target="_blank" rel="external">https://zh.wikipedia.org/wiki/%E8%BB%9F%E4%BB%B6%E7%89%88%E6%9C%AC%E9%80%B1%E6%9C%9F</a><br>来源： <a href="http://www.mamicode.com/info-detail-848142.html" target="_blank" rel="external">http://www.mamicode.com/info-detail-848142.html</a> </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2013/11/25/2013/Linux iptable 防火墙/" itemprop="url">
+                  Linux iptable 防火墙
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-11-25T23:23:00+08:00" content="2013-11-25">
+              2013-11-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/11/25/2013/Linux iptable 防火墙/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/11/25/2013/Linux iptable 防火墙/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Linux 环境下，默认使用的防火墙都是用iptable，同样也是服务器名称</strong></p>
+<h2 id="iptable-服务"><a href="#iptable-服务" class="headerlink" title="iptable 服务"></a>iptable 服务</h2><p><strong>iptable 基本服务命令</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service  iptables  start           开启防火墙</span><br><span class="line">service  iptables  stop           关闭防火墙</span><br><span class="line">service  iptables  restart        重启防火墙</span><br><span class="line">service  iptables save            保持iptable 配置</span><br><span class="line">service  iptables  status        查看防火墙状态</span><br></pre></td></tr></table></figure></p>
+<h2 id="iptable-基本语法"><a href="#iptable-基本语法" class="headerlink" title="iptable 基本语法"></a>iptable 基本语法</h2><h3 id="防火墙处理数据4中方式"><a href="#防火墙处理数据4中方式" class="headerlink" title="防火墙处理数据4中方式"></a>防火墙处理数据4中方式</h3><ul>
+<li>ACCEPT<br>允许数据包通过</li>
+<li>DROP<br>直接丢弃数据包，不给予响应</li>
+<li>REJECT<br>拒绝数据包通过，给予响应</li>
+<li>LOG<br><code>/var/log/messages</code>文件记录日志信息</li>
+</ul>
+<h3 id="iptable-参数"><a href="#iptable-参数" class="headerlink" title="iptable 参数"></a>iptable 参数</h3><table>
+<thead>
+<tr>
+<th>参数缩写</th>
+<th>参数全称</th>
+<th>参数解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-A</td>
+<td>–append</td>
+<td>在指定链的末尾添加一条新的规则</td>
+</tr>
+<tr>
+<td>-D</td>
+<td>–delete</td>
+<td>删除指定链中的某一条规则，可以按规则序号和内容删除</td>
+</tr>
+<tr>
+<td>-I</td>
+<td>–insert</td>
+<td>在指定链中插入一条新的规则，默认在第一行添加</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>–replace</td>
+<td>修改、替换指定链中的某一条规则，可以按规则序号和内容替换</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>–list</td>
+<td>列出指定链中所有的规则进行查看</td>
+</tr>
+<tr>
+<td>-E</td>
+<td>–rename-chain</td>
+<td>重命名用户定义的链，不改变链本身</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>–flush</td>
+<td>清空</td>
+</tr>
+<tr>
+<td>-N</td>
+<td>–new-chain</td>
+<td>新建一条用户自己定义的规则链</td>
+</tr>
+<tr>
+<td>-X</td>
+<td>–delete-chain</td>
+<td>删除指定表中用户自定义的规则链</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>–policy</td>
+<td>设置指定链的默认策略</td>
+</tr>
+<tr>
+<td>-Z</td>
+<td>–zero</td>
+<td>将所有表的所有链的字节和数据包计数器清零</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>–numeric</td>
+<td>使用数字形式显示输出结果</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>–verbose</td>
+<td>查看规则表详细信息的信息</td>
+</tr>
+<tr>
+<td>-V</td>
+<td>–version</td>
+<td>查看版本</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>–help</td>
+<td>获取帮助</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n    // 查看防火墙配置</span><br><span class="line">iptables -nL --line-number  // 查看iptables规则及编号</span><br></pre></td></tr></table></figure>
+<h3 id="开放一个端口"><a href="#开放一个端口" class="headerlink" title="开放一个端口"></a>开放一个端口</h3><p><strong>开启8000端口</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp --dport 8000 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除一个规则"><a href="#删除一个规则" class="headerlink" title="删除一个规则"></a>删除一个规则</h3><p>删除一个开放的端口规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n --line-number     // 查看规则编号</span><br><span class="line"></span><br><span class="line">iptables -D INPUT 2  // 删除指定规则编号，如 2</span><br></pre></td></tr></table></figure></p>
+<h3 id="只开放某个端口"><a href="#只开放某个端口" class="headerlink" title="只开放某个端口"></a>只开放某个端口</h3><p><strong>只开放80端口</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp –dport 80 -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp –sport 80 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<h3 id="禁止某个IP地址"><a href="#禁止某个IP地址" class="headerlink" title="禁止某个IP地址"></a>禁止某个IP地址</h3><p><strong>禁止192.168.12.13访问</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -p tcp -s 192.168.12.13 -j DROP</span><br></pre></td></tr></table></figure></p>
+<h3 id="关闭所有的-INPUT-FORWARD-OUTPUT"><a href="#关闭所有的-INPUT-FORWARD-OUTPUT" class="headerlink" title="关闭所有的 INPUT FORWARD OUTPUT"></a>关闭所有的 INPUT FORWARD OUTPUT</h3><p>关闭所有的INPUT FORWARD、 OUTPUT的所有端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iptables -P INPUT DROP</span><br><span class="line">iptables -P FORWARD DROP</span><br><span class="line">iptables -P OUTPUT DROP</span><br></pre></td></tr></table></figure></p>
+<h2 id="手工配置iptable"><a href="#手工配置iptable" class="headerlink" title="手工配置iptable"></a>手工配置iptable</h2><h3 id="iptable-配置文件"><a href="#iptable-配置文件" class="headerlink" title="iptable 配置文件"></a>iptable 配置文件</h3><p>iptable配置文件默认地址为：<code>/etc/sysconfig/iptables</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure></p>
+<p>执行如上命令显示如下iptables配置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Firewall configuration written by system-config-firewall</span><br><span class="line"># Manual customization of this file is not recommended.</span><br><span class="line">*filter</span><br><span class="line">:INPUT ACCEPT [0:0]</span><br><span class="line">:FORWARD ACCEPT [0:0]</span><br><span class="line">:OUTPUT ACCEPT [0:0]</span><br><span class="line">-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT</span><br><span class="line">-A INPUT -p icmp -j ACCEPT</span><br><span class="line">-A INPUT -i lo -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 6379 -j ACCEPT</span><br><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 7474 -j ACCEPT</span><br><span class="line">-A INPUT -j REJECT --reject-with icmp-host-prohibited</span><br><span class="line">-A FORWARD -j REJECT --reject-with icmp-host-prohibited</span><br><span class="line">COMMIT</span><br></pre></td></tr></table></figure></p>
+<h3 id="开放特定端口"><a href="#开放特定端口" class="headerlink" title="开放特定端口"></a>开放特定端口</h3><p>如下开放1517端口，将其复制到iptable 配置文件中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 1517 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>然后执行如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serivce iptables save       保持防火墙设置</span><br><span class="line">service iptables restart     重启防火墙</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/11/16/2013/Maven 服务器插件Jetty/" itemprop="url">
                   Maven 服务器插件Jetty
                 </a>
@@ -2477,305 +2855,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/03/03/2013/Linux curl 和 wget/" itemprop="url">
-                  Linux curl 和wget
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-03-03T16:53:00+08:00" content="2013-03-03">
-              2013-03-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/03/03/2013/Linux curl 和 wget/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/03/2013/Linux curl 和 wget/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><p>如果yum找不到使用如下安装</p>
-<ul>
-<li>下载<br>wget <a href="http://curl.haxx.se/download/curl-7.17.1.tar.gz" target="_blank" rel="external">http://curl.haxx.se/download/curl-7.17.1.tar.gz</a></li>
-<li>解压<br>tar -zxf curl-7.17.1.tar.gz</li>
-<li><p>配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./curl-7.17.1/configure --prefix=/usr/local/curl</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/curl/bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://www.baidu.com</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><p>系统找不到wget，可使用yum安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum isntall wget</span><br></pre></td></tr></table></figure></p>
-<h2 id="wget-参数"><a href="#wget-参数" class="headerlink" title="wget 参数"></a>wget 参数</h2><p>其他常用参数略，如下两个参数也经常被使用到</p>
-<ul>
-<li>-P 下载到指定目录  </li>
-<li>-c 支持断点下载</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/02/28/2013/Struts2 Action/" itemprop="url">
-                  Struts2 Action
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-28T23:51:00+08:00" content="2013-02-28">
-              2013-02-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaWeb</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/Struts2/" itemprop="url" rel="index">
-                    <span itemprop="name">Struts2</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/02/28/2013/Struts2 Action/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/28/2013/Struts2 Action/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>这几东东，之前都学过了，无聊翻了翻官方文档，觉得写的很好，简单修改下实例，记录一下</strong></p>
-<p>Struts2 的Action，一共包含三个部分</p>
-<ul>
-<li>模型驱动（Model Driven）</li>
-<li>Action 链 （Action Chaining）</li>
-<li>Action 事件监听 （ActionEventListener）</li>
-</ul>
-<h2 id="Model-Driven"><a href="#Model-Driven" class="headerlink" title="Model Driven"></a>Model Driven</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
-<li>如果一个Action 类实现<code>com.opensymphony.xwork2.ModelDriven</code>接口，那么它需要从getModel()方法中返回<code>请求参数对象</code>。 那么Struts 将会填充此对象的请求参数的Model。一旦执行该操作，这个对象将被放置到值栈的顶部。<strong>验证也将应用于这个Model，不是Action中</strong>。 <code>VisitorFieldValidator</code>注解，可以用于验证域模型（Model）。</li>
-<li>要在Action中使用<code>模型驱动</code>,确保<code>模型驱动拦截器（Model Driven Interceptor）</code>应用于Action. 这个拦截器是<code>defaultStack</code>默认拦截器的一部分.</li>
-</ul>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><ul>
-<li><p>Action Class</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class ModelDrivenAction implements ModelDriven&lt;Gangster&gt; &#123; </span><br><span class="line"></span><br><span class="line">    private  Gangster  gengster = new Gangster();</span><br><span class="line"></span><br><span class="line">    public Gangster getModel() &#123;</span><br><span class="line">        return gengster;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String execute() throws Exception &#123;</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Gangster.java  Model (请求参数模型)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class Gangster implements Serializable &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line">    private String description;</span><br><span class="line">    private boolean bustedBefore;</span><br><span class="line"> </span><br><span class="line">    public int getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setAge(int age) &#123;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean isBustedBefore() &#123;</span><br><span class="line">        return bustedBefore;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setBustedBefore(boolean bustedBefore) &#123;</span><br><span class="line">        this.bustedBefore = bustedBefore;</span><br><span class="line">    &#125;</span><br><span class="line">    public String getDescription() &#123;</span><br><span class="line">        return description;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setDescription(String description) &#123;</span><br><span class="line">        this.description = description;</span><br><span class="line">    &#125;</span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>JSP 访问Action 作用于Gangster</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;s:form action=&quot;modelDrivenResult&quot; method=&quot;POST&quot; namespace=&quot;/modelDriven&quot;&gt;   </span><br><span class="line">    &lt;s:textfield label=&quot;Gangster Name&quot; name=&quot;name&quot; /&gt;</span><br><span class="line">    &lt;s:textfield label=&quot;Gangster Age&quot;  name=&quot;age&quot; /&gt;</span><br><span class="line">    &lt;s:checkbox  label=&quot;Gangster Busted Before&quot; name=&quot;bustedBefore&quot; /&gt;</span><br><span class="line">    &lt;s:textarea  cols=&quot;30&quot; rows=&quot;5&quot; label=&quot;Gangster Description&quot; name=&quot;description&quot; /&gt;           </span><br><span class="line">    &lt;s:submit /&gt;</span><br><span class="line">&lt;/s:form&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Action-chain"><a href="#Action-chain" class="headerlink" title="Action chain"></a>Action chain</h2><p>这里没有什么好说的，<code>Struts.xml</code> 中的<code>result type</code>为<code>chain</code>，这样可以进行Action之间跳转。（本质是请求转发）<br>略</p>
-<h2 id="Action-事件监听"><a href="#Action-事件监听" class="headerlink" title="Action 事件监听"></a>Action 事件监听</h2><p>也略了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2821,7 +2900,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

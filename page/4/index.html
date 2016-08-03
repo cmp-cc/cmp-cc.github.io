@@ -228,6 +228,195 @@
             
               
                 
+                <a class="post-title-link" href="/2014/10/24/2014/验证码kaptcha的应用/" itemprop="url">
+                  验证码kaptcha在Web项目中应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-10-24T17:50:00+08:00" content="2014-10-24">
+              2014-10-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/10/24/2014/验证码kaptcha的应用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/24/2014/验证码kaptcha的应用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>任何项目 项目中，验证码功能是必不可少的，可能你之前都是<code>awt image</code> 生成的，现在你可以试一试kaptcha了，kaptcha 是个生成验证码的Library。<br>这篇文件介绍kaptcha在Web项目中的应用，并给出三个可运行的实例。</p>
+<p>三个实例以不同的形式实现。（都是用户登陆）</p>
+<ul>
+<li>实例 1<br><strong>Spring实例，控制器继承<code>KaptchaExtend</code>，使用默认的图形。比较简单</strong></li>
+<li>实例 2<br><strong>Spring实例，自定义图形实例，实例化<code>DefaultKaptcha</code>对象自定义图形。</strong></li>
+<li>实例 3<br><strong>Servlet实例,web.xml 中配置<code>com.google.code.kaptcha.servlet.KaptchaServlet</code>对象的映射关系，通过<code>init-param</code>元素进行图形配置</strong></li>
+</ul>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><ul>
+<li><p>引入依赖<br>三个实例中都可以不使用Spring，只是Spring 演示比较方便。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">        &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;4.0.4.RELEASE&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.github.axet&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;kaptcha&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;0.0.8&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>web.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">        xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">        xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee </span><br><span class="line">            http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt; </span><br><span class="line">            </span><br><span class="line">    &lt;display-name&gt;Kaptcha Example&lt;/display-name&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;spring&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;spring&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;filter&gt;</span><br><span class="line">        &lt;filter-name&gt;encodingFilter&lt;/filter-name&gt;</span><br><span class="line">        &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;encoding&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;utf-8&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">    &lt;/filter&gt;</span><br><span class="line">    &lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;encodingFilter&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/filter-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>applicationContext.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd</span><br><span class="line">        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:annotation-config /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:component-scan base-package=&quot;org.freecode&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;mvc:annotation-driven /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="视图（View）"><a href="#视图（View）" class="headerlink" title="视图（View）"></a>视图（View）</h2><p><strong>一共包含三个页面，登陆页面(login.jsp)、登陆成功(login-success.jsp)。</strong></p>
+<ul>
+<li><p>login.jsp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=utf-8&quot;</span><br><span class="line">    pageEncoding=&quot;utf-8&quot;%&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=&quot;login&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    &lt;label&gt;User: &lt;input type=&quot;text&quot; name=&quot;user&quot; &gt; &lt;/label&gt; &lt;br /&gt;</span><br><span class="line">    &lt;label&gt;Password: &lt;input type=&quot;password&quot; name=&quot;password&quot; &gt;&lt;/label&gt;&lt;br /&gt;</span><br><span class="line">    &lt;label&gt;</span><br><span class="line">        验证码  &lt;input name=&quot;captcha&quot; type=&quot;text&quot; id=&quot;kaptcha&quot;&gt;</span><br><span class="line">   &lt;/label&gt;&lt;br /&gt;</span><br><span class="line">   &lt;img src=&quot;captcha.jpg&quot; id=&quot;captcha_img&quot;/&gt; &lt;a href=&quot;#&quot; onclick=&quot;changeCode()&quot;&gt;看不清?换一张&lt;/a&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;注册&quot;&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    function changeCode()&#123;</span><br><span class="line">        document.getElementById(&quot;captcha_img&quot;).src=&quot;captcha.jpg&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>login-success.jsp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Success</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="实例-1"><a href="#实例-1" class="headerlink" title="实例 1"></a>实例 1</h2><p><strong>这是使用Kaptcha 最简单的实例（不自定义图片形态）</strong></p>
+<ul>
+<li>Controller<br><strong>控制器继承<code>com.google.code.kaptcha.servlet.KaptchaExtend</code>类。KaptchaExtend可以生成简单的图片形态。</strong></li>
+</ul>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.controller;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line">import com.google.code.kaptcha.servlet.KaptchaExtend;</span><br><span class="line">@Controller</span><br><span class="line">public class LoginController extends KaptchaExtend &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 1、生成图片.</span><br><span class="line">     * 2、Session 保存文件Key</span><br><span class="line">     * 3、Response 响应图片给客户端</span><br><span class="line">     */</span><br><span class="line">    @RequestMapping(value = &quot;/captcha.jpg&quot;, method = RequestMethod.GET)</span><br><span class="line">    public void captcha(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        super.captcha(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @RequestMapping(value = &quot;/login&quot;, method = RequestMethod.POST)</span><br><span class="line">    public String registerPost( String user,</span><br><span class="line">        String password,String captcha, HttpServletRequest request) &#123;</span><br><span class="line">        </span><br><span class="line">        System.out.println(String.format(&quot;用户名为：%s\n密码为：%s\n验证码:%s&quot;, user,password,captcha));</span><br><span class="line">        </span><br><span class="line">        /**</span><br><span class="line">         * 1、获取Session 中 Text值</span><br><span class="line">         * 2、验证客户端captcha是否一致</span><br><span class="line">         */</span><br><span class="line">        if (!captcha.equals(getGeneratedKey(request)))</span><br><span class="line">            throw new RuntimeException(&quot;bad captcha&quot;);</span><br><span class="line">        //转发到login-success.jsp页面</span><br><span class="line">        return &quot;login-success.jsp&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>captcha</code>方法生成一张图片,并将相关信息写入Session(包含正确文字信息).<code>getGeneratedKey</code>方法通过Session获取文字信息进行校验。</p>
+</blockquote>
+<ul>
+<li>演示</li>
+</ul>
+<img src="/2014/10/24/2014/验证码kaptcha的应用/1bca8479-c940-4021-81a3-54f8c9e60bcb.png" alt="实例1 登陆演示" title="实例1 登陆演示"> 
+<h2 id="Kaptcha-可以选的配置项"><a href="#Kaptcha-可以选的配置项" class="headerlink" title="Kaptcha 可以选的配置项"></a>Kaptcha 可以选的配置项</h2><p>你可以实例化<code>DefaultKaptcha</code>对象，配置这里参数。 </p>
+<ul>
+<li>实例2演示，通过Spring注解的方式进行依赖注入。</li>
+<li>实例3演示，在web.xml 配置Servlet <code>com.google.code.kaptcha.servlet.KaptchaServlet</code>映射关系，并配置自定义图形。<br>配置名称 | 描述 | 默认值<br>— | — | —<br>kaptcha.GimpyEngine | 渲染引擎（自定义样式）| 默认WaterRipple<br>kaptcha.textproducer.font.names |    验证码文本字体样式  |默认为:new Font(“Arial”, 1, fontSize), new Font(“Courier”, 1, fontSize)<br>kaptcha.textproducer.font.size |  验证码文本字符大小  |默认为:40<br>kaptcha.textproducer.font.color |  验证码文本字符颜色 | 默认为:Color.BLACK<br>kaptcha.image.width  |  验证码图片宽度  |默认为:200<br>kaptcha.image.height  | 验证码图片高度 | 默认为:50<br>kaptcha.border  | 是否有边框  | 默认为:yes  可以选(yes，no )<br>kaptcha.border.color |   边框颜色 |  默认为:Color.BLACK  |<br>kaptcha.border.thickness |  边框粗细度|  默认为: 1<br>kaptcha.textproducer.impl  |  验证码文本生成器|  默认为: DefaultTextCreator<br>kaptcha.textproducer.char.string|    验证码文本字符内容范围  |默认为: abcde2345678gfynmnpwx<br>kaptcha.textproducer.char.length |   验证码文本字符长度  |默认为:5<br>kaptcha.textproducer.char.space |  验证码文本字符间距  |默认为:2<br>kaptcha.noise.impl  |   验证码噪点生成对象  |默认为:DefaultNoise<br>kaptcha.noise.color |   验证码噪点颜色   |默认为:Color.BLACK<br>kaptcha.background.impl|    验证码背景生成器   |默认为:DefaultBackground<br>kaptcha.background.clear.from  |  验证码背景颜色渐进|  默认为:Color.LIGHT_GRAY<br>kaptcha.background.clear.to |   验证码背景颜色渐进  | 默认为:Color.WHITE<br>kaptcha.producer.impl  |  验证码生成器 | 默认为: DefaultKaptcha<br>kaptcha.obscurificator.impl |   验证码样式引擎 | 默认为:WaterRipple<br>kaptcha.word.impl   | 验证码文本字符渲染  | 默认为:DefaultWordRenderer  </li>
+</ul>
+<h2 id="实例-2"><a href="#实例-2" class="headerlink" title="实例 2"></a>实例 2</h2><p><strong>你会发现实例2和实例如此的相似</strong></p>
+<ul>
+<li>applicationContext.xml 创建<code>captcha</code> Bean (添加如下即可)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">    &lt;!-- 登陆时验证码的配置 --&gt;</span><br><span class="line">    &lt;bean id=&quot;captchaProducer&quot; class=&quot;com.google.code.kaptcha.impl.DefaultKaptcha&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;config&quot;&gt;</span><br><span class="line">            &lt;bean class=&quot;com.google.code.kaptcha.util.Config&quot;&gt;</span><br><span class="line">                &lt;!--通过构造函数注入属性值 --&gt;</span><br><span class="line">                &lt;constructor-arg type=&quot;java.util.Properties&quot;&gt;</span><br><span class="line">                    &lt;props&gt;</span><br><span class="line">                        &lt;!-- 验证码宽度、高度 --&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.image.width&quot;&gt;150&lt;/prop&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.image.height&quot;&gt;60&lt;/prop&gt;</span><br><span class="line">                        &lt;!-- 验证码内容范围和个数 --&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.textproducer.char.string&quot;&gt;abcdegfynmnpwx123456789&lt;/prop&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.textproducer.char.length&quot;&gt;5&lt;/prop&gt;</span><br><span class="line">                        &lt;!-- 是否有边框 --&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.border&quot;&gt;no&lt;/prop&gt;</span><br><span class="line">                        &lt;!-- 验证码字体颜色和大小 --&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.textproducer.font.color&quot;&gt;red&lt;/prop&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.textproducer.font.size&quot;&gt;35&lt;/prop&gt;</span><br><span class="line">                        &lt;!-- 验证码所属字体样式 --&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.textproducer.font.names&quot;&gt;Arial, Courier&lt;/prop&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.background.clear.from&quot;&gt;white&lt;/prop&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.background.clear.to&quot;&gt;white&lt;/prop&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.obscurificator.impl&quot;&gt;com.google.code.kaptcha.impl.ShadowGimpy&lt;/prop&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.noise.impl&quot;&gt;com.google.code.kaptcha.impl.NoNoise&lt;/prop&gt;</span><br><span class="line">                        &lt;!-- 噪点颜色(干扰线) --&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.noise.color&quot;&gt;black&lt;/prop&gt;</span><br><span class="line">                        &lt;!-- 验证码文本字符间距 --&gt;</span><br><span class="line">                        &lt;prop key=&quot;kaptcha.textproducer.char.space&quot;&gt;3&lt;/prop&gt;</span><br><span class="line">                    &lt;/props&gt;</span><br><span class="line">                &lt;/constructor-arg&gt;</span><br><span class="line">            &lt;/bean&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>自己去配置，如上很多废话。</p>
+</blockquote>
+<ul>
+<li><p>验证码工具类(KaptchaUtils.java)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.util;</span><br><span class="line">import java.awt.image.BufferedImage;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import javax.imageio.ImageIO;</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.ServletOutputStream;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import javax.servlet.http.HttpSession;</span><br><span class="line">import com.google.code.kaptcha.impl.DefaultKaptcha;</span><br><span class="line">/**</span><br><span class="line"> * </span><br><span class="line"> * @author cmp-cc</span><br><span class="line"> * @mail baiwoyidao@163.com</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">public class KaptchaUtils &#123;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">     * 1、生成Image</span><br><span class="line">     * 2、Response 到客户端</span><br><span class="line">     */</span><br><span class="line">    public static void captcha(DefaultKaptcha kaptchaProducer,HttpServletRequest req, HttpServletResponse resp)</span><br><span class="line">            throws ServletException, IOException &#123;</span><br><span class="line">        resp.setHeader(&quot;Cache-Control&quot;, &quot;no-store, no-cache&quot;);</span><br><span class="line">        resp.setContentType(&quot;image/jpeg&quot;);</span><br><span class="line">        String capText = kaptchaProducer.createText();</span><br><span class="line">        req.getSession().setAttribute(</span><br><span class="line">                com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY, capText);</span><br><span class="line">        BufferedImage bi = kaptchaProducer.createImage(capText);</span><br><span class="line">        ServletOutputStream out = resp.getOutputStream();</span><br><span class="line">        ImageIO.write(bi, &quot;jpg&quot;, out);</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 1、获取Session 文本值</span><br><span class="line">     * @param req</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static String getGeneratedKey(HttpServletRequest req) &#123;</span><br><span class="line">        HttpSession session = req.getSession();</span><br><span class="line">        return (String) session</span><br><span class="line">                .getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>控制器(LoginController2.java)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.controller;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import org.freecode.util.KaptchaUtils;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line">import com.google.code.kaptcha.impl.DefaultKaptcha;</span><br><span class="line">@Controller</span><br><span class="line">public class LoginController2 &#123;</span><br><span class="line">    /**</span><br><span class="line">     * Kaptcha 验证码</span><br><span class="line">     */</span><br><span class="line">    @Autowired</span><br><span class="line">    private DefaultKaptcha kaptchaProducer;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">     * 生成验证码</span><br><span class="line">     * </span><br><span class="line">     * @param request</span><br><span class="line">     * @param response</span><br><span class="line">     * @throws Exception</span><br><span class="line">     */</span><br><span class="line">    @RequestMapping(value = &quot;captcha2.jpg&quot;, method = RequestMethod.GET)</span><br><span class="line">    public void captcha(HttpServletRequest req, HttpServletResponse resp)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        KaptchaUtils.captcha(kaptchaProducer, req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @RequestMapping(value = &quot;/login2&quot;, method = RequestMethod.POST)</span><br><span class="line">    public String registerPost(String user, String password, String captcha,</span><br><span class="line">            HttpServletRequest request) &#123;</span><br><span class="line">        System.out.println(String.format(&quot;用户名为：%s\n密码为：%s\n验证码:%s&quot;, user,</span><br><span class="line">                password, captcha));</span><br><span class="line">        /**</span><br><span class="line">         * 1、获取Session 中 Text值 </span><br><span class="line">         * 2、验证客户端captcha是否一致</span><br><span class="line">         */</span><br><span class="line">        if (!captcha.equals(KaptchaUtils.getGeneratedKey(request)))</span><br><span class="line">            throw new RuntimeException(&quot;bad captcha&quot;);</span><br><span class="line">        // 转发到login-success.jsp页面</span><br><span class="line">        return &quot;login-success.jsp&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改客户端（login.jsp）</p>
+<ul>
+<li><code>&lt;img src=&quot;captcha.jpg&quot; id=&quot;captcha_img&quot;/&gt;</code> 改为<code>&lt;img src=&quot;captcha2.jpg&quot; id=&quot;captcha_img&quot;/&gt;</code></li>
+<li><code>&lt;form action=&quot;login&quot; method=&quot;post&quot;&gt;</code> 改为<code>&lt;form action=&quot;login2&quot; method=&quot;post&quot;&gt;</code></li>
+<li><code>document.getElementById(&quot;captcha_img&quot;).src=&quot;captcha.jpg&quot;;</code>改为<code>document.getElementById(&quot;captcha_img&quot;).src=&quot;captcha2.jpg&quot;;</code></li>
+</ul>
+</li>
+<li>演示</li>
+</ul>
+<img src="/2014/10/24/2014/验证码kaptcha的应用/cfbeba3c-a3f0-4d7d-b5c9-bf22c0ceccef.jpg" alt="实例2 登陆演示" title="实例2 登陆演示"> 
+<img src="/2014/10/24/2014/验证码kaptcha的应用/49ca8163-ccc5-48ef-8f4d-7981d7e0b963.png" alt="登陆成功" title="登陆成功">
+<blockquote>
+<p>看样子效果不好，间距在小一点，多一些干扰线就Ok了</p>
+</blockquote>
+<h2 id="实例-3"><a href="#实例-3" class="headerlink" title="实例 3"></a>实例 3</h2><p>实例3 就略过吧！   貌似随便搜一下是可以搜到的。（实例 3 的步骤我已经介绍的很清楚了。）</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/10/10/2014/Java Web异常/" itemprop="url">
                   Java Web异常
                 </a>
@@ -1868,367 +2057,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Generator/" itemprop="url">
-                  MyBatis Generator
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-05-11T22:53:00+08:00" content="2014-05-11">
-              2014-05-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/MyBatis/" itemprop="url" rel="index">
-                    <span itemprop="name">MyBatis</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/05/11/2014/MyBatis Generator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Generator/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MyBatis 也提供了一些工具如 MyBatis Generator(<a href="http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库" target="_blank" rel="external">http://www.mybatis.org/generator/)，可以被用来从已经存在的数据库</a> schema 中，产生持久化代码如数据库实体（database entities）,映射器 Mapper 接口，MapperXML 配置文件。</p>
-<h2 id="MyBatis-Generator-介绍"><a href="#MyBatis-Generator-介绍" class="headerlink" title="MyBatis Generator 介绍"></a>MyBatis Generator 介绍</h2><ul>
-<li>MyBatis Generator (MBG) 是一个Mybatis的代码生成器</li>
-<li>它可以将数据库表生成基础对象。(不再需要手工创建对象和配置文件)</li>
-<li>MBG 能够创建简单的CDUR(增删改查)。（仍然需要手写SQL和对象，用于级联查询和存储过程）</li>
-</ul>
-<hr>
-<p>MyBatis 生成如下：</p>
-<ul>
-<li>匹配表结构的Java POJO 对象， 可能包括<ul>
-<li>一个和表主键匹配的类（如果存在主键）</li>
-<li>一个包含了非主键字段的类（BLOB字段除外）</li>
-<li>一个包含BLOB字段的类（如果表包含了BLOB字段）</li>
-<li>一个允许动态查询、更新和删除的类<br>这些类之间会有适当的继承关系。 可以配置生成器来生成不同类型的 POJO 的层次结构。 例如，您可能会选择针对每个表生成一个单独的实体对象。</li>
-</ul>
-</li>
-<li>MBG在配置中为每个表简单的生成 CRUD SQL 操作。生成的SQL 语句包括：<ul>
-<li>insert (插入)</li>
-<li>update by primary key (根据主键更新记录)</li>
-<li>update by example (根据条件更新记录)</li>
-<li>delete by primary key (根据主键删除记录)</li>
-<li>delete by example (根据条件删除记录)</li>
-<li>select by primary key (根据主键查询记录)</li>
-<li>select by example (根据条件查询记录集)</li>
-<li>count by example (根据条件查询记录总数)<br>根据表的结构，生成的这些语句会有不同的变化（例如，如果表中没有主键，那么 MBG 将不会生成update by primary key方法）。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li>注意<ul>
-<li>MBG 会自动合并重名XML文件（是合并，保留修改），从而可以反复运行，而不必担心修改丢失。</li>
-<li>MBG 不会合并Java文件，它可以覆盖或保留不同命名的文件。Eclipse插件时，MBG自动合并Java文件。</li>
-</ul>
-</li>
-</ul>
-<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><p>快速使用MBG步骤如下：</p>
-<ul>
-<li>1、创建并填写适当的配置文件，必须包含如下：(查看 XML配置参考)<ul>
-<li><code>&lt;jdbcConnection&gt;</code> 元素定义如何连接目标数据库</li>
-<li><code>&lt;javaModelGenerator&gt;</code> 元素来指定生成 Java 模型对象所属的包</li>
-<li><code>&lt;sqlMapGenerator&gt;</code> 元素来指定生成 SQL 映射文件所属的包和的目标项目</li>
-<li>(可选) <code>&lt;javaClientGenerator&gt;</code> 元素来指定目标包和目标项目生成的客户端接口和类（如果您不想生成 Java 客户端代码您可以省略<code>&lt;javaClientGenerator&gt;</code>元素）</li>
-<li>至少一个数据库<code>&lt;table&gt;</code>元素</li>
-</ul>
-</li>
-<li>2、将文件保存适当的位置（例如：<code>\temp\generatorConfig.xml</code>）</li>
-<li><p>3、执行如下命令运行MBG:</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar mybatis-generator-core-x.x.x.jar -configfile \temp\generatorConfig.xml -overwrite</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>MBG使用配置文件运行，<code>-overwrite</code> 表示覆盖同名Java文件。如果有冲突，MBG会生成一个唯一的文件。（e.g MyClass.java）</p>
-</blockquote>
-</li>
-<li>4、MBG运行后，你需要创建或修改标准的MyBatis配置文件来使用新生成的代码。</li>
-</ul>
-<h2 id="XML配置参考"><a href="#XML配置参考" class="headerlink" title="XML配置参考"></a>XML配置参考</h2><h3 id="MyBatis-Generator-XML-配置参考"><a href="#MyBatis-Generator-XML-配置参考" class="headerlink" title="MyBatis Generator XML 配置参考"></a>MyBatis Generator XML 配置参考</h3><p>如下是MBG的一个XML配置文件驱动。配置文件告诉MBG：</p>
-<ul>
-<li>如何链接到数据库</li>
-<li>生成什么对象，及其如何生成</li>
-<li>哪些表生成对象</li>
-</ul>
-<p><strong>如下是MBG配置文件实例。你应当查阅每一个元素说明</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line"></span><br><span class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</span><br><span class="line">        userId=&quot;db2admin&quot;</span><br><span class="line">        password=&quot;db2admin&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</span><br><span class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="MBG-XML-元素说明"><a href="#MBG-XML-元素说明" class="headerlink" title="MBG XML 元素说明"></a>MBG XML 元素说明</h3><p>查看官方元素说明：<a href="http://www.mybatis.org/generator/configreference/xmlconfig.html" target="_blank" rel="external">http://www.mybatis.org/generator/configreference/xmlconfig.html</a></p>
-<h2 id="通过Maven-plugin-运行MBG"><a href="#通过Maven-plugin-运行MBG" class="headerlink" title="通过Maven plugin 运行MBG"></a>通过Maven plugin 运行MBG</h2><p>运行MBG 可以使用<code>命令提示符</code>、<code>Ant任务</code>、<code>Maven Plugin</code>、<code>Java程序</code>。 这里介绍Maven 形式。</p>
-<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    ...</span><br><span class="line">  &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>MBG插件将会绑定到Maven生命周期的 <code>generate-sources</code> 阶段。 所以他会在编译步骤之前执行。 此外注意MBG目标将绑定生成Java和XML资源文件的建立，他们都将包括在生成的JAR包内。</p>
-</blockquote>
-<ul>
-<li><p>通过如下命令执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn mybatis-generator:generate</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>或则 标准的Maven命令属性传递参数执行 (这条命令会是使MBG覆盖重名的文件)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="MBG-参考参数"><a href="#MBG-参考参数" class="headerlink" title="MBG 参考参数"></a>MBG 参考参数</h3><p>如下简单参考参数实例（大多数情况下为默认设置）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">            &lt;configurationFile&gt;src/main/resources/generatorConfig.xml&lt;/configurationFile&gt;</span><br><span class="line">            &lt;sqlScript&gt;classpath:mbg/test/common/scripts/CreateDB.sql&lt;/sqlScript&gt;</span><br><span class="line">            &lt;jdbcDriver&gt;org.hsqldb.jdbcDriver&lt;/jdbcDriver&gt;</span><br><span class="line">            &lt;jdbcURL&gt;jdbc:hsqldb:mem:aname&lt;/jdbcURL&gt;</span><br><span class="line">            &lt;jdbcUserId&gt;sa&lt;/jdbcUserId&gt;</span><br><span class="line">            &lt;verbose&gt;true&lt;/verbose&gt;</span><br><span class="line">            &lt;overwrite&gt;true&lt;/overwrite&gt;</span><br><span class="line">             ....</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如下是参考参数，均为可选，部分默认。</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>configurationFile</td>
-<td>File</td>
-<td>指定配置文件的名称。默认值：<code>${basedir}/src/main/resources/generatorConfig.xml</code></td>
-</tr>
-<tr>
-<td>contexts</td>
-<td>String</td>
-<td>如果指定了该参数，使用逗号隔开<code>context</code>会被执行。 这些指定的<code>context</code>必须和配置文件中 <code>&lt;context&gt;</code> 元素的 <code>id</code> 属性一致。只有指定的这些<code>contextid</code>会被激活执行。如果没有指定该参数，所有的<code>context</code>都会被激活执行。</td>
-</tr>
-<tr>
-<td>jdbcDriver</td>
-<td>String</td>
-<td>如果您指定了 sqlScript 参数, 当连接数据库时这里的值是JDBC驱动类的权限定名称。</td>
-</tr>
-<tr>
-<td>jdbcPassword</td>
-<td>String</td>
-<td>如果您指定了 <code>sqlScript</code> 参数, 这是连接数据库的密码。</td>
-</tr>
-<tr>
-<td>jdbcURL</td>
-<td>String</td>
-<td>如果您指定了 <code>sqlScript</code> 参数, 这是连接数据库的<code>JDBC URL</code></td>
-</tr>
-<tr>
-<td>jdbcUserId</td>
-<td>String</td>
-<td>如果您指定了 <code>sqlScript</code> 参数, 这里是连接数据库的用户<code>id</code></td>
-</tr>
-<tr>
-<td>outputDirectory</td>
-<td>File</td>
-<td>将放置 MBG 所生成文件的目录。 这个目录是用于当<code>targetProject</code> 在配置文件中设置特殊值的”MAVEN”时使用(大小写敏感)。 默认值: <code>${project.build.directory}/generated-sources/mybatis-generator</code></td>
-</tr>
-<tr>
-<td>overwrite</td>
-<td>boolean</td>
-<td>如果为<code>true</code>，新生成的Java文件会覆盖原有的文件。 如果没有指定该参数，存在同名的文件，MBG会给新生成的代码文件生成一个唯一的名字(例如： MyClass.java.1, MyClass.java.2 等等)。 <strong>重要: 生成器一定会自动合并或覆盖已经生成的XML文件。</strong> 默认值: <code>false</code></td>
-</tr>
-<tr>
-<td>sqlScript</td>
-<td>String</td>
-<td>要在生成代码之前运行的 SQL 脚本文件的位置。 如果为空，不会执行任何脚本。 如果不为空，<code>jdbcDriver</code>, <code>jdbcURL</code> 参数必须提供。 另外如果连接数据库需要认证也需要提供<code>jdbcUserId</code> 和 <code>jdbcPassword</code> 参数。 值可以使一个文件系统的绝对路径或者是一个使用<code>&quot;classpath:&quot;</code>开头放在构建的类路径下的路径。</td>
-</tr>
-<tr>
-<td>tableNames</td>
-<td>String</td>
-<td>如果指定了该参数，逗号隔开的这个表会被运行， 这些表名必须和<code>&lt;table&gt;</code> 配置中的表面完全一致。只有指定的这些表会被执行。 如果没有指定该参数，所有的表都会被执行。按如下方式指定表明:  table 、schema.table 、catalog..table 等等。</td>
-</tr>
-<tr>
-<td>verbose</td>
-<td>boolean</td>
-<td>如果指定该参数，执行过程会输出到控制台。</td>
-</tr>
-</tbody>
-</table>
-<h2 id="使用生成的对象"><a href="#使用生成的对象" class="headerlink" title="使用生成的对象"></a>使用生成的对象</h2><p>MBG生成如下类型的对象：</p>
-<ul>
-<li>Java 模型对象</li>
-<li>SQL映射文件（可选）</li>
-<li>一个xxxByExample方法的使用类。</li>
-</ul>
-<h3 id="Java-模型对象"><a href="#Java-模型对象" class="headerlink" title="Java 模型对象"></a>Java 模型对象</h3><ul>
-<li>MBG 根据数据库表字段生成Java POJO 对象。（根据表特性和配置生成不同类型的实体对象）</li>
-<li>如果不使用Eclipse插件，需要手工合并修改后生成的Java对象</li>
-<li>任何字段配置<code>&lt;ignoreColumn&gt;</code>,自动生成时不会添加到Java对象中</li>
-</ul>
-<h4 id="主键类"><a href="#主键类" class="headerlink" title="主键类"></a>主键类</h4><ul>
-<li>表中包含一个主键的字段属性,根据表的列名自动生成属性名称。可配置<code>&lt;columnOverride&gt;</code>属性覆盖。</li>
-<li>类名默认是<code>&lt;TableName&gt;Key</code>,如果<code>&lt;table&gt;</code>元素配置domainObjectName属性，那么类名是<code>&lt;domainObjectName&gt;Key</code></li>
-<li>This class will be generated in the hierarchical model if the table has a primary key. This class will be generated in the conditional model if the table has more then one column in the primary key. This class will not be generated in the flat model.</li>
-</ul>
-<h4 id="记录类"><a href="#记录类" class="headerlink" title="记录类"></a>记录类</h4><ul>
-<li>表中不包含主键、BLOB字段属性.如果这个类集成了主键类，MBG会根据表的列名自动生成属性名称。可通过<code>columnOverride</code>属性覆盖属性名称。</li>
-<li>类名默认是<code>&lt;TableName&gt;</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性，类名为<code>&lt;domainObjectName&gt;</code></li>
-<li>This class will be generated in the hierarchical model if the table has non-BLOB and non-primary key columns. This class will be generated in the conditional model if the table has non-BLOB and non-primary key columns, or if there is only one primary key column or one BLOB column. This class is always generated in the flat model.</li>
-</ul>
-<h4 id="BLOB-记录类"><a href="#BLOB-记录类" class="headerlink" title="BLOB 记录类"></a>BLOB 记录类</h4><ul>
-<li>表中包含BLOB字段属性，如果表中只存在一个字段，该类将继承基础类，或将继承主键类。（注意：MBG 不支持表中只包含BLBO列）MBG 根据表列名自动生成属性名称，可以配置<code>&lt;columnOverride&gt;</code>属性覆盖</li>
-<li>BLOB 记录类调用<code>selectByPrimaryKey</code>或<code>selectByExampleWithBLOBs</code>方法返回BLOB字段值.</li>
-<li>类名默认是<code>&lt;TableName&gt;WithBLOBs</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性那么类名是<code>&lt;domainObjectName&gt;WithBLOBs</code>.</li>
-<li>如果表中存在一个BLOB列将生成<code>hierarchical 模式</code>实体对象，如果表中存在多个BLOB列将生成<code>conditional 模式</code>实体对象。 BLOB记录类不会生<code>flat 模式</code> 实体对象</li>
-</ul>
-<h4 id="Example-类"><a href="#Example-类" class="headerlink" title="Example 类"></a>Example 类</h4><ul>
-<li>Example类用来处理MBG动态查询功能. 下列条件方法用于动态生成WHERE子句:<ul>
-<li>selectByExample</li>
-<li>selectByExampleWithBLOBs</li>
-<li>deleteByExample</li>
-<li>countByExample</li>
-<li>updateByExample</li>
-</ul>
-</li>
-<li>Example类不继承任何实体对象</li>
-<li>类名默认是<code>&lt;TableName&gt;Example</code>,如果<code>&lt;table&gt;</code>配置了<code>domainObjectName</code>属性那么类名是<code>&lt;domainObjectName&gt;Example</code>.</li>
-<li>如果方法被启动Example类将生成任何*ByExample方法.注意:如果表中有非常多的字段该类可能很大,但 DAO生成的XML是比较小的. 如果您不需要使用动态WHERE子句,您可以禁用生成这些方法.</li>
-</ul>
-<h3 id="SQL-映射文件"><a href="#SQL-映射文件" class="headerlink" title="SQL 映射文件"></a>SQL 映射文件</h3><ul>
-<li>MBG生成SQL映射文件遵循 MyBatis和IBatis DTD规范。</li>
-<li>MBG按照配置表生成SQL映射文件，在表的基础上还包含了不同的标签和属性配置。</li>
-<li>表名就是SQL映射文件的命名控制。（前提是数据库支持schema 和 catalog）</li>
-<li>你需要手工将生成<code>xxxMapper.xml</code> 加入到<code>mybatis-conf.xml</code>文件。 或者使用Spring的自动扫描。（注入）</li>
-</ul>
-<h4 id="结果集-Result-Map"><a href="#结果集-Result-Map" class="headerlink" title="结果集(Result Map)"></a>结果集(Result Map)</h4><ul>
-<li>resultMap元素（结果集对象）用于数据库表列映射Java对象的属性，不包括如下情况：<ul>
-<li>任何列配置<code>&lt;ignoreColumn&gt;</code>属性将被会被忽略</li>
-<li>任何BLOB字段</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>配置<code>&lt;columnOverride&gt;</code>属性覆盖默认的属性和JDBC类型</li>
-<li>对与自定义连接查询结果集<strong>继承一个结果集</strong>是一种常见的用法。对于其他连接查询也想使用（继承）该结果集。在MBG自动生成的时候需要配置前缀.详见<code>&lt;table&gt;</code>元素<code>alias</code>配置前缀，这样可以区分表中相同字段</li>
-<li>如果<code>table</code>存在BLOB字段且配置了<code>enableSelectByExample</code>、<code>enableSelectByPrimaryKey</code>属性,MBG会生成BLOB结果集,table默认这两个配置都是true所以大部分情况下都会生成resultMap.</li>
-</ul>
-<h4 id="Where条件SQL语句"><a href="#Where条件SQL语句" class="headerlink" title="Where条件SQL语句"></a>Where条件SQL语句</h4><ul>
-<li><p>This element contains a reusable where clause that is used by the “by example” methods. The where clause will not include any BLOB fields if they exist in the table. Most databases do not support BLOB fields in the WHERE clause.</p>
-</li>
-<li><p>This element will be generated if any of the “by example” statements are enabled.</p>
-</li>
-</ul>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>略，请参考官方文档。 官方文档这一部分写的也太烂了。</p>
-<h3 id="Java-客户端对象"><a href="#Java-客户端对象" class="headerlink" title="Java 客户端对象"></a>Java 客户端对象</h3><ul>
-<li>MBG 生成几种类型的Java客户端对象，使得Java的客户端对象更容易与生成的XML进行交互</li>
-<li>生成Java客户端对象是可选的。通过配置<code>&lt;javaClientGenerator&gt;</code> MyBatis 3 生成Java客户端对象类型：<ul>
-<li>XMLMAPPER 与 支持MyBatis3.x的映射</li>
-</ul>
-</li>
-</ul>
-<h4 id="通用DAO方法"><a href="#通用DAO方法" class="headerlink" title="通用DAO方法"></a>通用DAO方法</h4><p>根据表的特性，以及配置选项，Java客户端自动生成如下方法：</p>
-<ul>
-<li>countByExample</li>
-<li>deleteByPrimaryKey</li>
-<li>deleteByExample</li>
-<li>insert</li>
-<li>insertSelective</li>
-<li>selectByPrimaryKey</li>
-<li>selectByExample</li>
-<li>selectByExampleWithBLOBs</li>
-<li>updateByPrimaryKey (否更新BLOB字段需要重写方法)</li>
-<li>updateByPrimaryKeySelective (只更新参数类非空字段)</li>
-<li>updateByExample (否更新BLOB字段需要重写方法)</li>
-<li>updateByExampleSelective (只更新参数类非空字段)</li>
-</ul>
-<p>对于包含BLOB的表,MBG通过生成不同的对象和方法使您更容易使用BLOB字段,是否忽略它们,这取决于具体情况.</p>
-<h4 id="XMLMAPPER-客户端"><a href="#XMLMAPPER-客户端" class="headerlink" title="XMLMAPPER 客户端"></a>XMLMAPPER 客户端</h4><p>XMLMAPPER客户端是将接口方法映射到生成的XML映射文件中.例如,MBG自动生成的接口名为<code>MyTableMapper.</code>您可以如下使用该接口:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SqlSession sqlSession = sqlSessionFactory.openSession();</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  MyTableMapper mapper = sqlSession.getMapper(MyTableMapper.class);</span><br><span class="line">  List&lt;MyTable&gt; allRecords = mapper.selectByExample(null);</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="Example-用法"><a href="#Example-用法" class="headerlink" title="Example 用法"></a>Example 用法</h4><p>略，实际项目中很少用。 一般不会生成Example 对象。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2274,7 +2102,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
