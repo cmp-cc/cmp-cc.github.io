@@ -1280,6 +1280,45 @@
   </entry>
   
   <entry>
+    <title>rimraf 库</title>
+    <link href="http://cmp-cc.github.io/2016/03/02/2016/rimraf%20%E5%BA%93/"/>
+    <id>http://cmp-cc.github.io/2016/03/02/2016/rimraf 库/</id>
+    <published>2016-03-02T14:46:00.000Z</published>
+    <updated>2016-08-03T00:47:28.433Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;rimraf-介绍-与-安装&quot;&gt;&lt;a href=&quot;#rimraf-介绍-与-安装&quot; class=&quot;headerlink&quot; title=&quot;rimraf 介绍 与 安装&quot;&gt;&lt;/a&gt;rimraf 介绍 与 安装&lt;/h2&gt;&lt;p&gt;rimraf 是一个NodeJs 的库，用于不同平台下（操作系统）进行多级目录删除。 等同于 &lt;code&gt;rm -rf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;github 地址：&lt;a href=&quot;https://github.com/isaacs/rimraf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/isaacs/rimraf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;安装&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install rimraf&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;API&quot;&gt;&lt;a href=&quot;#API&quot; class=&quot;headerlink&quot; title=&quot;API&quot;&gt;&lt;/a&gt;API&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;rimraf(f, [opts], callback)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;第一个参数将被解释为对文件的通配符匹配，如果你想禁用通配符，你可以设置&lt;code&gt;opts.disableGlob&lt;/code&gt;为&lt;code&gt;false&lt;/code&gt;(默认为&lt;code&gt;false&lt;/code&gt;)。&lt;/p&gt;
+&lt;p&gt;略 …&lt;/p&gt;
+&lt;p&gt;具体参考&lt;a href=&quot;https://github.com/isaacs/rimraf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;git 地址&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;自己也就是在使用&lt;code&gt;npm script&lt;/code&gt; 的时候会用到，来帮助我递归的删除文件。&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;rimraf-介绍-与-安装&quot;&gt;&lt;a href=&quot;#rimraf-介绍-与-安装&quot; class=&quot;headerlink&quot; title=&quot;rimraf 介绍 与 安装&quot;&gt;&lt;/a&gt;rimraf 介绍 与 安装&lt;/h2&gt;&lt;p&gt;rimraf 是一个NodeJs 的库，用于
+    
+    </summary>
+    
+      <category term="Programming Language" scheme="http://cmp-cc.github.io/categories/Programming-Language/"/>
+    
+      <category term="Nodejs" scheme="http://cmp-cc.github.io/categories/Programming-Language/Nodejs/"/>
+    
+    
+      <category term="Nodejs" scheme="http://cmp-cc.github.io/tags/Nodejs/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Yum 不可用，解决方案</title>
     <link href="http://cmp-cc.github.io/2015/11/14/2015/Yum%20%E4%B8%8D%E5%8F%AF%E7%94%A8%EF%BC%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     <id>http://cmp-cc.github.io/2015/11/14/2015/Yum 不可用，解决方案/</id>
@@ -1978,40 +2017,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
     
       &lt;p&gt;&lt;strong&gt;记录Hbase 一些常规操作&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&quot;获取rowkey&quot;&gt;&lt;a href=&quot;#获取rowkey&quot; class=&quot;headerlink&quot; title=&quot;获取rowkey&quot;&gt;&lt;/a&gt;获取rowkey&lt;/h2&gt;&lt;figure cl
-    
-    </summary>
-    
-      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
-    
-      <category term="Hbase" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Hbase/"/>
-    
-    
-      <category term="Hbase" scheme="http://cmp-cc.github.io/tags/Hbase/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hbase异常记录及其解决方案</title>
-    <link href="http://cmp-cc.github.io/2015/04/08/2015/Hbase%E5%BC%82%E5%B8%B8%E8%AE%B0%E5%BD%95%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://cmp-cc.github.io/2015/04/08/2015/Hbase异常记录及其解决方案/</id>
-    <published>2015-04-08T02:42:00.000Z</published>
-    <updated>2015-07-08T02:42:00.000Z</updated>
-    
-    <content type="html">&lt;p&gt;&lt;strong&gt;记录我Hbase 使用的相关问题解决方案，持续更新&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;java-net-ConnectException-Connection-refused&quot;&gt;&lt;a href=&quot;#java-net-ConnectException-Connection-refused&quot; class=&quot;headerlink&quot; title=&quot;java.net.ConnectException: Connection refused&quot;&gt;&lt;/a&gt;java.net.ConnectException: Connection refused&lt;/h2&gt;&lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:739)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1075)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15/04/08 10:42:26 WARN zookeeper.RecoverableZooKeeper: Possibly transient ZooKeeper exception: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /hbase/hbaseid&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15/04/08 10:42:26 INFO util.RetryCounter: Sleeping 2000ms before retry #1...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15/04/08 10:42:27 INFO zookeeper.ClientCnxn: Opening socket connection to server localhost/127.0.0.1:2181. Will not attempt to authenticate using SASL (unknown error)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15/04/08 10:42:27 WARN zookeeper.ClientCnxn: Session 0x0 for server null, unexpected error, closing socket connection and attempting reconnect&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;java.net.ConnectException: Connection refused&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;hbase-site.xml 中没有配置&lt;code&gt;hbase.zookeeper.quorum&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;应用程序指定ZK地址&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;conf.set(&amp;quot;hbase.zookeeper.quorum&amp;quot;, &amp;quot;datanode01.hadoop&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;h2 id=&quot;ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper&quot;&gt;&lt;a href=&quot;#ConnectionException-An-error-is-preventing-HBase-from-connecting-to-ZooKeeper&quot; class=&quot;headerlink&quot; title=&quot;ConnectionException: An error is preventing HBase from connecting to ZooKeeper&quot;&gt;&lt;/a&gt;ConnectionException: An error is preventing HBase from connecting to ZooKeeper&lt;/h2&gt;&lt;/blockquote&gt;
-&lt;h3 id=&quot;问题描述-1&quot;&gt;&lt;a href=&quot;#问题描述-1&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Thu Apr 23 17:38:19 CST 2015, org.apache.hadoop.hbase.client.ScannerCallable@60ac8067, org.apache.hadoop.hbase.ZooKeeperConnectionException: An error is preventing HBase from connecting to ZooKeeper&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hbase.client.AbstractClientScanner$1.hasNext(AbstractClientScanner.java:44)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at mapreduce.test1.md5ConvertID(test1.java:41)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at mapreduce.test1.main(test1.java:152)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at java.lang.reflect.Method.invoke(Method.java:606)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.util.RunJar.main(RunJar.java:208)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;解决方案-1&quot;&gt;&lt;a href=&quot;#解决方案-1&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;检查相关程序，确保scanner开放&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ResultScanner scanner = table.getScanner(scan);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;使用scanner 获取数据的时候， Htable 已经关闭。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Too-Many-fetch-failures-Failing-the-attempt&quot;&gt;&lt;a href=&quot;#Too-Many-fetch-failures-Failing-the-attempt&quot; class=&quot;headerlink&quot; title=&quot;Too Many fetch failures.Failing the attempt&quot;&gt;&lt;/a&gt;Too Many fetch failures.Failing the attempt&lt;/h2&gt;&lt;h3 id=&quot;解决方案-2&quot;&gt;&lt;a href=&quot;#解决方案-2&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h3&gt;&lt;p&gt;&lt;strong&gt; 某一台服务器上的磁盘满了。 删除临时文件或无效数据。 或者增加磁盘&lt;/strong&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;记录我Hbase 使用的相关问题解决方案，持续更新&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;java-net-ConnectException-Connection-refused&quot;&gt;&lt;a href=&quot;#java-net-ConnectException-
     
     </summary>
     
