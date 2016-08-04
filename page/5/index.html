@@ -228,6 +228,539 @@
             
               
                 
+                <a class="post-title-link" href="/2014/06/13/2014/Linux 时间同步/" itemprop="url">
+                  Linux 时间同步
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-06-13T19:00:00+08:00" content="2014-06-13">
+              2014-06-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/Work-Efficiency/" itemprop="url" rel="index">
+                    <span itemprop="name">Work Efficiency</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/06/13/2014/Linux 时间同步/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/13/2014/Linux 时间同步/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我们需要使用到时间同步服务器，来保证Linux时间为北京时间,这一点非常重要，尤其是服务器不在国内的情况。</p>
+<ul>
+<li>使用<code>date</code>命令查看Linux系统的当前时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 17:43:52 CST 2014</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>可以通过<code>date -s</code> 修改时间或者日期</p>
+</blockquote>
+<h2 id="Linux-同步时区"><a href="#Linux-同步时区" class="headerlink" title="Linux 同步时区"></a>Linux 同步时区</h2><ul>
+<li>删除本地时间</li>
+<li>软连接为北京时间</li>
+<li>查看当前时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# rm -rf /etc/localtime </span><br><span class="line">[root@salt ~]# ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 17:50:11 CST 2014</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这里没有任何变化，因为Linux 默认当前时间为CST时间而不是EDT，如果在国外，通过如下方法改为<code>北京时间</code></p>
+</blockquote>
+<h2 id="Linux-时间同步"><a href="#Linux-时间同步" class="headerlink" title="Linux 时间同步"></a>Linux 时间同步</h2><p>Linux 时间，有时候莫名其妙与当前时间相差几个小时。 如果是Linux 集群，就会造成时间混乱，非常严重 。使用时间服务器同步Linux 时间。</p>
+<ul>
+<li>安装<code>ntpdate</code> 时间同步服务器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ntpdate ntp</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>设置 <code>ntpdate</code></p>
+<ul>
+<li><p><code>vi /etc/ntp.conf</code> 增加如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server 210.72.145.44</span><br><span class="line">server cn.pool.ntp.org</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>vi /etc/ntp/step-tickers</code> 加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">210.72.145.44</span><br><span class="line">cn.pool.ntp.org</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>启动<code>ntpdate</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service ntpdate start</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# service ntp start</span><br><span class="line">ntp: unrecognized service</span><br><span class="line">[root@salt ~]# service ntpdate start</span><br><span class="line">ntpdate: Synchronizing with time server: [  OK  ]</span><br><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 18:49:34 CST 2014</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查看时间同步服务器地址 : <a href="http://www.pool.ntp.org/zone/asia" target="_blank" rel="external">http://www.pool.ntp.org/zone/asia</a> (cn.pool.ntp.org)<br>查看中国授时中心:<a href="http://zqscm.qiniucdn.com/data/20101229110057/index.html" target="_blank" rel="external">http://zqscm.qiniucdn.com/data/20101229110057/index.html</a>   (210.72.145.44)</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/06/11/2014/Spring 集成druid数据源/" itemprop="url">
+                  Spring 集成druid数据源
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-06-11T00:53:00+08:00" content="2014-06-11">
+              2014-06-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/06/11/2014/Spring 集成druid数据源/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/11/2014/Spring 集成druid数据源/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Druid 是Alibaba的一个数据库连接池，相比Druid 相比C3p0 或 DBCP 更加高效，Druid的常规配置可参考如下。</p>
+<ul>
+<li><p>pom.xml 引入<code>druid</code></p>
+</li>
+<li><p>Spring Bean.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> &lt;bean name=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot; init-method=&quot;init&quot; destroy-method=&quot;close&quot;&gt;</span><br><span class="line">     &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc_url&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc_username&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc_password&#125;&quot; /&gt;</span><br><span class="line"> </span><br><span class="line">     &lt;property name=&quot;initialSize&quot; value=&quot;0&quot; /&gt;        </span><br><span class="line">     &lt;property name=&quot;maxActive&quot; value=&quot;20&quot; /&gt;    </span><br><span class="line">     &lt;property name=&quot;maxIdle&quot; value=&quot;20&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;minIdle&quot; value=&quot;0&quot; /&gt;        </span><br><span class="line">     &lt;property name=&quot;maxWait&quot; value=&quot;60000&quot; /&gt;</span><br><span class="line">     </span><br><span class="line">     &lt;property name=&quot;validationQuery&quot; value=&quot;$&#123;validationQuery&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testOnBorrow&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testOnReturn&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testWhileIdle&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;timeBetweenEvictionRunsMillis&quot; value=&quot;60000&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;minEvictableIdleTimeMillis&quot; value=&quot;25200000&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;removeAbandoned&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;removeAbandonedTimeout&quot; value=&quot;1800&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;logAbandoned&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;filters&quot; value=&quot;mergeStat&quot; /&gt;</span><br><span class="line"> &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">     &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line"> &lt;/bean&gt;  </span><br><span class="line"></span><br><span class="line">&lt;context:property-placeholder location=&quot;classpath:config.properties&quot; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>config.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jdbc_url=jdbc:oracle:druid_test:@localhost:1521:orcl</span><br><span class="line">jdbc_username=root</span><br><span class="line">jdbc_password=123456</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/06/10/2014/Spring MVC 入门/" itemprop="url">
+                  Spring MVC 入门
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-06-10T16:53:00+08:00" content="2014-06-10">
+              2014-06-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/Spring-MVC/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring MVC</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/06/10/2014/Spring MVC 入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/10/2014/Spring MVC 入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Struts2 用的人越来越少了呀~~~  Spring MVC的设计更加超前，使用也更加便利。</p>
+<h2 id="Spring-MVC-简介"><a href="#Spring-MVC-简介" class="headerlink" title="Spring MVC 简介"></a>Spring MVC 简介</h2><ul>
+<li>Spring MVC 是Spring Framework 中用于快速开发Web应用程序的一个模块。</li>
+<li>采用MVC设计模式（模型-视图-控制器）。</li>
+</ul>
+<h2 id="Spring-优势"><a href="#Spring-优势" class="headerlink" title="Spring 优势"></a>Spring 优势</h2><ul>
+<li>Spring MVC 采用调用Servlet中一个控制方法，控制转发到一个视图。（你不必编写多个Servlet。）</li>
+<li>Spring MVC 实例化控制器类，并自动填充用户输入bean。（不需要配置XML映射、不需要使用request.paremxxx 获取请求信息）</li>
+<li>Spring MVC 重新编辑XML配置文件，不需要重新编译或重启应用程序。</li>
+<li>Spring MVC 自动绑定正确类型的用户输入信息。eg：Spring MVC可以自动解析字符串并设置float类型或double 类型。</li>
+<li>Spring MVC 可以验证用户输入，如果输入失败可以重定向表单。可以使用声明和编码的方式。Spring MVC内置任务验证。</li>
+<li>Spring MVC 支持国际化和本地化。（你可以显示用户区域多国家语言）</li>
+<li>Spring MVC 支持多视图技术。可以是JSP、FreeMarker、Velocity、JSON数据。</li>
+<li>Spring MVC 作为Spring 的一部分也算是一种优势把。</li>
+</ul>
+<blockquote>
+<p>以上几乎所有优势Struts2 都具备。 只是Spring MVC 实现方式更加简单，Struts2 同样优秀而已。</p>
+</blockquote>
+<h2 id="Spring-MVC-入门"><a href="#Spring-MVC-入门" class="headerlink" title="Spring MVC 入门"></a>Spring MVC 入门</h2><h3 id="Spring-MVC-入口-（DispatcherServlet）"><a href="#Spring-MVC-入口-（DispatcherServlet）" class="headerlink" title="Spring MVC 入口 （DispatcherServlet）"></a>Spring MVC 入口 （DispatcherServlet）</h3><h4 id="配置入口"><a href="#配置入口" class="headerlink" title="配置入口"></a>配置入口</h4><p><strong>配置<code>web.xml</code>文件，增加Spring MVC 调度Servlet入口，全称为：<code>org.springframework.web.servlte.DispatcherServlet</code>.如下配置：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class</span><br><span class="line">        org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">    &lt;/servlet-class&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;!-- map all requests to the DispatcherServlet --&gt;</span><br><span class="line">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>load-on-startup</code>元素是可选的，如果存在，在启动应用程序时，它会在加载Servlet并调用init()方法。如果不存，当第一次请求Servlet时被加载。</p>
+</blockquote>
+<h4 id="默认配置文件方式"><a href="#默认配置文件方式" class="headerlink" title="默认配置文件方式"></a>默认配置文件方式</h4><p><strong>当其调度 Servlet 将使用Spring MVC的许多默认组件，此外，在初始化时，它会寻找应用程序WEB_INF目录中的配置文件，XML文件的名称必须符合如下模式:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servletName-servlet.xml</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如果定义一个部署描述的Servlet，且名为为SringMVC,那么需要用SpringMVC-servlet.xml文件在应用程序WEB-INF目录下</p>
+<h4 id="自定义配置文件方式"><a href="#自定义配置文件方式" class="headerlink" title="自定义配置文件方式"></a>自定义配置文件方式</h4><p>同样，你可以告诉调度器servlet 在哪里找到Spring MVC配置文件。 您可以通过servlet声明，通过init-param元素做到这一点。如下修改默认名称和位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;</span><br><span class="line">        org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">    &lt;/servlet-class&gt;</span><br><span class="line">    &lt;init-param&gt;</span><br><span class="line">        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">        &lt;param-value&gt;/WEB-INF/config/simple-config.xml&lt;/param-value&gt;</span><br><span class="line">    &lt;/init-param&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">&lt;/servlet&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h3 id="控制器接口"><a href="#控制器接口" class="headerlink" title="控制器接口"></a>控制器接口</h3><h3 id="Spring-MVC-应用"><a href="#Spring-MVC-应用" class="headerlink" title="Spring MVC 应用"></a>Spring MVC 应用</h3><p><strong>如下演示如何构建一个Spring MVC 项目的详细步骤</strong></p>
+<h4 id="下载依赖"><a href="#下载依赖" class="headerlink" title="下载依赖"></a>下载依赖</h4><ul>
+<li>将如下依赖引入<code>WEB-INF\lib</code>目录下<ul>
+<li>spring-core</li>
+<li>spring-beans</li>
+<li>spring-context</li>
+<li>spring-expression</li>
+<li>spring-web</li>
+<li>spring-webmvc</li>
+<li>commons-looging</li>
+</ul>
+</li>
+<li>使用Maven构建项目<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;4.0.4.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>spring-webmvc</code> 会将相关依赖引入。</p>
+</blockquote>
+<h4 id="配置web-xml和Spring-MVC配置文件"><a href="#配置web-xml和Spring-MVC配置文件" class="headerlink" title="配置web.xml和Spring MVC配置文件"></a>配置web.xml和Spring MVC配置文件</h4><h5 id="配置-web-xml"><a href="#配置-web-xml" class="headerlink" title="配置 web.xml"></a>配置 web.xml</h5><p><strong>同上一样，部署描述文件(web.xml) 配置如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">    xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee </span><br><span class="line">http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class</span><br><span class="line">            org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;!-- map all requests to the DispatcherServlet --&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里，你告诉Servlet/JSP容器(应用程序)使用Spring MVC 调度servlet映射所有URL。（通过<code>url-pattern</code>元素设置为<code>\</code>）<br>而且，配置Spring MVC配置文件必须遵守约定（命名约定 + 将配置文件放置<code>/WEB-INF</code>目录中）。</p>
+</blockquote>
+<h5 id="配置Spring-MVC配置文件"><a href="#配置Spring-MVC配置文件" class="headerlink" title="配置Spring MVC配置文件"></a>配置Spring MVC配置文件</h5><p><strong>配置springmvc-servlet.xml 文件，如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">  http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line">       </span><br><span class="line">    &lt;bean name=&quot;/input-product&quot;</span><br><span class="line">        class=&quot;controller.InputProductController&quot;/&gt;</span><br><span class="line">    &lt;bean name=&quot;/save-product&quot; </span><br><span class="line">        class=&quot;controller.SaveProductController&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>在这里声明了两个控制器类，InputProductController 和 SaveProductController,映射路径为<code>/input-product</code> 和 <code>/save-product</code>。</p>
+</blockquote>
+<h4 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h4><p>InputProductController 和 SaveProductController 为两个<strong>旧式</strong>的控制器,通过实现<code>Controller</code>接口,返回视图模型,如下：</p>
+<blockquote>
+<p>之所以称为<code>旧式控制器</code>，是因为:这是spring2.5最初实现spring mvc 的方式。<br>现在大多数使用的控制器方式是基于注解的（Annotation-Based Controllers）。</p>
+</blockquote>
+<h5 id="InputProductController-类"><a href="#InputProductController-类" class="headerlink" title="InputProductController 类"></a>InputProductController 类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller;</span><br><span class="line"></span><br><span class="line">public class InputProductController implements Controller &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = LogFactory.getLog(InputProductController.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView handleRequest(HttpServletRequest request,</span><br><span class="line">            HttpServletResponse response) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;InputProductController called&quot;);</span><br><span class="line">        return new ModelAndView(&quot;/WEB-INF/jsp/ProductForm.jsp&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>InputProductController类中的handleRequest 方法返回一个ModelAndView对象，ModelAndView对象包含一个视图，不包含模型。这个实例，请求转发到<code>/WEB-INF/jsp/ProductForm.jsp</code>页面。</p>
+</blockquote>
+<h5 id="SaveProductController-类"><a href="#SaveProductController-类" class="headerlink" title="SaveProductController 类"></a>SaveProductController 类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller;</span><br><span class="line">import domain.Product;</span><br><span class="line">import form.ProductForm;</span><br><span class="line"></span><br><span class="line">public class SaveProductController implements Controller &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = LogFactory</span><br><span class="line">            .getLog(SaveProductController.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView handleRequest(HttpServletRequest request,</span><br><span class="line">            HttpServletResponse response) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;SaveProductController called&quot;);</span><br><span class="line">        ProductForm productForm = new ProductForm();</span><br><span class="line">        // populate action properties</span><br><span class="line">        productForm.setName(request.getParameter(&quot;name&quot;));</span><br><span class="line">        productForm.setDescription(request.getParameter(</span><br><span class="line">                &quot;description&quot;));</span><br><span class="line">        productForm.setPrice(request.getParameter(&quot;price&quot;));</span><br><span class="line"></span><br><span class="line">        // create model</span><br><span class="line">        Product product = new Product();</span><br><span class="line">        product.setName(productForm.getName());</span><br><span class="line">        product.setDescription(productForm.getDescription());</span><br><span class="line">        try &#123;</span><br><span class="line">            product.setPrice(</span><br><span class="line">                    Float.parseFloat(productForm.getPrice()));</span><br><span class="line">        &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // insert code to save Product</span><br><span class="line"></span><br><span class="line">        return new ModelAndView(&quot;/WEB-INF/jsp/ProductDetails.jsp&quot;, </span><br><span class="line">                &quot;product&quot;, product);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>SaveProductController类中handleRequest方法 创建一个ProductForm对象设置请求参数（request parameters）。<br>创建一个Product对象设置属性值。<br>【Spring MVC有更加方便的处理请求参数和处理Bean对象的方法，这里我们使用最原始的。】<br> 返回ModelAndView对象包含视图路径、模型名称、模型。返回视图结果。</p>
+</blockquote>
+<h4 id="视图-View"><a href="#视图-View" class="headerlink" title="视图 (View)"></a>视图 (View)</h4><blockquote>
+<p>通常会将JSP 页面存储在<code>/WEB-INF/</code>下面,防止外部直接访问。<br>这里包含两个JSP页面，ProductForm.jsp和ProductDetails.jsp</p>
+</blockquote>
+<h5 id="ProductForm-jsp-页面"><a href="#ProductForm-jsp-页面" class="headerlink" title="ProductForm.jsp 页面"></a>ProductForm.jsp 页面</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Add Product Form&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(css/main.css);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">&lt;form action=&quot;save-product&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    &lt;fieldset&gt;</span><br><span class="line">        &lt;legend&gt;Add a product&lt;/legend&gt;</span><br><span class="line">        &lt;label for=&quot;name&quot;&gt;Product Name: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; value=&quot;&quot; </span><br><span class="line">            tabindex=&quot;1&quot;&gt;</span><br><span class="line">        &lt;label for=&quot;description&quot;&gt;Description: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;description&quot; name=&quot;description&quot; </span><br><span class="line">            tabindex=&quot;2&quot;&gt;</span><br><span class="line">        &lt;label for=&quot;price&quot;&gt;Price: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;price&quot; name=&quot;price&quot; tabindex=&quot;3&quot;&gt;</span><br><span class="line">        &lt;div id=&quot;buttons&quot;&gt;</span><br><span class="line">            &lt;label for=&quot;dummy&quot;&gt; &lt;/label&gt;</span><br><span class="line">            &lt;input id=&quot;reset&quot; type=&quot;reset&quot; tabindex=&quot;4&quot;&gt;</span><br><span class="line">            &lt;input id=&quot;submit&quot; type=&quot;submit&quot; tabindex=&quot;5&quot; </span><br><span class="line">                value=&quot;Add Product&quot;&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/fieldset&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="ProductDetails-jsp-页面"><a href="#ProductDetails-jsp-页面" class="headerlink" title="ProductDetails.jsp 页面"></a>ProductDetails.jsp 页面</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Save Product&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(css/main.css);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">    &lt;h4&gt;The product has been saved.&lt;/h4&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">        &lt;h5&gt;Details:&lt;/h5&gt;</span><br><span class="line">        Product Name: $&#123;product.name&#125;&lt;br/&gt;</span><br><span class="line">        Description: $&#123;product.description&#125;&lt;br/&gt;</span><br><span class="line">        Price: $$&#123;product.price&#125;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ProductDetails.jsp 页面显示，通过EL表达式访问Product域模型对象。</p>
+</blockquote>
+<h5 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h5><p>在浏览器访问如下URL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/your-project-name/input-product</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>xxxx</p>
+</blockquote>
+<h5 id="视图解析器-View-Resolver"><a href="#视图解析器-View-Resolver" class="headerlink" title="视图解析器(View Resolver)"></a>视图解析器(View Resolver)</h5><p>在Spring MVC中视图解析器（View Resolver）负责视图解析映射。我们可以在配置文件中声明<code>viewResolver bean</code>，参考如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;viewResolver&quot; class=&quot;org.springframework.web.servlet.</span><br><span class="line">view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>View Resolver</code> 解决前缀和后缀问题<br>如上<code>View Resolver Bean</code>配置两个属性，<code>prefix (前缀)</code> 和 <code>suffix （后缀）</code>， 这样将缩短视图路径，而不需要再写全路径<code>/WEB-INF/jsp/myPage.jsp</code>，只需要写<code>myPage</code>。</p>
+</blockquote>
+<h4 id="修改项目"><a href="#修改项目" class="headerlink" title="修改项目"></a>修改项目</h4><p><strong>将Spring MVC 配置文件重命名为<code>springmvc-config.xml</code>,并移至<code>/WEB-INF/config</code>目录，我们需要告诉部署描述（web.xml）文件。如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">    xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee</span><br><span class="line">http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt;   </span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;</span><br><span class="line">            org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;</span><br><span class="line">                /WEB-INF/config/springmvc-config.xml</span><br><span class="line">            &lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>修改Spring MVC 配置文件，增加<code>View Resolver Bean</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">  http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean name=&quot;/input-product&quot; </span><br><span class="line">            class=&quot;controller.InputProductController&quot;/&gt;</span><br><span class="line">    &lt;bean name=&quot;/save-product&quot;  </span><br><span class="line">            class=&quot;controller.SaveProductController&quot;/&gt;</span><br><span class="line">    &lt;bean id=&quot;viewResolver&quot; </span><br><span class="line">            class=&quot;org.springframework.web.servlet.view.</span><br><span class="line">InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>通过如下访问应用程序</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/your-project-name/input-product</span><br></pre></td></tr></table></figure></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>介绍Spring MVC</li>
+<li>如何构建一个简单的Spring MVC Web 项目</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/05/11/2014/MyBatis Boostrap/" itemprop="url">
                   MyBatis Generator
                 </a>
@@ -2122,686 +2655,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/03/11/2014/Git 遇到的异常/" itemprop="url">
-                  Git 遇到的异常
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-03-11T22:53:00+08:00" content="2014-03-11">
-              2014-03-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Version-Control/" itemprop="url" rel="index">
-                    <span itemprop="name">Version Control</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Version-Control/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/03/11/2014/Git 遇到的异常/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/11/2014/Git 遇到的异常/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>更新于 ：2015-12-14 17:50:00</strong></p>
-<p><strong>总结 在使用Git 进行版本控制遇到错误及其相关解决方案，并持续更新</strong></p>
-<h2 id="1-Everything-is-update"><a href="#1-Everything-is-update" class="headerlink" title="1.Everything is update"></a>1.Everything is update</h2><h3 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>git push origin master 的时候出现Everything is update</strong></p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>使用git commit -am “xxxx”</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &quot;modify of part&quot;</span><br><span class="line">git origin master</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-Note-about-fast-forwards-rejected"><a href="#2-Note-about-fast-forwards-rejected" class="headerlink" title="2.Note about fast-forwards (! [rejected])"></a>2.Note about fast-forwards (! [rejected])</h2><h3 id="错误信息-1"><a href="#错误信息-1" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin hexo</span><br><span class="line">To git@github.com:cmp-cc/cmp-cc.github.io.git</span><br><span class="line"> ! [rejected]        hexo -&gt; hexo (fetch first)</span><br><span class="line">error: failed to push some refs to &apos;git@github.com:cmp-cc/cmp-cc.github.io.git&apos;</span><br><span class="line">hint: Updates were rejected because the remote contains work that you do</span><br><span class="line">hint: not have locally. This is usually caused by another repository pushing</span><br><span class="line">hint: to the same ref. You may want to first integrate the remote changes</span><br><span class="line">hint: (e.g., &apos;git pull ...&apos;) before pushing again.</span><br><span class="line">hint: See the &apos;Note about fast-forwards&apos; in &apos;git push --help&apos; for details.</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>一、使用强制push的方法 （不推荐）：</strong><br>这样会使远程修改丢失，一般是不可取的，尤其是多人协作开发的时候，单人协助无所谓。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master -f</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>二、老老实实的merge 分支。（推荐）</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>三、使用<code>git pull --rebase</code> 将本地与远程进行同步（等价于第二种）</strong><br><strong><code>git push --rebase</code> 的含义</strong></p>
-<ul>
-<li>把本地 repo. 从上次 pull 之后的变更暂存起來</li>
-<li>恢复到上次 pull 时的状态</li>
-<li>合并远端的变更到本地</li>
-<li>最后再合并刚刚暂存下來的本地变更</li>
-</ul>
-<h2 id="3-push之后不能访问文件-文件状态为灰色"><a href="#3-push之后不能访问文件-文件状态为灰色" class="headerlink" title="3.push之后不能访问文件(文件状态为灰色)"></a>3.push之后不能访问文件(文件状态为灰色)</h2><h3 id="错误信息-2"><a href="#错误信息-2" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>如下，处于不可打开状态，如果你把整个项目clone下来，你会发现文件为空</strong></p>
-<img src="/2014/03/11/2014/Git%20遇到的异常/4D44727A1CED48A6AF27443A6F1A36D7.png" alt="文件显示状态" title="文件显示状态">
-<h3 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h3><p>你可能需要了解一下<code>git submodule</code>的使用,就知道问题所在了。(git项目中的子目录存在一个git仓库)</p>
-<ul>
-<li>将子目录中的<code>.git</code>目录删掉</li>
-<li>删除子模块子目录</li>
-<li>再执行<code>git push</code> 操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached ./themes/next</span><br><span class="line">git add --all</span><br><span class="line">git commit -m &quot;delete child module&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>可参考：<a href="http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean" target="_blank" rel="external">http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean</a></p>
-<h2 id="pull没有更新（-See-git-pull-1-for-details-）"><a href="#pull没有更新（-See-git-pull-1-for-details-）" class="headerlink" title="pull没有更新（ See git-pull(1) for details ）"></a>pull没有更新（ See git-pull(1) for details ）</h2><h3 id="错误信息-3"><a href="#错误信息-3" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>这个算不上错误，问题是这样的：你有两个分支A 和 B。当前分支为B，你执行git pull 操作，他却pull了A而不是B</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br><span class="line">remote: Counting objects: 174, done.</span><br><span class="line">remote: Compressing objects: 100% (95/95), done.</span><br><span class="line">remote: Total 174 (delta 61), reused 0 (delta 0), pack-reused 0</span><br><span class="line">Receiving objects: 100% (174/174), 251.93 KiB | 206.00 KiB/s, done.</span><br><span class="line">Resolving deltas: 100% (61/61), done.</span><br><span class="line">   69cc25b..1b24763  master     -&gt; origin/master</span><br><span class="line">There is no tracking information for the current branch.</span><br><span class="line">Please specify which branch you want to merge with.</span><br><span class="line">See git-pull(1) for details</span><br><span class="line"></span><br><span class="line">    git pull &lt;remote&gt; &lt;branch&gt;</span><br><span class="line"></span><br><span class="line">If you wish to set tracking information for this branch you can do so with:</span><br><span class="line"></span><br><span class="line">    git branch --set-upstream-to=origin/&lt;branch&gt; stream</span><br></pre></td></tr></table></figure></p>
-<h3 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>进行本地分支和远程分支关联</strong><br><code>git branch --set-upstream-to=origin/&lt;branch&gt; master</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/stream stream</span><br></pre></td></tr></table></figure></p>
-<p>参考：<a href="http://www.tbdazhe.com/archives/238" target="_blank" rel="external">http://www.tbdazhe.com/archives/238</a></p>
-<h2 id="Unlink-of-file-‘xxx’-failed-Should-I-try-again"><a href="#Unlink-of-file-‘xxx’-failed-Should-I-try-again" class="headerlink" title="Unlink of file ‘xxx’ failed. Should I try again?"></a>Unlink of file ‘xxx’ failed. Should I try again?</h2><h3 id="错误信息-4"><a href="#错误信息-4" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">error: refusing to lose untracked file at &apos;stream/next/bower.json&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/_config.yml&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/README.md&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.jshintrc&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.javascript_ignore&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.hound.yml&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.gitignore&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.editorconfig&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.bowerrc&apos;</span><br><span class="line">Unlink of file &apos;stream/next&apos; failed. Should I try again? (y/n)</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案"></a>解决方案</h3><p>出现这种问题，通常意味这有一个进程仍在使用特定的文件，急需要关闭其它程序，然后在尝试执行<code>git pull</code></p>
-<p>参考：<a href="http://stackoverflow.com/questions/10181057/unlink-of-file-failed" target="_blank" rel="external">http://stackoverflow.com/questions/10181057/unlink-of-file-failed</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/01/03/2014/HTML5 语义化标签/" itemprop="url">
-                  HTML5 语义化标签
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-01-03T16:43:00+08:00" content="2014-01-03">
-              2014-01-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTML/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/01/03/2014/HTML5 语义化标签/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/03/2014/HTML5 语义化标签/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>前段时间看了一本《HTML5 实战》 ，也只是为了关注一下HTML5的发展和趋势。</p>
-<p>看的我头大，这本书只是做个了HTML5的介绍，算不上实战，很多例子含糊不清。</p>
-<p>HTML5 中新的语义化标签，还是让我眼前一亮。</p>
-<h2 id="HTML5-中的新特性"><a href="#HTML5-中的新特性" class="headerlink" title="HTML5 中的新特性"></a>HTML5 中的新特性</h2><p><strong>HTML5 中的核心特性，先记录一下,方便日后查阅</strong></p>
-<ul>
-<li>新的语义化标签</li>
-<li>表单与表单API</li>
-<li>Canvas API</li>
-<li>拖放 API</li>
-<li>地理位置 API</li>
-<li>WEB存储 API</li>
-<li>IndexedDB API</li>
-<li>文件</li>
-<li>通信API</li>
-<li>WEB workers API</li>
-<li>历史 API</li>
-<li>脱机 API</li>
-</ul>
-<h2 id="HTML5-语义化标签"><a href="#HTML5-语义化标签" class="headerlink" title="HTML5 语义化标签"></a>HTML5 语义化标签</h2><h3 id="HTML-结构语义"><a href="#HTML-结构语义" class="headerlink" title="HTML 结构语义"></a>HTML 结构语义</h3><p><strong>HTML 整体结构所需的标签语义</strong></p>
-<table>
-<thead>
-<tr>
-<th>标签</th>
-<th>语义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>header</td>
-<td>这个元素表示一组介绍性的内容，适用于文档的不同节，他既可以包含节标题，也可以包含索引、搜索表单、logo等</td>
-</tr>
-<tr>
-<td>nav</td>
-<td>这个元素表示包含导航链接的节，如菜单或索引，并非所有的网页链接都要加<nav>元素中，只有主要的导航块才需要加到元素中。</nav></td>
-</tr>
-<tr>
-<td>section</td>
-<td>这个元素表示文档中的普通的节，通常，它可用于创建多个内容块（如：列） 从而对具有特定主题的内容进行分组，如图书的章</td>
-</tr>
-<tr>
-<td>aside</td>
-<td>这个元素表示与内容相关但不属于它的内容，如：引用，边侧栏，广告</td>
-</tr>
-<tr>
-<td>footer</td>
-<td>这个元素表示与父级元素相关的额外信息。</td>
-</tr>
-<tr>
-<td>article</td>
-<td>这个元素表示重要信息的独立部分–例如，报纸上或博客中的文章，<article>可以嵌套，也可以用于在相关项列表中显示一个</article></td>
-</tr>
-<tr>
-<td>hgroup</td>
-<td>如果有多级标题，请使用。</td>
-</tr>
-<tr>
-<td>figure</td>
-<td>这个元素表示主内容引用内容独立部分(图像，图表，视频)，这个信息可以从主内容删除，而不会影响其常规流。</td>
-</tr>
-<tr>
-<td>figcaption</td>
-<td>这个元素可以用于显示表题，或者与figure 一起用，例如： 图形的描述信息。</td>
-</tr>
-<tr>
-<td>mark</td>
-<td>这个元素可以突出显示特殊情况下的重要文字，或者是对应的用户输入。</td>
-</tr>
-<tr>
-<td>small</td>
-<td>这个元素表示边侧评论，如附属细则(负责声明，法律限制，版权)</td>
-</tr>
-<tr>
-<td>cite</td>
-<td>这个元素可以用于显示作品标题(图书、电影、诗歌)</td>
-</tr>
-<tr>
-<td>address</td>
-<td>显示article或者整个文档的合同信息，且应该位于footer中。</td>
-</tr>
-<tr>
-<td>time</td>
-<td>显示人和机器可读的日期和时间。 datetime属性，pubdate表示出版日期</td>
-</tr>
-</tbody>
-</table>
-<h3 id="HTML-文档语义"><a href="#HTML-文档语义" class="headerlink" title="HTML 文档语义"></a>HTML 文档语义</h3><p><strong>HTML 作用于文本标签语义</strong></p>
-<table>
-<thead>
-<tr>
-<th>标签</th>
-<th>语义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>time</td>
-<td>定义日期或时间</td>
-</tr>
-<tr>
-<td>em</td>
-<td>强调</td>
-</tr>
-<tr>
-<td>strong</td>
-<td>重要</td>
-</tr>
-<tr>
-<td>small</td>
-<td>旁注</td>
-</tr>
-<tr>
-<td>cite</td>
-<td>作品引用 （标题）</td>
-</tr>
-<tr>
-<td>q</td>
-<td>引用</td>
-</tr>
-<tr>
-<td>dfn</td>
-<td>举例</td>
-</tr>
-<tr>
-<td>abbr</td>
-<td>缩写</td>
-</tr>
-<tr>
-<td>code</td>
-<td>计算机代码</td>
-</tr>
-<tr>
-<td>var</td>
-<td>变量</td>
-</tr>
-<tr>
-<td>samp</td>
-<td>计算机输出</td>
-</tr>
-<tr>
-<td>kbd</td>
-<td>用户输入</td>
-</tr>
-<tr>
-<td>sub</td>
-<td>下标</td>
-</tr>
-<tr>
-<td>sup</td>
-<td>上标</td>
-</tr>
-<tr>
-<td>i</td>
-<td>备选项 大部分用于发言、技术短语等情况。</td>
-</tr>
-<tr>
-<td>b</td>
-<td>关键字 表示在不增加额外重要性的同时将词或短语高亮显示</td>
-</tr>
-<tr>
-<td>mart</td>
-<td>高亮</td>
-</tr>
-<tr>
-<td>ruby、rb、rt、rp</td>
-<td>注释 [一种排版注释系统(位于横排文本上方的简短文字)]</td>
-</tr>
-<tr>
-<td>bdi</td>
-<td>文本方向间离</td>
-</tr>
-<tr>
-<td>bdo</td>
-<td>文本方向格式</td>
-</tr>
-<tr>
-<td>span</td>
-<td>其他</td>
-</tr>
-<tr>
-<td>br</td>
-<td>换行</td>
-</tr>
-<tr>
-<td>wbr</td>
-<td>可选折行 [长单词的破择号 (让浏览器决定是否换行)]</td>
-</tr>
-<tr>
-<td>h1 ~ h6</td>
-<td>一级标题 至 六级标题</td>
-</tr>
-<tr>
-<td>figure、figcaption</td>
-<td>figure 独立的流（图片、图像、图表）figcaption 标题</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/12/14/2013/贫血模型和充血模型/" itemprop="url">
-                  贫血模型和充血模型
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-12-14T16:53:00+08:00" content="2013-12-14">
-              2013-12-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming Language</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/12/14/2013/贫血模型和充血模型/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/12/14/2013/贫血模型和充血模型/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>大多数情况下，我忍不住赋予Model行为，但是我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己的理解：</p>
-<h2 id="模型-（Model）"><a href="#模型-（Model）" class="headerlink" title="模型 （Model）"></a>模型 （Model）</h2><ul>
-<li>无论是贫血模型还是充血模型，他们都符合POJO （也可以认为JavaBean）。<br><strong>Model包含属性的<code>get</code>、<code>set</code>方法</strong></li>
-<li>模型的本质充当数据容器（保存状态，传递状态）。<br><strong>模型是一种特殊的数据结构</strong></li>
-</ul>
-<h2 id="失血模型"><a href="#失血模型" class="headerlink" title="失血模型"></a>失血模型</h2><p><strong>失血模型就是POJO对象，模型仅仅包含数据的定义和getter/setter方法，业务逻辑和应用逻辑都放到服务层（Service）中。</strong> </p>
-<p>层次表示：</p>
-<blockquote>
-<p>UI(视图层) -&gt; Control(控制层) -&gt; Service（服务层） -&gt; DAO （持久化层） -&gt;domain object （领域对象 Model ）</p>
-</blockquote>
-<ul>
-<li>领域对象不具备任何行为（仅仅是一个POJO对象），所有的行为都在Service层。</li>
-<li>领域对象的作用。<ul>
-<li>充当数据容器。</li>
-<li>对象关系映射（ORM）</li>
-</ul>
-</li>
-<li>这种模型很容易理解和掌握。</li>
-<li>优点<ul>
-<li>层次结构清晰，单项依赖，易于维护。</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>Service 层挤压严重。（业务逻辑职责） </li>
-<li>部分与数据操作相关的行为，必须通过Service层进行修改。</li>
-</ul>
-</li>
-</ul>
-<h2 id="贫血模型"><a href="#贫血模型" class="headerlink" title="贫血模型"></a>贫血模型</h2><p><strong>贫血模型中包含了一些业务逻辑，但不包含依赖持久层的业务逻辑。这部分依赖于持久层的业务逻辑将会放到服务层中。</strong></p>
-<p>层次表示：</p>
-<blockquote>
-<p>UI(视图层) -&gt; Control(控制层) -&gt; Service（服务层） -&gt; DAO （持久化层） -&gt;domain object （Model）</p>
-</blockquote>
-<ul>
-<li>继承失血模型特性</li>
-<li>领域对象具备简单行为，如下特点。<ul>
-<li>行为不具备持久化特性。（不与数据库打交道，也就是不依赖于DAO层）</li>
-<li>具备与数据相关的业务行为。（部分Service行为 移至 Model）</li>
-</ul>
-</li>
-<li>同样与失血模型同样的痛处<ul>
-<li>系统越复杂，维护成本越高，Service层（业务逻辑）挤压严重。</li>
-</ul>
-</li>
-</ul>
-<h2 id="充血模型"><a href="#充血模型" class="headerlink" title="充血模型"></a>充血模型</h2><p>**充血模型中包含了所有的业务逻辑，包括依赖于持久层的业务逻辑。所以，使用充血模型的领域层是依赖于持久层。</p>
-<p>层次表示：</p>
-<blockquote>
-<p>UI -&gt; Control -&gt; Service -&gt; domain object &lt;–&gt; DAO</p>
-</blockquote>
-<ul>
-<li>Service 层被减轻，不和DAO打交道，只包含业务逻辑。</li>
-<li>领域对象 和 DAO 双向依赖。</li>
-<li>优点<ul>
-<li>减轻了Service层。</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>Service 将直接依赖于领域对象。 领域对象同样具备部分业务，可能会造成职责混乱，或者使领域对象不具备业务I行为</li>
-<li>领域对象与DAO双向依赖，部分职责容易混响。</li>
-</ul>
-</li>
-</ul>
-<h2 id="胀血模型"><a href="#胀血模型" class="headerlink" title="胀血模型"></a>胀血模型</h2><p><strong>胀血模型就是把和业务逻辑不想关的其他应用逻辑（如授权、事务等）都放到领域模型中。我感觉胀血模型反而是另外一种的失血模型，因为服务层消失了，领域层干了服务层的事，到头来还是什么都没变。</strong></p>
-<p>层次表示：</p>
-<blockquote>
-<p>UI -&gt; Control -&gt; domain object &lt;–&gt; DAO</p>
-</blockquote>
-<ul>
-<li>没有了服务层，领域对象包含所有业务逻辑，并双向依赖与持久化层。</li>
-<li>优点<ul>
-<li>分层极其简单</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>领域对象职责过多，挤压严重，极其不稳定，不易维护。</li>
-<li>控制层访问领域对象能够看到不必要的行为。</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>失血模型和胀血模型并不被提倡，主要原因：领域模型内聚职责过少，或者过多。<br>关于贫血模型和充血模型的选型，其实跟语言架构有关（Robin提出）：</p>
-<ul>
-<li>如果使用Spring，必须贫血模型。</li>
-<li>如果使用RoR，直接充血模型。</li>
-</ul>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://blog.csdn.net/always_my_fault/article/details/2063612" target="_blank" rel="external">http://blog.csdn.net/always_my_fault/article/details/2063612</a><br><a href="http://www.oschina.net/question/54100_10400" target="_blank" rel="external">http://www.oschina.net/question/54100_10400</a><br><a href="http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml" target="_blank" rel="external">http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2847,7 +2700,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2855,7 +2708,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2864,7 +2717,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

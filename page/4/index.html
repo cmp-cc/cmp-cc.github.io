@@ -228,6 +228,487 @@
             
               
                 
+                <a class="post-title-link" href="/2014/11/28/2014/Linux sftp 进行文件传输/" itemprop="url">
+                  Linux sftp 进行文件传输
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-11-28T20:32:00+08:00" content="2014-11-28">
+              2014-11-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/11/28/2014/Linux sftp 进行文件传输/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/28/2014/Linux sftp 进行文件传输/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。</p>
+<p>Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。</p>
+<p>这里介绍 sftp 进行文件传输， 我习惯使用SecureCRT（SSH终端仿真程序）进行sftp操作。</p>
+<p>同样，你可以使用rs、sz 进行文件传输，它只作用于单文件传输。</p>
+<h2 id="sftp-基础命令"><a href="#sftp-基础命令" class="headerlink" title="sftp 基础命令"></a>sftp 基础命令</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ascii</td>
+<td>Set transfer mode to ASCII</td>
+</tr>
+<tr>
+<td>binary</td>
+<td>Set transfer mode to binary</td>
+</tr>
+<tr>
+<td>cd path</td>
+<td>更改远程目录到”路径”</td>
+</tr>
+<tr>
+<td>detail remote-path</td>
+<td>显示系统信息关于远程文件或文件夹</td>
+</tr>
+<tr>
+<td>ldetail local-path</td>
+<td>显示系统信息关于本地文件或文件夹</td>
+</tr>
+<tr>
+<td>lcd path</td>
+<td>更改本地目录到”路径” </td>
+</tr>
+<tr>
+<td>chgrp group path</td>
+<td>将文件”path”的权限更改为”mode” </td>
+</tr>
+<tr>
+<td>chmod mode path</td>
+<td>将文件”path”的权限更改为”mode” </td>
+</tr>
+<tr>
+<td>chown owner path</td>
+<td>将文件”path”的属主更改为”owner” </td>
+</tr>
+<tr>
+<td>exit</td>
+<td>退出 sftp </td>
+</tr>
+<tr>
+<td>help</td>
+<td>显示帮助文本</td>
+</tr>
+<tr>
+<td>include filename</td>
+<td>Include commands from ‘filename’ Alternate: &lt; filename</td>
+</tr>
+<tr>
+<td>get [-a l -b] remote-path</td>
+<td>Download file force ascii (-a) or binary (-b) mode 下载文件</td>
+</tr>
+<tr>
+<td>ln [-s] existingpath linkpath</td>
+<td>Hardlink / symlink remote file</td>
+</tr>
+<tr>
+<td>ls [options] [path]</td>
+<td>符号链接远程文件 </td>
+</tr>
+<tr>
+<td>lls [options] [path]</td>
+<td>显示本地目录列表 </td>
+</tr>
+<tr>
+<td>mkdir path</td>
+<td>创建远程目录 </td>
+</tr>
+<tr>
+<td>lmkdir path</td>
+<td>创建本地目录</td>
+</tr>
+<tr>
+<td>mv oldpath newpath</td>
+<td>移动远程文件</td>
+</tr>
+<tr>
+<td>open [user@]host[:port]</td>
+<td>连接到远程主机</td>
+</tr>
+<tr>
+<td>put [-a l -b] local-path</td>
+<td>Upload file force ascii (-a) or binary (-b) mode 上传文件</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>打印本地工作目录</td>
+</tr>
+<tr>
+<td>lpwd</td>
+<td>打印本地工作目录</td>
+</tr>
+<tr>
+<td>quit</td>
+<td>退出 sftp</td>
+</tr>
+<tr>
+<td>rmdir path</td>
+<td>移除远程目录</td>
+</tr>
+<tr>
+<td>lrmdir path</td>
+<td>移除本地目录 </td>
+</tr>
+<tr>
+<td>rm path</td>
+<td>删除远程文件</td>
+</tr>
+<tr>
+<td>lrm path</td>
+<td>删除本地文件</td>
+</tr>
+<tr>
+<td>su username</td>
+<td>Substitutes the current user This is only supported with VShell for Windows 3.5 or later.</td>
+</tr>
+<tr>
+<td>type [transfer-mode]</td>
+<td>Display or set file transfer mode</td>
+</tr>
+<tr>
+<td>view remote-path</td>
+<td>Download and open file</td>
+</tr>
+<tr>
+<td>version</td>
+<td>显示协议版本</td>
+</tr>
+</tbody>
+</table>
+<h2 id="进入sftp-模式"><a href="#进入sftp-模式" class="headerlink" title="进入sftp 模式"></a>进入sftp 模式</h2><ul>
+<li>命令行模式下输入 ：<code>sftp 用户名@IP地址</code> ， 然后会提示你输入密码</li>
+<li>如果是SecureCRT。 <code>Alt+p</code> 或者 <code>File -&gt; 链接sftp</code></li>
+</ul>
+<h2 id="sftp-基本使用"><a href="#sftp-基本使用" class="headerlink" title="sftp 基本使用"></a>sftp 基本使用</h2><p>sftp主要是用来传输文件的，所以我们主要使用两个命令。</p>
+<blockquote>
+<p>提示 </p>
+<h3 id="文件上传-（从本机到远程主机）"><a href="#文件上传-（从本机到远程主机）" class="headerlink" title="文件上传 （从本机到远程主机）"></a>文件上传 （从本机到远程主机）</h3></blockquote>
+<p><strong>使用 put [-Ppr] local [remote]</strong></p>
+<p><strong>实例1： 上传单个文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 查看Window 当前目录</span><br><span class="line">sftp&gt; lpwd</span><br><span class="line">C:/Users/root/Documents</span><br><span class="line"></span><br><span class="line">// 切换Window 上传目录</span><br><span class="line">sftp&gt; lcd d:/temp </span><br><span class="line">// 查看roles.csv文件</span><br><span class="line">sftp&gt; lls -l</span><br><span class="line"> Oct 23, 2014 14:30 </span><br><span class="line"> Oct 21, 2014 11:21 actors.csv</span><br><span class="line"> Nov 10, 2014 11:01 ali</span><br><span class="line"> Oct 21, 2014 11:19 movies.csv</span><br><span class="line"> Jan 14, 2014 16:56 neo4j</span><br><span class="line"> Oct 28, 2014 17:40 package.json</span><br><span class="line"> Oct 21, 2014 11:21 roles.csv</span><br><span class="line"> Nov 30, 2014 20:54 TV.war</span><br><span class="line"> // 查看当前终端路径</span><br><span class="line">sftp&gt; pwd                </span><br><span class="line">/usr/local/program/server_tool/apache-tomcat-7.0.32/webapps</span><br><span class="line"></span><br><span class="line">// 切换到上传路径</span><br><span class="line">sftp&gt; cd ~</span><br><span class="line">sftp&gt; pwd</span><br><span class="line">/home/centos</span><br><span class="line"></span><br><span class="line">// 使用put 进行文件上传</span><br><span class="line">sftp&gt; put roles.csv ./</span><br><span class="line">Uploading roles.csv to /home/centos/roles.csv</span><br><span class="line">Skipping directory d:/temp</span><br><span class="line">  100% 367 bytes    367 bytes/s 00:00:00     </span><br><span class="line">d:/temp/roles.csv: 367 bytes transferred in 0 seconds (367 bytes/s)</span><br><span class="line"></span><br><span class="line">// 查看，ok 成功的。</span><br><span class="line">sftp&gt; ls</span><br><span class="line">roles.csv</span><br></pre></td></tr></table></figure></p>
+<p><strong>实例2： 上传文件目录</strong><br><code>put -r 目录名称 目录名称</code> <code>-r</code> 表示文件夹。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 很简单，参考实例1。 默认上传当前路径</span><br><span class="line">put -r download/</span><br></pre></td></tr></table></figure></p>
+<p><strong>实例3： 上传所有文件</strong></p>
+<ul>
+<li><p>上传当前所有文件 到 远程目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put *</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上传当前所有文件及其文件夹 到 远程目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put -r *</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="文件下载-从远程主机到本机"><a href="#文件下载-从远程主机到本机" class="headerlink" title="文件下载(从远程主机到本机)"></a>文件下载(从远程主机到本机)</h3><p><strong>使用 get [-Ppr] remote [local]</strong></p>
+<p><strong>关于get (文件下载)说明和实例 略。   参考put (文件上传) 。 两则异曲同工</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/11/07/2014/Linux 开发环境安装指南/" itemprop="url">
+                  Linux 开发环境安装指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-11-07T16:53:00+08:00" content="2014-11-07">
+              2014-11-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/11/07/2014/Linux 开发环境安装指南/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/07/2014/Linux 开发环境安装指南/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>我的Linux (Centos)开发、应用部署环境，持续更新</strong><br><strong>更新：2016-04-27 </strong></p>
+<h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><p><strong>如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）</strong><br><strong>详细安装步骤参考：<code>tar.gz 格式</code>安装 </strong></p>
+<h3 id="tar-gz-格式安装"><a href="#tar-gz-格式安装" class="headerlink" title="tar.gz 格式安装"></a><code>tar.gz 格式</code>安装</h3><ul>
+<li>查看Linux 自带的JDK是否安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<img src="/2014/11/07/2014/Linux%20开发环境安装指南/596f24a9-b58f-40e3-b02c-6cfdf4c58dab.png" alt="已安装OpenJDK7 运行环境，但没有编译环境" title="已安装OpenJDK7 运行环境，但没有编译环境">
+<ul>
+<li>卸载自带JDK<ul>
+<li>查看相关依赖<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep java</span><br><span class="line"></span><br><span class="line">或则</span><br><span class="line"></span><br><span class="line">rmp -qa |grep jdk</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+ <img src="/2014/11/07/2014/Linux%20开发环境安装指南/2310dfba-98e6-478a-890e-11291c66f2d1.png" alt="已安装OpenJDK7的相关依赖" title="已安装OpenJDK7的相关依赖">
+<ul>
+<li>卸载<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -e --nodeps java-1.7.0-openjdk-1.7.0.75-2.5.4.2.el7_0.x86_64</span><br><span class="line">rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.75-2.5.4.2.el7_0.x86_64</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>下载JDK1.8<br>在Oracle 选择合适的版本，进行JDK安装，这里更新至JDK1.8<br><strong>Oracle官网上下载jdk，需要点击accept licence的才能下载，使用下面的命令，直接可以下载。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate --no-cookies --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压<br>-C 表示解压路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf jdk-8u73-linux-x64.tar.gz -C /usr/local/jdk/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>环境变量配置</p>
+</li>
+<li><p>修改 <code>/etc/profile</code>文件,添加如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line">//添加如下</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/usr/local/jdk/jdk1.8.0_73</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:.</span><br><span class="line"></span><br><span class="line">PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line"></span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新加载配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="rpm-格式安装JDK"><a href="#rpm-格式安装JDK" class="headerlink" title="rpm 格式安装JDK"></a>rpm 格式安装JDK</h3><ul>
+<li>下载<code>jdk-xxx-linux-x64.rmp</code></li>
+<li><code>rpm -ivh</code> 命令安装 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# rpm -ivh jdk-8u60-linux-x64.rpm </span><br><span class="line">Preparing...                ########################################### [100%]</span><br><span class="line">   1:jdk1.8.0_60            ########################################### [100%]</span><br><span class="line">Unpacking JAR files...</span><br><span class="line">        tools.jar...</span><br><span class="line">        plugin.jar...</span><br><span class="line">        javaws.jar...</span><br><span class="line">        deploy.jar...</span><br><span class="line">        rt.jar...</span><br><span class="line">        jsse.jar...</span><br><span class="line">        charsets.jar...</span><br><span class="line">        localedata.jar...</span><br><span class="line">        jfxrt.jar...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>默认安装的路径为:<code>/usr/java/</code><br>它会自动配置环境、并覆盖当前Java环境。</p>
+</blockquote>
+<h3 id="yum-安装JDK"><a href="#yum-安装JDK" class="headerlink" title="yum 安装JDK"></a>yum 安装JDK</h3><ul>
+<li><code>yum search java</code> (选择一个penJDK版本)</li>
+<li><code>yum install xxxx</code> (安装OpenJDK)<blockquote>
+<p>是的，通过<code>yum</code>安装，你只能使用OpenJDK</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="安装-Mysql-5-7-11"><a href="#安装-Mysql-5-7-11" class="headerlink" title="安装 Mysql 5.7.11"></a>安装 Mysql 5.7.11</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><strong>这里更新至最新版Mysql5.7.11 源码(这里采用编译安装)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.11.tar.gz</span><br></pre></td></tr></table></figure></p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf mysql-5.7.11.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="安装必要的包"><a href="#安装必要的包" class="headerlink" title="安装必要的包"></a>安装必要的包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper</span><br></pre></td></tr></table></figure>
+<h3 id="安装Boost"><a href="#安装Boost" class="headerlink" title="安装Boost"></a>安装Boost</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://jaist.dl.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.zip unzip boost_1_59_0.zip</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">unzip boost_1_59_0.zip </span><br><span class="line">cd boost_1_59_0 </span><br><span class="line">./bootstrap.sh  </span><br><span class="line">./b2 </span><br><span class="line">./b2 install</span><br></pre></td></tr></table></figure>
+<h3 id="生成makefile-和-编译"><a href="#生成makefile-和-编译" class="headerlink" title="生成makefile 和 编译"></a>生成makefile 和 编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd mysql-5.7.11</span><br><span class="line">// 生成makefile</span><br><span class="line">cmake .</span><br><span class="line">// 编译</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br><span class="line"></span><br><span class="line">// mysql 将会安装到/usr/local/mysql路径</span><br></pre></td></tr></table></figure>
+<h3 id="添加mysql用户和组"><a href="#添加mysql用户和组" class="headerlink" title="添加mysql用户和组"></a>添加mysql用户和组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//创建mysql 组</span><br><span class="line">sudo groupadd mysql</span><br><span class="line">// 创建mysql用户 所属组为mysql</span><br><span class="line">sudo useradd -r -g mysql mysql</span><br></pre></td></tr></table></figure>
+<h3 id="修改目录和文件权限，安装默认数据库"><a href="#修改目录和文件权限，安装默认数据库" class="headerlink" title="修改目录和文件权限，安装默认数据库"></a>修改目录和文件权限，安装默认数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R mysql.</span><br><span class="line">sudo chgrp -R mysql.</span><br><span class="line">bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data</span><br><span class="line">bin/mysql_ssl_rsa_setup </span><br><span class="line">sudo chown -R root .</span><br><span class="line">sudo chown -R mysql data</span><br></pre></td></tr></table></figure>
+<h3 id="创建-etc-my-cnf文件"><a href="#创建-etc-my-cnf文件" class="headerlink" title="创建/etc/my.cnf文件"></a>创建/etc/my.cnf文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf</span><br><span class="line">vi /etc/my.cnf</span><br><span class="line">// 增加如下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server_id = 1</span><br><span class="line">#binary log</span><br><span class="line">log-bin = mysql-bin</span><br><span class="line">binlog_format = mixed</span><br><span class="line"># expire_logs_day = 30</span><br><span class="line">#slow query log</span><br><span class="line">slow_query_log = 1</span><br><span class="line">slow_query_log_file = /var/log/mysql/slow.log</span><br><span class="line">long_query_time = 3</span><br><span class="line">log-queries-not-using-indexes</span><br><span class="line">log-slow-admin-statements</span><br><span class="line"># 这里忽略密码了，重设密码后，应当删除</span><br><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
+<h3 id="复制mysql服务启动脚本并加入PATH路径"><a href="#复制mysql服务启动脚本并加入PATH路径" class="headerlink" title="复制mysql服务启动脚本并加入PATH路径"></a>复制mysql服务启动脚本并加入PATH路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">vim /etc/profile</span><br><span class="line">// 添加如下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH:.</span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<h3 id="启动Mysql-并加入开机自动启动"><a href="#启动Mysql-并加入开机自动启动" class="headerlink" title="启动Mysql 并加入开机自动启动"></a>启动Mysql 并加入开机自动启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start </span><br><span class="line">chkconfig --level 35 mysqld on</span><br></pre></td></tr></table></figure>
+<h3 id="重设密码"><a href="#重设密码" class="headerlink" title="重设密码"></a>重设密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot</span><br><span class="line"></span><br><span class="line">//选择数据库</span><br><span class="line">use mysql</span><br><span class="line">// 设置密码。 5.7 相比5.5 user表中password字段改为authentication_string。如下</span><br><span class="line">update user set authentication_string=PASSWORD(&apos;123456&apos;) where user=&apos;root&apos; and host=&apos;localhost&apos;;</span><br><span class="line">//更新权限表</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/10/24/2014/验证码kaptcha的应用/" itemprop="url">
                   验证码kaptcha在Web项目中应用
                 </a>
@@ -492,6 +973,8 @@
 <li>引入<a href="http://mvnrepository.com/artifact/com.paypal.sdk/paypal-core" target="_blank" rel="external">PayPal Core</a> 到<code>WEB-INF\lib</code> 或Maven依赖。</li>
 <li>参考：<br><code>http://stackoverflow.com/questions/18404916/failed-to-start-component-standardenginecatalina-standardhostlocalhost-stan</code></li>
 </ul>
+<h2 id="VerifyError"><a href="#VerifyError" class="headerlink" title="VerifyError"></a>VerifyError</h2><h3 id="错误详情"><a href="#错误详情" class="headerlink" title="错误详情"></a>错误详情</h3><p>本地使用jetty 运行，进行数据访问是ok的。  部署到服务器（tomcat）中出现如下异常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">java.lang.VerifyError: (class: org/jboss/netty/channel/socket/nio/NioWorkerPool, method: newWorker signature: (Ljava/util/concurrent/Executor;)Lorg/jboss/netty/channel/socket/nio/AbstractNioWorker;) Wrong return type in function</span><br><span class="line">	org.elasticsearch.transport.netty.NettyTransport.createClientBootstrap(NettyTransport.java:349)</span><br><span class="line">	org.elasticsearch.transport.netty.NettyTransport.doStart(NettyTransport.java:277)</span><br><span class="line">	org.elasticsearch.common.component.AbstractLifecycleComponent.start(AbstractLifecycleComponent.java:68)</span><br><span class="line">	org.elasticsearch.transport.TransportService.doStart(TransportService.java:170)</span><br><span class="line">	org.elasticsearch.common.component.AbstractLifecycleComponent.start(AbstractLifecycleComponent.java:68)</span><br><span class="line">	org.elasticsearch.client.transport.TransportClient$Builder.build(TransportClient.java:159)</span><br><span class="line">	com.EsUtil.SecObjectFactory_814.makeObject(SecObjectFactory_814.java:49)</span><br><span class="line">	org.apache.commons.pool.impl.GenericObjectPool.addObject(GenericObjectPool.java:1691)</span><br><span class="line">	com.EsUtil.ESconnectionPool_814.addObject(ESconnectionPool_814.java:47)</span><br><span class="line">	com.EsUtil.ESconnectionPool_814.&lt;init&gt;(ESconnectionPool_814.java:32)</span><br><span class="line">	com.EsUtil.ESUtil.&lt;clinit&gt;(ESUtil.java:14)</span><br><span class="line">	com.action.SimilarAction.&lt;init&gt;(SimilarAction.java:79)</span><br><span class="line">	sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)</span><br><span class="line">	sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</span><br><span class="line">	java.lang.reflect.Constructor.newInstance(Constructor.java:422)</span><br><span class="line">	java.lang.Class.newInstance(Class.java:442)</span><br></pre></td></tr></table></figure></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>设置Tomcat JVM 启动参数.<code>vi /bin/catalina.sh</code> 添加如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_OPTS=&quot;-XX:-UseSplitVerifier&quot;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -689,7 +1172,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/07/15/FreeMarker Web集成/" itemprop="url">
+                <a class="post-title-link" href="/2014/07/15/2014/FreeMarker Web集成/" itemprop="url">
                   FreeMarker Web集成
                 </a>
               
@@ -745,8 +1228,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/07/15/FreeMarker Web集成/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/15/FreeMarker Web集成/" itemprop="commentsCount"></span>
+                <a href="/2014/07/15/2014/FreeMarker Web集成/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/15/2014/FreeMarker Web集成/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -788,7 +1271,7 @@
 <li><p>目录基本结构</p>
 </li>
 </ul>
-<img src="/2014/07/15/FreeMarker%20Web集成/dce51fbe-0642-47b6-b35a-b5024d288632.png" alt="目录结构" title="目录结构">
+<img src="/2014/07/15/2014/FreeMarker%20Web集成/dce51fbe-0642-47b6-b35a-b5024d288632.png" alt="目录结构" title="目录结构">
 <ul>
 <li><p>配置 <code>web.xml</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span><br><span class="line">    version=&quot;3.0&quot;&gt;</span><br><span class="line">    &lt;welcome-file-list&gt;</span><br><span class="line">        &lt;welcome-file&gt;index.html&lt;/welcome-file&gt;</span><br><span class="line">    &lt;/welcome-file-list&gt;</span><br><span class="line">    &lt;!-- FREEMARKER SERVLET CONFIGURATION --&gt;</span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;freemarker&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;</span><br><span class="line">            freemarker.ext.servlet.FreemarkerServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;TemplatePath&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;/WEB-INF/freemarker&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;NoCache&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;ContentType&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;text/html; charset=UTF-8&lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;freemarker&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;*.ftl&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;HelloFreemarkerServlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;org.freecode.ftl.HelloFreemarkerServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;HelloFreemarkerServlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/HelloFreemarkerServlet&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
@@ -796,7 +1279,7 @@
 <li><p>目录基本结构</p>
 </li>
 </ul>
-<img src="/2014/07/15/FreeMarker%20Web集成/c1b083f7-d483-4112-a1a3-14c638c358be.png" alt="目录结构" title="目录结构">
+<img src="/2014/07/15/2014/FreeMarker%20Web集成/c1b083f7-d483-4112-a1a3-14c638c358be.png" alt="目录结构" title="目录结构">
 <ul>
 <li><p>创建一个控制器 <code>HelloFreemarkerServlet</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">public class HelloFreemarkerServlet extends HttpServlet &#123;</span><br><span class="line">  private static final long serialVersionUID = 1L;</span><br><span class="line">  </span><br><span class="line">  @Override</span><br><span class="line">  protected void service(HttpServletRequest request,  HttpServletResponse response)</span><br><span class="line">  throws ServletException, IOException &#123;</span><br><span class="line">    // Populated model in request attributes</span><br><span class="line">    request.setAttribute(&quot;message&quot;, request.getParameter(&quot;message&quot;));</span><br><span class="line">    // Dispatch to Freemarker Servlet</span><br><span class="line">    request.getRequestDispatcher(&quot;hello.ftl&quot;).forward(request, response);    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -877,7 +1360,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/07/15/Spring MVC 文件上传/" itemprop="url">
+                <a class="post-title-link" href="/2014/07/15/2014/Spring MVC 文件上传/" itemprop="url">
                   Spring MVC 文件上传
                 </a>
               
@@ -902,8 +1385,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/07/15/Spring MVC 文件上传/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/15/Spring MVC 文件上传/" itemprop="commentsCount"></span>
+                <a href="/2014/07/15/2014/Spring MVC 文件上传/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/15/2014/Spring MVC 文件上传/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1086,7 +1569,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/07/14/Spring MVC 基于注解的控制器/" itemprop="url">
+                <a class="post-title-link" href="/2014/07/14/2014/Spring MVC 基于注解的控制器/" itemprop="url">
                   Spring MVC 基于注解的控制器
                 </a>
               
@@ -1142,8 +1625,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/07/14/Spring MVC 基于注解的控制器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/14/Spring MVC 基于注解的控制器/" itemprop="commentsCount"></span>
+                <a href="/2014/07/14/2014/Spring MVC 基于注解的控制器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/14/2014/Spring MVC 基于注解的控制器/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1365,7 +1848,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/07/07/FreeMarker入门/" itemprop="url">
+                <a class="post-title-link" href="/2014/07/07/2014/FreeMarker入门/" itemprop="url">
                   FreeMarker入门
                 </a>
               
@@ -1421,8 +1904,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/07/07/FreeMarker入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/07/FreeMarker入门/" itemprop="commentsCount"></span>
+                <a href="/2014/07/07/2014/FreeMarker入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/07/2014/FreeMarker入门/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1545,8 +2028,8 @@
             
               
                 
-                <a class="post-title-link" href="/2014/06/13/2014/Linux 时间同步/" itemprop="url">
-                  Linux 时间同步
+                <a class="post-title-link" href="/2014/06/28/2014/Spring MVC 数据绑定/" itemprop="url">
+                  Spring MVC 数据绑定
                 </a>
               
             
@@ -1559,326 +2042,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-06-13T19:00:00+08:00" content="2014-06-13">
-              2014-06-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/Work-Efficiency/" itemprop="url" rel="index">
-                    <span itemprop="name">Work Efficiency</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/06/13/2014/Linux 时间同步/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/13/2014/Linux 时间同步/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>我们需要使用到时间同步服务器，来保证Linux时间为北京时间,这一点非常重要，尤其是服务器不在国内的情况。</p>
-<ul>
-<li>使用<code>date</code>命令查看Linux系统的当前时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 17:43:52 CST 2014</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>可以通过<code>date -s</code> 修改时间或者日期</p>
-</blockquote>
-<h2 id="Linux-同步时区"><a href="#Linux-同步时区" class="headerlink" title="Linux 同步时区"></a>Linux 同步时区</h2><ul>
-<li>删除本地时间</li>
-<li>软连接为北京时间</li>
-<li>查看当前时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# rm -rf /etc/localtime </span><br><span class="line">[root@salt ~]# ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 17:50:11 CST 2014</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>这里没有任何变化，因为Linux 默认当前时间为CST时间而不是EDT，如果在国外，通过如下方法改为<code>北京时间</code></p>
-</blockquote>
-<h2 id="Linux-时间同步"><a href="#Linux-时间同步" class="headerlink" title="Linux 时间同步"></a>Linux 时间同步</h2><p>Linux 时间，有时候莫名其妙与当前时间相差几个小时。 如果是Linux 集群，就会造成时间混乱，非常严重 。使用时间服务器同步Linux 时间。</p>
-<ul>
-<li>安装<code>ntpdate</code> 时间同步服务器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ntpdate ntp</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<ul>
-<li><p>设置 <code>ntpdate</code></p>
-<ul>
-<li><p><code>vi /etc/ntp.conf</code> 增加如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server 210.72.145.44</span><br><span class="line">server cn.pool.ntp.org</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>vi /etc/ntp/step-tickers</code> 加入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">210.72.145.44</span><br><span class="line">cn.pool.ntp.org</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li>启动<code>ntpdate</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service ntpdate start</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# service ntp start</span><br><span class="line">ntp: unrecognized service</span><br><span class="line">[root@salt ~]# service ntpdate start</span><br><span class="line">ntpdate: Synchronizing with time server: [  OK  ]</span><br><span class="line">[root@salt ~]# date</span><br><span class="line">Mon Jun 13 18:49:34 CST 2014</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>查看时间同步服务器地址 : <a href="http://www.pool.ntp.org/zone/asia" target="_blank" rel="external">http://www.pool.ntp.org/zone/asia</a> (cn.pool.ntp.org)<br>查看中国授时中心:<a href="http://zqscm.qiniucdn.com/data/20101229110057/index.html" target="_blank" rel="external">http://zqscm.qiniucdn.com/data/20101229110057/index.html</a>   (210.72.145.44)</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/06/11/2014/Spring 集成druid数据源/" itemprop="url">
-                  Spring 集成druid数据源
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-06-11T00:53:00+08:00" content="2014-06-11">
-              2014-06-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaWeb</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/06/11/2014/Spring 集成druid数据源/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/11/2014/Spring 集成druid数据源/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Druid 是Alibaba的一个数据库连接池，相比Druid 相比C3p0 或 DBCP 更加高效，Druid的常规配置可参考如下。</p>
-<ul>
-<li><p>pom.xml 引入<code>druid</code></p>
-</li>
-<li><p>Spring Bean.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> &lt;bean name=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot; init-method=&quot;init&quot; destroy-method=&quot;close&quot;&gt;</span><br><span class="line">     &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc_url&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc_username&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc_password&#125;&quot; /&gt;</span><br><span class="line"> </span><br><span class="line">     &lt;property name=&quot;initialSize&quot; value=&quot;0&quot; /&gt;        </span><br><span class="line">     &lt;property name=&quot;maxActive&quot; value=&quot;20&quot; /&gt;    </span><br><span class="line">     &lt;property name=&quot;maxIdle&quot; value=&quot;20&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;minIdle&quot; value=&quot;0&quot; /&gt;        </span><br><span class="line">     &lt;property name=&quot;maxWait&quot; value=&quot;60000&quot; /&gt;</span><br><span class="line">     </span><br><span class="line">     &lt;property name=&quot;validationQuery&quot; value=&quot;$&#123;validationQuery&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testOnBorrow&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testOnReturn&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testWhileIdle&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;timeBetweenEvictionRunsMillis&quot; value=&quot;60000&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;minEvictableIdleTimeMillis&quot; value=&quot;25200000&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;removeAbandoned&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;removeAbandonedTimeout&quot; value=&quot;1800&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;logAbandoned&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;filters&quot; value=&quot;mergeStat&quot; /&gt;</span><br><span class="line"> &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">     &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line"> &lt;/bean&gt;  </span><br><span class="line"></span><br><span class="line">&lt;context:property-placeholder location=&quot;classpath:config.properties&quot; /&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>config.properties</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jdbc_url=jdbc:oracle:druid_test:@localhost:1521:orcl</span><br><span class="line">jdbc_username=root</span><br><span class="line">jdbc_password=123456</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/06/10/Spring MVC 入门/" itemprop="url">
-                  Spring MVC 入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-06-10T16:53:00+08:00" content="2014-06-10">
-              2014-06-10
+            <time itemprop="dateCreated" datetime="2014-06-28T16:53:00+08:00" content="2014-06-28">
+              2014-06-28
             </time>
           </span>
 
@@ -1919,8 +2084,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/06/10/Spring MVC 入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/10/Spring MVC 入门/" itemprop="commentsCount"></span>
+                <a href="/2014/06/28/2014/Spring MVC 数据绑定/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/28/2014/Spring MVC 数据绑定/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1944,94 +2109,26 @@
       
         
           
-            <p>Struts2 用的人越来越少了呀~~~  Spring MVC的设计更加超前，使用也更加便利。</p>
-<h2 id="Spring-MVC-简介"><a href="#Spring-MVC-简介" class="headerlink" title="Spring MVC 简介"></a>Spring MVC 简介</h2><ul>
-<li>Spring MVC 是Spring Framework 中用于快速开发Web应用程序的一个模块。</li>
-<li>采用MVC设计模式（模型-视图-控制器）。</li>
-</ul>
-<h2 id="Spring-优势"><a href="#Spring-优势" class="headerlink" title="Spring 优势"></a>Spring 优势</h2><ul>
-<li>Spring MVC 采用调用Servlet中一个控制方法，控制转发到一个视图。（你不必编写多个Servlet。）</li>
-<li>Spring MVC 实例化控制器类，并自动填充用户输入bean。（不需要配置XML映射、不需要使用request.paremxxx 获取请求信息）</li>
-<li>Spring MVC 重新编辑XML配置文件，不需要重新编译或重启应用程序。</li>
-<li>Spring MVC 自动绑定正确类型的用户输入信息。eg：Spring MVC可以自动解析字符串并设置float类型或double 类型。</li>
-<li>Spring MVC 可以验证用户输入，如果输入失败可以重定向表单。可以使用声明和编码的方式。Spring MVC内置任务验证。</li>
-<li>Spring MVC 支持国际化和本地化。（你可以显示用户区域多国家语言）</li>
-<li>Spring MVC 支持多视图技术。可以是JSP、FreeMarker、Velocity、JSON数据。</li>
-<li>Spring MVC 作为Spring 的一部分也算是一种优势把。</li>
-</ul>
-<blockquote>
-<p>以上几乎所有优势Struts2 都具备。 只是Spring MVC 实现方式更加简单，Struts2 同样优秀而已。</p>
-</blockquote>
-<h2 id="Spring-MVC-入门"><a href="#Spring-MVC-入门" class="headerlink" title="Spring MVC 入门"></a>Spring MVC 入门</h2><h3 id="Spring-MVC-入口-（DispatcherServlet）"><a href="#Spring-MVC-入口-（DispatcherServlet）" class="headerlink" title="Spring MVC 入口 （DispatcherServlet）"></a>Spring MVC 入口 （DispatcherServlet）</h3><h4 id="配置入口"><a href="#配置入口" class="headerlink" title="配置入口"></a>配置入口</h4><p><strong>配置<code>web.xml</code>文件，增加Spring MVC 调度Servlet入口，全称为：<code>org.springframework.web.servlte.DispatcherServlet</code>.如下配置：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class</span><br><span class="line">        org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">    &lt;/servlet-class&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;!-- map all requests to the DispatcherServlet --&gt;</span><br><span class="line">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p><code>load-on-startup</code>元素是可选的，如果存在，在启动应用程序时，它会在加载Servlet并调用init()方法。如果不存，当第一次请求Servlet时被加载。</p>
-</blockquote>
-<h4 id="默认配置文件方式"><a href="#默认配置文件方式" class="headerlink" title="默认配置文件方式"></a>默认配置文件方式</h4><p><strong>当其调度 Servlet 将使用Spring MVC的许多默认组件，此外，在初始化时，它会寻找应用程序WEB_INF目录中的配置文件，XML文件的名称必须符合如下模式:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servletName-servlet.xml</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>如果定义一个部署描述的Servlet，且名为为SringMVC,那么需要用SpringMVC-servlet.xml文件在应用程序WEB-INF目录下</p>
-<h4 id="自定义配置文件方式"><a href="#自定义配置文件方式" class="headerlink" title="自定义配置文件方式"></a>自定义配置文件方式</h4><p>同样，你可以告诉调度器servlet 在哪里找到Spring MVC配置文件。 您可以通过servlet声明，通过init-param元素做到这一点。如下修改默认名称和位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">    &lt;servlet-class&gt;</span><br><span class="line">        org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">    &lt;/servlet-class&gt;</span><br><span class="line">    &lt;init-param&gt;</span><br><span class="line">        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">        &lt;param-value&gt;/WEB-INF/config/simple-config.xml&lt;/param-value&gt;</span><br><span class="line">    &lt;/init-param&gt;</span><br><span class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">&lt;/servlet&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<hr>
-<h3 id="控制器接口"><a href="#控制器接口" class="headerlink" title="控制器接口"></a>控制器接口</h3><h3 id="Spring-MVC-应用"><a href="#Spring-MVC-应用" class="headerlink" title="Spring MVC 应用"></a>Spring MVC 应用</h3><p><strong>如下演示如何构建一个Spring MVC 项目的详细步骤</strong></p>
-<h4 id="下载依赖"><a href="#下载依赖" class="headerlink" title="下载依赖"></a>下载依赖</h4><ul>
-<li>将如下依赖引入<code>WEB-INF\lib</code>目录下<ul>
-<li>spring-core</li>
-<li>spring-beans</li>
-<li>spring-context</li>
-<li>spring-expression</li>
-<li>spring-web</li>
-<li>spring-webmvc</li>
-<li>commons-looging</li>
-</ul>
+            <p>数据绑定特性用于将用户输入（请求参数）转换为<code>域模型</code>或<code>同名离散数据</code>，由于数据绑定，HTTP请求参数，它总是<code>字符串</code>类型，可以填充不同类型的对象属性。(Srping 定义很多类型转换)。</p>
+<h2 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h2><h3 id="离散参数"><a href="#离散参数" class="headerlink" title="离散参数"></a>离散参数</h3><p><strong>控制器Action 方法接收请求数据为离散数据</strong> </p>
+<ul>
+<li><p>JSP/HTML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;user-save&quot; method=&quot;post&quot;&gt;  </span><br><span class="line">    </span><br><span class="line">    &lt;input name=&quot;name&quot; value=&quot;姓名&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;age&quot; value=&quot;20&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;income&quot; value=&quot;100000&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;true&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Ruby&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Python&quot; checked=&quot;checked&quot;/&gt;  </span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Clojure&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交表单&quot;/&gt; </span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li>使用Maven构建项目<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;4.0.4.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<li><p>Spring MVC 控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/user-save&quot;)</span><br><span class="line">public void saveUserInfo(String name, Integer age, Double income, Boolean isMarried, String[] interests)  </span><br><span class="line">&#123;  </span><br><span class="line">    // 请求参数 Key 与 参数名称一一对应。</span><br><span class="line">    // 名字、年龄、收入、是否结婚、兴趣列表</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<blockquote>
-<p><code>spring-webmvc</code> 会将相关依赖引入。</p>
-</blockquote>
-<h4 id="配置web-xml和Spring-MVC配置文件"><a href="#配置web-xml和Spring-MVC配置文件" class="headerlink" title="配置web.xml和Spring MVC配置文件"></a>配置web.xml和Spring MVC配置文件</h4><h5 id="配置-web-xml"><a href="#配置-web-xml" class="headerlink" title="配置 web.xml"></a>配置 web.xml</h5><p><strong>同上一样，部署描述文件(web.xml) 配置如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">    xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee </span><br><span class="line">http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class</span><br><span class="line">            org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;!-- map all requests to the DispatcherServlet --&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>这里，你告诉Servlet/JSP容器(应用程序)使用Spring MVC 调度servlet映射所有URL。（通过<code>url-pattern</code>元素设置为<code>\</code>）<br>而且，配置Spring MVC配置文件必须遵守约定（命名约定 + 将配置文件放置<code>/WEB-INF</code>目录中）。</p>
-</blockquote>
-<h5 id="配置Spring-MVC配置文件"><a href="#配置Spring-MVC配置文件" class="headerlink" title="配置Spring MVC配置文件"></a>配置Spring MVC配置文件</h5><p><strong>配置springmvc-servlet.xml 文件，如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">  http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line">       </span><br><span class="line">    &lt;bean name=&quot;/input-product&quot;</span><br><span class="line">        class=&quot;controller.InputProductController&quot;/&gt;</span><br><span class="line">    &lt;bean name=&quot;/save-product&quot; </span><br><span class="line">        class=&quot;controller.SaveProductController&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>在这里声明了两个控制器类，InputProductController 和 SaveProductController,映射路径为<code>/input-product</code> 和 <code>/save-product</code>。</p>
-</blockquote>
-<h4 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h4><p>InputProductController 和 SaveProductController 为两个<strong>旧式</strong>的控制器,通过实现<code>Controller</code>接口,返回视图模型,如下：</p>
-<blockquote>
-<p>之所以称为<code>旧式控制器</code>，是因为:这是spring2.5最初实现spring mvc 的方式。<br>现在大多数使用的控制器方式是基于注解的（Annotation-Based Controllers）。</p>
-</blockquote>
-<h5 id="InputProductController-类"><a href="#InputProductController-类" class="headerlink" title="InputProductController 类"></a>InputProductController 类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller;</span><br><span class="line"></span><br><span class="line">public class InputProductController implements Controller &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = LogFactory.getLog(InputProductController.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView handleRequest(HttpServletRequest request,</span><br><span class="line">            HttpServletResponse response) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;InputProductController called&quot;);</span><br><span class="line">        return new ModelAndView(&quot;/WEB-INF/jsp/ProductForm.jsp&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>InputProductController类中的handleRequest 方法返回一个ModelAndView对象，ModelAndView对象包含一个视图，不包含模型。这个实例，请求转发到<code>/WEB-INF/jsp/ProductForm.jsp</code>页面。</p>
-</blockquote>
-<h5 id="SaveProductController-类"><a href="#SaveProductController-类" class="headerlink" title="SaveProductController 类"></a>SaveProductController 类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.web.servlet.ModelAndView;</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller;</span><br><span class="line">import domain.Product;</span><br><span class="line">import form.ProductForm;</span><br><span class="line"></span><br><span class="line">public class SaveProductController implements Controller &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = LogFactory</span><br><span class="line">            .getLog(SaveProductController.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView handleRequest(HttpServletRequest request,</span><br><span class="line">            HttpServletResponse response) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;SaveProductController called&quot;);</span><br><span class="line">        ProductForm productForm = new ProductForm();</span><br><span class="line">        // populate action properties</span><br><span class="line">        productForm.setName(request.getParameter(&quot;name&quot;));</span><br><span class="line">        productForm.setDescription(request.getParameter(</span><br><span class="line">                &quot;description&quot;));</span><br><span class="line">        productForm.setPrice(request.getParameter(&quot;price&quot;));</span><br><span class="line"></span><br><span class="line">        // create model</span><br><span class="line">        Product product = new Product();</span><br><span class="line">        product.setName(productForm.getName());</span><br><span class="line">        product.setDescription(productForm.getDescription());</span><br><span class="line">        try &#123;</span><br><span class="line">            product.setPrice(</span><br><span class="line">                    Float.parseFloat(productForm.getPrice()));</span><br><span class="line">        &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // insert code to save Product</span><br><span class="line"></span><br><span class="line">        return new ModelAndView(&quot;/WEB-INF/jsp/ProductDetails.jsp&quot;, </span><br><span class="line">                &quot;product&quot;, product);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>SaveProductController类中handleRequest方法 创建一个ProductForm对象设置请求参数（request parameters）。<br>创建一个Product对象设置属性值。<br>【Spring MVC有更加方便的处理请求参数和处理Bean对象的方法，这里我们使用最原始的。】<br> 返回ModelAndView对象包含视图路径、模型名称、模型。返回视图结果。</p>
-</blockquote>
-<h4 id="视图-View"><a href="#视图-View" class="headerlink" title="视图 (View)"></a>视图 (View)</h4><blockquote>
-<p>通常会将JSP 页面存储在<code>/WEB-INF/</code>下面,防止外部直接访问。<br>这里包含两个JSP页面，ProductForm.jsp和ProductDetails.jsp</p>
-</blockquote>
-<h5 id="ProductForm-jsp-页面"><a href="#ProductForm-jsp-页面" class="headerlink" title="ProductForm.jsp 页面"></a>ProductForm.jsp 页面</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Add Product Form&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(css/main.css);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">&lt;form action=&quot;save-product&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    &lt;fieldset&gt;</span><br><span class="line">        &lt;legend&gt;Add a product&lt;/legend&gt;</span><br><span class="line">        &lt;label for=&quot;name&quot;&gt;Product Name: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; value=&quot;&quot; </span><br><span class="line">            tabindex=&quot;1&quot;&gt;</span><br><span class="line">        &lt;label for=&quot;description&quot;&gt;Description: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;description&quot; name=&quot;description&quot; </span><br><span class="line">            tabindex=&quot;2&quot;&gt;</span><br><span class="line">        &lt;label for=&quot;price&quot;&gt;Price: &lt;/label&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; id=&quot;price&quot; name=&quot;price&quot; tabindex=&quot;3&quot;&gt;</span><br><span class="line">        &lt;div id=&quot;buttons&quot;&gt;</span><br><span class="line">            &lt;label for=&quot;dummy&quot;&gt; &lt;/label&gt;</span><br><span class="line">            &lt;input id=&quot;reset&quot; type=&quot;reset&quot; tabindex=&quot;4&quot;&gt;</span><br><span class="line">            &lt;input id=&quot;submit&quot; type=&quot;submit&quot; tabindex=&quot;5&quot; </span><br><span class="line">                value=&quot;Add Product&quot;&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/fieldset&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="ProductDetails-jsp-页面"><a href="#ProductDetails-jsp-页面" class="headerlink" title="ProductDetails.jsp 页面"></a>ProductDetails.jsp 页面</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Save Product&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(css/main.css);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">    &lt;h4&gt;The product has been saved.&lt;/h4&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">        &lt;h5&gt;Details:&lt;/h5&gt;</span><br><span class="line">        Product Name: $&#123;product.name&#125;&lt;br/&gt;</span><br><span class="line">        Description: $&#123;product.description&#125;&lt;br/&gt;</span><br><span class="line">        Price: $$&#123;product.price&#125;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>ProductDetails.jsp 页面显示，通过EL表达式访问Product域模型对象。</p>
-</blockquote>
-<h5 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h5><p>在浏览器访问如下URL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/your-project-name/input-product</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>xxxx</p>
-</blockquote>
-<h5 id="视图解析器-View-Resolver"><a href="#视图解析器-View-Resolver" class="headerlink" title="视图解析器(View Resolver)"></a>视图解析器(View Resolver)</h5><p>在Spring MVC中视图解析器（View Resolver）负责视图解析映射。我们可以在配置文件中声明<code>viewResolver bean</code>，参考如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;viewResolver&quot; class=&quot;org.springframework.web.servlet.</span><br><span class="line">view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;</span><br><span class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p><code>View Resolver</code> 解决前缀和后缀问题<br>如上<code>View Resolver Bean</code>配置两个属性，<code>prefix (前缀)</code> 和 <code>suffix （后缀）</code>， 这样将缩短视图路径，而不需要再写全路径<code>/WEB-INF/jsp/myPage.jsp</code>，只需要写<code>myPage</code>。</p>
-</blockquote>
-<h4 id="修改项目"><a href="#修改项目" class="headerlink" title="修改项目"></a>修改项目</h4><p><strong>将Spring MVC 配置文件重命名为<code>springmvc-config.xml</code>,并移至<code>/WEB-INF/config</code>目录，我们需要告诉部署描述（web.xml）文件。如下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">    xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee</span><br><span class="line">http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt;   </span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;</span><br><span class="line">            org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">        &lt;init-param&gt;</span><br><span class="line">            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">            &lt;param-value&gt;</span><br><span class="line">                /WEB-INF/config/springmvc-config.xml</span><br><span class="line">            &lt;/param-value&gt;</span><br><span class="line">        &lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;    </span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>修改Spring MVC 配置文件，增加<code>View Resolver Bean</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">  http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean name=&quot;/input-product&quot; </span><br><span class="line">            class=&quot;controller.InputProductController&quot;/&gt;</span><br><span class="line">    &lt;bean name=&quot;/save-product&quot;  </span><br><span class="line">            class=&quot;controller.SaveProductController&quot;/&gt;</span><br><span class="line">    &lt;bean id=&quot;viewResolver&quot; </span><br><span class="line">            class=&quot;org.springframework.web.servlet.view.</span><br><span class="line">InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>通过如下访问应用程序</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/your-project-name/input-product</span><br></pre></td></tr></table></figure></p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li>介绍Spring MVC</li>
-<li>如何构建一个简单的Spring MVC Web 项目</li>
+<h3 id="域模型"><a href="#域模型" class="headerlink" title="域模型"></a>域模型</h3><p><strong>将用户输入转换为域模型</strong></p>
+<ul>
+<li><p>请求参数对象User</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class User &#123;  </span><br><span class="line">    private String name;  </span><br><span class="line">    private Integer age;  </span><br><span class="line">    private Boolean isMarried;  </span><br><span class="line">    private Double income;  </span><br><span class="line">    private String[] interests;  </span><br><span class="line">      </span><br><span class="line">    public String getName() &#123;  </span><br><span class="line">        return name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setName(String name) &#123;  </span><br><span class="line">        this.name = name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Integer getAge() &#123;  </span><br><span class="line">        return age;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setAge(Integer age) &#123;  </span><br><span class="line">        this.age = age;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Boolean getIsMarried() &#123;  </span><br><span class="line">        return isMarried;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setIsMarried(Boolean isMarried) &#123;  </span><br><span class="line">        this.isMarried = isMarried;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Double getIncome() &#123;  </span><br><span class="line">        return income;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setIncome(Double income) &#123;  </span><br><span class="line">        this.income = income;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public String[] getInterests() &#123;  </span><br><span class="line">        return interests;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setInterests(String[] interests) &#123;  </span><br><span class="line">        this.interests = interests;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Spring MVC 控制器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/user-save&quot;)</span><br><span class="line">   public void saveUserInfo(User user)  </span><br><span class="line">   &#123;  </span><br><span class="line">       // user 对象包含请求值</span><br><span class="line">       // 名字、年龄、收入、是否结婚、兴趣列表</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JSP/HTML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;user-save&quot; method=&quot;post&quot;&gt;  </span><br><span class="line">    </span><br><span class="line">    &lt;input name=&quot;name&quot; value=&quot;姓名&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;age&quot; value=&quot;20&quot;/&gt;&lt;/div&gt;  </span><br><span class="line">    &lt;input name=&quot;income&quot; value=&quot;100000&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;true&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;isMarried&quot; value=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Ruby&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Python&quot; checked=&quot;checked&quot;/&gt;  </span><br><span class="line">    &lt;input type=&quot;checkbox&quot; name=&quot;interests&quot; value=&quot;Clojure&quot; checked=&quot;checked&quot;/&gt;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交表单&quot;/&gt; </span><br><span class="line">&lt;/form</span><br></pre></td></tr></table></figure></li>
 </ul>
 
           
@@ -2102,7 +2199,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2110,7 +2207,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2119,7 +2216,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

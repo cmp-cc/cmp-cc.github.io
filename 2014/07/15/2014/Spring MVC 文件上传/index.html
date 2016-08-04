@@ -1,0 +1,885 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Spring MVC," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="I am cmp-cc" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="之间学过Servlet 文件上传 ，然后Struts2 的文件上传，现在Spring MVC文件上，这就是所谓的技术更新？之间看过一篇文档说Spring提供的文件上传快一些？
+Spring MVC 有两种方法解决文件上传问题
+
+使用Apache Commons FileUpload 组件
+采用Servlet3.0 或更高版本。
+Serlvet3.0 内置文件上传功能，不需要引入Commons Fi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring MVC 文件上传">
+<meta property="og:url" content="http://cmp-cc.github.io/2014/07/15/2014/Spring MVC 文件上传/index.html">
+<meta property="og:site_name" content="I am cmp-cc">
+<meta property="og:description" content="之间学过Servlet 文件上传 ，然后Struts2 的文件上传，现在Spring MVC文件上，这就是所谓的技术更新？之间看过一篇文档说Spring提供的文件上传快一些？
+Spring MVC 有两种方法解决文件上传问题
+
+使用Apache Commons FileUpload 组件
+采用Servlet3.0 或更高版本。
+Serlvet3.0 内置文件上传功能，不需要引入Commons Fi">
+<meta property="og:updated_time" content="2016-05-19T03:23:44.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring MVC 文件上传">
+<meta name="twitter:description" content="之间学过Servlet 文件上传 ，然后Struts2 的文件上传，现在Spring MVC文件上，这就是所谓的技术更新？之间看过一篇文档说Spring提供的文件上传快一些？
+Spring MVC 有两种方法解决文件上传问题
+
+使用Apache Commons FileUpload 组件
+采用Servlet3.0 或更高版本。
+Serlvet3.0 内置文件上传功能，不需要引入Commons Fi">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Spring MVC 文件上传 | I am cmp-cc </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0fb6f1a75a76726c10a144a8257465e3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">I am cmp-cc</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一直在打杂，从未被超越。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spring MVC 文件上传
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-07-15T13:53:00+08:00" content="2014-07-15">
+              2014-07-15
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/07/15/2014/Spring MVC 文件上传/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/15/2014/Spring MVC 文件上传/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之间学过Servlet 文件上传 ，然后Struts2 的文件上传，现在Spring MVC文件上，这就是所谓的技术更新？<br>之间看过一篇文档说Spring提供的文件上传快一些？</p>
+<p>Spring MVC 有两种方法解决文件上传问题</p>
+<ul>
+<li>使用<code>Apache Commons FileUpload</code> 组件</li>
+<li>采用Servlet3.0 或更高版本。<blockquote>
+<p>Serlvet3.0 内置文件上传功能，不需要引入<code>Commons FileUpload</code>组件,貌似很少人用内置的,还是错觉 - -!</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="客户端设置"><a href="#客户端设置" class="headerlink" title="客户端设置"></a>客户端设置</h2><p>想要文件上传，必须将HTML中<code>form</code>元素的<code>enctype</code>属性设置为<code>multipart/form-data</code>,参考如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;action&quot; enctype=&quot;multipart/form-data&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;file&quot; name=&quot;fieldName&quot;/&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;Upload&quot;/&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>form</code>表单必须包含至少一个类型为<code>file</code>的<code>input</code>元素</p>
+</blockquote>
+<h2 id="MultipartFile-接口"><a href="#MultipartFile-接口" class="headerlink" title="MultipartFile 接口"></a>MultipartFile 接口</h2><p>Spring MVC 处理文件非常容易，上传文件的所有信息被包裹在<code>MultipartFile</code>中。（这点，我认为比Struts2 优雅）<br>我们需要在域模型（Model） 中引入<code>MultipartFile</code>属性</p>
+<p><code>MultipartFile</code> 接口，参考方法详细列表<br>方法 | 描述<br>— | —<br>getBytes| 返回文件的字节数组<br>getContentType | 返回文件的内容类型<br>getInputStream | 返回文件内容的InputStream<br>getName    | 返回form表单中name的名称<br>getOriginalFilename |返回原始文件的名称。<br>getSize|    返回一个long类型的文件字节大小<br>isEmpty    |上传文件是否为空<br>tranferTo|    将上传文件保存为一个<code>java.io.File</code></p>
+<ul>
+<li><code>tranferTo</code> 方法演示，保存上传文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File file = new File(...);</span><br><span class="line">multipartFile.transferTo(file);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Commons-FileUpload-文件上传"><a href="#Commons-FileUpload-文件上传" class="headerlink" title="Commons FileUpload 文件上传"></a>Commons FileUpload 文件上传</h2><ul>
+<li>引入 Commons FileUpload 组件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;4.0.0.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">              &lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;jstl&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.2&lt;/version&gt;</span><br><span class="line">	&lt;scope&gt;runtime&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">              &lt;!-- commons fileupload --&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;commons-fileupload&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.3.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>commons-fileupload</code> 默认引入<code>commons-io</code> </p>
+</blockquote>
+<ul>
+<li><p>Spring MVC 配置<code>multipartResolver</code> Bean</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;multipartResolver&quot;   class=&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;maxUploadSize&quot; value=&quot;2000000&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>域模型（请求 Model）<br><code>Product Model</code>包含一个<code>List&lt;MultipartFile&gt;</code>文件列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package domain;</span><br><span class="line">import java.io.Serializable;</span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import java.util.List;</span><br><span class="line">import javax.validation.constraints.NotNull;</span><br><span class="line">import javax.validation.constraints.Size;</span><br><span class="line">import org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line">public class Product implements Serializable &#123;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    private String description;</span><br><span class="line">    private BigDeciimal price;</span><br><span class="line">    private List&lt;MultipartFile&gt; images;</span><br><span class="line"></span><br><span class="line">    // ... getter/setter</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>控制器（Controller）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">package controller;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import org.apache.commons.logging.Log;</span><br><span class="line">import org.apache.commons.logging.LogFactory;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.ui.Model;</span><br><span class="line">import org.springframework.validation.BindingResult;</span><br><span class="line">import org.springframework.web.bind.annotation.ModelAttribute;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.multipart.MultipartFile;</span><br><span class="line">import domain.Product;</span><br><span class="line"></span><br><span class="line">@Controller</span><br><span class="line">public class ProductController &#123;</span><br><span class="line"></span><br><span class="line">    private static final Log logger = </span><br><span class="line">        LogFactory.getLog(ProductController.class);</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value = &quot;/input-product&quot;)</span><br><span class="line">    public String inputProduct(Model model) &#123;</span><br><span class="line">        model.addAttribute(&quot;product&quot;, new Product());</span><br><span class="line">        return &quot;ProductForm&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value = &quot;/save-product&quot;)</span><br><span class="line">    public String saveProduct(HttpServletRequest servletRequest,</span><br><span class="line">            @ModelAttribute Product product, </span><br><span class="line">            BindingResult bindingResult, Model model) &#123;</span><br><span class="line"></span><br><span class="line">        List&lt;MultipartFile&gt; files = product.getImages();</span><br><span class="line">        List&lt;String&gt; fileNames = new ArrayList&lt;String&gt;();</span><br><span class="line">        if (null != files &amp;&amp; files.size() &gt; 0) &#123;</span><br><span class="line">            for (MultipartFile multipartFile : files) &#123;</span><br><span class="line"></span><br><span class="line">                String fileName = multipartFile.getOriginalFilename();</span><br><span class="line">                fileNames.add(fileName);</span><br><span class="line"></span><br><span class="line">                File imageFile = new File(servletRequest.getServletContext()</span><br><span class="line">                        .getRealPath(&quot;/image&quot;), fileName);</span><br><span class="line">                try &#123;</span><br><span class="line">                    multipartFile.transferTo(imageFile);</span><br><span class="line">                &#125; catch (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;ProductDetails&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Spring MVC 配置文件配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot; </span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/mvc</span><br><span class="line">        http://www.springframework.org/schema/mvc/spring-mvc.xsd     </span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-</span><br><span class="line">context.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:component-scan base-package=&quot;controller&quot; /&gt;</span><br><span class="line">    &lt;mvc:annotation-driven /&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/css/**&quot; location=&quot;/css/&quot; /&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/*.html&quot; location=&quot;/&quot; /&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/image/**&quot; location=&quot;/image/&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;viewResolver&quot;</span><br><span class="line">            class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">    &lt;bean id=&quot;multipartResolver&quot; </span><br><span class="line">    		class=&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;maxUploadSize&quot; value=&quot;5000000000&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>在<code>CommonsMultipartResolver</code>Bean注入<code>maxUploadSize</code>属性，限定最大上传文件，如果没有这个值，将没有最大限制（无穷大）<br>设置文件没有大小限制，并不意味可以上传任意大小的文件，如果一个文件非常大，上传会花费很长时间，甚至到服务器超时。<br>处理非常大的文件，可以考虑<code>HTML5 File API</code>,使用切片文件，分别上传。</p>
+</blockquote>
+<ul>
+<li><p>JSP 页面<br> <strong>文件上传页面和信息显示页面</strong></p>
+<ul>
+<li><p>ProductForm.jsp 页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ taglib prefix=&quot;form&quot; uri=&quot;http://www.springframework.org/tags/form&quot;%&gt;</span><br><span class="line">&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot; %&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Add Product Form&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(&quot;&lt;c:url value=&quot;/css/main.css&quot;/&gt;&quot;);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">&lt;form:form commandName=&quot;product&quot; action=&quot;save-product&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    &lt;fieldset&gt;</span><br><span class="line">        &lt;legend&gt;Add a product&lt;/legend&gt;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">            &lt;label for=&quot;name&quot;&gt;Product Name: &lt;/label&gt;</span><br><span class="line">            &lt;form:input id=&quot;name&quot; path=&quot;name&quot; cssErrorClass=&quot;error&quot;/&gt;</span><br><span class="line">            &lt;form:errors path=&quot;name&quot; cssClass=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">            &lt;label for=&quot;description&quot;&gt;Description: &lt;/label&gt;</span><br><span class="line">            &lt;form:input id=&quot;description&quot; path=&quot;description&quot;/&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">            &lt;label for=&quot;price&quot;&gt;Price: &lt;/label&gt;</span><br><span class="line">            &lt;form:input id=&quot;price&quot; path=&quot;price&quot; cssErrorClass=&quot;error&quot;/&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">            &lt;label for=&quot;image&quot;&gt;Product Image: &lt;/label&gt;</span><br><span class="line">            &lt;input type=&quot;file&quot; name=&quot;images[0]&quot;/&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">        &lt;p id=&quot;buttons&quot;&gt;</span><br><span class="line">            &lt;input id=&quot;reset&quot; type=&quot;reset&quot; tabindex=&quot;4&quot;&gt;</span><br><span class="line">            &lt;input id=&quot;submit&quot; type=&quot;submit&quot; tabindex=&quot;5&quot; value=&quot;Add Product&quot;&gt;</span><br><span class="line">        &lt;/p&gt;</span><br><span class="line">    &lt;/fieldset&gt;</span><br><span class="line">&lt;/form:form&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该页面将跳转至<code>ProductDetails.jsp</code>页面</p>
+</blockquote>
+</li>
+<li>ProductDetails.jsp 页面<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> &lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot; %&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Save Product&lt;/title&gt;</span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;@import url(&quot;&lt;c:url value=&quot;/css/main.css&quot;/&gt;&quot;);&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;global&quot;&gt;</span><br><span class="line">    &lt;h4&gt;The product has been saved.&lt;/h4&gt;</span><br><span class="line">    &lt;p&gt;</span><br><span class="line">        &lt;h5&gt;Details:&lt;/h5&gt;</span><br><span class="line">        Product Name: $&#123;product.name&#125;&lt;br/&gt;</span><br><span class="line">        Description: $&#123;product.description&#125;&lt;br/&gt;</span><br><span class="line">        Price: $$&#123;product.price&#125;</span><br><span class="line">        &lt;p&gt;Following files are uploaded successfully.&lt;/p&gt;</span><br><span class="line">        &lt;ol&gt;</span><br><span class="line">        &lt;c:forEach items=&quot;$&#123;product.images&#125;&quot; var=&quot;image&quot;&gt;</span><br><span class="line">            &lt;li&gt;$&#123;image.originalFilename&#125;</span><br><span class="line">            &lt;img width=&quot;100&quot; src=&quot;&lt;c:url value=&quot;/image/&quot;/&gt;</span><br><span class="line">            $&#123;image.originalFilename&#125;&quot;/&gt;</span><br><span class="line">            &lt;/li&gt;</span><br><span class="line">        &lt;/c:forEach&gt;</span><br><span class="line">        &lt;/ol&gt;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>测试文件上传</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/your-project-name/input-product</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Servlet-3-文件上传"><a href="#Servlet-3-文件上传" class="headerlink" title="Servlet 3 文件上传"></a>Servlet 3 文件上传</h2><p><strong>在上一个实例的基础上，修改</strong></p>
+<ul>
+<li>不需要在引入<code>Commons File</code> 组件</li>
+<li>需要使用<code>javax.servlet.http.Part</code> 接口，必须使用<code>@MultipartConfig</code>注解声明文件上传。</li>
+</ul>
+<p><code>@MultipartConfig</code>  注解属性列表详情。（所有属性均可选）</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max-file-size</td>
+<td>上传文件最大大小。超过指定值的文件将被拒绝(抛出IllegalStateException异常)。默认值为-1，表示无穷大。</td>
+</tr>
+<tr>
+<td>max-request-size</td>
+<td>最大文件请求大小,超过指定值时,抛出IllegalStateException异常。默认值为-1,表示无穷大。</td>
+</tr>
+<tr>
+<td>location</td>
+<td>指定上传文件存放目录。当指定location后，我们调用Part.Writer(String fileName)方法时，可以不指定文件路径。如果指定路径，将覆盖location路径。</td>
+</tr>
+<tr>
+<td>file-size-threshold</td>
+<td>当文件大小超过指定阈值大小时，将写入磁盘。默认值为0，任意大小的文件作为临时文件写入磁盘。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>web.xml 配置 MultipartConfig</li>
+</ul>
+<p><strong>DispatcherServlet</strong>处理所有的Action请求，你不需要在Spring MVC Controller (Serlvet)上添加<code>@MultipartConfig</code>注释，配置如下即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;3.1&quot; </span><br><span class="line">		xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot; </span><br><span class="line">    	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">    	xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee </span><br><span class="line">			http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;&gt; </span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;</span><br><span class="line">            org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">        &lt;/servlet-class&gt;</span><br><span class="line">	    &lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;/WEB-INF/config/springmvc-config.xml&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">		&lt;multipart-config&gt;</span><br><span class="line">		    &lt;max-file-size&gt;20848820&lt;/max-file-size&gt;</span><br><span class="line">		    &lt;max-request-size&gt;418018841&lt;/max-request-size&gt;</span><br><span class="line">		    &lt;file-size-threshold&gt;1048576&lt;/file-size-threshold&gt;</span><br><span class="line">		&lt;/multipart-config&gt;            </span><br><span class="line">	&lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>可以不进行<code>multipart-config</code>配置，它将使用默认值。</p>
+<ul>
+<li>Spring MVC 配置文件中配置<code>multipart</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;multipartResolver&quot; </span><br><span class="line">        class=&quot;org.springframework.web.multipart.support.StandardServletMultipartResolver&quot;&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">    xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">    xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;</span><br><span class="line">    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;	</span><br><span class="line">    xsi:schemaLocation=&quot;</span><br><span class="line">        http://www.springframework.org/schema/beans</span><br><span class="line">        http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">        http://www.springframework.org/schema/mvc</span><br><span class="line">        http://www.springframework.org/schema/mvc/spring-mvc.xsd     </span><br><span class="line">        http://www.springframework.org/schema/context</span><br><span class="line">        http://www.springframework.org/schema/context/spring-</span><br><span class="line">context.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context:component-scan base-package=&quot;controller&quot; /&gt;</span><br><span class="line">    &lt;mvc:annotation-driven /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;mvc:resources mapping=&quot;/css/**&quot; location=&quot;/css/&quot; /&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/*.html&quot; location=&quot;/&quot; /&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/image/**&quot; location=&quot;/image/&quot; /&gt;</span><br><span class="line">    &lt;mvc:resources mapping=&quot;/file/**&quot; location=&quot;/file/&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;viewResolver&quot;</span><br><span class="line">        class=&quot;org.springframework.web.servlet.view.</span><br><span class="line">InternalResourceViewResolver&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">	</span><br><span class="line">    &lt;bean id=&quot;multipartResolver&quot;</span><br><span class="line">        class=&quot;org.springframework.web.multipart.support.</span><br><span class="line">StandardServletMultipartResolver&quot;&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>multipart</code> 有多种实现方式，请参考官方文档。</p>
+<ul>
+<li>测试<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/your-project-name/input-product</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>使用Spring MVC 进行文件上传，无论是<code>Commons File</code>组件还是Servlet内置。<code>MultipartFile</code>接口都将包裹文件信息。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-MVC/" rel="tag">#Spring MVC</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/07/14/2014/Spring MVC 基于注解的控制器/" rel="next" title="Spring MVC 基于注解的控制器">
+                <i class="fa fa-chevron-left"></i> Spring MVC 基于注解的控制器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/07/15/2014/FreeMarker Web集成/" rel="prev" title="FreeMarker Web集成">
+                FreeMarker Web集成 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/07/15/2014/Spring MVC 文件上传/"
+           data-title="Spring MVC 文件上传" data-url="http://cmp-cc.github.io/2014/07/15/2014/Spring MVC 文件上传/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="cmp-cc" />
+          <p class="site-author-name" itemprop="name">cmp-cc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cmp-cc" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端设置"><span class="nav-number">1.</span> <span class="nav-text">客户端设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultipartFile-接口"><span class="nav-number">2.</span> <span class="nav-text">MultipartFile 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commons-FileUpload-文件上传"><span class="nav-number">3.</span> <span class="nav-text">Commons FileUpload 文件上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-3-文件上传"><span class="nav-number">4.</span> <span class="nav-text">Servlet 3 文件上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cmp-cc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cmp-cc"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+
+
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+ <script type="text/javascript">
+  window.onload = function(){setTimeout(function(){/*无登陆账户*/if(!document.getElementsByClassName("ds-account-control")[0]){var cmp_cc_blog_user=localStorage.getItem("cmp-cc_blog_user");var author_name_value = cmp_cc_blog_user?'value="'+cmp_cc_blog_user+'"':'';var i = '<div class="ds-control-group" style="float:right;padding:6px;"><input type="text" '+author_name_value+'id="author_name_proxy" id="ds-dialog-name"  class="custom_input" style="color:#777;width=80%;font-size:13px;border:1px solid #ccc;height:25px;box-shadow: inset 0 1px 1px;padding: 2px 0px 0px 8px;" placeholder="昵称 or 登陆" required></div>';/*展开一个回复，再关闭。 多说没有参数配置啊~ 让人觉得不优雅*/var $last_ds_post_reply = $(".ds-post-reply:last");$last_ds_post_reply.click().click();$(".ds-post-options.ds-gradient-bg").append(i);$(".ds-post-button").click(function(){$(this).submit();$("#ds-wrapper").hide();var author_name = $("#author_name_proxy").val();$("#ds-wrapper #ds-dialog-name").val(author_name);$("#ds-wrapper form").submit();/*www.cmp-cc.github.com*/localStorage.setItem("cmp-cc_blog_user",author_name);$(".custom_input").val(author_name);});}},300);} 
+ </script>
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

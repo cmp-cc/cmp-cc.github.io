@@ -228,6 +228,273 @@
             
               
                 
+                <a class="post-title-link" href="/2015/04/28/2015/配置环境变量脚本/" itemprop="url">
+                  配置环境变量脚本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-04-28T21:54:00+08:00" content="2015-04-28">
+              2015-04-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Work-Efficiency/" itemprop="url" rel="index">
+                    <span itemprop="name">Work Efficiency</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/04/28/2015/配置环境变量脚本/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/28/2015/配置环境变量脚本/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率</strong></p>
+<h2 id="Window-环境下自动化配置各种环境变量"><a href="#Window-环境下自动化配置各种环境变量" class="headerlink" title="Window 环境下自动化配置各种环境变量"></a>Window 环境下自动化配置各种环境变量</h2><h3 id="1、修改注册表的方法，重启永久有效"><a href="#1、修改注册表的方法，重启永久有效" class="headerlink" title="1、修改注册表的方法，重启永久有效"></a>1、修改注册表的方法，重启永久有效</h3><p>reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%path%;C:\”  /f</p>
+<hr>
+<h3 id="2、setx-命令-（永久）"><a href="#2、setx-命令-（永久）" class="headerlink" title="2、setx 命令 （永久）"></a>2、setx 命令 （永久）</h3><ul>
+<li>setx 默认写入的是用户变量，想写入环境变量，加 /M<br>&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setx JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="3、set-命令（非永久，只针对于当前命令行）"><a href="#3、set-命令（非永久，只针对于当前命令行）" class="headerlink" title="3、set 命令（非永久，只针对于当前命令行）"></a>3、set 命令（非永久，只针对于当前命令行）</h3><p>同上 (setx命令)</p>
+<h2 id="自动环境配置脚本"><a href="#自动环境配置脚本" class="headerlink" title="自动环境配置脚本"></a>自动环境配置脚本</h2><p><strong>参考如下 EnvironmentConfiguration.bat 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF </span><br><span class="line">IF EXIST %systemroot%\system32\setx.exe ( </span><br><span class="line"></span><br><span class="line">@ECHO 开始配置JAVA环境</span><br><span class="line">@SETX JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br><span class="line">@SETX CLASSPATH &quot;.;%%JAVA_HOME%%\lib&quot;</span><br><span class="line">@SETX PATH &quot;%%PATH%%;%%JAVA_HOME%%\bin&quot;</span><br><span class="line">@ECHO JDK配置完成</span><br><span class="line"></span><br><span class="line">) else (</span><br><span class="line"></span><br><span class="line">@ECHO ON</span><br><span class="line">@ECHO 未能找到%systemroot%\system32\setx.exe，请下载setx.exe程序 </span><br><span class="line"></span><br><span class="line">)</span><br><span class="line">@PAUSE</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/04/22/2015/Hbase常规操作/" itemprop="url">
+                  Hbase常规操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-04-22T16:53:00+08:00" content="2015-04-22">
+              2015-04-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Hbase/" itemprop="url" rel="index">
+                    <span itemprop="name">Hbase</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/04/22/2015/Hbase常规操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/22/2015/Hbase常规操作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>记录Hbase 一些常规操作</strong></p>
+<h2 id="获取rowkey"><a href="#获取rowkey" class="headerlink" title="获取rowkey"></a>获取rowkey</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> String table_name = <span class="string">"avml_test"</span>;</span><br><span class="line">    Set&lt;String&gt; sampleSet = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">    Configuration conf = HBaseConfiguration.create();</span><br><span class="line">    conf.set(<span class="string">"hbase.zookeeper.quorum"</span>, <span class="string">"datanode01.hadoop"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        HTable table = <span class="keyword">new</span> HTable(conf,table_name);</span><br><span class="line">        Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">        ResultScanner scanner1 =  table.getScanner(scan);</span><br><span class="line">        <span class="keyword">for</span>(Result res : scanner1)&#123;</span><br><span class="line">            <span class="keyword">for</span>(KeyValue kv : res.raw())&#123;</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">    rowkey 为一个md5 ，你需要做截取操作</span><br><span class="line">    \x00 01CCC0C34CD54B2C915237F3C848840A\x06resultavml_qq\x00\x00\x01L\xBB\x1A&#125;\xCA\x04</span><br><span class="line">        */</span></span><br><span class="line">            sampleSet.add(kv.getKeyString().split(<span class="string">" "</span>)[<span class="number">1</span>].substring(<span class="number">0</span>,<span class="number">32</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        table.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">        e.printStackTrace();</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+<p>也可以使用如下方法,获取真实rowkey</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static String getRealRowKey(KeyValue kv) &#123;  </span><br><span class="line">        int rowlength = Bytes.toShort(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET);  </span><br><span class="line">        String rowKey = Bytes.toStringBinary(kv.getBuffer(), kv.getOffset()+KeyValue.ROW_OFFSET + Bytes.SIZEOF_SHORT, rowlength);  </span><br><span class="line">        return rowKey;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>获取rowkey(这个代码是有问题的，没有修改)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ResultScanner <span class="title">readHbaseRowkey</span><span class="params">(Configuration conf,String tableName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    HTable table = <span class="keyword">new</span> HTable(conf, tableName);</span><br><span class="line">    Scan scan = <span class="keyword">new</span> Scan();</span><br><span class="line">    KeyOnlyFilter rowKeyFilter = <span class="keyword">new</span> KeyOnlyFilter();</span><br><span class="line">    scan.setFilter(rowKeyFilter);</span><br><span class="line">    ResultScanner scanner = table.getScanner(scan);</span><br><span class="line">    <span class="comment">// 关闭table scanner 会失效的。 异常？</span></span><br><span class="line">    table.close();</span><br><span class="line">    <span class="keyword">return</span> scanner;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/04/19/2015/webpack 异常记录/" itemprop="url">
                   Webpack 异常记录
                 </a>
@@ -740,7 +1007,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/03/11/PostgreSQL 遇到的问题/" itemprop="url">
+                <a class="post-title-link" href="/2015/03/11/2015/PostgreSQL 遇到的问题/" itemprop="url">
                   PostgreSQL 遇到的问题
                 </a>
               
@@ -796,8 +1063,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/03/11/PostgreSQL 遇到的问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/11/PostgreSQL 遇到的问题/" itemprop="commentsCount"></span>
+                <a href="/2015/03/11/2015/PostgreSQL 遇到的问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/11/2015/PostgreSQL 遇到的问题/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -822,7 +1089,7 @@
         
           
             <h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><strong>需要查询具体的某一天的数据。 由于存储方式不一样。要对数据库中的last_record_time字段（时间格式）进行转化。</strong></p>
-<img src="/2015/03/11/PostgreSQL%20遇到的问题/9744abfd-e724-4655-ac6b-eada2768ab42.png" alt="数据显示" title="数据显示">
+<img src="/2015/03/11/2015/PostgreSQL%20遇到的问题/9744abfd-e724-4655-ac6b-eada2768ab42.png" alt="数据显示" title="数据显示">
 <ul>
 <li>使用函数：substring(string from pattern for escape)函数。<br><strong>失败,类型不匹配</strong></li>
 <li><p>使用 TO_CHAR 函数 可以进行格式类型转化。<br><strong>postgresql 8.1以后有个函数可以直接接受UNIX时间戳  TO_TIMESTAMP函数 可以处理时间戳。</strong></p>
@@ -1575,487 +1842,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/11/28/2014/Linux sftp 进行文件传输/" itemprop="url">
-                  Linux sftp 进行文件传输
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-11-28T20:32:00+08:00" content="2014-11-28">
-              2014-11-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/11/28/2014/Linux sftp 进行文件传输/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/28/2014/Linux sftp 进行文件传输/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用Winscp 进行Window 和 Linux 之间进行文件传输确实很方便，你只需要拖拽就可以，非常方便。</p>
-<p>Linux 与 Linux 之间进行文件传输，我们可以直接使用scp命令即可。</p>
-<p>这里介绍 sftp 进行文件传输， 我习惯使用SecureCRT（SSH终端仿真程序）进行sftp操作。</p>
-<p>同样，你可以使用rs、sz 进行文件传输，它只作用于单文件传输。</p>
-<h2 id="sftp-基础命令"><a href="#sftp-基础命令" class="headerlink" title="sftp 基础命令"></a>sftp 基础命令</h2><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ascii</td>
-<td>Set transfer mode to ASCII</td>
-</tr>
-<tr>
-<td>binary</td>
-<td>Set transfer mode to binary</td>
-</tr>
-<tr>
-<td>cd path</td>
-<td>更改远程目录到”路径”</td>
-</tr>
-<tr>
-<td>detail remote-path</td>
-<td>显示系统信息关于远程文件或文件夹</td>
-</tr>
-<tr>
-<td>ldetail local-path</td>
-<td>显示系统信息关于本地文件或文件夹</td>
-</tr>
-<tr>
-<td>lcd path</td>
-<td>更改本地目录到”路径” </td>
-</tr>
-<tr>
-<td>chgrp group path</td>
-<td>将文件”path”的权限更改为”mode” </td>
-</tr>
-<tr>
-<td>chmod mode path</td>
-<td>将文件”path”的权限更改为”mode” </td>
-</tr>
-<tr>
-<td>chown owner path</td>
-<td>将文件”path”的属主更改为”owner” </td>
-</tr>
-<tr>
-<td>exit</td>
-<td>退出 sftp </td>
-</tr>
-<tr>
-<td>help</td>
-<td>显示帮助文本</td>
-</tr>
-<tr>
-<td>include filename</td>
-<td>Include commands from ‘filename’ Alternate: &lt; filename</td>
-</tr>
-<tr>
-<td>get [-a l -b] remote-path</td>
-<td>Download file force ascii (-a) or binary (-b) mode 下载文件</td>
-</tr>
-<tr>
-<td>ln [-s] existingpath linkpath</td>
-<td>Hardlink / symlink remote file</td>
-</tr>
-<tr>
-<td>ls [options] [path]</td>
-<td>符号链接远程文件 </td>
-</tr>
-<tr>
-<td>lls [options] [path]</td>
-<td>显示本地目录列表 </td>
-</tr>
-<tr>
-<td>mkdir path</td>
-<td>创建远程目录 </td>
-</tr>
-<tr>
-<td>lmkdir path</td>
-<td>创建本地目录</td>
-</tr>
-<tr>
-<td>mv oldpath newpath</td>
-<td>移动远程文件</td>
-</tr>
-<tr>
-<td>open [user@]host[:port]</td>
-<td>连接到远程主机</td>
-</tr>
-<tr>
-<td>put [-a l -b] local-path</td>
-<td>Upload file force ascii (-a) or binary (-b) mode 上传文件</td>
-</tr>
-<tr>
-<td>pwd</td>
-<td>打印本地工作目录</td>
-</tr>
-<tr>
-<td>lpwd</td>
-<td>打印本地工作目录</td>
-</tr>
-<tr>
-<td>quit</td>
-<td>退出 sftp</td>
-</tr>
-<tr>
-<td>rmdir path</td>
-<td>移除远程目录</td>
-</tr>
-<tr>
-<td>lrmdir path</td>
-<td>移除本地目录 </td>
-</tr>
-<tr>
-<td>rm path</td>
-<td>删除远程文件</td>
-</tr>
-<tr>
-<td>lrm path</td>
-<td>删除本地文件</td>
-</tr>
-<tr>
-<td>su username</td>
-<td>Substitutes the current user This is only supported with VShell for Windows 3.5 or later.</td>
-</tr>
-<tr>
-<td>type [transfer-mode]</td>
-<td>Display or set file transfer mode</td>
-</tr>
-<tr>
-<td>view remote-path</td>
-<td>Download and open file</td>
-</tr>
-<tr>
-<td>version</td>
-<td>显示协议版本</td>
-</tr>
-</tbody>
-</table>
-<h2 id="进入sftp-模式"><a href="#进入sftp-模式" class="headerlink" title="进入sftp 模式"></a>进入sftp 模式</h2><ul>
-<li>命令行模式下输入 ：<code>sftp 用户名@IP地址</code> ， 然后会提示你输入密码</li>
-<li>如果是SecureCRT。 <code>Alt+p</code> 或者 <code>File -&gt; 链接sftp</code></li>
-</ul>
-<h2 id="sftp-基本使用"><a href="#sftp-基本使用" class="headerlink" title="sftp 基本使用"></a>sftp 基本使用</h2><p>sftp主要是用来传输文件的，所以我们主要使用两个命令。</p>
-<blockquote>
-<p>提示 </p>
-<h3 id="文件上传-（从本机到远程主机）"><a href="#文件上传-（从本机到远程主机）" class="headerlink" title="文件上传 （从本机到远程主机）"></a>文件上传 （从本机到远程主机）</h3></blockquote>
-<p><strong>使用 put [-Ppr] local [remote]</strong></p>
-<p><strong>实例1： 上传单个文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 查看Window 当前目录</span><br><span class="line">sftp&gt; lpwd</span><br><span class="line">C:/Users/root/Documents</span><br><span class="line"></span><br><span class="line">// 切换Window 上传目录</span><br><span class="line">sftp&gt; lcd d:/temp </span><br><span class="line">// 查看roles.csv文件</span><br><span class="line">sftp&gt; lls -l</span><br><span class="line"> Oct 23, 2014 14:30 </span><br><span class="line"> Oct 21, 2014 11:21 actors.csv</span><br><span class="line"> Nov 10, 2014 11:01 ali</span><br><span class="line"> Oct 21, 2014 11:19 movies.csv</span><br><span class="line"> Jan 14, 2014 16:56 neo4j</span><br><span class="line"> Oct 28, 2014 17:40 package.json</span><br><span class="line"> Oct 21, 2014 11:21 roles.csv</span><br><span class="line"> Nov 30, 2014 20:54 TV.war</span><br><span class="line"> // 查看当前终端路径</span><br><span class="line">sftp&gt; pwd                </span><br><span class="line">/usr/local/program/server_tool/apache-tomcat-7.0.32/webapps</span><br><span class="line"></span><br><span class="line">// 切换到上传路径</span><br><span class="line">sftp&gt; cd ~</span><br><span class="line">sftp&gt; pwd</span><br><span class="line">/home/centos</span><br><span class="line"></span><br><span class="line">// 使用put 进行文件上传</span><br><span class="line">sftp&gt; put roles.csv ./</span><br><span class="line">Uploading roles.csv to /home/centos/roles.csv</span><br><span class="line">Skipping directory d:/temp</span><br><span class="line">  100% 367 bytes    367 bytes/s 00:00:00     </span><br><span class="line">d:/temp/roles.csv: 367 bytes transferred in 0 seconds (367 bytes/s)</span><br><span class="line"></span><br><span class="line">// 查看，ok 成功的。</span><br><span class="line">sftp&gt; ls</span><br><span class="line">roles.csv</span><br></pre></td></tr></table></figure></p>
-<p><strong>实例2： 上传文件目录</strong><br><code>put -r 目录名称 目录名称</code> <code>-r</code> 表示文件夹。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 很简单，参考实例1。 默认上传当前路径</span><br><span class="line">put -r download/</span><br></pre></td></tr></table></figure></p>
-<p><strong>实例3： 上传所有文件</strong></p>
-<ul>
-<li><p>上传当前所有文件 到 远程目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put *</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上传当前所有文件及其文件夹 到 远程目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put -r *</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="文件下载-从远程主机到本机"><a href="#文件下载-从远程主机到本机" class="headerlink" title="文件下载(从远程主机到本机)"></a>文件下载(从远程主机到本机)</h3><p><strong>使用 get [-Ppr] remote [local]</strong></p>
-<p><strong>关于get (文件下载)说明和实例 略。   参考put (文件上传) 。 两则异曲同工</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/11/07/2014/Linux 开发环境安装指南/" itemprop="url">
-                  Linux 开发环境安装指南
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-11-07T16:53:00+08:00" content="2014-11-07">
-              2014-11-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/11/07/2014/Linux 开发环境安装指南/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/07/2014/Linux 开发环境安装指南/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>我的Linux (Centos)开发、应用部署环境，持续更新</strong><br><strong>更新：2016-04-27 </strong></p>
-<h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><p><strong>如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）</strong><br><strong>详细安装步骤参考：<code>tar.gz 格式</code>安装 </strong></p>
-<h3 id="tar-gz-格式安装"><a href="#tar-gz-格式安装" class="headerlink" title="tar.gz 格式安装"></a><code>tar.gz 格式</code>安装</h3><ul>
-<li>查看Linux 自带的JDK是否安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<img src="/2014/11/07/2014/Linux%20开发环境安装指南/596f24a9-b58f-40e3-b02c-6cfdf4c58dab.png" alt="已安装OpenJDK7 运行环境，但没有编译环境" title="已安装OpenJDK7 运行环境，但没有编译环境">
-<ul>
-<li>卸载自带JDK<ul>
-<li>查看相关依赖<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep java</span><br><span class="line"></span><br><span class="line">或则</span><br><span class="line"></span><br><span class="line">rmp -qa |grep jdk</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
- <img src="/2014/11/07/2014/Linux%20开发环境安装指南/2310dfba-98e6-478a-890e-11291c66f2d1.png" alt="已安装OpenJDK7的相关依赖" title="已安装OpenJDK7的相关依赖">
-<ul>
-<li>卸载<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -e --nodeps java-1.7.0-openjdk-1.7.0.75-2.5.4.2.el7_0.x86_64</span><br><span class="line">rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.75-2.5.4.2.el7_0.x86_64</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>下载JDK1.8<br>在Oracle 选择合适的版本，进行JDK安装，这里更新至JDK1.8<br><strong>Oracle官网上下载jdk，需要点击accept licence的才能下载，使用下面的命令，直接可以下载。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate --no-cookies --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解压<br>-C 表示解压路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf jdk-8u73-linux-x64.tar.gz -C /usr/local/jdk/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>环境变量配置</p>
-</li>
-<li><p>修改 <code>/etc/profile</code>文件,添加如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line">//添加如下</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/usr/local/jdk/jdk1.8.0_73</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:.</span><br><span class="line"></span><br><span class="line">PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line"></span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重新加载配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="rpm-格式安装JDK"><a href="#rpm-格式安装JDK" class="headerlink" title="rpm 格式安装JDK"></a>rpm 格式安装JDK</h3><ul>
-<li>下载<code>jdk-xxx-linux-x64.rmp</code></li>
-<li><code>rpm -ivh</code> 命令安装 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# rpm -ivh jdk-8u60-linux-x64.rpm </span><br><span class="line">Preparing...                ########################################### [100%]</span><br><span class="line">   1:jdk1.8.0_60            ########################################### [100%]</span><br><span class="line">Unpacking JAR files...</span><br><span class="line">        tools.jar...</span><br><span class="line">        plugin.jar...</span><br><span class="line">        javaws.jar...</span><br><span class="line">        deploy.jar...</span><br><span class="line">        rt.jar...</span><br><span class="line">        jsse.jar...</span><br><span class="line">        charsets.jar...</span><br><span class="line">        localedata.jar...</span><br><span class="line">        jfxrt.jar...</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>默认安装的路径为:<code>/usr/java/</code><br>它会自动配置环境、并覆盖当前Java环境。</p>
-</blockquote>
-<h3 id="yum-安装JDK"><a href="#yum-安装JDK" class="headerlink" title="yum 安装JDK"></a>yum 安装JDK</h3><ul>
-<li><code>yum search java</code> (选择一个penJDK版本)</li>
-<li><code>yum install xxxx</code> (安装OpenJDK)<blockquote>
-<p>是的，通过<code>yum</code>安装，你只能使用OpenJDK</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="安装-Mysql-5-7-11"><a href="#安装-Mysql-5-7-11" class="headerlink" title="安装 Mysql 5.7.11"></a>安装 Mysql 5.7.11</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><strong>这里更新至最新版Mysql5.7.11 源码(这里采用编译安装)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.11.tar.gz</span><br></pre></td></tr></table></figure></p>
-<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf mysql-5.7.11.tar.gz</span><br></pre></td></tr></table></figure>
-<h3 id="安装必要的包"><a href="#安装必要的包" class="headerlink" title="安装必要的包"></a>安装必要的包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper</span><br></pre></td></tr></table></figure>
-<h3 id="安装Boost"><a href="#安装Boost" class="headerlink" title="安装Boost"></a>安装Boost</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://jaist.dl.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.zip unzip boost_1_59_0.zip</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">unzip boost_1_59_0.zip </span><br><span class="line">cd boost_1_59_0 </span><br><span class="line">./bootstrap.sh  </span><br><span class="line">./b2 </span><br><span class="line">./b2 install</span><br></pre></td></tr></table></figure>
-<h3 id="生成makefile-和-编译"><a href="#生成makefile-和-编译" class="headerlink" title="生成makefile 和 编译"></a>生成makefile 和 编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd mysql-5.7.11</span><br><span class="line">// 生成makefile</span><br><span class="line">cmake .</span><br><span class="line">// 编译</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br><span class="line"></span><br><span class="line">// mysql 将会安装到/usr/local/mysql路径</span><br></pre></td></tr></table></figure>
-<h3 id="添加mysql用户和组"><a href="#添加mysql用户和组" class="headerlink" title="添加mysql用户和组"></a>添加mysql用户和组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//创建mysql 组</span><br><span class="line">sudo groupadd mysql</span><br><span class="line">// 创建mysql用户 所属组为mysql</span><br><span class="line">sudo useradd -r -g mysql mysql</span><br></pre></td></tr></table></figure>
-<h3 id="修改目录和文件权限，安装默认数据库"><a href="#修改目录和文件权限，安装默认数据库" class="headerlink" title="修改目录和文件权限，安装默认数据库"></a>修改目录和文件权限，安装默认数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R mysql.</span><br><span class="line">sudo chgrp -R mysql.</span><br><span class="line">bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data</span><br><span class="line">bin/mysql_ssl_rsa_setup </span><br><span class="line">sudo chown -R root .</span><br><span class="line">sudo chown -R mysql data</span><br></pre></td></tr></table></figure>
-<h3 id="创建-etc-my-cnf文件"><a href="#创建-etc-my-cnf文件" class="headerlink" title="创建/etc/my.cnf文件"></a>创建/etc/my.cnf文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf</span><br><span class="line">vi /etc/my.cnf</span><br><span class="line">// 增加如下</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server_id = 1</span><br><span class="line">#binary log</span><br><span class="line">log-bin = mysql-bin</span><br><span class="line">binlog_format = mixed</span><br><span class="line"># expire_logs_day = 30</span><br><span class="line">#slow query log</span><br><span class="line">slow_query_log = 1</span><br><span class="line">slow_query_log_file = /var/log/mysql/slow.log</span><br><span class="line">long_query_time = 3</span><br><span class="line">log-queries-not-using-indexes</span><br><span class="line">log-slow-admin-statements</span><br><span class="line"># 这里忽略密码了，重设密码后，应当删除</span><br><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
-<h3 id="复制mysql服务启动脚本并加入PATH路径"><a href="#复制mysql服务启动脚本并加入PATH路径" class="headerlink" title="复制mysql服务启动脚本并加入PATH路径"></a>复制mysql服务启动脚本并加入PATH路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">vim /etc/profile</span><br><span class="line">// 添加如下</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH:.</span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-<h3 id="启动Mysql-并加入开机自动启动"><a href="#启动Mysql-并加入开机自动启动" class="headerlink" title="启动Mysql 并加入开机自动启动"></a>启动Mysql 并加入开机自动启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start </span><br><span class="line">chkconfig --level 35 mysqld on</span><br></pre></td></tr></table></figure>
-<h3 id="重设密码"><a href="#重设密码" class="headerlink" title="重设密码"></a>重设密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot</span><br><span class="line"></span><br><span class="line">//选择数据库</span><br><span class="line">use mysql</span><br><span class="line">// 设置密码。 5.7 相比5.5 user表中password字段改为authentication_string。如下</span><br><span class="line">update user set authentication_string=PASSWORD(&apos;123456&apos;) where user=&apos;root&apos; and host=&apos;localhost&apos;;</span><br><span class="line">//更新权限表</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2101,7 +1887,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2109,7 +1895,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2118,7 +1904,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

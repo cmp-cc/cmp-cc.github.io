@@ -67,7 +67,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
 <meta property="og:site_name" content="I am cmp-cc">
 <meta property="og:description" content="记录一下Java Web 遇到的一些异常情况.
 org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时候发生123456789101112131415161718192021222324252627282930313233严重: ContainerBase.addChild: start: org.apache.catalina.Li">
-<meta property="og:updated_time" content="2016-05-17T09:23:31.321Z">
+<meta property="og:updated_time" content="2016-08-04T01:58:58.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Web异常">
 <meta name="twitter:description" content="记录一下Java Web 遇到的一些异常情况.
@@ -300,6 +300,8 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
 <li>引入<a href="http://mvnrepository.com/artifact/com.paypal.sdk/paypal-core" target="_blank" rel="external">PayPal Core</a> 到<code>WEB-INF\lib</code> 或Maven依赖。</li>
 <li>参考：<br><code>http://stackoverflow.com/questions/18404916/failed-to-start-component-standardenginecatalina-standardhostlocalhost-stan</code></li>
 </ul>
+<h2 id="VerifyError"><a href="#VerifyError" class="headerlink" title="VerifyError"></a>VerifyError</h2><h3 id="错误详情"><a href="#错误详情" class="headerlink" title="错误详情"></a>错误详情</h3><p>本地使用jetty 运行，进行数据访问是ok的。  部署到服务器（tomcat）中出现如下异常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">java.lang.VerifyError: (class: org/jboss/netty/channel/socket/nio/NioWorkerPool, method: newWorker signature: (Ljava/util/concurrent/Executor;)Lorg/jboss/netty/channel/socket/nio/AbstractNioWorker;) Wrong return type in function</span><br><span class="line">	org.elasticsearch.transport.netty.NettyTransport.createClientBootstrap(NettyTransport.java:349)</span><br><span class="line">	org.elasticsearch.transport.netty.NettyTransport.doStart(NettyTransport.java:277)</span><br><span class="line">	org.elasticsearch.common.component.AbstractLifecycleComponent.start(AbstractLifecycleComponent.java:68)</span><br><span class="line">	org.elasticsearch.transport.TransportService.doStart(TransportService.java:170)</span><br><span class="line">	org.elasticsearch.common.component.AbstractLifecycleComponent.start(AbstractLifecycleComponent.java:68)</span><br><span class="line">	org.elasticsearch.client.transport.TransportClient$Builder.build(TransportClient.java:159)</span><br><span class="line">	com.EsUtil.SecObjectFactory_814.makeObject(SecObjectFactory_814.java:49)</span><br><span class="line">	org.apache.commons.pool.impl.GenericObjectPool.addObject(GenericObjectPool.java:1691)</span><br><span class="line">	com.EsUtil.ESconnectionPool_814.addObject(ESconnectionPool_814.java:47)</span><br><span class="line">	com.EsUtil.ESconnectionPool_814.&lt;init&gt;(ESconnectionPool_814.java:32)</span><br><span class="line">	com.EsUtil.ESUtil.&lt;clinit&gt;(ESUtil.java:14)</span><br><span class="line">	com.action.SimilarAction.&lt;init&gt;(SimilarAction.java:79)</span><br><span class="line">	sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)</span><br><span class="line">	sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</span><br><span class="line">	java.lang.reflect.Constructor.newInstance(Constructor.java:422)</span><br><span class="line">	java.lang.Class.newInstance(Class.java:442)</span><br></pre></td></tr></table></figure></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>设置Tomcat JVM 启动参数.<code>vi /bin/catalina.sh</code> 添加如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_OPTS=&quot;-XX:-UseSplitVerifier&quot;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -405,7 +407,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -413,7 +415,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -422,7 +424,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -473,7 +475,7 @@ org.apache.catalina.LifecycleException异常信息使用Spring MVC 启动的时�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#org-apache-catalina-LifecycleException"><span class="nav-number">1.</span> <span class="nav-text">org.apache.catalina.LifecycleException</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常信息"><span class="nav-number">1.1.</span> <span class="nav-text">异常信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案："><span class="nav-number">1.2.</span> <span class="nav-text">解决方案：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#org-apache-catalina-LifecycleException"><span class="nav-number">1.</span> <span class="nav-text">org.apache.catalina.LifecycleException</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常信息"><span class="nav-number">1.1.</span> <span class="nav-text">异常信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案："><span class="nav-number">1.2.</span> <span class="nav-text">解决方案：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VerifyError"><span class="nav-number">2.</span> <span class="nav-text">VerifyError</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误详情"><span class="nav-number">2.1.</span> <span class="nav-text">错误详情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">2.2.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
