@@ -974,6 +974,177 @@
             
               
                 
+                <a class="post-title-link" href="/2015/11/05/2015/Neo4j Cypher 中文参考手册/" itemprop="url">
+                  Neo4j Cypher 中文参考手册
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-05T12:53:00+08:00" content="2015-11-05">
+              2015-11-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Data-Base-Management-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Base Management System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Data-Base-Management-System/Neo4j/" itemprop="url" rel="index">
+                    <span itemprop="name">Neo4j</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/05/2015/Neo4j Cypher 中文参考手册/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/05/2015/Neo4j Cypher 中文参考手册/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="写入语句"><a href="#写入语句" class="headerlink" title="写入语句"></a>写入语句</h2><h3 id="创建-（Create）"><a href="#创建-（Create）" class="headerlink" title="创建 （Create）"></a>创建 （Create）</h3><h4 id="创建点"><a href="#创建点" class="headerlink" title="创建点"></a>创建点</h4><p><strong>创建一个或多个节点（Node），每个节点拥有多个属性和多个标签（Label），并返回他们的信息</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create (n:Person:Rich&#123;name:&apos;Ms.Kile&apos;,country:&apos;UK&apos;&#125;),(m:Person:Destitute &#123;name:&apos;Kelao&apos;,country:&apos;CN&apos;&#125;) return n,m</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建关系"><a href="#创建关系" class="headerlink" title="创建关系"></a>创建关系</h4><p><strong>查找两个点，创建他们的关联关系,并增加一个到多个属性值。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Match (n:Person),(m:Person) where n.name = &apos;Ms.Kile&apos; and m.name = &apos;Kelao&apos; create (n) -[r:Know&#123;name: n.name + &apos;-&gt;&apos; + m.name&#125;]-&gt;(m) return r</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建Path"><a href="#创建Path" class="headerlink" title="创建Path"></a>创建Path</h4><p><strong>创建一个完整的Path</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create p = (n&#123;name:&apos;Andres&apos;&#125;) - [:WORKS_AT]-&gt;(neo)&lt;-[:WORKS_AT]-(m&#123;name:&apos;Michael&apos;&#125;) return p</span><br></pre></td></tr></table></figure></p>
+<h4 id="带参数的创建"><a href="#带参数的创建" class="headerlink" title="带参数的创建"></a>带参数的创建</h4><p>可以创建节点的时候附加参数信息(Parameters)，参数信息中可以包含属性信息（properties）。<br>但是在当前Neo4j 2.x 浏览器中还不支持Cypher的参数化，不过，你可以使用<code>:POST</code>语法来实现这一点。</p>
+<p><strong>Refer to the documentation for more information on Cypher queries via REST API.</strong></p>
+<p><a href="http://docs.neo4j.org/chunked/milestone/rest-api-cypher.html" target="_blank" rel="external">http://docs.neo4j.org/chunked/milestone/rest-api-cypher.html</a></p>
+<p>我们尝试在浏览器中完成如下操作。（但这并不是推荐的做法）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">:POST /db/data/transaction/commit &#123;</span><br><span class="line">    &quot;statements&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;statement&quot;: &quot;MATCH (u:User &#123;name:&#123;username&#125;&#125;) RETURN u.name as username&quot;,</span><br><span class="line">            &quot;parameters&quot;: &#123;</span><br><span class="line">                &quot;username&quot;: &quot;my name&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建带有标签的节点，属性使用参数化（Parameters）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">:POST /db/data/transaction/commit </span><br><span class="line">&#123;</span><br><span class="line">  &quot;statements&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;statement&quot;: &quot;CREATE (n:Person &#123; props &#125;) RETURN n&quot;,</span><br><span class="line">      &quot;parameters&quot;: &#123;</span><br><span class="line">        &quot;props&quot;: &#123;</span><br><span class="line">          &quot;name&quot;: &quot;Andres&quot;,</span><br><span class="line">          &quot;position&quot;: &quot;Developer&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建多个节点，属性信息使用参数化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">旧的API方式</span><br><span class="line">:POST /db/data/transaction/commit </span><br><span class="line">&#123;</span><br><span class="line">  &quot;statements&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;statement&quot;: &quot;CREATE (n:Person &#123; props &#125;) RETURN n&quot;,</span><br><span class="line">      &quot;parameters&quot;: &#123;</span><br><span class="line">        &quot;props&quot;: [</span><br><span class="line">          &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Andres&quot;,</span><br><span class="line">            &quot;position&quot;: &quot;Developer&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Michael&quot;,</span><br><span class="line">            &quot;position&quot;: &quot;Developer&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">新的PAI方式</span><br><span class="line">:POST /db/data/transaction/commit </span><br><span class="line">&#123;</span><br><span class="line">  &quot;statements&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;statement&quot;: &quot;UNWIND &#123; props &#125; AS map CREATE (n:Person ) SET n = map return n&quot;,</span><br><span class="line">      &quot;parameters&quot;: &#123;</span><br><span class="line">        &quot;props&quot;: [</span><br><span class="line">          &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Andres&quot;,</span><br><span class="line">            &quot;position&quot;: &quot;Developer&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Michael&quot;,</span><br><span class="line">            &quot;position&quot;: &quot;Developer&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于使用POST请求，并不会显示可视化。你尝试查询创建的节点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match (n:Person) where n.position = &quot;Developer&quot; return n</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>实际情况的使用：<br>Cypher支持参数化，提交为JSON，可以使用REST API如下：<br><a href="http://docs.neo4j.org/chunked/milestone/rest-api-cypher.html" target="_blank" rel="external">http://docs.neo4j.org/chunked/milestone/rest-api-cypher.html</a><br>或者使用嵌入式（embedded）API，如下<br><a href="http://docs.neo4j.org/chunked/milestone/tutorials-cypher-parameters-java.html" target="_blank" rel="external">http://docs.neo4j.org/chunked/milestone/tutorials-cypher-parameters-java.html</a></p>
+<p><strong> 实例如下：</strong><br>来源： <a href="http://stackoverflow.com/questions/22276795/how-do-you-use-parameters-with-neo4j" target="_blank" rel="external">http://stackoverflow.com/questions/22276795/how-do-you-use-parameters-with-neo4j</a><br>Example request<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">POST http://localhost:7474/db/data/cypher</span><br><span class="line">Accept: application/json; charset=UTF-8</span><br><span class="line">Content-Type: application/json </span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot; : &quot;MATCH (x &#123;name: &#123;startName&#125;&#125;)-[r]-(friend) WHERE friend.name = &#123;name&#125; RETURN TYPE(r)&quot;,</span><br><span class="line">  &quot;params&quot; : &#123;</span><br><span class="line">    &quot;startName&quot; : &quot;I&quot;,</span><br><span class="line">    &quot;name&quot; : &quot;you&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Example response<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">200: OK</span><br><span class="line">Content-Type: application/json; charset=UTF-8</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;columns&quot; : [ &quot;TYPE(r)&quot; ],</span><br><span class="line">  &quot;data&quot; : [ [ &quot;know&quot; ] ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="移除-（Remove）"><a href="#移除-（Remove）" class="headerlink" title="移除 （Remove）"></a>移除 （Remove）</h3><p><strong>Remove关键字用于移除图中元素中的属性和标签(Labels)。</strong><br><img src="http://neo4j.com/docs/stable/images/cypher-remove-graph.svg" alt="cypher-remove"></p>
+<p>执行如下命令删除Neo4j中的所有数据以便测试。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r</span><br></pre></td></tr></table></figure>
+<p>构造上图关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create (i:Swedish&#123;name:&apos;Andres&apos;,age:36&#125;),(j:Swedish&#123;name:&apos;Tobias&apos;,age:25&#125;),(k:Swedish:German&#123;name:&apos;Peter&apos;,age:31&#125;),</span><br><span class="line">(i)-[:KNOWS]-&gt;(j),</span><br><span class="line">(i)-[:KNOWS]-&gt;(k)</span><br><span class="line">return i,j,k</span><br></pre></td></tr></table></figure></p>
+<h4 id="移除属性"><a href="#移除属性" class="headerlink" title="移除属性"></a>移除属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match (andres&#123;name:&apos;Andres&apos;&#125;) remove andres.age return andres</span><br></pre></td></tr></table></figure>
+<h4 id="移除一个节点的多个Label"><a href="#移除一个节点的多个Label" class="headerlink" title="移除一个节点的多个Label"></a>移除一个节点的多个Label</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match (n&#123;name:&apos;Peter&apos;&#125;) remove n:German:Swedish return n</span><br></pre></td></tr></table></figure>
+<h3 id="删除（Delete）"><a href="#删除（Delete）" class="headerlink" title="删除（Delete）"></a>删除（Delete）</h3><p><strong>Delete关键字用于删除图元素—–nodes, relationships or paths</strong><br>想要移除属性（properties ）和标签（labels）使用<code>Remove</code></p>
+<blockquote>
+<p>在删除节点（Node）之前，一定要先删除关系（Relationships）或者使用<code>DETACH DELETE</code>语句删除.</p>
+</blockquote>
+<p><img src="http://neo4j.com/docs/stable/images/cypher-delete-graph.svg" alt="cypher-delete"></p>
+<p>构造如上图关系,他们额外增加相同Label。然后回显他们。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create (j:Useless&#123;name:&apos;Andres&apos;,age:36&#125;),(k:Useless&#123;name:&apos;Tobias&apos;,age:25&#125;),(l:Useless&#123;name:&apos;Peter&apos;,age:34&#125;),</span><br><span class="line">(j)-[:KNOWS]-&gt;(k),</span><br><span class="line">(j)-[:KNOWS]-&gt;(l)</span><br><span class="line">return j,k,l</span><br></pre></td></tr></table></figure>
+<h4 id="删除所有KNOWS关系"><a href="#删除所有KNOWS关系" class="headerlink" title="删除所有KNOWS关系"></a>删除所有KNOWS关系</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match ()-[r:KNOWS]-() delete r</span><br></pre></td></tr></table></figure>
+<h4 id="删除所有带Useless标签的节点"><a href="#删除所有带Useless标签的节点" class="headerlink" title="删除所有带Useless标签的节点"></a>删除所有带Useless标签的节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match (n: Useless) delete n</span><br></pre></td></tr></table></figure>
+<h5 id="删除所有的节点和边"><a href="#删除所有的节点和边" class="headerlink" title="删除所有的节点和边"></a>删除所有的节点和边</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r</span><br><span class="line"></span><br><span class="line">版本2.3 以后可以使用如下方式：</span><br><span class="line"></span><br><span class="line">MATCH (n) DETACH DELETE n</span><br></pre></td></tr></table></figure>
+<h4 id="删除属性为Andres的点和链接的关系"><a href="#删除属性为Andres的点和链接的关系" class="headerlink" title="删除属性为Andres的点和链接的关系"></a>删除属性为Andres的点和链接的关系</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123; name: &apos;Andres&apos; &#125;)-[r]-() DELETE n, r</span><br><span class="line"></span><br><span class="line">版本2.3 以后可以使用如下方式：</span><br><span class="line"></span><br><span class="line">MATCH (n &#123; name:&apos;Andres&apos; &#125;) DETACH DELETE n</span><br></pre></td></tr></table></figure>
+<h3 id="更新（Set）"><a href="#更新（Set）" class="headerlink" title="更新（Set）"></a>更新（Set）</h3><p><strong>Set用于更新Label、Node或者Relationships上面的属性。</strong><br>同样可以使用基于map的参数化设置属性<br><img src="http://neo4j.com/docs/stable/images/cypher-set-graph.svg" alt="cypher-set"></p>
+<p>执行如下命令删除Neo4j中的所有数据以便测试。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r</span><br></pre></td></tr></table></figure></p>
+<p>构造如上图的节点关系图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create (i&#123;name:&apos;Stefan&apos;&#125;),(j&#123;name:&apos;Emil&apos;&#125;),(k:Swedish&#123;name:&apos;Andres&apos;,age:36,hungry:true&#125;),(m&#123;name:&apos;Peter&apos;,age:34&#125;),</span><br><span class="line">(i)-[:KNOWS]-&gt;(k),</span><br><span class="line">(j)-[:KNOWS]-&gt;(m),</span><br><span class="line">(k)-[:KNOWS]-&gt;(m)</span><br><span class="line">return i,j,k,m</span><br></pre></td></tr></table></figure></p>
+<h4 id="给其中一个节点增加属性"><a href="#给其中一个节点增加属性" class="headerlink" title="给其中一个节点增加属性"></a>给其中一个节点增加属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123; name: &apos;Andres&apos; &#125;)SET n.surname = &apos;Taylor&apos;RETURN n</span><br></pre></td></tr></table></figure>
+<h4 id="移除一个属性"><a href="#移除一个属性" class="headerlink" title="移除一个属性"></a>移除一个属性</h4><p>正常情况下使用<code>Remove</code>移除属性，有的时候为了方便使用set命令，比如属性来自参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123; name: &apos;Andres&apos; &#125;)SET n.name = NULL RETURN n</span><br></pre></td></tr></table></figure>
+<h4 id="使用map添加属性"><a href="#使用map添加属性" class="headerlink" title="使用map添加属性"></a>使用map添加属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (peter &#123; name: &apos;Peter&apos; &#125;)SET peter += &#123; hungry: TRUE , position: &apos;Entrepreneur&apos; &#125; retrun peter</span><br></pre></td></tr></table></figure>
+<h4 id="使用参数化设置属性"><a href="#使用参数化设置属性" class="headerlink" title="使用参数化设置属性"></a>使用参数化设置属性</h4><p>具体关系参数化参考:Create<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">:POST /db/data/transaction/commit</span><br><span class="line">&#123;</span><br><span class="line">  &quot;statements&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;statement&quot;: &quot;MATCH (n &#123; name: &apos;Stefan&apos; &#125;) SET n.surname = &#123; surname &#125; RETURN n&quot;,</span><br><span class="line">      &quot;parameters&quot;: &#123;</span><br><span class="line">        &quot;surname&quot;: &quot;Taylor&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">查看这个节点</span><br><span class="line"></span><br><span class="line">match (n&#123;name:&apos;Stefan&apos;&#125;) return n</span><br></pre></td></tr></table></figure></p>
+<h5 id="使用参数化重设多个属性"><a href="#使用参数化重设多个属性" class="headerlink" title="使用参数化重设多个属性"></a>使用参数化重设多个属性</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">:POST /db/data/transaction/commit&#123;</span><br><span class="line">  &quot;statements&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;statement&quot;: &quot;MATCH (n &#123; name: &apos;Stefan&apos; &#125;) SET n= &#123; props&#125; RETURN n&quot;,</span><br><span class="line">      &quot;parameters&quot;: &#123;</span><br><span class="line">        &quot;props&quot;: &#123;</span><br><span class="line">          &quot;name&quot;: &quot;Andres&quot;,</span><br><span class="line">          &quot;position&quot;: &quot;Developer&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">match (n&#123;name:&apos;Andres&apos;&#125;) return n</span><br></pre></td></tr></table></figure>
+<h4 id="设置多个属性"><a href="#设置多个属性" class="headerlink" title="设置多个属性"></a>设置多个属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match (n&#123;name:&apos;Andres&apos;&#125;) set n.porition = &apos;Beijing&apos;,n.surname = &apos;Taylor&apos; return n</span><br></pre></td></tr></table></figure>
+<h4 id="在节点上设置多个标签"><a href="#在节点上设置多个标签" class="headerlink" title="在节点上设置多个标签"></a>在节点上设置多个标签</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match (n&#123;name:&apos;Andres&apos;&#125;) set n:German:Bossman return n</span><br></pre></td></tr></table></figure>
+<h3 id="循环（Foreach）"><a href="#循环（Foreach）" class="headerlink" title="循环（Foreach）"></a>循环（Foreach）</h3><p><strong>Foreach 是对集合数据进行操作（eg:更新）</strong></p>
+<h2 id="暂停更新"><a href="#暂停更新" class="headerlink" title="暂停更新"></a>暂停更新</h2><p><strong>公司放弃Neo4j 在项目中的应用</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/10/14/2015/CDH开启HA 访问HDFS/" itemprop="url">
                   CDH开启HA 访问HDFS
                 </a>
@@ -1970,142 +2141,6 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/28/2015/配置环境变量脚本/" itemprop="url">
-                  配置环境变量脚本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-28T21:54:00+08:00" content="2015-04-28">
-              2015-04-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Work-Efficiency/" itemprop="url" rel="index">
-                    <span itemprop="name">Work Efficiency</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/04/28/2015/配置环境变量脚本/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/28/2015/配置环境变量脚本/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率</strong></p>
-<h2 id="Window-环境下自动化配置各种环境变量"><a href="#Window-环境下自动化配置各种环境变量" class="headerlink" title="Window 环境下自动化配置各种环境变量"></a>Window 环境下自动化配置各种环境变量</h2><h3 id="1、修改注册表的方法，重启永久有效"><a href="#1、修改注册表的方法，重启永久有效" class="headerlink" title="1、修改注册表的方法，重启永久有效"></a>1、修改注册表的方法，重启永久有效</h3><p>reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%path%;C:\”  /f</p>
-<hr>
-<h3 id="2、setx-命令-（永久）"><a href="#2、setx-命令-（永久）" class="headerlink" title="2、setx 命令 （永久）"></a>2、setx 命令 （永久）</h3><ul>
-<li>setx 默认写入的是用户变量，想写入环境变量，加 /M<br>&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setx JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h3 id="3、set-命令（非永久，只针对于当前命令行）"><a href="#3、set-命令（非永久，只针对于当前命令行）" class="headerlink" title="3、set 命令（非永久，只针对于当前命令行）"></a>3、set 命令（非永久，只针对于当前命令行）</h3><p>同上 (setx命令)</p>
-<h2 id="自动环境配置脚本"><a href="#自动环境配置脚本" class="headerlink" title="自动环境配置脚本"></a>自动环境配置脚本</h2><p><strong>参考如下 EnvironmentConfiguration.bat 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF </span><br><span class="line">IF EXIST %systemroot%\system32\setx.exe ( </span><br><span class="line"></span><br><span class="line">@ECHO 开始配置JAVA环境</span><br><span class="line">@SETX JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br><span class="line">@SETX CLASSPATH &quot;.;%%JAVA_HOME%%\lib&quot;</span><br><span class="line">@SETX PATH &quot;%%PATH%%;%%JAVA_HOME%%\bin&quot;</span><br><span class="line">@ECHO JDK配置完成</span><br><span class="line"></span><br><span class="line">) else (</span><br><span class="line"></span><br><span class="line">@ECHO ON</span><br><span class="line">@ECHO 未能找到%systemroot%\system32\setx.exe，请下载setx.exe程序 </span><br><span class="line"></span><br><span class="line">)</span><br><span class="line">@PAUSE</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2151,7 +2186,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2159,7 +2194,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2168,7 +2203,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
