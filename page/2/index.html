@@ -228,450 +228,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/14/2016/模拟ORM/" itemprop="url">
-                  模拟ORM
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-14T18:34:00+08:00" content="2016-04-14">
-              2016-04-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming Language</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/14/2016/模拟ORM/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/2016/模拟ORM/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>有时候做一些展示用的项目，或者是测试项目，可能并不会去引入Hibernate 等这类ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。</p>
-<h2 id="SQL-Mapping-Java"><a href="#SQL-Mapping-Java" class="headerlink" title="SQL Mapping Java"></a>SQL Mapping Java</h2><h3 id="整体实体关系映射"><a href="#整体实体关系映射" class="headerlink" title="整体实体关系映射"></a>整体实体关系映射</h3><table>
-<thead>
-<tr>
-<th>类型名称</th>
-<th>显示长度</th>
-<th>数据库类型</th>
-<th>JAVA类型</th>
-<th>JDBC类型索引(int)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>VARCHAR</td>
-<td>L+N</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-<td>12     </td>
-</tr>
-<tr>
-<td>CHAR</td>
-<td>N</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-<td>1     </td>
-</tr>
-<tr>
-<td>BLOB</td>
-<td>L+N</td>
-<td>BLOB</td>
-<td>java.lang.byte[]</td>
-<td>-4     </td>
-</tr>
-<tr>
-<td>TEXT</td>
-<td>65535</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-<td>-1      </td>
-</tr>
-<tr>
-<td>INTEGER</td>
-<td>4</td>
-<td>INTEGER UNSIGNED</td>
-<td>java.lang.Long</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>TINYINT</td>
-<td>3</td>
-<td>TINYINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>-6     </td>
-</tr>
-<tr>
-<td>SMALLINT</td>
-<td>5</td>
-<td>SMALLINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>5     </td>
-</tr>
-<tr>
-<td>MEDIUMINT</td>
-<td>8</td>
-<td>MEDIUMINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>BIT</td>
-<td>1</td>
-<td>BIT</td>
-<td>java.lang.Boolean</td>
-<td>-7     </td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td>20</td>
-<td>BIGINT UNSIGNED</td>
-<td>java.math.BigInteger</td>
-<td>-5     </td>
-</tr>
-<tr>
-<td>FLOAT</td>
-<td>4+8</td>
-<td>FLOAT</td>
-<td>java.lang.Float</td>
-<td>7     </td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td>22</td>
-<td>DOUBLE</td>
-<td>java.lang.Double</td>
-<td>8     </td>
-</tr>
-<tr>
-<td>DECIMAL</td>
-<td>11</td>
-<td>DECIMAL</td>
-<td>java.math.BigDecimal</td>
-<td>3     </td>
-</tr>
-<tr>
-<td>BOOLEAN</td>
-<td>1</td>
-<td>TINYINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>-6      </td>
-</tr>
-<tr>
-<td>ID</td>
-<td>11</td>
-<td>PK (INTEGER UNSIGNED)</td>
-<td>java.lang.Long</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>DATE</td>
-<td>10</td>
-<td>DATE</td>
-<td>java.sql.Date</td>
-<td>91     </td>
-</tr>
-<tr>
-<td>TIME</td>
-<td>8</td>
-<td>TIME</td>
-<td>java.sql.Time</td>
-<td>92     </td>
-</tr>
-<tr>
-<td>DATETIME</td>
-<td>19</td>
-<td>DATETIME</td>
-<td>java.sql.Timestamp</td>
-<td>93     </td>
-</tr>
-<tr>
-<td>TIMESTAMP</td>
-<td>19</td>
-<td>TIMESTAMP</td>
-<td>java.sql.Timestamp</td>
-<td>93     </td>
-</tr>
-<tr>
-<td>YEAR</td>
-<td>4</td>
-<td>YEAR</td>
-<td>java.sql.Date</td>
-<td>91</td>
-</tr>
-</tbody>
-</table>
-<h3 id="MySQL-实体类型映射"><a href="#MySQL-实体类型映射" class="headerlink" title="MySQL 实体类型映射"></a>MySQL 实体类型映射</h3><table>
-<thead>
-<tr>
-<th>MySQL Type Name</th>
-<th>Return value of GetColumnClassName</th>
-<th>Returned as Java Class</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>BIT(1) (new in MySQL-5.0)</td>
-<td>BIT</td>
-<td>java.lang.Boolean</td>
-</tr>
-<tr>
-<td>BIT( &gt; 1) (new in MySQL-5.0)</td>
-<td>BIT</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYINT</td>
-<td>TINYINT</td>
-<td>java.lang.Boolean if the configuration property tinyInt1isBit is set to true (the default) and the storage size is 1, or java.lang.Integer if not.</td>
-</tr>
-<tr>
-<td>BOOL, BOOLEAN</td>
-<td>TINYINT</td>
-<td>See TINYINT, above as these are aliases for TINYINT(1), currently.</td>
-</tr>
-<tr>
-<td>SMALLINT[(M)] [UNSIGNED]</td>
-<td>SMALLINT [UNSIGNED]</td>
-<td>java.lang.Integer (regardless if UNSIGNED or not)</td>
-</tr>
-<tr>
-<td>MEDIUMINT[(M)] [UNSIGNED]</td>
-<td>MEDIUMINT [UNSIGNED]</td>
-<td>java.lang.Integer, if UNSIGNED java.lang.Long (C/J 3.1 and earlier), or java.lang.Integer for C/J 5.0 and later</td>
-</tr>
-<tr>
-<td>INT,INTEGER[(M)] [UNSlGNED]</td>
-<td>INTEGER [UNSIGNED]</td>
-<td>java.lang.Integer, if UNSIGNED java.lang.Long</td>
-</tr>
-<tr>
-<td>BIGINT[(M)] [UNSIGNED]</td>
-<td>BIGINT [UNSIGNED]</td>
-<td>java.lang.Long, if UNSIGNED java.math.BigInteger</td>
-</tr>
-<tr>
-<td>FLOAT[(M,D)]</td>
-<td>FLOAT</td>
-<td>java.lang.Float</td>
-</tr>
-<tr>
-<td>DOUBLE[(M,B)]</td>
-<td>DOUBLE</td>
-<td>java.lang.Double</td>
-</tr>
-<tr>
-<td>DECIMAL[(M[,D])]</td>
-<td>DECIMAL</td>
-<td>java.math.BigDecimal</td>
-</tr>
-<tr>
-<td>DATE</td>
-<td>DATE</td>
-<td>java.sql.Date</td>
-</tr>
-<tr>
-<td>DATETIME</td>
-<td>DATETIME</td>
-<td>java.sql.Timestamp</td>
-</tr>
-<tr>
-<td>TIMESTAMP[(M)]</td>
-<td>TIMESTAMP</td>
-<td>java.sql.Timestamp</td>
-</tr>
-<tr>
-<td>TIME</td>
-<td>TIME</td>
-<td>java.sql.Time</td>
-</tr>
-<tr>
-<td>YEAR[(2l4)]</td>
-<td>YEAR</td>
-<td>If yearIsDateType configuration property is set to false, then the returned object type is java.sql.Short. If set to true (the default), then the returned object is of type java.sql.Date with the date set to January 1st, at midnight.</td>
-</tr>
-<tr>
-<td>CHAR(M)</td>
-<td>CHAR</td>
-<td>java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
-</tr>
-<tr>
-<td>VARCHAR(M)</td>
-<td>[BINARY]</td>
-<td>VARCHAR    java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
-</tr>
-<tr>
-<td>BINARY(M)</td>
-<td>BINARY</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>VARBINARY(M)</td>
-<td>VARBINARY</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYBLOB</td>
-<td>TINYBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>BLOB</td>
-<td>BLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>MEDIUMBLOB</td>
-<td>MEDIUMBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>MEDIUMTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>LONGBLOB</td>
-<td>LONGBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>LONGTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>ENUM(‘value1’,’value2’,…)</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>SET(‘value1’,’value2’,…)</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-</tr>
-</tbody>
-</table>
-<p>参考： <a href="http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html</a></p>
-<h2 id="模拟ORM"><a href="#模拟ORM" class="headerlink" title="模拟ORM"></a>模拟ORM</h2><h3 id="根据实体映射表"><a href="#根据实体映射表" class="headerlink" title="根据实体映射表"></a>根据实体映射表</h3><p><strong>如下只是一个基本实例，想要完成更多特性，还是要下点功夫的。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public class CreateTableORM &#123;</span><br><span class="line">    </span><br><span class="line">    private static Map&lt;String,String&gt; ormField = getJavaMapMysql();</span><br><span class="line">    </span><br><span class="line">    Class&lt;?&gt; clazz;</span><br><span class="line">    </span><br><span class="line">    Connection conn;</span><br><span class="line">    </span><br><span class="line">    // 表名</span><br><span class="line">    String tableName;</span><br><span class="line">    </span><br><span class="line">    public CreateTableORM(Class&lt;?&gt; clazz , Connection conn)&#123;</span><br><span class="line">        this.clazz = clazz;</span><br><span class="line">        this.conn = conn;</span><br><span class="line">        tableName = clazz.getName();</span><br><span class="line">        </span><br><span class="line">        createTable();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void createTable()&#123;</span><br><span class="line">        </span><br><span class="line">         StringBuffer sb = new StringBuffer();</span><br><span class="line">        </span><br><span class="line">         Arrays.asList(clazz.getDeclaredFields()).forEach(field -&gt;&#123;</span><br><span class="line">             </span><br><span class="line">            String fieldType = ormField.get(field.getType().getName());</span><br><span class="line">            String fieldName = field.getName();</span><br><span class="line">            </span><br><span class="line">            sb.append(String.format(&quot;%s %s,&quot;, fieldName,fieldType));</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        String sql = String.format(&quot;Create Table If Not Exists %s (%s)&quot;,this.tableName, sb.deleteCharAt(sb.length()-1).toString());</span><br><span class="line">        </span><br><span class="line">        excuteSQL(sql);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void excuteSQL(String sql) &#123;</span><br><span class="line">        PreparedStatement statement;</span><br><span class="line">        </span><br><span class="line">        try &#123;</span><br><span class="line">            statement = conn.prepareStatement(sql);</span><br><span class="line">            statement.execute();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Map&lt;String,String&gt; getJavaMapMysql()&#123;</span><br><span class="line">        </span><br><span class="line">        /**定义并不标准**/</span><br><span class="line">        Map&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">        map.put(&quot;java.lang.String&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Character&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;char&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Integer&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;int&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;java.util.Date&quot;, &quot;DATE&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        map.put(&quot;boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //测试</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection conn = MysqlJDBCPoolUtil.getConnection();</span><br><span class="line">        new CreateTableORM(Admin.class, conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="暂无需求。"><a href="#暂无需求。" class="headerlink" title="暂无需求。"></a>暂无需求。</h3><p><strong>日后，有需要再完善</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/04/12/2016/H2 DataBase 数据库/" itemprop="url">
                   H2 DataBase 数据库
                 </a>
@@ -2414,6 +1970,142 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/04/28/2015/配置环境变量脚本/" itemprop="url">
+                  配置环境变量脚本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-04-28T21:54:00+08:00" content="2015-04-28">
+              2015-04-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Work-Efficiency/" itemprop="url" rel="index">
+                    <span itemprop="name">Work Efficiency</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/04/28/2015/配置环境变量脚本/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/28/2015/配置环境变量脚本/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>经常要手工配置一些环境变量（Ant、Java、Maven、Ruby等等），特别浪费时间，需要一种目录约定俗成的方式配置环境变量，来增加工作效率</strong></p>
+<h2 id="Window-环境下自动化配置各种环境变量"><a href="#Window-环境下自动化配置各种环境变量" class="headerlink" title="Window 环境下自动化配置各种环境变量"></a>Window 环境下自动化配置各种环境变量</h2><h3 id="1、修改注册表的方法，重启永久有效"><a href="#1、修改注册表的方法，重启永久有效" class="headerlink" title="1、修改注册表的方法，重启永久有效"></a>1、修改注册表的方法，重启永久有效</h3><p>reg add “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment” /v path /d “%path%;C:\”  /f</p>
+<hr>
+<h3 id="2、setx-命令-（永久）"><a href="#2、setx-命令-（永久）" class="headerlink" title="2、setx 命令 （永久）"></a>2、setx 命令 （永久）</h3><ul>
+<li>setx 默认写入的是用户变量，想写入环境变量，加 /M<br>&gt;<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setx JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="3、set-命令（非永久，只针对于当前命令行）"><a href="#3、set-命令（非永久，只针对于当前命令行）" class="headerlink" title="3、set 命令（非永久，只针对于当前命令行）"></a>3、set 命令（非永久，只针对于当前命令行）</h3><p>同上 (setx命令)</p>
+<h2 id="自动环境配置脚本"><a href="#自动环境配置脚本" class="headerlink" title="自动环境配置脚本"></a>自动环境配置脚本</h2><p><strong>参考如下 EnvironmentConfiguration.bat 配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF </span><br><span class="line">IF EXIST %systemroot%\system32\setx.exe ( </span><br><span class="line"></span><br><span class="line">@ECHO 开始配置JAVA环境</span><br><span class="line">@SETX JAVA_HOME &quot;D:\Program Software\Programming Language\Java\jdk1.8.0&quot;</span><br><span class="line">@SETX CLASSPATH &quot;.;%%JAVA_HOME%%\lib&quot;</span><br><span class="line">@SETX PATH &quot;%%PATH%%;%%JAVA_HOME%%\bin&quot;</span><br><span class="line">@ECHO JDK配置完成</span><br><span class="line"></span><br><span class="line">) else (</span><br><span class="line"></span><br><span class="line">@ECHO ON</span><br><span class="line">@ECHO 未能找到%systemroot%\system32\setx.exe，请下载setx.exe程序 </span><br><span class="line"></span><br><span class="line">)</span><br><span class="line">@PAUSE</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2467,7 +2159,7 @@ SET hive.exec.max.dynamic.partitions.pernode=100000;
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
