@@ -228,6 +228,186 @@
             
               
                 
+                <a class="post-title-link" href="/2014/07/07/2014/FreeMarker入门/" itemprop="url">
+                  FreeMarker入门
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-07-07T16:53:00+08:00" content="2014-07-07">
+              2014-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaWeb/FreeMarker/" itemprop="url" rel="index">
+                    <span itemprop="name">FreeMarker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/07/07/2014/FreeMarker入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/07/2014/FreeMarker入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>FrameMarker 模板语言: FreeMarker Template Language ( FTL )。</p>
+<ul>
+<li><p>FreeMarker 入门实例</p>
+<ul>
+<li>Hello World 实例,了解Freemarkers 执行步骤</li>
+<li>Types 实例，了解FreeMarker 内置类型转换</li>
+</ul>
+</li>
+<li><p>引入依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.3.23&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Hello-World-实例"><a href="#Hello-World-实例" class="headerlink" title="Hello World 实例"></a>Hello World 实例</h2><ul>
+<li>在<code>resources目录</code>创建<code>hello.ftl</code>文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello,$&#123;name&#125;!</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>.ftl</code>文件作为Freemarker 模板语言文件后缀,<code>${name}</code>会替换Model中的属性值</p>
+</blockquote>
+<ul>
+<li><p>编写Java程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import freemarker.template.Configuration;</span><br><span class="line">import freemarker.template.DefaultObjectWrapper;</span><br><span class="line">import freemarker.template.Template;</span><br><span class="line">import freemarker.template.TemplateException;</span><br><span class="line">    </span><br><span class="line">public class HelloFreemarker &#123;</span><br><span class="line">    public static void main(String[] args) </span><br><span class="line">    throws IOException, TemplateException &#123;</span><br><span class="line">        // 创建Freemarker 配置对象(模板工厂对象),并指定当前版本号。</span><br><span class="line">        Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);</span><br><span class="line">        </span><br><span class="line">        //选择一种Model对象包装(Object Wrapper)类型.模板获取Model中的值. 默认如下,可忽略</span><br><span class="line">        cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS));</span><br><span class="line">        </span><br><span class="line">        // 模板目录父类目录地址</span><br><span class="line">        cfg.setDirectoryForTemplateLoading(new File(&quot;src/main/resources/&quot;));</span><br><span class="line">        </span><br><span class="line">        //Model 对象</span><br><span class="line">        Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span><br><span class="line">        model.put(&quot;name&quot;, &quot;world&quot;);</span><br><span class="line">        </span><br><span class="line">        //获取一个模板对象。 需要告诉配置实例对象加载个哪个模板</span><br><span class="line">        Template template = cfg.getTemplate(&quot;hello.tfl&quot;);</span><br><span class="line">        </span><br><span class="line">        /*</span><br><span class="line">         * 处理模板,需要两个参数：</span><br><span class="line">         * 1、使用哪个Model?</span><br><span class="line">         * 2、输出到什么地方?</span><br><span class="line">         */</span><br><span class="line">        template.process(model, new OutputStreamWriter(System.out));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行程序，显示如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>model.put(&quot;name&quot;, &quot;world&quot;);</code> 为<code>model.put(&quot;name&quot;, 123456789);</code> 查看输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello,123,456,789!</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>输出的格式取决默认的语言环境，如果在德国将看到输出为：<code>Hello,123.456.789!</code><br>Freemarker默认使用<code>java.text.DecimalFormat</code>对象数字类型进行格式化输出</p>
+</blockquote>
+<h2 id="types-实例"><a href="#types-实例" class="headerlink" title="types 实例"></a>types 实例</h2><p>为了精确控制对象将模型转换成文本（转换类型值到文本），我们可以使用FreeMarker提供的内置插件控制格式转换，如下：<code>types.ftl</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String: $&#123;string?html&#125;</span><br><span class="line">Number: $&#123;number?c&#125;</span><br><span class="line">Boolean: $&#123;boolean?string(&quot;+++++&quot;, &quot;-----&quot;)&#125;</span><br><span class="line">Date: $&#123;.now?time&#125;</span><br><span class="line">Complex: $&#123;object&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>.now</code>是一个特殊的变量，用于处理日期和时间，<code>?</code>后跟内置插件名称</p>
+</blockquote>
+<ul>
+<li><p>创建一个Java程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Locale;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import freemarker.template.Configuration;</span><br><span class="line">import freemarker.template.Template;</span><br><span class="line">import freemarker.template.TemplateException;</span><br><span class="line">public class FreemarkerTypes &#123;</span><br><span class="line">  public static void main(String[] args) </span><br><span class="line">  throws IOException, TemplateException &#123;</span><br><span class="line">    Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);</span><br><span class="line">    cfg.setDirectoryForTemplateLoading(new File(&quot;src/main/resources&quot;));</span><br><span class="line">    Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span><br><span class="line">    model.put(&quot;string&quot;, &quot;easy &amp; fast &quot;);</span><br><span class="line">    model.put(&quot;number&quot;, new BigDecimal(&quot;1234.5678&quot;));</span><br><span class="line">    model.put(&quot;boolean&quot;, true);</span><br><span class="line">    model.put(&quot;object&quot;, Locale.US);</span><br><span class="line">    Template template = cfg.getTemplate(&quot;types.ftl&quot;);</span><br><span class="line">    template.process(model, new OutputStreamWriter(System.out));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>格式化实例输出如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String: easy &amp;amp; fast </span><br><span class="line">Number: 1234.5678</span><br><span class="line">Boolean: +++++</span><br><span class="line">Date: 10:13:59</span><br><span class="line">Complex: en_US</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内置插件如何影响输出的呢？</p>
+<ul>
+<li>字符串：输出一个字符串，使用内置插件名称<code>html</code>,它将字符串编码为HTML，将<code>&amp;</code>转换为<code>&amp;amp;</code>HTML实体，它确保文本正确显示，并防止跨站脚本攻击(XSS)</li>
+<li>数字：数字对象使用内置<code>c</code>,它告诉FreeMarker将数字类型使用文本解析。</li>
+<li>布尔：这里类似一个三目表达式。FreeMarker不会去格式化布尔值，从概念上讲，<code>true</code>和<code>false</code>并没有通用的文本表示，如果我们不带任何参数(<code>${boolean}</code>),它将抛出一个异常。</li>
+<li>日期：FreeMarker没有内置处理<code>java.util.Date</code>,因为它不知道如何显示日期和时间，或者两则，通过<code>time</code>告诉FreeMarker我们要显示时间。</li>
+<li>复杂对象: 没有使用内置插件。 对于复杂对象，它默认使用<code>toString</code>返回一个字符串类型，所以可以使用内置字符串插件来处理。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/06/28/2014/Spring MVC 数据绑定/" itemprop="url">
                   Spring MVC 数据绑定
                 </a>
@@ -908,7 +1088,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Boostrap/" itemprop="url">
+                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Generator/" itemprop="url">
                   MyBatis Generator
                 </a>
               
@@ -964,8 +1144,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/05/11/2014/MyBatis Boostrap/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Boostrap/" itemprop="commentsCount"></span>
+                <a href="/2014/05/11/2014/MyBatis Generator/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Generator/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1053,8 +1233,8 @@
 <p><strong>如下是MBG配置文件实例。你应当查阅每一个元素说明</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line"></span><br><span class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</span><br><span class="line">        userId=&quot;db2admin&quot;</span><br><span class="line">        password=&quot;db2admin&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</span><br><span class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
 <h3 id="MBG-XML-元素说明"><a href="#MBG-XML-元素说明" class="headerlink" title="MBG XML 元素说明"></a>MBG XML 元素说明</h3><p>查看官方元素说明：<a href="http://www.mybatis.org/generator/configreference/xmlconfig.html" target="_blank" rel="external">http://www.mybatis.org/generator/configreference/xmlconfig.html</a></p>
 <h2 id="通过Maven-plugin-运行MBG"><a href="#通过Maven-plugin-运行MBG" class="headerlink" title="通过Maven plugin 运行MBG"></a>通过Maven plugin 运行MBG</h2><p>运行MBG 可以使用<code>命令提示符</code>、<code>Ant任务</code>、<code>Maven Plugin</code>、<code>Java程序</code>。 这里介绍Maven 形式。</p>
-<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">	  &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">	  &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">     ...</span><br><span class="line">     &lt;plugin&gt;</span><br><span class="line">   	  &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">   	  &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">       &lt;executions&gt;</span><br><span class="line">         &lt;execution&gt;</span><br><span class="line">           &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">           &lt;goals&gt;</span><br><span class="line">             &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">           &lt;/goals&gt;</span><br><span class="line">         &lt;/execution&gt;</span><br><span class="line">       &lt;/executions&gt;</span><br><span class="line">     &lt;/plugin&gt;</span><br><span class="line">     ...</span><br><span class="line">   &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    ...</span><br><span class="line">  &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>MBG插件将会绑定到Maven生命周期的 <code>generate-sources</code> 阶段。 所以他会在编译步骤之前执行。 此外注意MBG目标将绑定生成Java和XML资源文件的建立，他们都将包括在生成的JAR包内。</p>
 </blockquote>
@@ -1269,7 +1449,7 @@
             
               
                 
-                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Generator/" itemprop="url">
+                <a class="post-title-link" href="/2014/05/11/2014/MyBatis Boostrap/" itemprop="url">
                   MyBatis Generator
                 </a>
               
@@ -1325,8 +1505,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2014/05/11/2014/MyBatis Generator/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Generator/" itemprop="commentsCount"></span>
+                <a href="/2014/05/11/2014/MyBatis Boostrap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/05/11/2014/MyBatis Boostrap/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1414,8 +1594,8 @@
 <p><strong>如下是MBG配置文件实例。你应当查阅每一个元素说明</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">  PUBLIC &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span><br><span class="line">  &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">  &lt;classPathEntry location=&quot;/Program Files/IBM/SQLLIB/java/db2java.zip&quot; /&gt;</span><br><span class="line"></span><br><span class="line">  &lt;context id=&quot;DB2Tables&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</span><br><span class="line">    &lt;jdbcConnection driverClass=&quot;COM.ibm.db2.jdbc.app.DB2Driver&quot;</span><br><span class="line">        connectionURL=&quot;jdbc:db2:TEST&quot;</span><br><span class="line">        userId=&quot;db2admin&quot;</span><br><span class="line">        password=&quot;db2admin&quot;&gt;</span><br><span class="line">    &lt;/jdbcConnection&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaTypeResolver &gt;</span><br><span class="line">      &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaModelGenerator targetPackage=&quot;test.model&quot; targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sqlMapGenerator targetPackage=&quot;test.xml&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;javaClientGenerator type=&quot;XMLMAPPER&quot; targetPackage=&quot;test.dao&quot;  targetProject=&quot;\MBGTestProject\src&quot;&gt;</span><br><span class="line">      &lt;property name=&quot;enableSubPackages&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;/javaClientGenerator&gt;</span><br><span class="line"></span><br><span class="line">    &lt;table schema=&quot;DB2ADMIN&quot; tableName=&quot;ALLTYPES&quot; domainObjectName=&quot;Customer&quot; &gt;</span><br><span class="line">      &lt;property name=&quot;useActualColumnNames&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">      &lt;generatedKey column=&quot;ID&quot; sqlStatement=&quot;DB2&quot; identity=&quot;true&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;DATE_FIELD&quot; property=&quot;startDate&quot; /&gt;</span><br><span class="line">      &lt;ignoreColumn column=&quot;FRED&quot; /&gt;</span><br><span class="line">      &lt;columnOverride column=&quot;LONG_VARCHAR_FIELD&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure></p>
 <h3 id="MBG-XML-元素说明"><a href="#MBG-XML-元素说明" class="headerlink" title="MBG XML 元素说明"></a>MBG XML 元素说明</h3><p>查看官方元素说明：<a href="http://www.mybatis.org/generator/configreference/xmlconfig.html" target="_blank" rel="external">http://www.mybatis.org/generator/configreference/xmlconfig.html</a></p>
 <h2 id="通过Maven-plugin-运行MBG"><a href="#通过Maven-plugin-运行MBG" class="headerlink" title="通过Maven plugin 运行MBG"></a>通过Maven plugin 运行MBG</h2><p>运行MBG 可以使用<code>命令提示符</code>、<code>Ant任务</code>、<code>Maven Plugin</code>、<code>Java程序</code>。 这里介绍Maven 形式。</p>
-<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    ...</span><br><span class="line">  &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="最简配置如下"><a href="#最简配置如下" class="headerlink" title="最简配置如下"></a>最简配置如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">  ...</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">	  &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">	  &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Maven-目标（Goal）和执行（Execution）"><a href="#Maven-目标（Goal）和执行（Execution）" class="headerlink" title="Maven 目标（Goal）和执行（Execution）"></a>Maven 目标（Goal）和执行（Execution）</h3><p>MBG Maven Plugin 可以包含一个目录: <code>mybatis-generator:generate</code> ，如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">     ...</span><br><span class="line">     &lt;plugin&gt;</span><br><span class="line">   	  &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">   	  &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">       &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">       &lt;executions&gt;</span><br><span class="line">         &lt;execution&gt;</span><br><span class="line">           &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</span><br><span class="line">           &lt;goals&gt;</span><br><span class="line">             &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">           &lt;/goals&gt;</span><br><span class="line">         &lt;/execution&gt;</span><br><span class="line">       &lt;/executions&gt;</span><br><span class="line">     &lt;/plugin&gt;</span><br><span class="line">     ...</span><br><span class="line">   &lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>MBG插件将会绑定到Maven生命周期的 <code>generate-sources</code> 阶段。 所以他会在编译步骤之前执行。 此外注意MBG目标将绑定生成Java和XML资源文件的建立，他们都将包括在生成的JAR包内。</p>
 </blockquote>
@@ -2441,156 +2621,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/02/2014/MyBatis井号和$的区别/" itemprop="url">
-                  Mybatis ${}和#{} 区别
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-02T12:53:00+08:00" content="2014-04-02">
-              2014-04-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/MyBatis/" itemprop="url" rel="index">
-                    <span itemprop="name">MyBatis</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/02/2014/MyBatis井号和$的区别/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/2014/MyBatis井号和$的区别/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这两个标示符均会出现在MyBatis XML SQL 映射文件中。</p>
-<ul>
-<li>参照理解：<ul>
-<li><code>#{}</code>  相当于 PrepareStatement 类<br><strong>以占位符的形式进行数值传递，有效的防止SQL注入</strong></li>
-<li><code>${}</code> 相当于 Statement 类<br><strong>值传递，不能能防止SQL注入</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>需要理解JDBC中的PrepareStatement 和 Statement 的关系。</p>
-</blockquote>
-<h2 id="占位符替换，能够防止SQL-注入问题。"><a href="#占位符替换，能够防止SQL-注入问题。" class="headerlink" title="#{} 占位符替换，能够防止SQL 注入问题。"></a><code>#{}</code> 占位符替换，能够防止SQL 注入问题。</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES(#&#123;Id&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
-<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES ?,?,?,?</span><br></pre></td></tr></table></figure></p>
-<p><strong>?会对应顺序的数值进行赋值传递，并检查数值的合法性.(这里有个预编译阶段，用于检验SQL)</strong></p>
-<h2 id="值传递，不能防止SQL注入"><a href="#值传递，不能防止SQL注入" class="headerlink" title="${} 值传递，不能防止SQL注入"></a><code>${}</code> 值传递，不能防止SQL注入</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES($&#123;Id&#125;,$&#123;name&#125;,$&#123;email&#125;,$&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
-<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES 4,飞车,baiwoyidao@163.com,游戏</span><br></pre></td></tr></table></figure></p>
-<p><strong>直接的SQL生成，没有预编译阶段。</strong></p>
-<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><ul>
-<li>使用<code>#{}</code>替代<code>${}</code><ul>
-<li><code>#{}</code>更加安全</li>
-<li><code>#{}</code> 性能好一些（部分数据库会对预编译语句进行性能优化）</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2636,7 +2666,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2644,7 +2674,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2653,7 +2683,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

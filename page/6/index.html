@@ -228,6 +228,156 @@
             
               
                 
+                <a class="post-title-link" href="/2014/04/02/2014/MyBatis井号和$的区别/" itemprop="url">
+                  Mybatis ${}和#{} 区别
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-04-02T12:53:00+08:00" content="2014-04-02">
+              2014-04-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java-Web/MyBatis/" itemprop="url" rel="index">
+                    <span itemprop="name">MyBatis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/04/02/2014/MyBatis井号和$的区别/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/2014/MyBatis井号和$的区别/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这两个标示符均会出现在MyBatis XML SQL 映射文件中。</p>
+<ul>
+<li>参照理解：<ul>
+<li><code>#{}</code>  相当于 PrepareStatement 类<br><strong>以占位符的形式进行数值传递，有效的防止SQL注入</strong></li>
+<li><code>${}</code> 相当于 Statement 类<br><strong>值传递，不能能防止SQL注入</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>需要理解JDBC中的PrepareStatement 和 Statement 的关系。</p>
+</blockquote>
+<h2 id="占位符替换，能够防止SQL-注入问题。"><a href="#占位符替换，能够防止SQL-注入问题。" class="headerlink" title="#{} 占位符替换，能够防止SQL 注入问题。"></a><code>#{}</code> 占位符替换，能够防止SQL 注入问题。</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES(#&#123;Id&#125;,#&#123;name&#125;,#&#123;email&#125;,#&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
+<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES ?,?,?,?</span><br></pre></td></tr></table></figure></p>
+<p><strong>?会对应顺序的数值进行赋值传递，并检查数值的合法性.(这里有个预编译阶段，用于检验SQL)</strong></p>
+<h2 id="值传递，不能防止SQL注入"><a href="#值传递，不能防止SQL注入" class="headerlink" title="${} 值传递，不能防止SQL注入"></a><code>${}</code> 值传递，不能防止SQL注入</h2><p>如下Mapper.xml SQL映射语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertSample&quot; parameterType=&quot;Sample&quot;&gt;</span><br><span class="line">     INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES($&#123;Id&#125;,$&#123;name&#125;,$&#123;email&#125;,$&#123;type&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure></p>
+<p>它将会翻译为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO SAMPLE(ID,NAME,EMAIL, TYPE) VALUES 4,飞车,baiwoyidao@163.com,游戏</span><br></pre></td></tr></table></figure></p>
+<p><strong>直接的SQL生成，没有预编译阶段。</strong></p>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><ul>
+<li>使用<code>#{}</code>替代<code>${}</code><ul>
+<li><code>#{}</code>更加安全</li>
+<li><code>#{}</code> 性能好一些（部分数据库会对预编译语句进行性能优化）</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/04/01/2014/MyBatis 入门/" itemprop="url">
                   MyBatis 入门
                 </a>
@@ -2166,174 +2316,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/05/17/2013/Mysql 异常及其解决方案/" itemprop="url">
-                  Mysql 异常及其解决方案
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-05-17T12:53:00+08:00" content="2013-05-17">
-              2013-05-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Data-Base-Management-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Base Management System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Data-Base-Management-System/Mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">Mysql</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/05/17/2013/Mysql 异常及其解决方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/05/17/2013/Mysql 异常及其解决方案/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>记录遇到过的Mysql错误，及其解决方案，持续更新</strong></p>
-<h2 id="ERROR-1130"><a href="#ERROR-1130" class="headerlink" title="ERROR 1130"></a>ERROR 1130</h2><p><strong>本地链接远程Mysql 数据库异常</strong></p>
-<h3 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1130: Host 192.168.12.153 is not allowed to connect to this MySQL server</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>开启远程访问权限</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p -h localhost -P 3306</span><br><span class="line"></span><br><span class="line">use mysql</span><br><span class="line"></span><br><span class="line">// 所有IP，均可访问</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos;IDENTIFIED BY &apos;123456&apos; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">// 如下指定特定IP，同样可以指定用户，及其密码</span><br><span class="line">// GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;192.168.10.72&apos;IDENTIFIED BY &apos;123456&apos; WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">// 所有IP</span><br><span class="line">//GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos;WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>参看doc：<a href="http://dev.mysql.com/doc/refman/5.1/en/adding-users.html" target="_blank" rel="external">http://dev.mysql.com/doc/refman/5.1/en/adding-users.html</a><br><a href="http://dev.mysql.com/doc/refman/5.7/en/grant.html" target="_blank" rel="external">http://dev.mysql.com/doc/refman/5.7/en/grant.html</a></p>
-</blockquote>
-<h2 id="ERROR-1045"><a href="#ERROR-1045" class="headerlink" title="ERROR 1045"></a>ERROR 1045</h2><h3 id="错误信息-1"><a href="#错误信息-1" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>使用root 且密码正确，无法登陆，</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</span><br></pre></td></tr></table></figure></p>
-<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>由于是root用户无法登陆，需要先打开无密码登陆</strong></p>
-<ul>
-<li>解决1045错误<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set authentication_string=PASSWORD(&apos;123456&apos;) where user=&apos;root&apos; and host=&apos;localhost&apos;;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="ERROR-1406-22001-和ERROR-1366-HY000"><a href="#ERROR-1406-22001-和ERROR-1366-HY000" class="headerlink" title="ERROR 1406 (22001)和ERROR 1366 (HY000)`"></a>ERROR 1406 (22001)<code>和</code>ERROR 1366 (HY000)`</h2><h3 id="错误信息-2"><a href="#错误信息-2" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>导入数据出现<code>ERROR 1406 (22001):</code>和<code>ERROR 1366 (HY000)</code> 错误</strong></p>
-<img src="/2013/05/17/2013/Mysql%20异常及其解决方案/e8a266cd-6e44-4a0b-967d-4cd707c1f23e.png" alt="错误详情" title="错误详情">
-<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><p>命令行窗口默认为GBK编码,而SQL文件为UTF-8,进行数据导入，它并不买账。 即便你使用”set names utf8;”,也是无效的,这是系统编码问题。有如下两种解决方案。</p>
-<ul>
-<li>使用图形化界面进行SQL导入，非常容易。（sqlyog之类的图形工具）</li>
-<li>进行如下操作<ul>
-<li>启动CMD(Window 命令行工具) -&gt; 输入chcp 65001 -&gt; 它将进入utf-8模式。</li>
-<li>mysql -u root -p  进行SQL 控制台 -&gt; source f:/xx/xx.sql 进行数据导入</li>
-<li>如果你想在改为GBK模式。 输入:chcp 936</li>
-</ul>
-</li>
-</ul>
-<img src="/2013/05/17/2013/Mysql%20异常及其解决方案/dd1f2b82-0c9c-49fe-885d-f5e20619c8f1.png" alt="执行成功信息" title="执行成功信息">
-<h2 id="ERROR-1045-28000"><a href="#ERROR-1045-28000" class="headerlink" title="ERROR 1045 (28000)"></a>ERROR 1045 (28000)</h2><h3 id="错误信息-3"><a href="#错误信息-3" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;localhost&apos;</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>如果不是root用户出现1045，直接使用root 对象该用户进行授权即可</strong></p>
-<ul>
-<li><p>使用 mysql -u root 无密码登陆。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 关闭mysql</span><br><span class="line">service mysqld stop</span><br><span class="line">vi /etc/my.cnf</span><br><span class="line">// 将skip-grant-tables 添加至末尾,并保存</span><br><span class="line">service mysqld start</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重新设置密码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//选择数据库</span><br><span class="line">use mysql</span><br><span class="line">// 设置密码。  5.7 相比5.5 user表中password字段改为authentication_string。如下</span><br><span class="line">update user set authentication_string=PASSWORD(&apos;123456&apos;) where user=&apos;root&apos; and host=&apos;localhost&apos;;</span><br><span class="line">//更新权限表</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭无密码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 关闭数据库</span><br><span class="line">//删除skip-grant-tables </span><br><span class="line">//开启数据库</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="ERROR-1820-HY000"><a href="#ERROR-1820-HY000" class="headerlink" title="ERROR 1820 (HY000)"></a>ERROR 1820 (HY000)</h2><h3 id="错误信息-4"><a href="#错误信息-4" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</span><br></pre></td></tr></table></figure>
-<h3 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案"></a>解决方案</h3><p>重设密码，如下：localhost<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD = PASSWORD(&apos;localhost&apos;);</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2379,7 +2361,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2387,7 +2369,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2396,7 +2378,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

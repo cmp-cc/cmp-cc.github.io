@@ -228,6 +228,245 @@
             
               
                 
+                <a class="post-title-link" href="/2014/12/28/2014/Hadoop 日常实战 文件压缩/" itemprop="url">
+                  Hadoop 日常实战 文件压缩
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-12-28T19:25:00+08:00" content="2014-12-28">
+              2014-12-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/28/2014/Hadoop 日常实战 文件压缩/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/28/2014/Hadoop 日常实战 文件压缩/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Mapreduce 程序执行可以分为三个阶段：<br>1、Mapper 阶段<br><strong>从HDFS中读取数据源，将计算结果写入HDFS</strong><br>2、Suffle与排序阶段<br><strong>从HDFS中读取Mapper阶段结果数据，并进行混排操作（Suffle与排序），并将结果数据传递给Reducer</strong><br>3、Reducer阶段<br><strong>Reducer接受数据，再将计算结果写入HDFS或其它</strong></p>
+<blockquote>
+<p>这里我忽略combiner阶段。 因为combiner阶段只是一步优化操作，不属于Mapreduce模型中的核心。</p>
+</blockquote>
+<p>如上可知，执行Mapreduce程序一共需要两次文件的读入和写入。  如果增加文件压缩，将大大提高程序的运行效率。</p>
+<h2 id="Hadoop-支持的压缩算法"><a href="#Hadoop-支持的压缩算法" class="headerlink" title="Hadoop 支持的压缩算法"></a>Hadoop 支持的压缩算法</h2><h3 id="内置压缩算法"><a href="#内置压缩算法" class="headerlink" title="内置压缩算法"></a>内置压缩算法</h3><p>优势：</p>
+<ul>
+<li>它减少了存储文件所需的空间；</li>
+<li>加快了数据在网络上或者从磁盘上或到磁盘上的传输速度；<br>hadoop对于压缩格式的是透明识别,我们的MapReduce任务的执行是透明的，hadoop能够自动为我们 将压缩的文件解压，而不用我们去关心。 hadoop就会根据扩展名去选择解码器解压。当压缩文件做为mapreduce的输入时，mapreduce将自动通过扩展名找到相应的codec对其解压。</li>
+</ul>
+<p><strong>主流的压缩格式：</strong></p>
+<table>
+<thead>
+<tr>
+<th>压缩格式</th>
+<th>工具</th>
+<th>算法</th>
+<th>文件扩展名</th>
+<th>多文件</th>
+<th>是否可切分</th>
+<th>HadoopCompressionCodec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEFLATE</td>
+<td>无</td>
+<td>DEFLATE</td>
+<td>.deflate</td>
+<td>否</td>
+<td>否</td>
+<td>org.apache.hadoop.io.compress.DefaultCodec</td>
+</tr>
+<tr>
+<td>Gzip</td>
+<td>gzip</td>
+<td>DEFLATE</td>
+<td>.gz</td>
+<td>否</td>
+<td>否</td>
+<td>org.apache.hadoop.io.compress.GzipCodec</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>bzip2</td>
+<td>bzip2</td>
+<td>.bz2</td>
+<td>否</td>
+<td>是</td>
+<td>org.apache.hadoop.io.compress.BZip2Codec</td>
+</tr>
+<tr>
+<td>LZO</td>
+<td>lzop</td>
+<td>LZO</td>
+<td>.lzo</td>
+<td>否</td>
+<td>是（需要索引）</td>
+<td>com.hadoop.compression.lzo.LzopCodec</td>
+</tr>
+<tr>
+<td>Snappy</td>
+<td>N/A</td>
+<td>Snappy</td>
+<td>.Snappy</td>
+<td>否</td>
+<td>否</td>
+<td>org.apache.hadoop.io.compress.SnappyCodec</td>
+</tr>
+<tr>
+<td>LZ4</td>
+<td>N/A</td>
+<td>LZ4</td>
+<td>.lz4</td>
+<td>否</td>
+<td>否</td>
+<td>org.apache.hadoop.io.compress.Lz4Codec</td>
+</tr>
+</tbody>
+</table>
+<p>压缩算法比较<br>    主要是时间比较与空间比较。</p>
+<p>1）GZIP的压缩率最高，但是其实CPU密集型的，对CPU的消耗比其他算法要多，压缩和解压速度也慢；<br>2）LZO的压缩率居中，比GZIP要低一些，但是压缩和解压速度明显要比GZIP快很多，其中解压速度快的更多；<br>3）Zippy/Snappy的压缩率最低，而压缩和解压速度要稍微比LZO要快一些。</p>
+<h3 id="LZO-算法引入Hadoop"><a href="#LZO-算法引入Hadoop" class="headerlink" title="LZO 算法引入Hadoop"></a>LZO 算法引入Hadoop</h3><p>上述压缩格式类型。 除lzo 格式需要另外下载。MR2 均内置上述格式。<br>Lzo下载地址： <a href="https://github.com/twitter/hadoop-lzo" target="_blank" rel="external">https://github.com/twitter/hadoop-lzo</a><br>Lzo 本身不支持切分(splitable) 但是我们可以增加索引，即可支持切分<br>Hadoop的Lzo代码库中有索引工具。（DistributedLzoIndexer）<br>请参照：<br><a href="https://github.com/twitter/hadoop-lzo/blob/master/src/test/java/com/hadoop/mapreduce/TestLzoTextInputFormat.java" target="_blank" rel="external">https://github.com/twitter/hadoop-lzo/blob/master/src/test/java/com/hadoop/mapreduce/TestLzoTextInputFormat.java</a></p>
+<p><strong>如果希望reduce输出的是lzo格式的文件，添加下面的语句</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FileOutputFormat.setCompressOutput(job, true);</span><br><span class="line">FileOutputFormat.setOutputCompressorClass(job, LzopCodec.class);</span><br><span class="line">int result = job.waitForCompletion(true) ? 0 : 1;</span><br><span class="line">//上面的语句执行完成后，会生成最后的输出文件，需要在此基础上添加lzo的索引</span><br><span class="line">LzoIndexer lzoIndexer = new LzoIndexer(conf);</span><br><span class="line">lzoIndexer.index(new Path(args[1]));</span><br></pre></td></tr></table></figure></p>
+<p>如果已经存在lzo文件，但没有添加索引，可以采用下面的方法，在输入路径的文件上上添加lzo索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar $HADOOP_HOME/lib/hadoop-lzo-0.4.17.jar com.hadoop.compression.lzo.LzoIndexer hdf://inputpath</span><br></pre></td></tr></table></figure></p>
+<h2 id="压缩分片的最重要性"><a href="#压缩分片的最重要性" class="headerlink" title="压缩分片的最重要性"></a>压缩分片的最重要性</h2><p><strong>理解分片(splitable)的价值:</strong></p>
+<ul>
+<li>支持分片是很有用的。<br><strong>如： 在HDFS上有一个1G的文件。按照HDFS块(block)的设置大小进行文件划分(默认64M)。 那么就会被划分为16个数据块。</strong><ul>
+<li>支持分片：运行这个Mapreduce作业，就会对应16个Map。</li>
+<li>不支持分片：运行这个Mapreduce作业，只能对应1个Map。</li>
+</ul>
+</li>
+<li>为什么？Hadoop又是怎么判断文件是否支持分片？对程序有什么影响？<ul>
+<li>1、支持分片，就意味着支持压缩数据流的任意位置读取数据。</li>
+<li>2、Hadoop 则是通过文件后缀名来判断所属的文件是否支持分片。</li>
+<li>3、牺牲数据本地性优势： 1个Map任务要处理16个HDFS块，而且损失了数据本地化优化特性(执行Map任务与HDFS数据位于同一个节点上)。 而且map的任务越少，就意味着执行的时间越长。</li>
+</ul>
+</li>
+</ul>
+<h2 id="MapReduce-中使用压缩。"><a href="#MapReduce-中使用压缩。" class="headerlink" title="MapReduce 中使用压缩。"></a>MapReduce 中使用压缩。</h2><p><strong>在MapReduce中使用压缩是简单的。 我们通常有两种方式。</strong></p>
+<h3 id="代码方式："><a href="#代码方式：" class="headerlink" title="代码方式："></a>代码方式：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// Map端输出压缩：</span><br><span class="line">conf.setBoolean(&quot;mapred.compress.map.output&quot;, true);  </span><br><span class="line">conf.setClass(&quot;mapred.map.output.compression.codec&quot;,GzipCodec.class, CompressionCodec.class);</span><br><span class="line">// Reduce 端输出压缩</span><br><span class="line">conf.setBoolean(&quot;mapred.out.compress&quot;,true);</span><br><span class="line">conf.setClass(&quot;mapred.output.compression.codec&quot;,SnappyCodec.class,CompressionCodec.class);	</span><br><span class="line"></span><br><span class="line">/ /或者</span><br><span class="line"></span><br><span class="line">FileOutputFormat.setCompressOutput(job, true);  </span><br><span class="line">FileOutputFormat.setOutputCompressorClass(job, SnappyCodec.class);</span><br></pre></td></tr></table></figure>
+<h3 id="配置文件："><a href="#配置文件：" class="headerlink" title="配置文件："></a>配置文件：</h3><p>找到mapred-site.xml文件。  如： 我公司集群环境配置。<br>Map端输出压缩配置：  我希望Map段输出压缩，并使用Snappy算法压缩<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.compress.map.output&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.map.output.compression.codec&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;org.apache.hadoop.io.compress.SnappyCodec&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">/*Reduce端输出压缩配置： 我不希望Reduce的输出文件进行压缩。所以使用默认*/</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.output.compress&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.output.compression.codec&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;org.apache.hadoop.io.compress.DefaultCodec&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>提示： 如果使用的CDH版本，按照Cloudera官网的Hadoop配置，默认配置了Mapper阶段进行文件压缩。</p>
+</blockquote>
+<h2 id="项目实战运用"><a href="#项目实战运用" class="headerlink" title="项目实战运用"></a>项目实战运用</h2><p><strong>如下是参考的一篇博客的介绍，并非个人实战经验，有待验证</strong></p>
+<p>项目中使用clearspring公司开源的基数估计的概率算法：stream-lib，用于解决去重计算问题，如UV计算等，它的特点在于：</p>
+<ul>
+<li>一个UV的计算，可以限制在一个固定大小的位图空间内完成（不同大小，对应不同的误差率），如8K，64K；</li>
+<li>不同的位图可以进行合并操作，得到合并后的UV。<br>当系统中维护的位图越多的时候，不管是在内存中，还是在存储系统（MySQL、HBase等）中，都会占用相当大的存储空间。因此，需要考虑采取合适的算法来压缩位图。这里分为以下两类情况：</li>
+<li>当位图在内存中时，此时压缩算法的选择，必须有尽可能快的压缩和解压速度，同时不能消耗过多CPU资源，因此，适合使用LZO或Snappy这样的压缩算法，做到快速的压缩和解压；</li>
+<li>当位图存储到DB中时，更关注的是存储空间的节省，要有尽可能高的压缩率，因此，适合使用GZIP这样的压缩算法，同时在从内存Dump到DB的过程也可以减少网络IO的传输开销。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/12/16/2014/Hadoop日常实战 计数器/" itemprop="url">
                   Hadoop日常实战 计数器
                 </a>
@@ -2016,186 +2255,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/07/07/2014/FreeMarker入门/" itemprop="url">
-                  FreeMarker入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-07-07T16:53:00+08:00" content="2014-07-07">
-              2014-07-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaWeb</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/FreeMarker/" itemprop="url" rel="index">
-                    <span itemprop="name">FreeMarker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/07/07/2014/FreeMarker入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/07/2014/FreeMarker入门/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>FrameMarker 模板语言: FreeMarker Template Language ( FTL )。</p>
-<ul>
-<li><p>FreeMarker 入门实例</p>
-<ul>
-<li>Hello World 实例,了解Freemarkers 执行步骤</li>
-<li>Types 实例，了解FreeMarker 内置类型转换</li>
-</ul>
-</li>
-<li><p>引入依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.3.23&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Hello-World-实例"><a href="#Hello-World-实例" class="headerlink" title="Hello World 实例"></a>Hello World 实例</h2><ul>
-<li>在<code>resources目录</code>创建<code>hello.ftl</code>文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello,$&#123;name&#125;!</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p><code>.ftl</code>文件作为Freemarker 模板语言文件后缀,<code>${name}</code>会替换Model中的属性值</p>
-</blockquote>
-<ul>
-<li><p>编写Java程序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import freemarker.template.Configuration;</span><br><span class="line">import freemarker.template.DefaultObjectWrapper;</span><br><span class="line">import freemarker.template.Template;</span><br><span class="line">import freemarker.template.TemplateException;</span><br><span class="line">    </span><br><span class="line">public class HelloFreemarker &#123;</span><br><span class="line">    public static void main(String[] args) </span><br><span class="line">    throws IOException, TemplateException &#123;</span><br><span class="line">        // 创建Freemarker 配置对象(模板工厂对象),并指定当前版本号。</span><br><span class="line">        Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);</span><br><span class="line">        </span><br><span class="line">        //选择一种Model对象包装(Object Wrapper)类型.模板获取Model中的值. 默认如下,可忽略</span><br><span class="line">        cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS));</span><br><span class="line">        </span><br><span class="line">        // 模板目录父类目录地址</span><br><span class="line">        cfg.setDirectoryForTemplateLoading(new File(&quot;src/main/resources/&quot;));</span><br><span class="line">        </span><br><span class="line">        //Model 对象</span><br><span class="line">        Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span><br><span class="line">        model.put(&quot;name&quot;, &quot;world&quot;);</span><br><span class="line">        </span><br><span class="line">        //获取一个模板对象。 需要告诉配置实例对象加载个哪个模板</span><br><span class="line">        Template template = cfg.getTemplate(&quot;hello.tfl&quot;);</span><br><span class="line">        </span><br><span class="line">        /*</span><br><span class="line">         * 处理模板,需要两个参数：</span><br><span class="line">         * 1、使用哪个Model?</span><br><span class="line">         * 2、输出到什么地方?</span><br><span class="line">         */</span><br><span class="line">        template.process(model, new OutputStreamWriter(System.out));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行程序，显示如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改<code>model.put(&quot;name&quot;, &quot;world&quot;);</code> 为<code>model.put(&quot;name&quot;, 123456789);</code> 查看输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello,123,456,789!</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>输出的格式取决默认的语言环境，如果在德国将看到输出为：<code>Hello,123.456.789!</code><br>Freemarker默认使用<code>java.text.DecimalFormat</code>对象数字类型进行格式化输出</p>
-</blockquote>
-<h2 id="types-实例"><a href="#types-实例" class="headerlink" title="types 实例"></a>types 实例</h2><p>为了精确控制对象将模型转换成文本（转换类型值到文本），我们可以使用FreeMarker提供的内置插件控制格式转换，如下：<code>types.ftl</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String: $&#123;string?html&#125;</span><br><span class="line">Number: $&#123;number?c&#125;</span><br><span class="line">Boolean: $&#123;boolean?string(&quot;+++++&quot;, &quot;-----&quot;)&#125;</span><br><span class="line">Date: $&#123;.now?time&#125;</span><br><span class="line">Complex: $&#123;object&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p><code>.now</code>是一个特殊的变量，用于处理日期和时间，<code>?</code>后跟内置插件名称</p>
-</blockquote>
-<ul>
-<li><p>创建一个Java程序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package org.freecode.ftl;</span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Locale;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import freemarker.template.Configuration;</span><br><span class="line">import freemarker.template.Template;</span><br><span class="line">import freemarker.template.TemplateException;</span><br><span class="line">public class FreemarkerTypes &#123;</span><br><span class="line">  public static void main(String[] args) </span><br><span class="line">  throws IOException, TemplateException &#123;</span><br><span class="line">    Configuration cfg = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);</span><br><span class="line">    cfg.setDirectoryForTemplateLoading(new File(&quot;src/main/resources&quot;));</span><br><span class="line">    Map&lt;String, Object&gt; model = new HashMap&lt;String, Object&gt;();</span><br><span class="line">    model.put(&quot;string&quot;, &quot;easy &amp; fast &quot;);</span><br><span class="line">    model.put(&quot;number&quot;, new BigDecimal(&quot;1234.5678&quot;));</span><br><span class="line">    model.put(&quot;boolean&quot;, true);</span><br><span class="line">    model.put(&quot;object&quot;, Locale.US);</span><br><span class="line">    Template template = cfg.getTemplate(&quot;types.ftl&quot;);</span><br><span class="line">    template.process(model, new OutputStreamWriter(System.out));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>格式化实例输出如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String: easy &amp;amp; fast </span><br><span class="line">Number: 1234.5678</span><br><span class="line">Boolean: +++++</span><br><span class="line">Date: 10:13:59</span><br><span class="line">Complex: en_US</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>内置插件如何影响输出的呢？</p>
-<ul>
-<li>字符串：输出一个字符串，使用内置插件名称<code>html</code>,它将字符串编码为HTML，将<code>&amp;</code>转换为<code>&amp;amp;</code>HTML实体，它确保文本正确显示，并防止跨站脚本攻击(XSS)</li>
-<li>数字：数字对象使用内置<code>c</code>,它告诉FreeMarker将数字类型使用文本解析。</li>
-<li>布尔：这里类似一个三目表达式。FreeMarker不会去格式化布尔值，从概念上讲，<code>true</code>和<code>false</code>并没有通用的文本表示，如果我们不带任何参数(<code>${boolean}</code>),它将抛出一个异常。</li>
-<li>日期：FreeMarker没有内置处理<code>java.util.Date</code>,因为它不知道如何显示日期和时间，或者两则，通过<code>time</code>告诉FreeMarker我们要显示时间。</li>
-<li>复杂对象: 没有使用内置插件。 对于复杂对象，它默认使用<code>toString</code>返回一个字符串类型，所以可以使用内置字符串插件来处理。</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2241,7 +2300,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2249,7 +2308,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2258,7 +2317,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
