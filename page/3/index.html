@@ -228,6 +228,165 @@
             
               
                 
+                <a class="post-title-link" href="/2015/07/22/2015/Hive 动态分区异常/" itemprop="url">
+                  Hive 动态分区异常
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-22T19:53:00+08:00" content="2015-07-22">
+              2015-07-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/22/2015/Hive 动态分区异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/22/2015/Hive 动态分区异常/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h2><p><strong> 我们大致设置这样一条插入语句:</strong></p>
+<p>hue_sunyan_detection0711表中 dt&gt;’20150415’的数据插入到pengwei_test_detection0711表中，并自动创建分区。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)</span><br><span class="line">select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,</span><br><span class="line">a.system,a.device,a.version,a.detection_time,</span><br><span class="line">a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken</span><br><span class="line">from hue_sunyan_detection0711 a where dt is not null and dt&gt;&apos;20150415&apos;;</span><br></pre></td></tr></table></figure>
+<p><strong>他会抛出如下异常。</strong></p>
+<img src="/2015/07/22/2015/Hive%20动态分区异常/6b1dc171-e5ff-4cd3-8d6d-7d6e2d7be83f.png" alt="异常详情" title="异常详情">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Diagnostic Messages for this Task:</span><br><span class="line">Error: java.lang.RuntimeException: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &#123;&quot;log_id&quot;:&quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&quot;,&quot;time&quot;:&quot;1421005659&quot;,&quot;receive_time&quot;:&quot;1435946517&quot;,&quot;receiver_ip&quot;:&quot;127.0.0.1&quot;,&quot;user_ip&quot;:&quot;75.133.213.133&quot;,&quot;id&quot;:&quot;3333ca9c9857c31b&quot;,&quot;system&quot;:&quot;ro.build.version.release=4.2.2/samsung&quot;,&quot;device&quot;:&quot;SM-T110&quot;,&quot;version&quot;:&quot;0.0.1&quot;,&quot;detection_time&quot;:&quot;1433433618&quot;,&quot;app_type&quot;:&quot;U&quot;,&quot;apk_md5&quot;:&quot;BF70797DF6896555F476F321B2C40DBB&quot;,&quot;apk_name&quot;:&quot;com.pixelberrystudios.hssandroid&quot;,&quot;vir_name&quot;:null,&quot;time_consuming&quot;:&quot;14950989&quot;,&quot;engine_version&quot;:null,&quot;siglib_version&quot;:null,&quot;scan_opt&quot;:null,&quot;dt&quot;:&quot;20150605&quot;,&quot;channel&quot;:&quot;opensdk&quot;,&quot;apptoken&quot;:&quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&quot;&#125;</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:159)</span><br><span class="line">        at org.apache.hadoop.mapred.MapRunner.run(MapRunner.java:54)</span><br><span class="line">        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:428)</span><br><span class="line">        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:340)</span><br><span class="line">        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:160)</span><br><span class="line">        at java.security.AccessController.doPrivileged(Native Method)</span><br><span class="line">        at javax.security.auth.Subject.doAs(Subject.java:396)</span><br><span class="line">        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1438)</span><br><span class="line">        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:155)</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &#123;&quot;log_id&quot;:&quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&quot;,&quot;time&quot;:&quot;1421005659&quot;,&quot;receive_time&quot;:&quot;1435946517&quot;,&quot;receiver_ip&quot;:&quot;127.0.0.1&quot;,&quot;user_ip&quot;:&quot;75.133.213.133&quot;,&quot;id&quot;:&quot;3333ca9c9857c31b&quot;,&quot;system&quot;:&quot;ro.build.version.release=4.2.2/samsung&quot;,&quot;device&quot;:&quot;SM-T110&quot;,&quot;version&quot;:&quot;0.0.1&quot;,&quot;detection_time&quot;:&quot;1433433618&quot;,&quot;app_type&quot;:&quot;U&quot;,&quot;apk_md5&quot;:&quot;BF70797DF6896555F476F321B2C40DBB&quot;,&quot;apk_name&quot;:&quot;com.pixelberrystudios.hssandroid&quot;,&quot;vir_name&quot;:null,&quot;time_consuming&quot;:&quot;14950989&quot;,&quot;engine_version&quot;:null,&quot;siglib_version&quot;:null,&quot;scan_opt&quot;:null,&quot;dt&quot;:&quot;20150605&quot;,&quot;channel&quot;:&quot;opensdk&quot;,&quot;apptoken&quot;:&quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&quot;&#125;</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:675)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:141)</span><br><span class="line">        ... 8 more</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.FileSinkOperator.processOp(FileSinkOperator.java:620)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.SelectOperator.processOp(SelectOperator.java:84)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.FilterOperator.processOp(FilterOperator.java:132)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.TableScanOperator.processOp(TableScanOperator.java:83)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:656)</span><br><span class="line">        ... 9 more</span><br><span class="line">Caused by: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.createBlockOutputStream(DFSOutputStream.java:1168)</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.nextBlockOutputStream(DFSOutputStream.java:1091)</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:502)</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p><strong>通过如下设置可解决如上异常。</strong></p>
+<p>原因：我们默认分区数过低，有如下几个设置参数：</p>
+<ul>
+<li>hive.exec.max.dynamic.partitions.pernode  （default：100）：每个节点上能够生成的最大分区数。</li>
+<li>hive.exec.max.dynamic.partitions （fault：1000）： 一条DML语句允许创建的最大分区数</li>
+<li>hive.exec.max.created.files （fault：100000）：能够创建的最多文件数。</li>
+</ul>
+<pre>
+SET hive.exec.max.dynamic.partitions=100000;
+SET hive.exec.max.dynamic.partitions.pernode=100000;
+</pre>
+
+<p><strong> 但是如果执行如下HQL，依然会抛出出异常。</strong></p>
+<p>将hue_sunyan_detection0711表的数据文件拷贝到pengwei_test_detection0711表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)</span><br><span class="line">select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,</span><br><span class="line">a.system,a.device,a.version,a.detection_time,</span><br><span class="line">a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken</span><br><span class="line">from hue_sunyan_detection0711 a where dt is not null;</span><br></pre></td></tr></table></figure>
+<h2 id="我有如下尝试"><a href="#我有如下尝试" class="headerlink" title="我有如下尝试"></a>我有如下尝试</h2><blockquote>
+<p>1、修改动态分区参数。（几乎给予最大上限）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.max.dynamic.partitions.pernode=1000000;</span><br><span class="line">set hive.exec.max.dynamic.partitions=1000000;</span><br><span class="line">set hive.exec.max.created.files=10000000;</span><br></pre></td></tr></table></figure></p>
+<p>2、设置Number of map的数量，甚至关闭并行计算。<br>3、查阅一些资料。</p>
+<p>谁有解决方案啊~~~，告诉我一下！！！<br><strong> 插入动态分区是简单，但是这个问题，我都认为是Hive Bug 了 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.dynamic.partition=true; // 是否可以使用动态分区</span><br><span class="line">set hive.exec.dynamic.partition.mode=nostrick;//设置为运行所有分区为动态分区。默认为strick。主分区（第一分区）为静态分区。</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
+<li>分批插入数据。（可以按照dt划分多个HQL，分别执行。）</li>
+<li>一定是一个Bug，哈哈~ 尝试更新CDH版本，我们当前CDH版本为4.7。 内置Hive版本为hive-0.10.0+263。 CDH5.4内置hive版本hive-1.1.0。 </li>
+</ol>
+<blockquote>
+<p>2015年年初,大数据运维承诺升级CDH5.3，这都TM7月份了</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/07/17/2015/Elasticsearch 多字段Distinct 、Group By 操作/" itemprop="url">
                   Elasticsearch 多字段Distinct 、Group By 操作
                 </a>
@@ -1318,8 +1477,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/03/11/2015/PostgreSQL 遇到的问题/" itemprop="url">
-                  PostgreSQL 遇到的问题
+                <a class="post-title-link" href="/2015/03/27/MRUnit 单元测试/" itemprop="url">
+                  MRUnit 单元测试
                 </a>
               
             
@@ -1332,8 +1491,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-03-11T16:53:00+08:00" content="2015-03-11">
-              2015-03-11
+            <time itemprop="dateCreated" datetime="2015-03-27T23:44:00+08:00" content="2015-03-27">
+              2015-03-27
             </time>
           </span>
 
@@ -1346,8 +1505,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Data-Base-Management-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Base Management System</span>
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
                   </a>
                 </span>
 
@@ -1358,8 +1517,8 @@
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Data-Base-Management-System/Postgresql/" itemprop="url" rel="index">
-                    <span itemprop="name">Postgresql</span>
+                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
                   </a>
                 </span>
 
@@ -1374,8 +1533,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/03/11/2015/PostgreSQL 遇到的问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/11/2015/PostgreSQL 遇到的问题/" itemprop="commentsCount"></span>
+                <a href="/2015/03/27/MRUnit 单元测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/27/MRUnit 单元测试/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1399,17 +1558,17 @@
       
         
           
-            <h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><strong>需要查询具体的某一天的数据。 由于存储方式不一样。要对数据库中的last_record_time字段（时间格式）进行转化。</strong></p>
-<img src="/2015/03/11/2015/PostgreSQL%20遇到的问题/9744abfd-e724-4655-ac6b-eada2768ab42.png" alt="数据显示" title="数据显示">
-<ul>
-<li>使用函数：substring(string from pattern for escape)函数。<br><strong>失败,类型不匹配</strong></li>
-<li><p>使用 TO_CHAR 函数 可以进行格式类型转化。<br><strong>postgresql 8.1以后有个函数可以直接接受UNIX时间戳  TO_TIMESTAMP函数 可以处理时间戳。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sample_hash,sample_crc32 from t_black as s where  TO_CHAR(s.last_record_time,&apos;YYYY-MM-DD&apos;) = &apos;2015-03-10&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个统计实例<br><strong>１０年到现在的白样本，分月分统计出每个月的白灰样本数量</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;),count(*) from t_black as s  group by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;) order by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;)</span><br></pre></td></tr></table></figure></li>
-</ul>
-
+            <p><strong>MRUnit 单元测试</strong><br>MapReduce的map和reduce函数很容易测试,这是由于其功能的风格。MRUnit是一个测试库，便于通过已知的输入到Map或Reudce检测其输出结果符合预期。<br>MRUnit结合使用一个标准的测试执行框架，如：JUnit，所以你可以运行MapReduce测试作业作为一个正常的开发环境的一部分。</p>
+<p><strong>权威指南  单元测试实例 </strong></p>
+<p>通过天气数据集输入（input）到mapper，检测输出（output）年和温度 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import java.io.IOException;</span><br><span class="line">import org.apache.hadoop.io.*;</span><br><span class="line">import org.apache.hadoop.mrunit.mapreduce.MapDriver;</span><br><span class="line">import org.junit.*;</span><br><span class="line"></span><br><span class="line">public class MaxTemperatureMapperTest &#123;</span><br><span class="line"></span><br><span class="line">  @Test</span><br><span class="line">  public void processesValidRecord() throws IOException, InterruptedException &#123;</span><br><span class="line">    Text value = new Text(&quot;0043011990999991950051518004+68750+023550FM-12+0382&quot; +</span><br><span class="line">                                  // Year ^^^^</span><br><span class="line">        &quot;99999V0203201N00261220001CN9999999N9-00111+99999999999&quot;);</span><br><span class="line">                              // Temperature ^^^^^</span><br><span class="line">    /**</span><br><span class="line">     *    因为我们正在测试Mapper,所以使用MRUnit的MapDriver,</span><br><span class="line">     *    1、设置Mapper的受检对象</span><br><span class="line">     *    2、设置input key和value</span><br><span class="line">     *    3、设置预期的output key(这里是是Text代表年,1950) 和value(IntWritable 代表温度,-1.1℃)</span><br><span class="line">     *    4、最后调用runTest()方法执行测试。</span><br><span class="line">     */ </span><br><span class="line">    new MapDriver&lt;LongWritable, Text, Text, IntWritable&gt;()</span><br><span class="line">      .withMapper(new MaxTemperatureMapper())</span><br><span class="line">      .withInput(new LongWritable(0), value)</span><br><span class="line">      .withOutput(new Text(&quot;1950&quot;), new IntWritable(-11))</span><br><span class="line">      .runTest();</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如下将是一个fail的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 这将是一个失败的例子：</span><br><span class="line"> * 从行中抽取年份和气温，在Context输出，由于我们添加一个缺失值的测试，该值在原始的数据中表示气温+9999；</span><br><span class="line"> *  </span><br><span class="line"> *  MapDriver 可以依据withOutput()的次数检查有零个、 一个或更多的输出记录，</span><br><span class="line"> *  在这个例子中，由于缺少气温记录已经被过滤掉。</span><br><span class="line"> *  parseInt 不能正常解析，所以抛出NumberFormatException异常</span><br><span class="line"> * </span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void ignoresMissingTemperatureRecord() throws IOException,</span><br><span class="line">    InterruptedException &#123;</span><br><span class="line">  Text value = new Text(&quot;0043011990999991950051518004+68750+023550FM-12+0382&quot; +</span><br><span class="line">                                // Year ^^^^</span><br><span class="line">      &quot;99999V0203201N00261220001CN9999999N9+99991+99999999999&quot;);</span><br><span class="line">                            // Temperature ^^^^^</span><br><span class="line">  new MapDriver&lt;LongWritable, Text, Text, IntWritable&gt;()</span><br><span class="line">    .withMapper(new MaxTemperatureMapper())</span><br><span class="line">    .withInput(new LongWritable(0), value)</span><br><span class="line">    .runTest();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述测试是失败的，因为+9999是一个特例，所以不应该把更多的逻辑代码放到Mapper，更有意义的是使用一个解析器来封装解析逻辑。<br>优点：<br>    1、重复使用，很容易编写与Mapper相似的工作<br>    2、提高针对测试，我们可以为解析器编写单元测试，从而更好的测试MR。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class NcdcRecordParser &#123;</span><br><span class="line">      </span><br><span class="line">      private static final int MISSING_TEMPERATURE = 9999;</span><br><span class="line">      </span><br><span class="line">      private String year;</span><br><span class="line">      private int airTemperature;</span><br><span class="line">      private String quality;</span><br><span class="line">      </span><br><span class="line">      public void parse(String record) &#123;</span><br><span class="line">        year = record.substring(15, 19);</span><br><span class="line">        String airTemperatureString;</span><br><span class="line">        // Remove leading plus sign as parseInt doesn&apos;t like them (pre-Java 7)</span><br><span class="line">        if (record.charAt(87) == &apos;+&apos;) &#123; </span><br><span class="line">          airTemperatureString = record.substring(88, 92);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          airTemperatureString = record.substring(87, 92);</span><br><span class="line">        &#125;</span><br><span class="line">        airTemperature = Integer.parseInt(airTemperatureString);</span><br><span class="line">        quality = record.substring(92, 93);</span><br><span class="line">      &#125;</span><br><span class="line">      /*</span><br><span class="line">       * 直接解析字段</span><br><span class="line">       */</span><br><span class="line">      public void parse(Text record) &#123;</span><br><span class="line">        parse(record.toString());</span><br><span class="line">      &#125;</span><br><span class="line">      /*</span><br><span class="line">       * 检查温度是否有效</span><br><span class="line">       */</span><br><span class="line">      public boolean isValidTemperature() &#123;</span><br><span class="line">        return airTemperature != MISSING_TEMPERATURE &amp;&amp; quality.matches(&quot;[01459]&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      public String getYear() &#123;</span><br><span class="line">        return year;</span><br><span class="line">      &#125;</span><br><span class="line">      public int getAirTemperature() &#123;</span><br><span class="line">        return airTemperature;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>MaxTemperatureMapper使用解析器对字段进行解析,然后重写执行之前fail的测试，它将是成功的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class MaxTemperatureMapper</span><br><span class="line">    extends Mapper&lt;LongWritable, Text, Text, IntWritable&gt; &#123;</span><br><span class="line"></span><br><span class="line">  private NcdcRecordParser parser = new NcdcRecordParser();</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public void map(LongWritable key, Text value, Context context)</span><br><span class="line">      throws IOException, InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">    parser.parse(value);</span><br><span class="line">    if (parser.isValidTemperature()) &#123;</span><br><span class="line">      context.write(new Text(parser.getYear()),</span><br><span class="line">          new IntWritable(parser.getAirTemperature()));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Reducer 测试<br>使用ReduceDriver，Reducer 输出一个最大值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line"> public void returnsMaximumIntegerInValues() throws IOException,</span><br><span class="line">     InterruptedException &#123;</span><br><span class="line">   new ReduceDriver&lt;Text, IntWritable, Text, IntWritable&gt;()</span><br><span class="line">     .withReducer(new MaxTemperatureReducer())</span><br><span class="line">     .withInput(new Text(&quot;1950&quot;), Arrays.asList(new IntWritable(10), new IntWritable(5)))</span><br><span class="line">     .withOutput(new Text(&quot;1950&quot;), new IntWritable(10))</span><br><span class="line">     .runTest();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1454,8 +1613,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/01/17/2015/Postfix 邮件服务器/" itemprop="url">
-                  Postfix 邮件服务器
+                <a class="post-title-link" href="/2015/03/26/辅助类 GenericOptionsParser, Tool, and ToolRunner/" itemprop="url">
+                  辅助类 GenericOptionsParser, Tool, and ToolRunner
                 </a>
               
             
@@ -1468,8 +1627,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-01-17T09:11:00+08:00" content="2015-01-17">
-              2015-01-17
+            <time itemprop="dateCreated" datetime="2015-03-26T22:53:00+08:00" content="2015-03-26">
+              2015-03-26
             </time>
           </span>
 
@@ -1482,8 +1641,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Operating System</span>
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
                   </a>
                 </span>
 
@@ -1494,8 +1653,8 @@
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
                   </a>
                 </span>
 
@@ -1510,8 +1669,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/01/17/2015/Postfix 邮件服务器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/17/2015/Postfix 邮件服务器/" itemprop="commentsCount"></span>
+                <a href="/2015/03/26/辅助类 GenericOptionsParser, Tool, and ToolRunner/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/26/辅助类 GenericOptionsParser, Tool, and ToolRunner/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1535,173 +1694,14 @@
       
         
           
-            <p>配置Postfix 使用<code>国内邮箱SMTP</code>代发</p>
-<h2 id="Postfix-配置"><a href="#Postfix-配置" class="headerlink" title="Postfix 配置"></a>Postfix 配置</h2><blockquote>
-<p>保证系统包含<code>cyrus-sasl-devel cyrus-sasl-plain cyrus-sasl cyrus-sasl-lib cyrus-imapd</code><br>如果没有通过yum安装</p>
-</blockquote>
-<ul>
-<li>安装Postfix<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install postfix</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>系统一般默认安装postfix，你可能需要卸载<code>sendmail</code></p>
-</blockquote>
-<ul>
-<li><p><code>vi /etc/postfix/main.cf</code> 添加如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># sets 163 as relay</span><br><span class="line">relayhost = [smtp.163.com]:25</span><br><span class="line"></span><br><span class="line">#  use tls</span><br><span class="line">smtp_use_tls = yes</span><br><span class="line"></span><br><span class="line"># use sasl when authenticating to foreign SMTP servers</span><br><span class="line">smtp_sasl_auth_enable = yes</span><br><span class="line"></span><br><span class="line"># path to password map file</span><br><span class="line">smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd</span><br><span class="line"></span><br><span class="line"># list of CAs to trust when verifying server certificate</span><br><span class="line"># smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt</span><br><span class="line">smtp_tls_CAfile = /etc/pki/tls/certs/ca-bundle.crt</span><br><span class="line"></span><br><span class="line"># eliminates default security options which are imcompatible</span><br><span class="line">smtp_sasl_security_options = noanonymous</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>vi /etc/postfix/sasl_passwd</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[smtp.163.com]:25  baiwoyidao@163.com:xxxx</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>[mail.host]:port 用户邮箱:密码</p>
-</blockquote>
-<ul>
-<li><p>执行如下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 重载配置</span><br><span class="line">sudo postmap /etc/postfix/sasl_passwd</span><br><span class="line">/etc/init.d/postfix reload</span><br><span class="line"></span><br><span class="line">// 重新启动Postfix服务</span><br><span class="line"> /etc/init.d/postfix restart</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line">service postfix restart</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>测试：给指定邮箱发送邮件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;hello world cmp-cc&quot; | mail -s Postfix_Test_Mail 452143877@qq.com</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果找不到<code>ca-certificates.crt</code>文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/ssl/certs</span><br><span class="line">ln -s ca-bundle.crt ca-certificates.crt</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p><code>/etc/ssl/certs</code> 中有<code>.pen</code>的证书也是可以使用的。</p>
-</blockquote>
-<ul>
-<li>当无法接收短信，查看异常信息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/spool/mail</span><br><span class="line">vi root</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/" itemprop="url">
-                  Java Web 跨域共享问题（core-filter）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-01-11T18:10:00+08:00" content="2015-01-11">
-              2015-01-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Java Web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/01/11/2015/Java Web 跨域共享问题（core-filter）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/11/2015/Java Web 跨域共享问题（core-filter）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>需要部分前后端分离，首先要解决跨越问题，虽然可以使用<code>jsoup</code>，但无法解决ajax 文件上传问题（iframe方法是一个例外）。</p>
-<p><strong>使用<code>jsoup script</code> 解决跨域问题有点….. 不爽</strong></p>
-<p>参考：<a href="http://software.dzhuvinov.com/cors-filter.html" target="_blank" rel="external">http://software.dzhuvinov.com/cors-filter.html</a> 提供的解决方案</p>
-<p><strong>如下演示如何使用<code>core-filter</code>来解决跨域问题， 不是在每一个<code>action reqeust</code> 设置允许跨域</strong></p>
-<h2 id="Maven-引入依赖"><a href="#Maven-引入依赖" class="headerlink" title="Maven 引入依赖"></a>Maven 引入依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;cors-filter&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.5&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.thetransactioncompany&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;java-property-utils&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.10&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="添加Cores-配置到web-xml"><a href="#添加Cores-配置到web-xml" class="headerlink" title="添加Cores 配置到web.xml"></a>添加Cores 配置到web.xml</h2><p>XML 声明CORS过滤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br></pre></td></tr></table></figure></p>
-<p>或者使用变种的CORS过滤器，它可以自动检测更改配置文件，并重新配置CORS过滤器，声明如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;com.thetransactioncompany.cors.autoreconf.AutoReconfigurableCORSFilter&lt;/filter-class&gt;</span><br><span class="line">&lt;/filter&gt;</span><br></pre></td></tr></table></figure></p>
-<p>声明过滤器Mapper ，说明哪些URL启动跨越请求( cross-domain-request ),如下 作用于所有URL:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line">&lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意：默认情况是CORS Filter采用public access的跨源资源共享策略，允许通过包括用户凭据/cookies在内安全机制的全部跨站请求。这一默认配置其实适用于大多数情况，因为CORS本来就不是以增强服务端安全性为主要目标的；CORS的基本意向是保护浏览器端的数据安全，即保护浏览器上合法运行的JavaScript应用及其用户凭据信息例如cookies数据不会泄露。</p>
-</blockquote>
-<h2 id="web-xml-完整实例"><a href="#web-xml-完整实例" class="headerlink" title="web.xml 完整实例"></a>web.xml 完整实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;</span><br><span class="line">         version=&quot;2.4&quot;&gt;</span><br><span class="line"></span><br><span class="line">	&lt;display-name&gt;CORS demo&lt;/display-name&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;description&gt;Simple CORS demo&lt;/description&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;servlet&gt;</span><br><span class="line">		&lt;!-- Some servlet --&gt;</span><br><span class="line">		&lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">		&lt;servlet-class&gt;com.thetransactioncompany.cors.demo.HelloWorldServlet&lt;/servlet-class&gt;</span><br><span class="line">	&lt;/servlet&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;servlet-mapping&gt;</span><br><span class="line">		&lt;!-- Some servlet mapping --&gt;</span><br><span class="line">		&lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/cors-resource.html&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/servlet-mapping&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;filter&gt;</span><br><span class="line">		&lt;!-- The CORS filter with parameters --&gt;</span><br><span class="line">		&lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">		&lt;filter-class&gt;com.thetransactioncompany.cors.CORSFilter&lt;/filter-class&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;!-- Note: All parameters are options, if omitted the CORS </span><br><span class="line">		     Filter will fall back to the respective default values.</span><br><span class="line">		  --&gt;</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowGenericHttpRequests&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowOrigin&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;*&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.allowSubdomains&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;false&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportedMethods&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;GET, HEAD, POST, OPTIONS&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportedHeaders&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;*&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.exposedHeaders&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;X-Test-1, X-Test-2&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.supportsCredentials&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;true&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;init-param&gt;</span><br><span class="line">			&lt;param-name&gt;cors.maxAge&lt;/param-name&gt;</span><br><span class="line">			&lt;param-value&gt;3600&lt;/param-value&gt;</span><br><span class="line">		&lt;/init-param&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/filter&gt;</span><br><span class="line"></span><br><span class="line">	&lt;filter-mapping&gt;</span><br><span class="line">		&lt;!-- CORS Filter mapping --&gt;</span><br><span class="line">		&lt;filter-name&gt;CORS&lt;/filter-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/cors-resource.html&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/filter-mapping&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-<p>参考：<br><a href="http://www.2cto.com/kf/201604/503408.html" target="_blank" rel="external">http://www.2cto.com/kf/201604/503408.html</a></p>
-
+            <h2 id="辅助类-GenericOptionsParser-Tool-and-ToolRunner"><a href="#辅助类-GenericOptionsParser-Tool-and-ToolRunner" class="headerlink" title="辅助类 GenericOptionsParser, Tool, and ToolRunner"></a>辅助类 GenericOptionsParser, Tool, and ToolRunner</h2><p>Hadoop提供了几个辅助类,使其更容易从命令行运行作业。<br>GenericOptionsParser 用来解释一些常用的命令选项，还可以根据需要为Configuration对象设置相应的值，但是通常不直接使用<br>GenericOptionsParser，而是更方便的：实现Tool接口，通过Tool来运行应用程序，ToolRunner内部调用GenericOptionsParser 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Tool extends Configurable &#123;</span><br><span class="line">  int run(String [] args) throws Exception;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个Tool实现，打印Tool的Configuration 配置属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class ConfigurationPrinter extends Configured implements Tool &#123;</span><br><span class="line">  /**</span><br><span class="line">     * 1、interface Tool extends Configurable   Tool 继承于Configurable</span><br><span class="line">     * 2、Configured 是Tool接口的最小实现方式。</span><br><span class="line">     * 3、run() 方法通过Configurable的getConf()方法获取Configuration,然后重复执行，将每个属性打印到标准输出</span><br><span class="line">     */  </span><br><span class="line">  static &#123;</span><br><span class="line">    Configuration.addDefaultResource(&quot;hdfs-default.xml&quot;);</span><br><span class="line">    Configuration.addDefaultResource(&quot;hdfs-site.xml&quot;);</span><br><span class="line">    Configuration.addDefaultResource(&quot;yarn-default.xml&quot;);</span><br><span class="line">    Configuration.addDefaultResource(&quot;yarn-site.xml&quot;);</span><br><span class="line">    Configuration.addDefaultResource(&quot;mapred-default.xml&quot;);</span><br><span class="line">    Configuration.addDefaultResource(&quot;mapred-site.xml&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public int run(String[] args) throws Exception &#123;</span><br><span class="line">    Configuration conf = getConf();</span><br><span class="line">    for (Entry&lt;String, String&gt; entry: conf) &#123;</span><br><span class="line">      System.out.printf(&quot;%s=%s\n&quot;, entry.getKey(), entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        /**</span><br><span class="line">         * ToolRunner </span><br><span class="line">         * 1、在调用run方式之间，会为Tool建立一个Configuration对象</span><br><span class="line">         * 2、它还是用GenericOptionsParser来获取命令行中指定的任何标准选项，然后在Configuration实例中进行设置</span><br><span class="line">         * 3、查看某个属性的设置</span><br><span class="line">         *     hadoop jar ConfigurationPrinter.jar -conf conf/mapred-site.xml | grep fs.s3.buffer.dir</span><br><span class="line">             权威指南:</span><br><span class="line">              mvn compile</span><br><span class="line">              export HADOOP_CLASSPATH=target/classes/</span><br><span class="line">                hadoop ConfigurationPrinter -conf conf/hadoop-localhost.xml | grep yarn.resourcemanager.address=</span><br><span class="line">         */  </span><br><span class="line">    int exitCode = ToolRunner.run(new ConfigurationPrinter(), args);</span><br><span class="line">    System.exit(exitCode);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行hadoop jar ConfigurationPrinter.jar输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">dfs.datanode.data.dir=file://$&#123;hadoop.tmp.dir&#125;/dfs/data</span><br><span class="line">dfs.namenode.checkpoint.txns=1000000</span><br><span class="line">s3.replication=3</span><br><span class="line">mapreduce.output.fileoutputformat.compress.type=BLOCK</span><br><span class="line">mapreduce.jobtracker.jobhistory.lru.cache.size=5</span><br><span class="line">dfs.datanode.failed.volumes.tolerated=0</span><br><span class="line">hadoop.http.filter.initializers=org.apache.hadoop.http.lib.StaticUserWebFilter</span><br><span class="line">mapreduce.cluster.temp.dir=$&#123;hadoop.tmp.dir&#125;/mapred/temp</span><br><span class="line">mapreduce.reduce.shuffle.memory.limit.percent=0.25</span><br><span class="line">yarn.nodemanager.keytab=/etc/krb5.keytab</span><br><span class="line">dfs.namenode.checkpoint.max-retries=3</span><br><span class="line">dfs.https.server.keystore.resource=ssl-server.xml</span><br><span class="line">mapreduce.reduce.skip.maxgroups=0</span><br><span class="line">dfs.domain.socket.path=/var/run/hdfs-sockets/dn</span><br><span class="line">hadoop.http.authentication.kerberos.keytab=$&#123;user.home&#125;/hadoop.keytab</span><br><span class="line">yarn.nodemanager.localizer.client.thread-count=5</span><br><span class="line">ha.failover-controller.new-active.rpc-timeout.ms=60000</span><br><span class="line">mapreduce.framework.name=yarn</span><br><span class="line">ha.health-monitor.check-interval.ms=1000</span><br><span class="line">io.file.buffer.size=65536</span><br><span class="line">dfs.namenode.checkpoint.period=3600</span><br><span class="line">mapreduce.task.tmp.dir=./tmp</span><br><span class="line">ipc.client.kill.max=10</span><br><span class="line">yarn.resourcemanager.scheduler.class=org.apache.hadoop.yarn.server.resourcemanager.scheduler.fifo.FifoScheduler</span><br><span class="line">mapreduce.jobtracker.taskcache.levels=2</span><br><span class="line">s3.stream-buffer-size=4096</span><br><span class="line">.....</span><br><span class="line">....</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+<p>执行<br>hadoop jar ConfigurationPrinter.jar -conf conf/mapred-site.xml | grep fs.s3.buffer.dir 输出如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.s3.buffer.dir=$&#123;hadoop.tmp.dir&#125;/s3</span><br></pre></td></tr></table></figure></p>
+<p>通过GenericOptionsParser 设置个别属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar hadoop4v1.jar -D color=yellow | grep color</span><br><span class="line">/**</span><br><span class="line">结果如下： -D的优先级高于配置文件里的其他属性。 可以使用-D 覆盖它，</span><br><span class="line">如： -D mapreduce.job.reduces=n 设置Mapreduce作业中的reduce数量</span><br><span class="line">*/</span><br></pre></td></tr></table></figure></p>
+<h2 id="GenericOptionsParser-选项与-ToolRunner选项"><a href="#GenericOptionsParser-选项与-ToolRunner选项" class="headerlink" title="GenericOptionsParser 选项与 ToolRunner选项"></a>GenericOptionsParser 选项与 ToolRunner选项</h2><img src="/2015/03/26/辅助类%20GenericOptionsParser,%20Tool,%20and%20ToolRunner/57106921-dd6d-41a9-a00e-92fa5b30a411.png" alt="选项参数" title="选项参数">
           
         
       
@@ -1729,7 +1729,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1770,7 +1770,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">71</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
