@@ -228,6 +228,450 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/14/2016/模拟ORM/" itemprop="url">
+                  模拟ORM
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-14T18:34:00+08:00" content="2016-04-14">
+              2016-04-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/14/2016/模拟ORM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/2016/模拟ORM/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有时候做一些展示用的项目，或者是测试项目，可能并不会去引入Hibernate 等这类ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。</p>
+<h2 id="SQL-Mapping-Java"><a href="#SQL-Mapping-Java" class="headerlink" title="SQL Mapping Java"></a>SQL Mapping Java</h2><h3 id="整体实体关系映射"><a href="#整体实体关系映射" class="headerlink" title="整体实体关系映射"></a>整体实体关系映射</h3><table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>显示长度</th>
+<th>数据库类型</th>
+<th>JAVA类型</th>
+<th>JDBC类型索引(int)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VARCHAR</td>
+<td>L+N</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+<td>12     </td>
+</tr>
+<tr>
+<td>CHAR</td>
+<td>N</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
+<td>1     </td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>L+N</td>
+<td>BLOB</td>
+<td>java.lang.byte[]</td>
+<td>-4     </td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>65535</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+<td>-1      </td>
+</tr>
+<tr>
+<td>INTEGER</td>
+<td>4</td>
+<td>INTEGER UNSIGNED</td>
+<td>java.lang.Long</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>TINYINT</td>
+<td>3</td>
+<td>TINYINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>-6     </td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>5</td>
+<td>SMALLINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>5     </td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>8</td>
+<td>MEDIUMINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>BIT</td>
+<td>1</td>
+<td>BIT</td>
+<td>java.lang.Boolean</td>
+<td>-7     </td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>20</td>
+<td>BIGINT UNSIGNED</td>
+<td>java.math.BigInteger</td>
+<td>-5     </td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>4+8</td>
+<td>FLOAT</td>
+<td>java.lang.Float</td>
+<td>7     </td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>22</td>
+<td>DOUBLE</td>
+<td>java.lang.Double</td>
+<td>8     </td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td>11</td>
+<td>DECIMAL</td>
+<td>java.math.BigDecimal</td>
+<td>3     </td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>1</td>
+<td>TINYINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>-6      </td>
+</tr>
+<tr>
+<td>ID</td>
+<td>11</td>
+<td>PK (INTEGER UNSIGNED)</td>
+<td>java.lang.Long</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>10</td>
+<td>DATE</td>
+<td>java.sql.Date</td>
+<td>91     </td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>8</td>
+<td>TIME</td>
+<td>java.sql.Time</td>
+<td>92     </td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>19</td>
+<td>DATETIME</td>
+<td>java.sql.Timestamp</td>
+<td>93     </td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>19</td>
+<td>TIMESTAMP</td>
+<td>java.sql.Timestamp</td>
+<td>93     </td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>4</td>
+<td>YEAR</td>
+<td>java.sql.Date</td>
+<td>91</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MySQL-实体类型映射"><a href="#MySQL-实体类型映射" class="headerlink" title="MySQL 实体类型映射"></a>MySQL 实体类型映射</h3><table>
+<thead>
+<tr>
+<th>MySQL Type Name</th>
+<th>Return value of GetColumnClassName</th>
+<th>Returned as Java Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIT(1) (new in MySQL-5.0)</td>
+<td>BIT</td>
+<td>java.lang.Boolean</td>
+</tr>
+<tr>
+<td>BIT( &gt; 1) (new in MySQL-5.0)</td>
+<td>BIT</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TINYINT</td>
+<td>TINYINT</td>
+<td>java.lang.Boolean if the configuration property tinyInt1isBit is set to true (the default) and the storage size is 1, or java.lang.Integer if not.</td>
+</tr>
+<tr>
+<td>BOOL, BOOLEAN</td>
+<td>TINYINT</td>
+<td>See TINYINT, above as these are aliases for TINYINT(1), currently.</td>
+</tr>
+<tr>
+<td>SMALLINT[(M)] [UNSIGNED]</td>
+<td>SMALLINT [UNSIGNED]</td>
+<td>java.lang.Integer (regardless if UNSIGNED or not)</td>
+</tr>
+<tr>
+<td>MEDIUMINT[(M)] [UNSIGNED]</td>
+<td>MEDIUMINT [UNSIGNED]</td>
+<td>java.lang.Integer, if UNSIGNED java.lang.Long (C/J 3.1 and earlier), or java.lang.Integer for C/J 5.0 and later</td>
+</tr>
+<tr>
+<td>INT,INTEGER[(M)] [UNSlGNED]</td>
+<td>INTEGER [UNSIGNED]</td>
+<td>java.lang.Integer, if UNSIGNED java.lang.Long</td>
+</tr>
+<tr>
+<td>BIGINT[(M)] [UNSIGNED]</td>
+<td>BIGINT [UNSIGNED]</td>
+<td>java.lang.Long, if UNSIGNED java.math.BigInteger</td>
+</tr>
+<tr>
+<td>FLOAT[(M,D)]</td>
+<td>FLOAT</td>
+<td>java.lang.Float</td>
+</tr>
+<tr>
+<td>DOUBLE[(M,B)]</td>
+<td>DOUBLE</td>
+<td>java.lang.Double</td>
+</tr>
+<tr>
+<td>DECIMAL[(M[,D])]</td>
+<td>DECIMAL</td>
+<td>java.math.BigDecimal</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>DATE</td>
+<td>java.sql.Date</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>DATETIME</td>
+<td>java.sql.Timestamp</td>
+</tr>
+<tr>
+<td>TIMESTAMP[(M)]</td>
+<td>TIMESTAMP</td>
+<td>java.sql.Timestamp</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>TIME</td>
+<td>java.sql.Time</td>
+</tr>
+<tr>
+<td>YEAR[(2l4)]</td>
+<td>YEAR</td>
+<td>If yearIsDateType configuration property is set to false, then the returned object type is java.sql.Short. If set to true (the default), then the returned object is of type java.sql.Date with the date set to January 1st, at midnight.</td>
+</tr>
+<tr>
+<td>CHAR(M)</td>
+<td>CHAR</td>
+<td>java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
+</tr>
+<tr>
+<td>VARCHAR(M)</td>
+<td>[BINARY]</td>
+<td>VARCHAR    java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
+</tr>
+<tr>
+<td>BINARY(M)</td>
+<td>BINARY</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>VARBINARY(M)</td>
+<td>VARBINARY</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TINYBLOB</td>
+<td>TINYBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB</td>
+<td>MEDIUMBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>LONGBLOB</td>
+<td>LONGBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>ENUM(‘value1’,’value2’,…)</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>SET(‘value1’,’value2’,…)</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
+</tr>
+</tbody>
+</table>
+<p>参考： <a href="http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html</a></p>
+<h2 id="模拟ORM"><a href="#模拟ORM" class="headerlink" title="模拟ORM"></a>模拟ORM</h2><h3 id="根据实体映射表"><a href="#根据实体映射表" class="headerlink" title="根据实体映射表"></a>根据实体映射表</h3><p><strong>如下只是一个基本实例，想要完成更多特性，还是要下点功夫的。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public class CreateTableORM &#123;</span><br><span class="line">    </span><br><span class="line">    private static Map&lt;String,String&gt; ormField = getJavaMapMysql();</span><br><span class="line">    </span><br><span class="line">    Class&lt;?&gt; clazz;</span><br><span class="line">    </span><br><span class="line">    Connection conn;</span><br><span class="line">    </span><br><span class="line">    // 表名</span><br><span class="line">    String tableName;</span><br><span class="line">    </span><br><span class="line">    public CreateTableORM(Class&lt;?&gt; clazz , Connection conn)&#123;</span><br><span class="line">        this.clazz = clazz;</span><br><span class="line">        this.conn = conn;</span><br><span class="line">        tableName = clazz.getName();</span><br><span class="line">        </span><br><span class="line">        createTable();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void createTable()&#123;</span><br><span class="line">        </span><br><span class="line">         StringBuffer sb = new StringBuffer();</span><br><span class="line">        </span><br><span class="line">         Arrays.asList(clazz.getDeclaredFields()).forEach(field -&gt;&#123;</span><br><span class="line">             </span><br><span class="line">            String fieldType = ormField.get(field.getType().getName());</span><br><span class="line">            String fieldName = field.getName();</span><br><span class="line">            </span><br><span class="line">            sb.append(String.format(&quot;%s %s,&quot;, fieldName,fieldType));</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        String sql = String.format(&quot;Create Table If Not Exists %s (%s)&quot;,this.tableName, sb.deleteCharAt(sb.length()-1).toString());</span><br><span class="line">        </span><br><span class="line">        excuteSQL(sql);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void excuteSQL(String sql) &#123;</span><br><span class="line">        PreparedStatement statement;</span><br><span class="line">        </span><br><span class="line">        try &#123;</span><br><span class="line">            statement = conn.prepareStatement(sql);</span><br><span class="line">            statement.execute();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Map&lt;String,String&gt; getJavaMapMysql()&#123;</span><br><span class="line">        </span><br><span class="line">        /**定义并不标准**/</span><br><span class="line">        Map&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">        map.put(&quot;java.lang.String&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Character&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;char&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Integer&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;int&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;java.util.Date&quot;, &quot;DATE&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        map.put(&quot;boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //测试</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection conn = MysqlJDBCPoolUtil.getConnection();</span><br><span class="line">        new CreateTableORM(Admin.class, conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="暂无需求。"><a href="#暂无需求。" class="headerlink" title="暂无需求。"></a>暂无需求。</h3><p><strong>日后，有需要再完善</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/12/2016/H2 DataBase 数据库/" itemprop="url">
                   H2 DataBase 数据库
                 </a>
@@ -1974,165 +2418,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 移除官方仓库</span><br><span class="line">gem source -r https://rubygems.org/</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/07/22/2015/Hive 动态分区异常/" itemprop="url">
-                  Hive 动态分区异常
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-07-22T19:53:00+08:00" content="2015-07-22">
-              2015-07-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hive/" itemprop="url" rel="index">
-                    <span itemprop="name">Hive</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/22/2015/Hive 动态分区异常/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/22/2015/Hive 动态分区异常/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h2><p><strong> 我们大致设置这样一条插入语句:</strong></p>
-<p>hue_sunyan_detection0711表中 dt&gt;’20150415’的数据插入到pengwei_test_detection0711表中，并自动创建分区。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)</span><br><span class="line">select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,</span><br><span class="line">a.system,a.device,a.version,a.detection_time,</span><br><span class="line">a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken</span><br><span class="line">from hue_sunyan_detection0711 a where dt is not null and dt&gt;&apos;20150415&apos;;</span><br></pre></td></tr></table></figure>
-<p><strong>他会抛出如下异常。</strong></p>
-<img src="/2015/07/22/2015/Hive%20动态分区异常/6b1dc171-e5ff-4cd3-8d6d-7d6e2d7be83f.png" alt="异常详情" title="异常详情">
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Diagnostic Messages for this Task:</span><br><span class="line">Error: java.lang.RuntimeException: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &#123;&quot;log_id&quot;:&quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&quot;,&quot;time&quot;:&quot;1421005659&quot;,&quot;receive_time&quot;:&quot;1435946517&quot;,&quot;receiver_ip&quot;:&quot;127.0.0.1&quot;,&quot;user_ip&quot;:&quot;75.133.213.133&quot;,&quot;id&quot;:&quot;3333ca9c9857c31b&quot;,&quot;system&quot;:&quot;ro.build.version.release=4.2.2/samsung&quot;,&quot;device&quot;:&quot;SM-T110&quot;,&quot;version&quot;:&quot;0.0.1&quot;,&quot;detection_time&quot;:&quot;1433433618&quot;,&quot;app_type&quot;:&quot;U&quot;,&quot;apk_md5&quot;:&quot;BF70797DF6896555F476F321B2C40DBB&quot;,&quot;apk_name&quot;:&quot;com.pixelberrystudios.hssandroid&quot;,&quot;vir_name&quot;:null,&quot;time_consuming&quot;:&quot;14950989&quot;,&quot;engine_version&quot;:null,&quot;siglib_version&quot;:null,&quot;scan_opt&quot;:null,&quot;dt&quot;:&quot;20150605&quot;,&quot;channel&quot;:&quot;opensdk&quot;,&quot;apptoken&quot;:&quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&quot;&#125;</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:159)</span><br><span class="line">        at org.apache.hadoop.mapred.MapRunner.run(MapRunner.java:54)</span><br><span class="line">        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:428)</span><br><span class="line">        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:340)</span><br><span class="line">        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:160)</span><br><span class="line">        at java.security.AccessController.doPrivileged(Native Method)</span><br><span class="line">        at javax.security.auth.Subject.doAs(Subject.java:396)</span><br><span class="line">        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1438)</span><br><span class="line">        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:155)</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &#123;&quot;log_id&quot;:&quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&quot;,&quot;time&quot;:&quot;1421005659&quot;,&quot;receive_time&quot;:&quot;1435946517&quot;,&quot;receiver_ip&quot;:&quot;127.0.0.1&quot;,&quot;user_ip&quot;:&quot;75.133.213.133&quot;,&quot;id&quot;:&quot;3333ca9c9857c31b&quot;,&quot;system&quot;:&quot;ro.build.version.release=4.2.2/samsung&quot;,&quot;device&quot;:&quot;SM-T110&quot;,&quot;version&quot;:&quot;0.0.1&quot;,&quot;detection_time&quot;:&quot;1433433618&quot;,&quot;app_type&quot;:&quot;U&quot;,&quot;apk_md5&quot;:&quot;BF70797DF6896555F476F321B2C40DBB&quot;,&quot;apk_name&quot;:&quot;com.pixelberrystudios.hssandroid&quot;,&quot;vir_name&quot;:null,&quot;time_consuming&quot;:&quot;14950989&quot;,&quot;engine_version&quot;:null,&quot;siglib_version&quot;:null,&quot;scan_opt&quot;:null,&quot;dt&quot;:&quot;20150605&quot;,&quot;channel&quot;:&quot;opensdk&quot;,&quot;apptoken&quot;:&quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&quot;&#125;</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:675)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:141)</span><br><span class="line">        ... 8 more</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.FileSinkOperator.processOp(FileSinkOperator.java:620)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.SelectOperator.processOp(SelectOperator.java:84)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.FilterOperator.processOp(FilterOperator.java:132)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.TableScanOperator.processOp(TableScanOperator.java:83)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:656)</span><br><span class="line">        ... 9 more</span><br><span class="line">Caused by: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.createBlockOutputStream(DFSOutputStream.java:1168)</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.nextBlockOutputStream(DFSOutputStream.java:1091)</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:502)</span><br></pre></td></tr></table></figure>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p><strong>通过如下设置可解决如上异常。</strong></p>
-<p>原因：我们默认分区数过低，有如下几个设置参数：</p>
-<ul>
-<li>hive.exec.max.dynamic.partitions.pernode  （default：100）：每个节点上能够生成的最大分区数。</li>
-<li>hive.exec.max.dynamic.partitions （fault：1000）： 一条DML语句允许创建的最大分区数</li>
-<li>hive.exec.max.created.files （fault：100000）：能够创建的最多文件数。</li>
-</ul>
-<pre>
-SET hive.exec.max.dynamic.partitions=100000;
-SET hive.exec.max.dynamic.partitions.pernode=100000;
-</pre>
-
-<p><strong> 但是如果执行如下HQL，依然会抛出出异常。</strong></p>
-<p>将hue_sunyan_detection0711表的数据文件拷贝到pengwei_test_detection0711表。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)</span><br><span class="line">select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,</span><br><span class="line">a.system,a.device,a.version,a.detection_time,</span><br><span class="line">a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken</span><br><span class="line">from hue_sunyan_detection0711 a where dt is not null;</span><br></pre></td></tr></table></figure>
-<h2 id="我有如下尝试"><a href="#我有如下尝试" class="headerlink" title="我有如下尝试"></a>我有如下尝试</h2><blockquote>
-<p>1、修改动态分区参数。（几乎给予最大上限）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.max.dynamic.partitions.pernode=1000000;</span><br><span class="line">set hive.exec.max.dynamic.partitions=1000000;</span><br><span class="line">set hive.exec.max.created.files=10000000;</span><br></pre></td></tr></table></figure></p>
-<p>2、设置Number of map的数量，甚至关闭并行计算。<br>3、查阅一些资料。</p>
-<p>谁有解决方案啊~~~，告诉我一下！！！<br><strong> 插入动态分区是简单，但是这个问题，我都认为是Hive Bug 了 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.dynamic.partition=true; // 是否可以使用动态分区</span><br><span class="line">set hive.exec.dynamic.partition.mode=nostrick;//设置为运行所有分区为动态分区。默认为strick。主分区（第一分区）为静态分区。</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
-<li>分批插入数据。（可以按照dt划分多个HQL，分别执行。）</li>
-<li>一定是一个Bug，哈哈~ 尝试更新CDH版本，我们当前CDH版本为4.7。 内置Hive版本为hive-0.10.0+263。 CDH5.4内置hive版本hive-1.1.0。 </li>
-</ol>
-<blockquote>
-<p>2015年年初,大数据运维承诺升级CDH5.3，这都TM7月份了</p>
-</blockquote>
 
           
         

@@ -228,6 +228,149 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/09/2015/Bower 学习笔记/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-09T09:40:13+08:00" content="2016-08-09">
+              2016-08-09
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/09/2015/Bower 学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/09/2015/Bower 学习笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Bower-介绍"><a href="#Bower-介绍" class="headerlink" title="Bower 介绍"></a>Bower 介绍</h2><h3 id="它是什么"><a href="#它是什么" class="headerlink" title="它是什么"></a>它是什么</h3><p><strong>Bower是一个客户端技术的软件包管理器，它可用于搜索、安装和卸载如JavaScript、HTML、CSS之类的网络资源</strong></p>
+<h3 id="为什么使用"><a href="#为什么使用" class="headerlink" title="为什么使用"></a>为什么使用</h3><ul>
+<li><strong>节约时间。</strong>每次我需要安装jQuery的时候，我都需要去jQuery网站下载包或使用CDN版本。但是有了Bower，我只需要输入一个命令。它会安装在本地计算机上，通过info命令去查看任意库的信息。</li>
+<li><strong>脱机工作。</strong>它有自己的Library仓库，如同Maven（Java 项目构建工具）一样，它存在于用户主目录下.bower下。方便Library管理，避免重复下载。</li>
+<li><strong>项目依赖清晰。</strong>创建一个项目依赖文件(bower.json)，这个文件里你可以指定所有客户端的依赖关系，任何时候你需要弄清楚你正在使用哪些库，都可以查阅这个文件。</li>
+<li><strong>让升级变得简单。</strong>只需要运行一个命令，bower会自动更新所有有关新版本的依赖关系。</li>
+</ul>
+<h3 id="需要准备什么"><a href="#需要准备什么" class="headerlink" title="需要准备什么"></a>需要准备什么</h3><p><strong>在使用Bower之前，你需要安装NodeJS、Git、NPM（安装NodeJS时，默认安装）</strong></p>
+<h2 id="Bower-入门"><a href="#Bower-入门" class="headerlink" title="Bower 入门"></a>Bower 入门</h2><h3 id="安装Bower"><a href="#安装Bower" class="headerlink" title="安装Bower"></a>安装Bower</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g bower</span><br></pre></td></tr></table></figure>
+<h3 id="使用bower-help查阅所有命令"><a href="#使用bower-help查阅所有命令" class="headerlink" title="使用bower help查阅所有命令"></a>使用<code>bower help</code>查阅所有命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br><span class="line"></span><br><span class="line">    bower &lt;command&gt; [&lt;args&gt;] [&lt;options&gt;]</span><br><span class="line">Commands:</span><br><span class="line"></span><br><span class="line">    cache                   Manage bower cache</span><br><span class="line">    help                    Display help information about Bower</span><br><span class="line">    home                    Opens a package homepage into your favorite browser</span><br><span class="line">    info                    Info of a particular package</span><br><span class="line">    init                    Interactively create a bower.json file</span><br><span class="line">    install                 Install a package locally</span><br><span class="line">    link                    Symlink a package folder</span><br><span class="line">    list                    List local packages - and possible updates</span><br><span class="line">    login                   Authenticate with GitHub and store credentials</span><br><span class="line">    lookup                  Look up a package URL by name</span><br><span class="line">    prune                   Removes local extraneous packages</span><br><span class="line">    register                Register a package</span><br><span class="line">    search                  Search for a package by name</span><br><span class="line">    update                  Update a local package</span><br><span class="line">    uninstall               Remove a local package</span><br><span class="line">    unregister              Remove a package from the registry</span><br><span class="line">    version                 Bump a package version</span><br><span class="line">Options:</span><br><span class="line"></span><br><span class="line">    -f, --force             Makes various commands more forceful</span><br><span class="line">    -j, --json              Output consumable JSON</span><br><span class="line">    -l, --log-level         What level of logs to report</span><br><span class="line">    -o, --offline           Do not hit the network</span><br><span class="line">    -q, --quiet             Only output important information</span><br><span class="line">    -s, --silent            Do not output anything, besides errors</span><br><span class="line">    -V, --verbose           Makes output more verbose</span><br><span class="line">    --allow-root            Allows running commands as root</span><br><span class="line">    -v, --version           Output Bower version</span><br><span class="line">    --no-color              Disable colors</span><br><span class="line">See &apos;bower help &lt;command&gt;&apos; for more information on a specific command.</span><br></pre></td></tr></table></figure>
+<h3 id="包的安装"><a href="#包的安装" class="headerlink" title="包的安装"></a>包的安装</h3><p><strong>使用 <code>bower install</code>命令. Bower将安装包到<code>bower_components/.</code>目录下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install &lt;package&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Bower可以读取四种不同源</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bower install jquery   //registered package  </span><br><span class="line"></span><br><span class="line">bower install desandro/masonry  //github别名自动解析git库</span><br><span class="line"></span><br><span class="line">bower install git://github.com/user/package.git  //Git endpoint</span><br><span class="line"></span><br><span class="line">bower install http://example.com/script.js //URL</span><br></pre></td></tr></table></figure></p>
+<p><strong>实例： 安装包 jquery</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">bower install jquery</span><br><span class="line"></span><br><span class="line">它将自动下载，并生成如下结构。</span><br><span class="line"></span><br><span class="line">└─bower_components</span><br><span class="line">    └─jquery</span><br><span class="line">        ├─dist</span><br><span class="line">        └─src</span><br><span class="line">         .....</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">通过如下进行生产使用</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;bower_components/jquery/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>想要指定具体的版本通过<code>#</code>. eg: <code>bower install bootstrap#3.3.5</code></strong></p>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><h4 id="所有包的列表"><a href="#所有包的列表" class="headerlink" title="所有包的列表"></a>所有包的列表</h4><p><code>bower list</code>命令罗列包的列表。它会检查<code>bower_components</code>目录下的包，然后会显出来，并告诉你当前最新版本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bower F:\test\bower</span><br><span class="line">└─┬ bootstrap#3.3.5 extraneous (latest is 4.0.0-alpha)</span><br><span class="line">  └── jquery#2.1.4 (3.0.0-alpha1+compat available)</span><br></pre></td></tr></table></figure></p>
+<h3 id="包的搜索"><a href="#包的搜索" class="headerlink" title="包的搜索"></a>包的搜索</h3><p><strong>1、使用 <code>http://bower.io/search/</code> 查找包名称。</strong><br><strong>2、<code>bower search</code>命令进行包的搜索</strong><br><strong>输入<code>bower search bootstrap</code>，结果如下</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Search results:</span><br><span class="line"></span><br><span class="line">    bootstrap git://github.com/twbs/bootstrap.git</span><br><span class="line">    angular-bootstrap git://github.com/angular-ui/bootstrap-bower.git</span><br><span class="line">    bootstrap-sass-official git://github.com/twbs/bootstrap-sass.git</span><br><span class="line">    sass-bootstrap git://github.com/jlong/sass-bootstrap.git</span><br><span class="line">    bootstrap-datepicker git://github.com/eternicode/bootstrap-datepicker.git</span><br><span class="line">    bootstrap-select git://github.com/silviomoreto/bootstrap-select.git</span><br><span class="line">    angular-ui-bootstrap-bower git://github.com/angular-ui/bootstrap-bower</span><br><span class="line">    angular-ui-bootstrap git://github.com/angular-ui/bootstrap.git</span><br><span class="line">    bootstrap-daterangepicker git://github.com/dangrossman/bootstrap-daterangepicker.git</span><br><span class="line">    bootstrap-timepicker git://github.com/jdewit/bootstrap-timepicker</span><br><span class="line">    bootstrap-switch git://github.com/nostalgiaz/bootstrap-switch.git</span><br><span class="line">    bootstrap-css git://github.com/jozefizso/bower-bootstrap-css.git</span><br><span class="line">    select2-bootstrap-css git://github.com/t0m/select2-bootstrap-css.git</span><br><span class="line">    eonasdan-bootstrap-datetimepicker git://github.com/Eonasdan/bootstrap-datetimepicker.git</span><br><span class="line">    seiyria-bootstrap-slider git://github.com/seiyria/bootstrap-slider.git</span><br><span class="line">    angular-bootstrap-colorpicker git://github.com/buberdds/angular-bootstrap-colorpicker.git</span><br><span class="line">    bootstrap-multiselect git://github.com/davidstutz/bootstrap-multiselect.git</span><br><span class="line">    bootstrap.css git://github.com/bowerjs/bootstrap.git</span><br><span class="line">    bootstrap-datetimepicker git://github.com/tarruda/bootstrap-datetimepicker.git</span><br><span class="line">    angular-bootstrap-datetimepicker git://github.com/dalelotts/angular-bootstrap-datetimepicker</span><br><span class="line">    bootstrap-modal git://github.com/jschr/bootstrap-modal.git</span><br><span class="line">    bootstrap-tour git://github.com/sorich87/bootstrap-tour.git</span><br><span class="line">    bootstrap-tagsinput git://github.com/TimSchlechter/bootstrap-tagsinput.git</span><br><span class="line">    bootstrap-additions git://github.com/mgcrea/bootstrap-additions.git</span><br><span class="line">    bootstrap-file-input git://github.com/grevory/bootstrap-file-input.git</span><br><span class="line">    angular-bootstrap-switch git://github.com/frapontillo/angular-bootstrap-switch.git</span><br><span class="line">    bootstrap-social git://github.com/lipis/bootstrap-social.git</span><br><span class="line">    twbs-bootstrap-sass git://github.com/twbs/bootstrap-sass</span><br><span class="line">    ember-addons.bs_for_ember git://github.com/ember-addons/bootstrap-for-ember.git</span><br><span class="line">    jasny-bootstrap git://github.com/jasny/bootstrap.git</span><br></pre></td></tr></table></figure></p>
+<h3 id="包的信息"><a href="#包的信息" class="headerlink" title="包的信息"></a>包的信息</h3><p>可以使用<code>info</code> 命令来查看特定包的所有信息，eg: <code>bower info bootstrap</code> 结果如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">bower                            retry Request to https://bower.herokuapp.com/packages/bootstrap failed with ECONNRESET, retrying in 1.3s</span><br><span class="line">bower bootstrap#*           not-cached git://github.com/twbs/bootstrap.git#*</span><br><span class="line">bower bootstrap#*              resolve git://github.com/twbs/bootstrap.git#*</span><br><span class="line">bower bootstrap#*             download https://github.com/twbs/bootstrap/archive/v3.3.5.tar.gz</span><br><span class="line">bower bootstrap#*              extract archive.tar.gz</span><br><span class="line">bower bootstrap#*             resolved git://github.com/twbs/bootstrap.git#3.3.5</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  name: &apos;bootstrap&apos;,</span><br><span class="line">  description: &apos;The most popular front-end framework for developing responsive, mobile first projects on the web.&apos;,</span><br><span class="line">  keywords: [</span><br><span class="line">    &apos;css&apos;,</span><br><span class="line">    &apos;js&apos;,</span><br><span class="line">    &apos;less&apos;,</span><br><span class="line">    &apos;mobile-first&apos;,</span><br><span class="line">    &apos;responsive&apos;,</span><br><span class="line">    &apos;front-end&apos;,</span><br><span class="line">    &apos;framework&apos;,</span><br><span class="line">    &apos;web&apos;</span><br><span class="line">  ],</span><br><span class="line">  homepage: &apos;http://getbootstrap.com&apos;,</span><br><span class="line">  license: &apos;MIT&apos;,</span><br><span class="line">  moduleType: &apos;globals&apos;,</span><br><span class="line">  main: [</span><br><span class="line">    &apos;less/bootstrap.less&apos;,</span><br><span class="line">    &apos;dist/js/bootstrap.js&apos;</span><br><span class="line">  ],</span><br><span class="line">  ignore: [</span><br><span class="line">    &apos;/.*&apos;,</span><br><span class="line">    &apos;_config.yml&apos;,</span><br><span class="line">    &apos;CNAME&apos;,</span><br><span class="line">    &apos;composer.json&apos;,</span><br><span class="line">    &apos;CONTRIBUTING.md&apos;,</span><br><span class="line">    &apos;docs&apos;,</span><br><span class="line">    &apos;js/tests&apos;,</span><br><span class="line">    &apos;test-infra&apos;</span><br><span class="line">  ],</span><br><span class="line">  dependencies: &#123;</span><br><span class="line">    jquery: &apos;&gt;= 1.9.1&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  version: &apos;3.3.5&apos;</span><br><span class="line">&#125;</span><br><span class="line">....</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>提示：通过<code>bower info &lt;package&gt;#&lt;version&gt;</code> 查看具体版本信息。eg:<code>bower info bootstrap#3.3.5</code></p>
+</blockquote>
+<h3 id="包的卸载"><a href="#包的卸载" class="headerlink" title="包的卸载"></a>包的卸载</h3><p><strong>使用<code>uninstall</code> 命令进行包的卸载，eg:bower uninstall jquery</strong><br><strong>如果希望将<code>bower.json</code>中的jquery依赖也删除掉，可以使用<code>bower uninstall jquery --save</code></strong></p>
+<h2 id="创建包管理文件"><a href="#创建包管理文件" class="headerlink" title="创建包管理文件"></a>创建包管理文件</h2><h3 id="bower-json"><a href="#bower-json" class="headerlink" title="bower.json"></a>bower.json</h3><p><strong> <code>bower.json</code>是Bower默认的清单文件,它与NodeJS中的<code>package.json</code>文件和Ruby的<code>Gemfile</code>文件非常相似</strong><br><strong>通过<code>bower init</code> 初始化<code>bower.json</code>文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower init</span><br></pre></td></tr></table></figure></p>
+<p>项目目录下载创建<code>.bowerrc</code> 将指定生成管理目录（bower_compinents）的位置和名称。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;directory&quot;: &quot;app/components&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="bower-json规范"><a href="#bower-json规范" class="headerlink" title="bower.json规范"></a>bower.json规范</h3><p><strong>bower.json<a href="https://github.com/bower/spec/blob/master/json.md" target="_blank" rel="external">配置详情</a></strong></p>
+<h3 id="保持依赖"><a href="#保持依赖" class="headerlink" title="保持依赖"></a>保持依赖</h3><p>使用<code>bower install &lt;package&gt; --save</code> 安装<package>并追加至bower.json文件中Dependencies属性下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install &lt;package&gt; --save             //或者 bower install &lt;package&gt; -S</span><br></pre></td></tr></table></figure></package></p>
+<p>使用<code>bower install &lt;package&gt; --save-dev</code> 安装<package>并追加至bower.json文件devDependencies属性下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install &lt;package&gt; --save-dev   //或者 bower install &lt;package&gt; -D</span><br></pre></td></tr></table></figure></package></p>
+<blockquote>
+<p><code>-P</code> 依赖将不会被安装<br>提示： 下次部署项目的时候，只需要执行<code>bower install</code> ,它便会下载所有项目依赖包。</p>
+</blockquote>
+<h3 id="注册略"><a href="#注册略" class="headerlink" title="注册略"></a>注册略</h3><p>参考：<a href="http://bower.io/docs/creating-packages/#bowerjson" target="_blank" rel="external">http://bower.io/docs/creating-packages/#bowerjson</a></p>
+<blockquote>
+<p>bower.json文件中。包的依赖如：<code>&quot;backone&quot; : &quot;~1.1.2&quot;</code> 中<code>~</code> 表示X版本，指小版本，不限制第三位参数,小版本升级可以是~1.1.4。</p>
+</blockquote>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><h3 id="使用-cache"><a href="#使用-cache" class="headerlink" title="使用 cache"></a>使用 <code>cache</code></h3><p><strong>每次安装完包，就会增加到缓存中</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bower cache list    //查看所有缓存包</span><br><span class="line">bower install &lt;package&gt; --offline //离线安装&lt;package&gt; </span><br><span class="line">bower cache clean //清除所有缓存</span><br></pre></td></tr></table></figure></p>
+<h3 id="其他略"><a href="#其他略" class="headerlink" title="其他略"></a>其他略</h3><h2 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h2><h3 id="修改版本"><a href="#修改版本" class="headerlink" title="修改版本"></a>修改版本</h3><p>通过<code>bower version</code>命令来修改版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bower version 0.0.1   //修改版本 或者 增加版本  </span><br><span class="line">bower version patch   //小修改功能时使用。  v 0.0.2</span><br><span class="line">bower version minor  //小版本时使用。 v 0.1.2</span><br><span class="line">bower version major  //大版本时使用。 v 1.1.2</span><br></pre></td></tr></table></figure></p>
+<p><strong>其它略，有需求，请参考官方文档</strong></p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ bower install jquery --save 添加依赖并更新bower.json文件</span><br><span class="line">$ bower cache clean 安装失败清除缓存</span><br><span class="line">$ bower install storejs 安装storejs</span><br><span class="line">$ bower uninstall storejs 卸载storejs</span><br><span class="line">$ bower uninstall storejs --save 卸载依赖并更新bower.json文件</span><br><span class="line"></span><br><span class="line">//使用离线缓存，避免重复下载</span><br><span class="line">$ bower cache list    //查看所有缓存列表</span><br><span class="line">$ bower install bootstrap --offline --save     //离线下载，并追加依赖到bower.json</span><br></pre></td></tr></table></figure>
+<h3 id="基本命令-1"><a href="#基本命令-1" class="headerlink" title="基本命令"></a>基本命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">npm update -g bower //更新bower</span><br><span class="line"></span><br><span class="line">//help命令详情</span><br><span class="line">cache:bower缓存管理</span><br><span class="line">help:显示Bower命令的帮助信息</span><br><span class="line">home:通过浏览器打开一个包的github发布页</span><br><span class="line">info:查看包的信息</span><br><span class="line">init:创建bower.json文件</span><br><span class="line">install:安装包到项目</span><br><span class="line">link:在本地bower库建立一个项目链接</span><br><span class="line">list:列出项目已安装的包</span><br><span class="line">lookup:根据包名查询包的URL</span><br><span class="line">prune:删除项目无关的包  //检查bower.json 中的依赖列表，删除本地没有依赖的包</span><br><span class="line">register:注册一个包</span><br><span class="line">search:搜索包</span><br><span class="line">update:更新项目的包    //先修改bower.json    eg: jquery:&apos;&gt;=1.9&apos;</span><br><span class="line">uninstall:删除项目的包</span><br></pre></td></tr></table></figure>
+<h3 id="发布github"><a href="#发布github" class="headerlink" title="发布github"></a>发布github</h3><ol>
+<li><code>bower init</code> name: xxxx</li>
+<li>在github创建资源库xxxx</li>
+<li><p>将本地项目提交至github</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;this is ??&quot;</span><br><span class="line">git remote add origin https://github.com/cmp-cc/xxxx</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注册到bower官方类库<br>bower register nodejs-bower git@github.com:cmp-cc/xxxx.git</p>
+</li>
+<li>查询自己的包<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower search bower-test</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/09/2016/Azkaban 短信预警插件开发/" itemprop="url">
                   Azkaban 短信预警插件开发
                 </a>
@@ -1835,450 +1978,6 @@
 <h2 id="安装SciPy"><a href="#安装SciPy" class="headerlink" title="安装SciPy"></a>安装SciPy</h2><p><strong>opencv 依赖</strong><br>下载SciPy<br><a href="https://sourceforge.net/projects/scipy/files/scipy/0.16.1/scipy-0.16.1-win32-superpack-python2.7.exe/download" target="_blank" rel="external">https://sourceforge.net/projects/scipy/files/scipy/0.16.1/scipy-0.16.1-win32-superpack-python2.7.exe/download</a></p>
 <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt; image = cv2.imread(&quot;F:\image.png&quot;)</span><br><span class="line">&gt;&gt;&gt; cv2.imshow(&quot;Image&quot;,image)</span><br><span class="line">&gt;&gt;&gt; cv2.waitKey(0)</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
 <p><strong>它将显示图片</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/14/2016/模拟ORM/" itemprop="url">
-                  模拟ORM
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-14T18:34:00+08:00" content="2016-04-14">
-              2016-04-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming Language</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/14/2016/模拟ORM/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/2016/模拟ORM/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>有时候做一些展示用的项目，或者是测试项目，可能并不会去引入Hibernate 等这类ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。</p>
-<h2 id="SQL-Mapping-Java"><a href="#SQL-Mapping-Java" class="headerlink" title="SQL Mapping Java"></a>SQL Mapping Java</h2><h3 id="整体实体关系映射"><a href="#整体实体关系映射" class="headerlink" title="整体实体关系映射"></a>整体实体关系映射</h3><table>
-<thead>
-<tr>
-<th>类型名称</th>
-<th>显示长度</th>
-<th>数据库类型</th>
-<th>JAVA类型</th>
-<th>JDBC类型索引(int)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>VARCHAR</td>
-<td>L+N</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-<td>12     </td>
-</tr>
-<tr>
-<td>CHAR</td>
-<td>N</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-<td>1     </td>
-</tr>
-<tr>
-<td>BLOB</td>
-<td>L+N</td>
-<td>BLOB</td>
-<td>java.lang.byte[]</td>
-<td>-4     </td>
-</tr>
-<tr>
-<td>TEXT</td>
-<td>65535</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-<td>-1      </td>
-</tr>
-<tr>
-<td>INTEGER</td>
-<td>4</td>
-<td>INTEGER UNSIGNED</td>
-<td>java.lang.Long</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>TINYINT</td>
-<td>3</td>
-<td>TINYINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>-6     </td>
-</tr>
-<tr>
-<td>SMALLINT</td>
-<td>5</td>
-<td>SMALLINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>5     </td>
-</tr>
-<tr>
-<td>MEDIUMINT</td>
-<td>8</td>
-<td>MEDIUMINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>BIT</td>
-<td>1</td>
-<td>BIT</td>
-<td>java.lang.Boolean</td>
-<td>-7     </td>
-</tr>
-<tr>
-<td>BIGINT</td>
-<td>20</td>
-<td>BIGINT UNSIGNED</td>
-<td>java.math.BigInteger</td>
-<td>-5     </td>
-</tr>
-<tr>
-<td>FLOAT</td>
-<td>4+8</td>
-<td>FLOAT</td>
-<td>java.lang.Float</td>
-<td>7     </td>
-</tr>
-<tr>
-<td>DOUBLE</td>
-<td>22</td>
-<td>DOUBLE</td>
-<td>java.lang.Double</td>
-<td>8     </td>
-</tr>
-<tr>
-<td>DECIMAL</td>
-<td>11</td>
-<td>DECIMAL</td>
-<td>java.math.BigDecimal</td>
-<td>3     </td>
-</tr>
-<tr>
-<td>BOOLEAN</td>
-<td>1</td>
-<td>TINYINT UNSIGNED</td>
-<td>java.lang.Integer</td>
-<td>-6      </td>
-</tr>
-<tr>
-<td>ID</td>
-<td>11</td>
-<td>PK (INTEGER UNSIGNED)</td>
-<td>java.lang.Long</td>
-<td>4     </td>
-</tr>
-<tr>
-<td>DATE</td>
-<td>10</td>
-<td>DATE</td>
-<td>java.sql.Date</td>
-<td>91     </td>
-</tr>
-<tr>
-<td>TIME</td>
-<td>8</td>
-<td>TIME</td>
-<td>java.sql.Time</td>
-<td>92     </td>
-</tr>
-<tr>
-<td>DATETIME</td>
-<td>19</td>
-<td>DATETIME</td>
-<td>java.sql.Timestamp</td>
-<td>93     </td>
-</tr>
-<tr>
-<td>TIMESTAMP</td>
-<td>19</td>
-<td>TIMESTAMP</td>
-<td>java.sql.Timestamp</td>
-<td>93     </td>
-</tr>
-<tr>
-<td>YEAR</td>
-<td>4</td>
-<td>YEAR</td>
-<td>java.sql.Date</td>
-<td>91</td>
-</tr>
-</tbody>
-</table>
-<h3 id="MySQL-实体类型映射"><a href="#MySQL-实体类型映射" class="headerlink" title="MySQL 实体类型映射"></a>MySQL 实体类型映射</h3><table>
-<thead>
-<tr>
-<th>MySQL Type Name</th>
-<th>Return value of GetColumnClassName</th>
-<th>Returned as Java Class</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>BIT(1) (new in MySQL-5.0)</td>
-<td>BIT</td>
-<td>java.lang.Boolean</td>
-</tr>
-<tr>
-<td>BIT( &gt; 1) (new in MySQL-5.0)</td>
-<td>BIT</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYINT</td>
-<td>TINYINT</td>
-<td>java.lang.Boolean if the configuration property tinyInt1isBit is set to true (the default) and the storage size is 1, or java.lang.Integer if not.</td>
-</tr>
-<tr>
-<td>BOOL, BOOLEAN</td>
-<td>TINYINT</td>
-<td>See TINYINT, above as these are aliases for TINYINT(1), currently.</td>
-</tr>
-<tr>
-<td>SMALLINT[(M)] [UNSIGNED]</td>
-<td>SMALLINT [UNSIGNED]</td>
-<td>java.lang.Integer (regardless if UNSIGNED or not)</td>
-</tr>
-<tr>
-<td>MEDIUMINT[(M)] [UNSIGNED]</td>
-<td>MEDIUMINT [UNSIGNED]</td>
-<td>java.lang.Integer, if UNSIGNED java.lang.Long (C/J 3.1 and earlier), or java.lang.Integer for C/J 5.0 and later</td>
-</tr>
-<tr>
-<td>INT,INTEGER[(M)] [UNSlGNED]</td>
-<td>INTEGER [UNSIGNED]</td>
-<td>java.lang.Integer, if UNSIGNED java.lang.Long</td>
-</tr>
-<tr>
-<td>BIGINT[(M)] [UNSIGNED]</td>
-<td>BIGINT [UNSIGNED]</td>
-<td>java.lang.Long, if UNSIGNED java.math.BigInteger</td>
-</tr>
-<tr>
-<td>FLOAT[(M,D)]</td>
-<td>FLOAT</td>
-<td>java.lang.Float</td>
-</tr>
-<tr>
-<td>DOUBLE[(M,B)]</td>
-<td>DOUBLE</td>
-<td>java.lang.Double</td>
-</tr>
-<tr>
-<td>DECIMAL[(M[,D])]</td>
-<td>DECIMAL</td>
-<td>java.math.BigDecimal</td>
-</tr>
-<tr>
-<td>DATE</td>
-<td>DATE</td>
-<td>java.sql.Date</td>
-</tr>
-<tr>
-<td>DATETIME</td>
-<td>DATETIME</td>
-<td>java.sql.Timestamp</td>
-</tr>
-<tr>
-<td>TIMESTAMP[(M)]</td>
-<td>TIMESTAMP</td>
-<td>java.sql.Timestamp</td>
-</tr>
-<tr>
-<td>TIME</td>
-<td>TIME</td>
-<td>java.sql.Time</td>
-</tr>
-<tr>
-<td>YEAR[(2l4)]</td>
-<td>YEAR</td>
-<td>If yearIsDateType configuration property is set to false, then the returned object type is java.sql.Short. If set to true (the default), then the returned object is of type java.sql.Date with the date set to January 1st, at midnight.</td>
-</tr>
-<tr>
-<td>CHAR(M)</td>
-<td>CHAR</td>
-<td>java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
-</tr>
-<tr>
-<td>VARCHAR(M)</td>
-<td>[BINARY]</td>
-<td>VARCHAR    java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
-</tr>
-<tr>
-<td>BINARY(M)</td>
-<td>BINARY</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>VARBINARY(M)</td>
-<td>VARBINARY</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYBLOB</td>
-<td>TINYBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TINYTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>BLOB</td>
-<td>BLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>TEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>MEDIUMBLOB</td>
-<td>MEDIUMBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>MEDIUMTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>LONGBLOB</td>
-<td>LONGBLOB</td>
-<td>byte[]</td>
-</tr>
-<tr>
-<td>LONGTEXT</td>
-<td>VARCHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>ENUM(‘value1’,’value2’,…)</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-</tr>
-<tr>
-<td>SET(‘value1’,’value2’,…)</td>
-<td>CHAR</td>
-<td>java.lang.String</td>
-</tr>
-</tbody>
-</table>
-<p>参考： <a href="http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html</a></p>
-<h2 id="模拟ORM"><a href="#模拟ORM" class="headerlink" title="模拟ORM"></a>模拟ORM</h2><h3 id="根据实体映射表"><a href="#根据实体映射表" class="headerlink" title="根据实体映射表"></a>根据实体映射表</h3><p><strong>如下只是一个基本实例，想要完成更多特性，还是要下点功夫的。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public class CreateTableORM &#123;</span><br><span class="line">    </span><br><span class="line">    private static Map&lt;String,String&gt; ormField = getJavaMapMysql();</span><br><span class="line">    </span><br><span class="line">    Class&lt;?&gt; clazz;</span><br><span class="line">    </span><br><span class="line">    Connection conn;</span><br><span class="line">    </span><br><span class="line">    // 表名</span><br><span class="line">    String tableName;</span><br><span class="line">    </span><br><span class="line">    public CreateTableORM(Class&lt;?&gt; clazz , Connection conn)&#123;</span><br><span class="line">        this.clazz = clazz;</span><br><span class="line">        this.conn = conn;</span><br><span class="line">        tableName = clazz.getName();</span><br><span class="line">        </span><br><span class="line">        createTable();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void createTable()&#123;</span><br><span class="line">        </span><br><span class="line">         StringBuffer sb = new StringBuffer();</span><br><span class="line">        </span><br><span class="line">         Arrays.asList(clazz.getDeclaredFields()).forEach(field -&gt;&#123;</span><br><span class="line">             </span><br><span class="line">            String fieldType = ormField.get(field.getType().getName());</span><br><span class="line">            String fieldName = field.getName();</span><br><span class="line">            </span><br><span class="line">            sb.append(String.format(&quot;%s %s,&quot;, fieldName,fieldType));</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        String sql = String.format(&quot;Create Table If Not Exists %s (%s)&quot;,this.tableName, sb.deleteCharAt(sb.length()-1).toString());</span><br><span class="line">        </span><br><span class="line">        excuteSQL(sql);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void excuteSQL(String sql) &#123;</span><br><span class="line">        PreparedStatement statement;</span><br><span class="line">        </span><br><span class="line">        try &#123;</span><br><span class="line">            statement = conn.prepareStatement(sql);</span><br><span class="line">            statement.execute();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Map&lt;String,String&gt; getJavaMapMysql()&#123;</span><br><span class="line">        </span><br><span class="line">        /**定义并不标准**/</span><br><span class="line">        Map&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">        map.put(&quot;java.lang.String&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Character&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;char&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Integer&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;int&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;java.util.Date&quot;, &quot;DATE&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        map.put(&quot;boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //测试</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection conn = MysqlJDBCPoolUtil.getConnection();</span><br><span class="line">        new CreateTableORM(Admin.class, conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="暂无需求。"><a href="#暂无需求。" class="headerlink" title="暂无需求。"></a>暂无需求。</h3><p><strong>日后，有需要再完善</strong></p>
 
           
         
