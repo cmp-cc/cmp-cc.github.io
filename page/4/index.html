@@ -1122,6 +1122,185 @@
             
               
                 
+                <a class="post-title-link" href="/2014/12/10/2014/iFrame/" itemprop="url">
+                  iFrame
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-12-10T11:51:00+08:00" content="2014-12-10">
+              2014-12-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Web/HTML/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/10/2014/iFrame/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/10/2014/iFrame/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="iFrame标记"><a href="#iFrame标记" class="headerlink" title="iFrame标记"></a>iFrame标记</h1><hr>
+<p>iFrame标记（浮动帧标记）是框架的一种形式。 </p>
+<h3 id="iframe-作用："><a href="#iframe-作用：" class="headerlink" title="iframe 作用："></a>iframe 作用：</h3><ul>
+<li>组件化开发的一种方式</li>
+<li>解决重复代码问题</li>
+</ul>
+<h3 id="iFrame-及其属性："><a href="#iFrame-及其属性：" class="headerlink" title="iFrame 及其属性："></a>iFrame 及其属性：</h3><p>iFrame 使用格式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=&quot;URL&quot; width=&quot;x&quot; height=&quot;x&quot; scrolling=&quot;[OPTION]&quot; frameborder=&quot;x&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure></p>
+<p>iframe 设置文本或图形的浮动图文框或容器</p>
+<ul>
+<li>scrolling=no (YES,NO,AUTO) 是否有滚动条</li>
+<li>src 指定iFrame调用的类型（HTML,GIF,JPEG,Text,JSP等等）</li>
+<li>width、height 。iframe整体宽高。</li>
+<li>frameborder：宽度<br>示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe frameborder=0 width=500 height=500 marginheight=0 marginwidth=0 scrolling=no src=&quot;content/codeSnippet.html&quot;&gt; &lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>可以重复引用</li>
+<li>引入内容，父窗体显示页面为HTML包裹。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//被引入片段 codeSnippet.html</span><br><span class="line">&lt;h1&gt;Hello World&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//引入代码片段还是其它，默认HTML包裹。</span><br><span class="line">&lt;iframe border=2 frameborder=0 width=500 height=500 marginheight=0 marginwidth=0 scrolling=no src=&quot;content/SCNKQ%609XS4Z4$%5B2XLLH(1%7BW.png&quot;&gt; &lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="父窗体与子窗体通信"><a href="#父窗体与子窗体通信" class="headerlink" title="父窗体与子窗体通信"></a>父窗体与子窗体通信</h3><p>父窗体： 包含iframe的窗体<br>子窗体： iframe本身。<br>通信：使用程序访问控制父窗体与子窗体交互，父窗体中访问子窗体或相反。</p>
+<p><strong>子窗体（嵌入代码片）</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head lang=&quot;en&quot;&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function helloChild()&#123;</span><br><span class="line">       console.log(&quot;Hello child Object&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">// 如果如果下一行,嵌入父窗体，默认增加html、、head、body标签</span><br><span class="line">&lt;h1 id=&quot;h1&quot;&gt;Hello World&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    // 访问控制父类对象</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>父窗体</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	function helloParent()&#123;</span><br><span class="line">	    console.log(&quot;Hello parent Object&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;iframe name=&quot;snippet&quot; id=&quot;snippet&quot;  frameborder=0 width=500 height=500 marginheight=0 marginwidth=0 scrolling=no src=&quot;content/codeSnippet.html&quot;&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="父窗体访问控制子窗体对象"><a href="#父窗体访问控制子窗体对象" class="headerlink" title="父窗体访问控制子窗体对象"></a>父窗体访问控制子窗体对象</h4><ul>
+<li><p>iframe 设置id或class 属性<br>父窗体中，iframe窗体为document对象的一个子对象，可以直接在脚本中访问子窗体中对象，这样只能访问控制当前iframe对象的属性信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var snippet = document.getElementById(&apos;snippet&apos;)</span><br><span class="line">console.log(snippet.src)</span><br><span class="line">console.log(snippet.frameBorder)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>iframe 设置name属性<br>设置name属性，将iframe视为window对象，可以访问控制iframe内部JS、HTML。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 调用iframe内部JS代码和iframe DOM操作</span><br><span class="line">window.onload = function()&#123;</span><br><span class="line">    snippet.helloChild();//访问内部方法。 完整写法:  document.snippet.helloChild()</span><br><span class="line">    snippet.document.getElementById(&apos;h1&apos;).innerHTML = &quot;Me too!!!&quot;</span><br><span class="line">// frames[&apos;snippet&apos;] 等价于snippet 。frames为window元素.</span><br><span class="line">// frames[&apos;snippet&apos;].document.getElementById(&apos;h1s&apos;).innerHTML = &quot;Me too!!!&quot;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>提示，注意全局命名冲突。</p>
+</blockquote>
+<h4 id="子窗体访问控制父窗体对象"><a href="#子窗体访问控制父窗体对象" class="headerlink" title="子窗体访问控制父窗体对象"></a>子窗体访问控制父窗体对象</h4><p>在代码片中定义JS脚本，通过parent对象访问上一级window对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parent.helloParent();  //访问父窗体对象。  完整写法:   window.parent.helloParent();</span><br><span class="line">parent.document.getElementById(&apos;p&apos;).innerHTML = &quot;你有良民证吗?&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="iFrame-组件化"><a href="#iFrame-组件化" class="headerlink" title="iFrame 组件化"></a>iFrame 组件化</h3><p>将不变内容组件化，相对独立，避免重复编码，使得修改页面更加方法。</p>
+<p>###用途</p>
+<ul>
+<li>载入外来资源。<br>结合a标签或者Script脚本,点击或输入链接，访问显示外来页面或其它资源</li>
+<li>复用。<br>相同代码连续使用。</li>
+<li>窃取显示。<br>外来链接。通过设置 marginwidth、marginheight、vspace、scrolling=no 、width、height 。将别人部分内容显示在自己页面。<br>全屏显示页面中某一部分。</li>
+</ul>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>iFrame 标签,现在越来越不受人待见，由于它的缺点，很多原使用MVVM或JS模板引擎、Ajax取代。<br>缺点：</p>
+<ul>
+<li>不利于seo<br>不利于搜索引擎的爬虫访问,例如：Google 不读取iFrame标签信息。</li>
+<li>增加页面交互的复杂度</li>
+<li>共享链接池<br>iframe和主页面共享链接池，浏览器对相同域的链接有限制，所以会影响页面并行加载。</li>
+<li>移动端展示问题</li>
+<li>重复加载问题（可避免）。<br>iframe等同于一个新的页面，JS/CSS 重复加载。</li>
+</ul>
+<p>优点：</p>
+<p>iframe 跨域通信<br>iframe WebSocket 长连接</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/11/28/2014/Linux sftp 进行文件传输/" itemprop="url">
                   Linux sftp 进行文件传输
                 </a>
@@ -1893,163 +2072,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/08/11/2014/Spring Bean 扩展点/" itemprop="url">
-                  Spring Bean 扩展点
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-08-11T23:53:00+08:00" content="2014-08-11">
-              2014-08-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaWeb</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/08/11/2014/Spring Bean 扩展点/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/11/2014/Spring Bean 扩展点/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>BeanFactoryPostProcessor</li>
-<li>PropertyPlaceholderConfigurer </li>
-</ul>
-<h2 id="PropertyPlaceholderConfigurer"><a href="#PropertyPlaceholderConfigurer" class="headerlink" title="PropertyPlaceholderConfigurer"></a>PropertyPlaceholderConfigurer</h2><p>它用于配置环境变量、系统属性、等变量。<br>PropertyPlaceholderConfigurer 是BeanFactoryPostProcessor（Bean工厂后置处理器）的一个实现<br>通过Spring Bean 配置，将properties文件装配到一个对象中。<br><strong>在设置数据源的时候（C3P0、DBCP），<code>BasicDataSource</code>对象继承了<code>PropertyPlaceholderConfigurer</code> 完成<code>properties</code>注入</strong></p>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><ul>
-<li>properties 文件（jdbc.properties）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdbc.driverClass=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://127.0.0.1:3306/cmpcc?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>PropertyPlaceholderConfigurer</code>配置Bean<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;propertyConfigurer&quot;</span><br><span class="line">    class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;locations&quot;&gt;</span><br><span class="line">        &lt;list&gt;</span><br><span class="line">            &lt;value&gt;classpath:jdbc.properties&lt;/value&gt;</span><br><span class="line">        &lt;/list&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;fileEncoding&quot;&gt;</span><br><span class="line">        &lt;value&gt;UTF-8&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property name=&quot;ignoreResourceNotFound&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;searchSystemEnvironment&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;property name=&quot;systemPropertiesModeName&quot; value=&quot;SYSTEM_PROPERTIES_MODE_OVERRIDE&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="在开发中的应用。"><a href="#在开发中的应用。" class="headerlink" title="在开发中的应用。"></a>在开发中的应用。</h3><p>用于配置站点信息、系统属性、环境变量等</p>
-<ul>
-<li></li>
-<li><p>系统属性工具类<br><strong>用于保存配置属性，继承PropertyPlaceholderConfigurer</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class PropertyUtils extends PropertyPlaceholderConfigurer &#123;</span><br><span class="line"></span><br><span class="line">	public static final Logger logger = Logger.getLogger(PropertyUtils.class);</span><br><span class="line"></span><br><span class="line">	private static Map&lt;String, String&gt; propertyMap;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	protected void processProperties(</span><br><span class="line">			ConfigurableListableBeanFactory beanFactoryToProcess,</span><br><span class="line">			Properties props) throws BeansException &#123;</span><br><span class="line">		super.processProperties(beanFactoryToProcess, props);</span><br><span class="line">		propertyMap = new HashMap&lt;String, String&gt;();</span><br><span class="line">		</span><br><span class="line">		for(Entry&lt;Object, Object&gt; entry : props.entrySet())&#123;</span><br><span class="line">			propertyMap.put(entry.getKey().toString(), entry.getValue().toString());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static String getValue(String name) &#123;</span><br><span class="line">		String value = propertyMap.get(name);</span><br><span class="line">		if (StringUtils.isBlank(value)) &#123;</span><br><span class="line">			return &quot;&quot;;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			return value;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>beans.xml 配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;propertyConfigurer&quot; class=&quot;org.freecode.util.PropertyUtils&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;locations&quot;&gt;</span><br><span class="line">        &lt;list&gt;</span><br><span class="line">            &lt;value&gt;classpath:systemconfig.properties&lt;/value&gt;</span><br><span class="line">        &lt;/list&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>systemconfig.properties</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#超级管理员</span><br><span class="line">system.admin=admin</span><br><span class="line">#存储方式（server | local）</span><br><span class="line">system.storage=server</span><br><span class="line">#数据库配置</span><br><span class="line">jdbc.driverClass=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://127.0.0.1:3306/systemname?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br><span class="line">jdbc.initialPoolSize=2</span><br><span class="line">jdbc.minPoolSize=2</span><br><span class="line">jdbc.maxPoolSize=5</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="BeanFactoryPostProcessor"><a href="#BeanFactoryPostProcessor" class="headerlink" title="BeanFactoryPostProcessor"></a>BeanFactoryPostProcessor</h2>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2090,7 +2117,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">71</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2098,7 +2125,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-count">49</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2107,7 +2134,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
