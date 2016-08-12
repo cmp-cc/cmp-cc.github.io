@@ -14,7 +14,9 @@ tags:
 
 之前调研了Oozie、AzkaBan、Airflow、Luigi 评估了一下诉求，选择AzkaBan。
 
-这篇文章将演示如何在一个全新的Linux(CentOS)环境安装Azkaban。
+这篇文章将演示如何在一个全新的Linux(CentOS)环境安装Azkaban 。
+
+
 
 
 ## Azkaban 介绍
@@ -433,3 +435,4 @@ bin/azkaban-exec-shutdown.sh
 ```
 **这里所有Azkaban 环境已经安装完毕，你需要启动azkaban-web 和 azkaban-executor 进行工作流管理（作业调度）**
 
+- ---

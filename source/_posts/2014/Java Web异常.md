@@ -55,3 +55,34 @@ Caused by: java.lang.ClassNotFoundException: org.springframework.web.context.req
 * 参考：
 `http://stackoverflow.com/questions/18404916/failed-to-start-component-standardenginecatalina-standardhostlocalhost-stan`
 
+
+## VerifyError
+
+### 错误详情
+本地使用jetty 运行，进行数据访问是ok的。  部署到服务器（tomcat）中出现如下异常。
+```
+java.lang.VerifyError: (class: org/jboss/netty/channel/socket/nio/NioWorkerPool, method: newWorker signature: (Ljava/util/concurrent/Executor;)Lorg/jboss/netty/channel/socket/nio/AbstractNioWorker;) Wrong return type in function
+	org.elasticsearch.transport.netty.NettyTransport.createClientBootstrap(NettyTransport.java:349)
+	org.elasticsearch.transport.netty.NettyTransport.doStart(NettyTransport.java:277)
+	org.elasticsearch.common.component.AbstractLifecycleComponent.start(AbstractLifecycleComponent.java:68)
+	org.elasticsearch.transport.TransportService.doStart(TransportService.java:170)
+	org.elasticsearch.common.component.AbstractLifecycleComponent.start(AbstractLifecycleComponent.java:68)
+	org.elasticsearch.client.transport.TransportClient$Builder.build(TransportClient.java:159)
+	com.EsUtil.SecObjectFactory_814.makeObject(SecObjectFactory_814.java:49)
+	org.apache.commons.pool.impl.GenericObjectPool.addObject(GenericObjectPool.java:1691)
+	com.EsUtil.ESconnectionPool_814.addObject(ESconnectionPool_814.java:47)
+	com.EsUtil.ESconnectionPool_814.<init>(ESconnectionPool_814.java:32)
+	com.EsUtil.ESUtil.<clinit>(ESUtil.java:14)
+	com.action.SimilarAction.<init>(SimilarAction.java:79)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	java.lang.Class.newInstance(Class.java:442)
+```
+
+### 解决方案
+设置Tomcat JVM 启动参数.`vi /bin/catalina.sh` 添加如下：
+```
+export JAVA_OPTS="-XX:-UseSplitVerifier"
+```

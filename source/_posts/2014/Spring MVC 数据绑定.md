@@ -1,6 +1,6 @@
 ﻿----
 title: Spring MVC 数据绑定
-date: 2013-06-28 16:53:00
+date: 2014-06-28 16:53:00
 updated:
 categories: 
 - JavaWeb

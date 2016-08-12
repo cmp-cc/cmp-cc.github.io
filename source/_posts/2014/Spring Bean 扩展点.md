@@ -1,6 +1,6 @@
 ﻿----
 title: Spring Bean 扩展点
-date: 2014-08-111 23:53:00
+date: 2014-08-11 23:53:00
 updated:
 categories: 
 

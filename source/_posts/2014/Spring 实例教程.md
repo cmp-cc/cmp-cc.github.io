@@ -1,6 +1,6 @@
 ﻿----
 title: Spring 实例教程
-date: 2013-07-12 13:53:00
+date: 2014-01-12 13:53:00
 updated:
 categories: 
 - JavaWeb
@@ -9,6 +9,7 @@ categories:
 tags:
 - Spring
 ----
+
 ## 构建Spring 环境
 * 引入依赖
    * 下载Spring，引入dist目录下所有Jar，附加commons-logging.jar 。
