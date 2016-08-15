@@ -228,6 +228,218 @@
             
               
                 
+                <a class="post-title-link" href="/2013/12/14/2013/贫血模型和充血模型/" itemprop="url">
+                  贫血模型和充血模型
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-12-14T16:53:00+08:00" content="2013-12-14">
+              2013-12-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/12/14/2013/贫血模型和充血模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/12/14/2013/贫血模型和充血模型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>大多数情况下，我忍不住赋予Model行为，但是我并不知道它是否合理，了解一下领域模型中的贫血模型和充血模型，无意中发现还有胀血模型和失血模型。 如下是自己的理解：</p>
+<h2 id="模型-（Model）"><a href="#模型-（Model）" class="headerlink" title="模型 （Model）"></a>模型 （Model）</h2><ul>
+<li>无论是贫血模型还是充血模型，他们都符合POJO （也可以认为JavaBean）。<br><strong>Model包含属性的<code>get</code>、<code>set</code>方法</strong></li>
+<li>模型的本质充当数据容器（保存状态，传递状态）。<br><strong>模型是一种特殊的数据结构</strong></li>
+</ul>
+<h2 id="失血模型"><a href="#失血模型" class="headerlink" title="失血模型"></a>失血模型</h2><p><strong>失血模型就是POJO对象，模型仅仅包含数据的定义和getter/setter方法，业务逻辑和应用逻辑都放到服务层（Service）中。</strong> </p>
+<p>层次表示：</p>
+<blockquote>
+<p>UI(视图层) -&gt; Control(控制层) -&gt; Service（服务层） -&gt; DAO （持久化层） -&gt;domain object （领域对象 Model ）</p>
+</blockquote>
+<ul>
+<li>领域对象不具备任何行为（仅仅是一个POJO对象），所有的行为都在Service层。</li>
+<li>领域对象的作用。<ul>
+<li>充当数据容器。</li>
+<li>对象关系映射（ORM）</li>
+</ul>
+</li>
+<li>这种模型很容易理解和掌握。</li>
+<li>优点<ul>
+<li>层次结构清晰，单项依赖，易于维护。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>Service 层挤压严重。（业务逻辑职责） </li>
+<li>部分与数据操作相关的行为，必须通过Service层进行修改。</li>
+</ul>
+</li>
+</ul>
+<h2 id="贫血模型"><a href="#贫血模型" class="headerlink" title="贫血模型"></a>贫血模型</h2><p><strong>贫血模型中包含了一些业务逻辑，但不包含依赖持久层的业务逻辑。这部分依赖于持久层的业务逻辑将会放到服务层中。</strong></p>
+<p>层次表示：</p>
+<blockquote>
+<p>UI(视图层) -&gt; Control(控制层) -&gt; Service（服务层） -&gt; DAO （持久化层） -&gt;domain object （Model）</p>
+</blockquote>
+<ul>
+<li>继承失血模型特性</li>
+<li>领域对象具备简单行为，如下特点。<ul>
+<li>行为不具备持久化特性。（不与数据库打交道，也就是不依赖于DAO层）</li>
+<li>具备与数据相关的业务行为。（部分Service行为 移至 Model）</li>
+</ul>
+</li>
+<li>同样与失血模型同样的痛处<ul>
+<li>系统越复杂，维护成本越高，Service层（业务逻辑）挤压严重。</li>
+</ul>
+</li>
+</ul>
+<h2 id="充血模型"><a href="#充血模型" class="headerlink" title="充血模型"></a>充血模型</h2><p>**充血模型中包含了所有的业务逻辑，包括依赖于持久层的业务逻辑。所以，使用充血模型的领域层是依赖于持久层。</p>
+<p>层次表示：</p>
+<blockquote>
+<p>UI -&gt; Control -&gt; Service -&gt; domain object &lt;–&gt; DAO</p>
+</blockquote>
+<ul>
+<li>Service 层被减轻，不和DAO打交道，只包含业务逻辑。</li>
+<li>领域对象 和 DAO 双向依赖。</li>
+<li>优点<ul>
+<li>减轻了Service层。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>Service 将直接依赖于领域对象。 领域对象同样具备部分业务，可能会造成职责混乱，或者使领域对象不具备业务I行为</li>
+<li>领域对象与DAO双向依赖，部分职责容易混响。</li>
+</ul>
+</li>
+</ul>
+<h2 id="胀血模型"><a href="#胀血模型" class="headerlink" title="胀血模型"></a>胀血模型</h2><p><strong>胀血模型就是把和业务逻辑不想关的其他应用逻辑（如授权、事务等）都放到领域模型中。我感觉胀血模型反而是另外一种的失血模型，因为服务层消失了，领域层干了服务层的事，到头来还是什么都没变。</strong></p>
+<p>层次表示：</p>
+<blockquote>
+<p>UI -&gt; Control -&gt; domain object &lt;–&gt; DAO</p>
+</blockquote>
+<ul>
+<li>没有了服务层，领域对象包含所有业务逻辑，并双向依赖与持久化层。</li>
+<li>优点<ul>
+<li>分层极其简单</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>领域对象职责过多，挤压严重，极其不稳定，不易维护。</li>
+<li>控制层访问领域对象能够看到不必要的行为。</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>失血模型和胀血模型并不被提倡，主要原因：领域模型内聚职责过少，或者过多。<br>关于贫血模型和充血模型的选型，其实跟语言架构有关（Robin提出）：</p>
+<ul>
+<li>如果使用Spring，必须贫血模型。</li>
+<li>如果使用RoR，直接充血模型。</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://blog.csdn.net/always_my_fault/article/details/2063612" target="_blank" rel="external">http://blog.csdn.net/always_my_fault/article/details/2063612</a><br><a href="http://www.oschina.net/question/54100_10400" target="_blank" rel="external">http://www.oschina.net/question/54100_10400</a><br><a href="http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml" target="_blank" rel="external">http://www.360doc.com/content/12/0423/03/9318309_205785083.shtml</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/12/09/2013/软件版本周期/" itemprop="url">
                   软件版本周期
                 </a>
@@ -2481,156 +2693,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/02/28/2013/Struts2 Action/" itemprop="url">
-                  Struts2 Action
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-02-28T23:51:00+08:00" content="2013-02-28">
-              2013-02-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaWeb</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/Struts2/" itemprop="url" rel="index">
-                    <span itemprop="name">Struts2</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/02/28/2013/Struts2 Action/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/28/2013/Struts2 Action/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>这几东东，之前都学过了，无聊翻了翻官方文档，觉得写的很好，简单修改下实例，记录一下</strong></p>
-<p>Struts2 的Action，一共包含三个部分</p>
-<ul>
-<li>模型驱动（Model Driven）</li>
-<li>Action 链 （Action Chaining）</li>
-<li>Action 事件监听 （ActionEventListener）</li>
-</ul>
-<h2 id="Model-Driven"><a href="#Model-Driven" class="headerlink" title="Model Driven"></a>Model Driven</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
-<li>如果一个Action 类实现<code>com.opensymphony.xwork2.ModelDriven</code>接口，那么它需要从getModel()方法中返回<code>请求参数对象</code>。 那么Struts 将会填充此对象的请求参数的Model。一旦执行该操作，这个对象将被放置到值栈的顶部。<strong>验证也将应用于这个Model，不是Action中</strong>。 <code>VisitorFieldValidator</code>注解，可以用于验证域模型（Model）。</li>
-<li>要在Action中使用<code>模型驱动</code>,确保<code>模型驱动拦截器（Model Driven Interceptor）</code>应用于Action. 这个拦截器是<code>defaultStack</code>默认拦截器的一部分.</li>
-</ul>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><ul>
-<li><p>Action Class</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class ModelDrivenAction implements ModelDriven&lt;Gangster&gt; &#123; </span><br><span class="line"></span><br><span class="line">    private  Gangster  gengster = new Gangster();</span><br><span class="line"></span><br><span class="line">    public Gangster getModel() &#123;</span><br><span class="line">        return gengster;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String execute() throws Exception &#123;</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Gangster.java  Model (请求参数模型)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class Gangster implements Serializable &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    private int age;</span><br><span class="line">    private String description;</span><br><span class="line">    private boolean bustedBefore;</span><br><span class="line"> </span><br><span class="line">    public int getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setAge(int age) &#123;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    public boolean isBustedBefore() &#123;</span><br><span class="line">        return bustedBefore;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setBustedBefore(boolean bustedBefore) &#123;</span><br><span class="line">        this.bustedBefore = bustedBefore;</span><br><span class="line">    &#125;</span><br><span class="line">    public String getDescription() &#123;</span><br><span class="line">        return description;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setDescription(String description) &#123;</span><br><span class="line">        this.description = description;</span><br><span class="line">    &#125;</span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>JSP 访问Action 作用于Gangster</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;s:form action=&quot;modelDrivenResult&quot; method=&quot;POST&quot; namespace=&quot;/modelDriven&quot;&gt;   </span><br><span class="line">    &lt;s:textfield label=&quot;Gangster Name&quot; name=&quot;name&quot; /&gt;</span><br><span class="line">    &lt;s:textfield label=&quot;Gangster Age&quot;  name=&quot;age&quot; /&gt;</span><br><span class="line">    &lt;s:checkbox  label=&quot;Gangster Busted Before&quot; name=&quot;bustedBefore&quot; /&gt;</span><br><span class="line">    &lt;s:textarea  cols=&quot;30&quot; rows=&quot;5&quot; label=&quot;Gangster Description&quot; name=&quot;description&quot; /&gt;           </span><br><span class="line">    &lt;s:submit /&gt;</span><br><span class="line">&lt;/s:form&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Action-chain"><a href="#Action-chain" class="headerlink" title="Action chain"></a>Action chain</h2><p>这里没有什么好说的，<code>Struts.xml</code> 中的<code>result type</code>为<code>chain</code>，这样可以进行Action之间跳转。（本质是请求转发）<br>略</p>
-<h2 id="Action-事件监听"><a href="#Action-事件监听" class="headerlink" title="Action 事件监听"></a>Action 事件监听</h2><p>也略了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2676,7 +2738,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

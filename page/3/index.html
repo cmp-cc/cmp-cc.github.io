@@ -1587,8 +1587,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/03/11/2015/PostgreSQL 遇到的问题/" itemprop="url">
-                  PostgreSQL 遇到的问题
+                <a class="post-title-link" href="/2015/03/17/2015/Mapreduce 陷阱/" itemprop="url">
+                  Mapreduce 陷阱
                 </a>
               
             
@@ -1601,8 +1601,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-03-11T16:53:00+08:00" content="2015-03-11">
-              2015-03-11
+            <time itemprop="dateCreated" datetime="2015-03-17T11:51:00+08:00" content="2015-03-17">
+              2015-03-17
             </time>
           </span>
 
@@ -1615,8 +1615,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Data-Base-Management-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Base Management System</span>
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
                   </a>
                 </span>
 
@@ -1627,8 +1627,8 @@
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Data-Base-Management-System/Postgresql/" itemprop="url" rel="index">
-                    <span itemprop="name">Postgresql</span>
+                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
                   </a>
                 </span>
 
@@ -1643,8 +1643,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/03/11/2015/PostgreSQL 遇到的问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/11/2015/PostgreSQL 遇到的问题/" itemprop="commentsCount"></span>
+                <a href="/2015/03/17/2015/Mapreduce 陷阱/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/17/2015/Mapreduce 陷阱/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1668,16 +1668,9 @@
       
         
           
-            <h2 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><strong>需要查询具体的某一天的数据。 由于存储方式不一样。要对数据库中的last_record_time字段（时间格式）进行转化。</strong></p>
-<img src="/2015/03/11/2015/PostgreSQL%20遇到的问题/9744abfd-e724-4655-ac6b-eada2768ab42.png" alt="数据显示" title="数据显示">
-<ul>
-<li>使用函数：substring(string from pattern for escape)函数。<br><strong>失败,类型不匹配</strong></li>
-<li><p>使用 TO_CHAR 函数 可以进行格式类型转化。<br><strong>postgresql 8.1以后有个函数可以直接接受UNIX时间戳  TO_TIMESTAMP函数 可以处理时间戳。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sample_hash,sample_crc32 from t_black as s where  TO_CHAR(s.last_record_time,&apos;YYYY-MM-DD&apos;) = &apos;2015-03-10&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个统计实例<br><strong>１０年到现在的白样本，分月分统计出每个月的白灰样本数量</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;),count(*) from t_black as s  group by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;) order by TO_CHAR(s.last_record_time,&apos;YYYY-MM&apos;)</span><br></pre></td></tr></table></figure></li>
-</ul>
+            <h2 id="重复值"><a href="#重复值" class="headerlink" title="重复值"></a>重复值</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>重复使用Reduce端Iterable对象，只会得到最后一个值问题。<br>Mapreduce:  Reduce端,混排之后。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protected void reduce(CompositeGroupKey key, Iterable&lt;IntWritable&gt; values,Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">       Iterator&lt;IntWritable&gt; valueIter = values.iterator(); //多次使用，只能得到最后一个值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>调用valueIter.next()将始终返回相同的IntWritable实例，该实例的内容替换为下一个值。所有调用valueIter.next()引用的IntWritable都将被替换。这种行为的设计只是为了减少对象创建和GC开销。（也就是说：Hadoop 推荐只使用一次循环来处理所有的结果）</strong></p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><p><strong>克隆原始迭代器集合对象</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用 WritableUtils.clone() 克隆你的集合对象。</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1747,7 +1740,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
