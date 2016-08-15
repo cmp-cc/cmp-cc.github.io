@@ -1453,6 +1453,44 @@
   </entry>
   
   <entry>
+    <title>Spark异常处理</title>
+    <link href="http://cmp-cc.github.io/2015/10/14/2015/Spark%20%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/"/>
+    <id>http://cmp-cc.github.io/2015/10/14/2015/Spark 异常处理/</id>
+    <published>2015-10-14T09:54:00.000Z</published>
+    <updated>2016-08-15T01:18:06.341Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;使用CDH5-4-5-运行spark-shell-的时候-（Spark-applications-stuck-at-ACCEPTED-state）&quot;&gt;&lt;a href=&quot;#使用CDH5-4-5-运行spark-shell-的时候-（Spark-applications-stuck-at-ACCEPTED-state）&quot; class=&quot;headerlink&quot; title=&quot;使用CDH5.4.5 运行spark-shell 的时候 （Spark applications stuck at ACCEPTED state）&quot;&gt;&lt;/a&gt;使用CDH5.4.5 运行spark-shell 的时候 （Spark applications stuck at ACCEPTED state）&lt;/h2&gt;&lt;p&gt;无限循环这样一个信息&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Application report for application_1444275336846_0027 (state: ACCEPTED)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;img src=&quot;/2015/10/14/2015/Spark%20异常处理/9ae12f91-6de5-4a4f-971d-cdfb70e3b60a.png&quot; alt=&quot;详情&quot; title=&quot;详情&quot;&gt;
+&lt;p&gt;&lt;strong&gt;可能两个原因：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;你首先看一下日志详情，如出现如下情况&lt;code&gt;org.apache.spark.SparkException: Failed to connect to driver!&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&quot;/2015/10/14/2015/Spark%20异常处理/4ddd198c-d9f3-4fed-b9f5-6dd7a2f1ee86.png&quot; alt=&quot;错误信息&quot; title=&quot;错误信息&quot;&gt;
+&lt;p&gt;出现这样问题的原因： &lt;strong&gt;防火墙没有关闭，导致Spark集群不能正常通信.&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;你的节点管理器（NodeManager） 所提供的内存资源可能低于applications/jobs运行要求的内存。这是一个常见的情况,导致Job（作业）等待接受状态（state：ACCEPTED）,等待更多的资源来运行。&lt;br&gt;增加yarn.nodemanager.resource.memory-mb等字段的值&lt;blockquote&gt;
+&lt;p&gt;You can raise the CM -&amp;gt; YARN -&amp;gt; Configuration -&amp;gt; “Container Memory” field values to higher numbers to resolve this.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;使用CDH5-4-5-运行spark-shell-的时候-（Spark-applications-stuck-at-ACCEPTED-state）&quot;&gt;&lt;a href=&quot;#使用CDH5-4-5-运行spark-shell-的时候-（Spark-application
+    
+    </summary>
+    
+      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
+    
+      <category term="Spark" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Spark/"/>
+    
+    
+      <category term="Spark" scheme="http://cmp-cc.github.io/tags/Spark/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CDH开启HA 访问HDFS</title>
     <link href="http://cmp-cc.github.io/2015/10/14/2015/CDH%E5%BC%80%E5%90%AFHA%20%E8%AE%BF%E9%97%AEHDFS/"/>
     <id>http://cmp-cc.github.io/2015/10/14/2015/CDH开启HA 访问HDFS/</id>
@@ -2018,64 +2056,6 @@
     
     
       <category term="Ruby" scheme="http://cmp-cc.github.io/tags/Ruby/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hive 动态分区异常</title>
-    <link href="http://cmp-cc.github.io/2015/07/22/2015/Hive%20%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%BC%82%E5%B8%B8/"/>
-    <id>http://cmp-cc.github.io/2015/07/22/2015/Hive 动态分区异常/</id>
-    <published>2015-07-22T11:53:00.000Z</published>
-    <updated>2016-04-28T07:50:35.784Z</updated>
-    
-    <content type="html">&lt;h2 id=&quot;异常信息&quot;&gt;&lt;a href=&quot;#异常信息&quot; class=&quot;headerlink&quot; title=&quot;异常信息&quot;&gt;&lt;/a&gt;异常信息&lt;/h2&gt;&lt;p&gt;&lt;strong&gt; 我们大致设置这样一条插入语句:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;hue_sunyan_detection0711表中 dt&amp;gt;’20150415’的数据插入到pengwei_test_detection0711表中，并自动创建分区。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a.system,a.device,a.version,a.detection_time,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from hue_sunyan_detection0711 a where dt is not null and dt&amp;gt;&amp;apos;20150415&amp;apos;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;strong&gt;他会抛出如下异常。&lt;/strong&gt;&lt;/p&gt;
-&lt;img src=&quot;/2015/07/22/2015/Hive%20动态分区异常/6b1dc171-e5ff-4cd3-8d6d-7d6e2d7be83f.png&quot; alt=&quot;异常详情&quot; title=&quot;异常详情&quot;&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Diagnostic Messages for this Task:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Error: java.lang.RuntimeException: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &amp;#123;&amp;quot;log_id&amp;quot;:&amp;quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;1421005659&amp;quot;,&amp;quot;receive_time&amp;quot;:&amp;quot;1435946517&amp;quot;,&amp;quot;receiver_ip&amp;quot;:&amp;quot;127.0.0.1&amp;quot;,&amp;quot;user_ip&amp;quot;:&amp;quot;75.133.213.133&amp;quot;,&amp;quot;id&amp;quot;:&amp;quot;3333ca9c9857c31b&amp;quot;,&amp;quot;system&amp;quot;:&amp;quot;ro.build.version.release=4.2.2/samsung&amp;quot;,&amp;quot;device&amp;quot;:&amp;quot;SM-T110&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;0.0.1&amp;quot;,&amp;quot;detection_time&amp;quot;:&amp;quot;1433433618&amp;quot;,&amp;quot;app_type&amp;quot;:&amp;quot;U&amp;quot;,&amp;quot;apk_md5&amp;quot;:&amp;quot;BF70797DF6896555F476F321B2C40DBB&amp;quot;,&amp;quot;apk_name&amp;quot;:&amp;quot;com.pixelberrystudios.hssandroid&amp;quot;,&amp;quot;vir_name&amp;quot;:null,&amp;quot;time_consuming&amp;quot;:&amp;quot;14950989&amp;quot;,&amp;quot;engine_version&amp;quot;:null,&amp;quot;siglib_version&amp;quot;:null,&amp;quot;scan_opt&amp;quot;:null,&amp;quot;dt&amp;quot;:&amp;quot;20150605&amp;quot;,&amp;quot;channel&amp;quot;:&amp;quot;opensdk&amp;quot;,&amp;quot;apptoken&amp;quot;:&amp;quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&amp;quot;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:159)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.MapRunner.run(MapRunner.java:54)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:428)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:340)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:160)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at java.security.AccessController.doPrivileged(Native Method)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at javax.security.auth.Subject.doAs(Subject.java:396)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1438)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:155)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &amp;#123;&amp;quot;log_id&amp;quot;:&amp;quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&amp;quot;,&amp;quot;time&amp;quot;:&amp;quot;1421005659&amp;quot;,&amp;quot;receive_time&amp;quot;:&amp;quot;1435946517&amp;quot;,&amp;quot;receiver_ip&amp;quot;:&amp;quot;127.0.0.1&amp;quot;,&amp;quot;user_ip&amp;quot;:&amp;quot;75.133.213.133&amp;quot;,&amp;quot;id&amp;quot;:&amp;quot;3333ca9c9857c31b&amp;quot;,&amp;quot;system&amp;quot;:&amp;quot;ro.build.version.release=4.2.2/samsung&amp;quot;,&amp;quot;device&amp;quot;:&amp;quot;SM-T110&amp;quot;,&amp;quot;version&amp;quot;:&amp;quot;0.0.1&amp;quot;,&amp;quot;detection_time&amp;quot;:&amp;quot;1433433618&amp;quot;,&amp;quot;app_type&amp;quot;:&amp;quot;U&amp;quot;,&amp;quot;apk_md5&amp;quot;:&amp;quot;BF70797DF6896555F476F321B2C40DBB&amp;quot;,&amp;quot;apk_name&amp;quot;:&amp;quot;com.pixelberrystudios.hssandroid&amp;quot;,&amp;quot;vir_name&amp;quot;:null,&amp;quot;time_consuming&amp;quot;:&amp;quot;14950989&amp;quot;,&amp;quot;engine_version&amp;quot;:null,&amp;quot;siglib_version&amp;quot;:null,&amp;quot;scan_opt&amp;quot;:null,&amp;quot;dt&amp;quot;:&amp;quot;20150605&amp;quot;,&amp;quot;channel&amp;quot;:&amp;quot;opensdk&amp;quot;,&amp;quot;apptoken&amp;quot;:&amp;quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&amp;quot;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:675)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:141)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ... 8 more&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.FileSinkOperator.processOp(FileSinkOperator.java:620)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.SelectOperator.processOp(SelectOperator.java:84)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.FilterOperator.processOp(FilterOperator.java:132)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.TableScanOperator.processOp(TableScanOperator.java:83)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:656)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ... 9 more&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Caused by: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.createBlockOutputStream(DFSOutputStream.java:1168)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.nextBlockOutputStream(DFSOutputStream.java:1091)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:502)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;解决方案&quot;&gt;&lt;a href=&quot;#解决方案&quot; class=&quot;headerlink&quot; title=&quot;解决方案&quot;&gt;&lt;/a&gt;解决方案&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;通过如下设置可解决如上异常。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;原因：我们默认分区数过低，有如下几个设置参数：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;hive.exec.max.dynamic.partitions.pernode  （default：100）：每个节点上能够生成的最大分区数。&lt;/li&gt;
-&lt;li&gt;hive.exec.max.dynamic.partitions （fault：1000）： 一条DML语句允许创建的最大分区数&lt;/li&gt;
-&lt;li&gt;hive.exec.max.created.files （fault：100000）：能够创建的最多文件数。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;
-SET hive.exec.max.dynamic.partitions=100000;
-SET hive.exec.max.dynamic.partitions.pernode=100000;
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt; 但是如果执行如下HQL，依然会抛出出异常。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;将hue_sunyan_detection0711表的数据文件拷贝到pengwei_test_detection0711表。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a.system,a.device,a.version,a.detection_time,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from hue_sunyan_detection0711 a where dt is not null;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;我有如下尝试&quot;&gt;&lt;a href=&quot;#我有如下尝试&quot; class=&quot;headerlink&quot; title=&quot;我有如下尝试&quot;&gt;&lt;/a&gt;我有如下尝试&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;1、修改动态分区参数。（几乎给予最大上限）&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions.pernode=1000000;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.max.dynamic.partitions=1000000;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.max.created.files=10000000;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;2、设置Number of map的数量，甚至关闭并行计算。&lt;br&gt;3、查阅一些资料。&lt;/p&gt;
-&lt;p&gt;谁有解决方案啊~~~，告诉我一下！！！&lt;br&gt;&lt;strong&gt; 插入动态分区是简单，但是这个问题，我都认为是Hive Bug 了 &lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.dynamic.partition=true; // 是否可以使用动态分区&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;set hive.exec.dynamic.partition.mode=nostrick;//设置为运行所有分区为动态分区。默认为strick。主分区（第一分区）为静态分区。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;结论&quot;&gt;&lt;a href=&quot;#结论&quot; class=&quot;headerlink&quot; title=&quot;结论&quot;&gt;&lt;/a&gt;结论&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;分批插入数据。（可以按照dt划分多个HQL，分别执行。）&lt;/li&gt;
-&lt;li&gt;一定是一个Bug，哈哈~ 尝试更新CDH版本，我们当前CDH版本为4.7。 内置Hive版本为hive-0.10.0+263。 CDH5.4内置hive版本hive-1.1.0。 &lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;2015年年初,大数据运维承诺升级CDH5.3，这都TM7月份了&lt;/p&gt;
-&lt;/blockquote&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;异常信息&quot;&gt;&lt;a href=&quot;#异常信息&quot; class=&quot;headerlink&quot; title=&quot;异常信息&quot;&gt;&lt;/a&gt;异常信息&lt;/h2&gt;&lt;p&gt;&lt;strong&gt; 我们大致设置这样一条插入语句:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;hue_sunyan_detection0
-    
-    </summary>
-    
-      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
-    
-      <category term="Hive" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Hive/"/>
-    
-    
-      <category term="Hive" scheme="http://cmp-cc.github.io/tags/Hive/"/>
     
   </entry>
   

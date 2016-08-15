@@ -228,6 +228,165 @@
             
               
                 
+                <a class="post-title-link" href="/2015/07/22/2015/Hive 动态分区异常/" itemprop="url">
+                  Hive 动态分区异常
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-22T19:53:00+08:00" content="2015-07-22">
+              2015-07-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/22/2015/Hive 动态分区异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/22/2015/Hive 动态分区异常/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="异常信息"><a href="#异常信息" class="headerlink" title="异常信息"></a>异常信息</h2><p><strong> 我们大致设置这样一条插入语句:</strong></p>
+<p>hue_sunyan_detection0711表中 dt&gt;’20150415’的数据插入到pengwei_test_detection0711表中，并自动创建分区。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)</span><br><span class="line">select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,</span><br><span class="line">a.system,a.device,a.version,a.detection_time,</span><br><span class="line">a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken</span><br><span class="line">from hue_sunyan_detection0711 a where dt is not null and dt&gt;&apos;20150415&apos;;</span><br></pre></td></tr></table></figure>
+<p><strong>他会抛出如下异常。</strong></p>
+<img src="/2015/07/22/2015/Hive%20动态分区异常/6b1dc171-e5ff-4cd3-8d6d-7d6e2d7be83f.png" alt="异常详情" title="异常详情">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Diagnostic Messages for this Task:</span><br><span class="line">Error: java.lang.RuntimeException: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &#123;&quot;log_id&quot;:&quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&quot;,&quot;time&quot;:&quot;1421005659&quot;,&quot;receive_time&quot;:&quot;1435946517&quot;,&quot;receiver_ip&quot;:&quot;127.0.0.1&quot;,&quot;user_ip&quot;:&quot;75.133.213.133&quot;,&quot;id&quot;:&quot;3333ca9c9857c31b&quot;,&quot;system&quot;:&quot;ro.build.version.release=4.2.2/samsung&quot;,&quot;device&quot;:&quot;SM-T110&quot;,&quot;version&quot;:&quot;0.0.1&quot;,&quot;detection_time&quot;:&quot;1433433618&quot;,&quot;app_type&quot;:&quot;U&quot;,&quot;apk_md5&quot;:&quot;BF70797DF6896555F476F321B2C40DBB&quot;,&quot;apk_name&quot;:&quot;com.pixelberrystudios.hssandroid&quot;,&quot;vir_name&quot;:null,&quot;time_consuming&quot;:&quot;14950989&quot;,&quot;engine_version&quot;:null,&quot;siglib_version&quot;:null,&quot;scan_opt&quot;:null,&quot;dt&quot;:&quot;20150605&quot;,&quot;channel&quot;:&quot;opensdk&quot;,&quot;apptoken&quot;:&quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&quot;&#125;</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:159)</span><br><span class="line">        at org.apache.hadoop.mapred.MapRunner.run(MapRunner.java:54)</span><br><span class="line">        at org.apache.hadoop.mapred.MapTask.runOldMapper(MapTask.java:428)</span><br><span class="line">        at org.apache.hadoop.mapred.MapTask.run(MapTask.java:340)</span><br><span class="line">        at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:160)</span><br><span class="line">        at java.security.AccessController.doPrivileged(Native Method)</span><br><span class="line">        at javax.security.auth.Subject.doAs(Subject.java:396)</span><br><span class="line">        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1438)</span><br><span class="line">        at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:155)</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row &#123;&quot;log_id&quot;:&quot;fb0c8ac2-93ba-4788-878d-ce572237e5e4&quot;,&quot;time&quot;:&quot;1421005659&quot;,&quot;receive_time&quot;:&quot;1435946517&quot;,&quot;receiver_ip&quot;:&quot;127.0.0.1&quot;,&quot;user_ip&quot;:&quot;75.133.213.133&quot;,&quot;id&quot;:&quot;3333ca9c9857c31b&quot;,&quot;system&quot;:&quot;ro.build.version.release=4.2.2/samsung&quot;,&quot;device&quot;:&quot;SM-T110&quot;,&quot;version&quot;:&quot;0.0.1&quot;,&quot;detection_time&quot;:&quot;1433433618&quot;,&quot;app_type&quot;:&quot;U&quot;,&quot;apk_md5&quot;:&quot;BF70797DF6896555F476F321B2C40DBB&quot;,&quot;apk_name&quot;:&quot;com.pixelberrystudios.hssandroid&quot;,&quot;vir_name&quot;:null,&quot;time_consuming&quot;:&quot;14950989&quot;,&quot;engine_version&quot;:null,&quot;siglib_version&quot;:null,&quot;scan_opt&quot;:null,&quot;dt&quot;:&quot;20150605&quot;,&quot;channel&quot;:&quot;opensdk&quot;,&quot;apptoken&quot;:&quot;BD843247B44E87DDDAB7DDAC7FBAE8F6&quot;&#125;</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:675)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.ExecMapper.map(ExecMapper.java:141)</span><br><span class="line">        ... 8 more</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.FileSinkOperator.processOp(FileSinkOperator.java:620)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.SelectOperator.processOp(SelectOperator.java:84)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.FilterOperator.processOp(FilterOperator.java:132)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.TableScanOperator.processOp(TableScanOperator.java:83)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.process(Operator.java:474)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:803)</span><br><span class="line">        at org.apache.hadoop.hive.ql.exec.MapOperator.process(MapOperator.java:656)</span><br><span class="line">        ... 9 more</span><br><span class="line">Caused by: java.io.IOException: Bad connect ack with firstBadLink as 192.168.12.65:50010</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.createBlockOutputStream(DFSOutputStream.java:1168)</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.nextBlockOutputStream(DFSOutputStream.java:1091)</span><br><span class="line">        at org.apache.hadoop.hdfs.DFSOutputStream$DataStreamer.run(DFSOutputStream.java:502)</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p><strong>通过如下设置可解决如上异常。</strong></p>
+<p>原因：我们默认分区数过低，有如下几个设置参数：</p>
+<ul>
+<li>hive.exec.max.dynamic.partitions.pernode  （default：100）：每个节点上能够生成的最大分区数。</li>
+<li>hive.exec.max.dynamic.partitions （fault：1000）： 一条DML语句允许创建的最大分区数</li>
+<li>hive.exec.max.created.files （fault：100000）：能够创建的最多文件数。</li>
+</ul>
+<pre>
+SET hive.exec.max.dynamic.partitions=100000;
+SET hive.exec.max.dynamic.partitions.pernode=100000;
+</pre>
+
+<p><strong> 但是如果执行如下HQL，依然会抛出出异常。</strong></p>
+<p>将hue_sunyan_detection0711表的数据文件拷贝到pengwei_test_detection0711表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table pengwei_test_detection0711 partition(dt, channel,apptoken)</span><br><span class="line">select a.log_id,a.time,a.receive_time,a.receiver_ip,a.user_ip,a.id,</span><br><span class="line">a.system,a.device,a.version,a.detection_time,</span><br><span class="line">a.app_type,a.apk_md5,a.apk_name,a.vir_name,a.time_consuming,a.engine_version,a.siglib_version,a.scan_opt,a.dt,a.channel,a.apptoken</span><br><span class="line">from hue_sunyan_detection0711 a where dt is not null;</span><br></pre></td></tr></table></figure>
+<h2 id="我有如下尝试"><a href="#我有如下尝试" class="headerlink" title="我有如下尝试"></a>我有如下尝试</h2><blockquote>
+<p>1、修改动态分区参数。（几乎给予最大上限）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.max.dynamic.partitions.pernode=1000000;</span><br><span class="line">set hive.exec.max.dynamic.partitions=1000000;</span><br><span class="line">set hive.exec.max.created.files=10000000;</span><br></pre></td></tr></table></figure></p>
+<p>2、设置Number of map的数量，甚至关闭并行计算。<br>3、查阅一些资料。</p>
+<p>谁有解决方案啊~~~，告诉我一下！！！<br><strong> 插入动态分区是简单，但是这个问题，我都认为是Hive Bug 了 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.dynamic.partition=true; // 是否可以使用动态分区</span><br><span class="line">set hive.exec.dynamic.partition.mode=nostrick;//设置为运行所有分区为动态分区。默认为strick。主分区（第一分区）为静态分区。</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
+<li>分批插入数据。（可以按照dt划分多个HQL，分别执行。）</li>
+<li>一定是一个Bug，哈哈~ 尝试更新CDH版本，我们当前CDH版本为4.7。 内置Hive版本为hive-0.10.0+263。 CDH5.4内置hive版本hive-1.1.0。 </li>
+</ol>
+<blockquote>
+<p>2015年年初,大数据运维承诺升级CDH5.3，这都TM7月份了</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/07/17/2015/Elasticsearch 多字段Distinct 、Group By 操作/" itemprop="url">
                   Elasticsearch 多字段Distinct 、Group By 操作
                 </a>
@@ -1566,135 +1725,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/03/17/2015/Mapreduce 陷阱/" itemprop="url">
-                  Mapreduce 陷阱
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-03-17T11:51:00+08:00" content="2015-03-17">
-              2015-03-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed Development</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
-                    <span itemprop="name">Hadoop</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/03/17/2015/Mapreduce 陷阱/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/17/2015/Mapreduce 陷阱/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="重复值"><a href="#重复值" class="headerlink" title="重复值"></a>重复值</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>重复使用Reduce端Iterable对象，只会得到最后一个值问题。<br>Mapreduce:  Reduce端,混排之后。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protected void reduce(CompositeGroupKey key, Iterable&lt;IntWritable&gt; values,Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">       Iterator&lt;IntWritable&gt; valueIter = values.iterator(); //多次使用，只能得到最后一个值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>调用valueIter.next()将始终返回相同的IntWritable实例，该实例的内容替换为下一个值。所有调用valueIter.next()引用的IntWritable都将被替换。这种行为的设计只是为了减少对象创建和GC开销。（也就是说：Hadoop 推荐只使用一次循环来处理所有的结果）</strong></p>
-<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><p><strong>克隆原始迭代器集合对象</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用 WritableUtils.clone() 克隆你的集合对象。</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1740,7 +1770,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-count">73</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1748,7 +1778,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1757,7 +1787,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
