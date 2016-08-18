@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://cmp-cc.github.io/2016/05/16/2016/%E5%9B%BE%E7%89%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%90%9C%E7%B4%A2/</loc>
+    <lastmod>2016-08-18T11:30:00.177Z</lastmod>
+    <data>
+        <display>
+        <title>图片相似度搜索计算</title>
+        <pubTime>2016-05-15T16:00:00.000Z</pubTime>
+        
+        <tag>图像处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="ImageProcessing" url="http://cmp-cc.github.io/categories/ImageProcessing/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://cmp-cc.github.io/2015/10/14/2015/Spark%20%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
     <lastmod>2016-08-15T01:18:06.341Z</lastmod>
     <data>
@@ -524,26 +544,6 @@
           
              
               <breadCrumb title="Bigdata Workflow" url="http://cmp-cc.github.io/categories/Workflow/Bigdata-Workflow/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://cmp-cc.github.io/2016/05/16/2016/%E5%9B%BE%E7%89%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%90%9C%E7%B4%A2/</loc>
-    <lastmod>2016-07-28T01:39:09.883Z</lastmod>
-    <data>
-        <display>
-        <title>图片相似度搜索计算</title>
-        <pubTime>2016-05-15T16:00:00.000Z</pubTime>
-        
-        <tag>图像处理</tag>
-         
-         
-           
-             
-              <breadCrumb title="ImageProcessing" url="http://cmp-cc.github.io/categories/ImageProcessing/"/>
           
         </display>
     </data>
