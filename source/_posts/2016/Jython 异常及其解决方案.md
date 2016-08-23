@@ -17,6 +17,8 @@ Jython 确实很少玩，也记录一下异常信息和解决方案把,如果以
 ```
 console: Failed to install '': java.nio.charset.UnsupportedCharsetException: cp0.  
 ```
+
+
 ### 解决方案
 ```
 eclipse.ini 设置 -Dpython.console.encoding=UTF-8
