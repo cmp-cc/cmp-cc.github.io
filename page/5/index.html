@@ -228,6 +228,197 @@
             
               
                 
+                <a class="post-title-link" href="/2014/11/07/2014/Linux 开发环境安装指南/" itemprop="url">
+                  Linux 开发环境安装指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-11-07T16:53:00+08:00" content="2014-11-07">
+              2014-11-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/11/07/2014/Linux 开发环境安装指南/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/07/2014/Linux 开发环境安装指南/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>我的Linux (Centos)开发、应用部署环境，持续更新</strong><br><strong>更新：2016-04-27 </strong></p>
+<h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><p><strong>如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）</strong><br><strong>详细安装步骤参考：<code>tar.gz 格式</code>安装 </strong></p>
+<h3 id="tar-gz-格式安装"><a href="#tar-gz-格式安装" class="headerlink" title="tar.gz 格式安装"></a><code>tar.gz 格式</code>安装</h3><ul>
+<li>查看Linux 自带的JDK是否安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<img src="/2014/11/07/2014/Linux%20开发环境安装指南/596f24a9-b58f-40e3-b02c-6cfdf4c58dab.png" alt="已安装OpenJDK7 运行环境，但没有编译环境" title="已安装OpenJDK7 运行环境，但没有编译环境">
+<ul>
+<li>卸载自带JDK<ul>
+<li>查看相关依赖<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep java</span><br><span class="line"></span><br><span class="line">或则</span><br><span class="line"></span><br><span class="line">rmp -qa |grep jdk</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+ <img src="/2014/11/07/2014/Linux%20开发环境安装指南/2310dfba-98e6-478a-890e-11291c66f2d1.png" alt="已安装OpenJDK7的相关依赖" title="已安装OpenJDK7的相关依赖">
+<ul>
+<li>卸载<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -e --nodeps java-1.7.0-openjdk-1.7.0.75-2.5.4.2.el7_0.x86_64</span><br><span class="line">rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.75-2.5.4.2.el7_0.x86_64</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>下载JDK1.8<br>在Oracle 选择合适的版本，进行JDK安装，这里更新至JDK1.8<br><strong>Oracle官网上下载jdk，需要点击accept licence的才能下载，使用下面的命令，直接可以下载。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate --no-cookies --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压<br>-C 表示解压路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf jdk-8u73-linux-x64.tar.gz -C /usr/local/jdk/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>环境变量配置</p>
+</li>
+<li><p>修改 <code>/etc/profile</code>文件,添加如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line">//添加如下</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/usr/local/jdk/jdk1.8.0_73</span><br><span class="line">export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:.</span><br><span class="line"></span><br><span class="line">PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line"></span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新加载配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="rpm-格式安装JDK"><a href="#rpm-格式安装JDK" class="headerlink" title="rpm 格式安装JDK"></a>rpm 格式安装JDK</h3><ul>
+<li>下载<code>jdk-xxx-linux-x64.rmp</code></li>
+<li><code>rpm -ivh</code> 命令安装 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@salt ~]# rpm -ivh jdk-8u60-linux-x64.rpm </span><br><span class="line">Preparing...                ########################################### [100%]</span><br><span class="line">   1:jdk1.8.0_60            ########################################### [100%]</span><br><span class="line">Unpacking JAR files...</span><br><span class="line">        tools.jar...</span><br><span class="line">        plugin.jar...</span><br><span class="line">        javaws.jar...</span><br><span class="line">        deploy.jar...</span><br><span class="line">        rt.jar...</span><br><span class="line">        jsse.jar...</span><br><span class="line">        charsets.jar...</span><br><span class="line">        localedata.jar...</span><br><span class="line">        jfxrt.jar...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>默认安装的路径为:<code>/usr/java/</code><br>它会自动配置环境、并覆盖当前Java环境。</p>
+</blockquote>
+<h3 id="yum-安装JDK"><a href="#yum-安装JDK" class="headerlink" title="yum 安装JDK"></a>yum 安装JDK</h3><ul>
+<li><code>yum search java</code> (选择一个penJDK版本)</li>
+<li><code>yum install xxxx</code> (安装OpenJDK)<blockquote>
+<p>是的，通过<code>yum</code>安装，你只能使用OpenJDK</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="安装-Mysql-5-7-11"><a href="#安装-Mysql-5-7-11" class="headerlink" title="安装 Mysql 5.7.11"></a>安装 Mysql 5.7.11</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><strong>这里更新至最新版Mysql5.7.11 源码(这里采用编译安装)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://cdn.mysql.com/Downloads/MySQL-5.7/mysql-5.7.11.tar.gz</span><br></pre></td></tr></table></figure></p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf mysql-5.7.11.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="安装必要的包"><a href="#安装必要的包" class="headerlink" title="安装必要的包"></a>安装必要的包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install cmake gcc gcc-c++ ncurses-devel perl-Data-Dumper</span><br></pre></td></tr></table></figure>
+<h3 id="安装Boost"><a href="#安装Boost" class="headerlink" title="安装Boost"></a>安装Boost</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://jaist.dl.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.zip unzip boost_1_59_0.zip</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">unzip boost_1_59_0.zip </span><br><span class="line">cd boost_1_59_0 </span><br><span class="line">./bootstrap.sh  </span><br><span class="line">./b2 </span><br><span class="line">./b2 install</span><br></pre></td></tr></table></figure>
+<h3 id="生成makefile-和-编译"><a href="#生成makefile-和-编译" class="headerlink" title="生成makefile 和 编译"></a>生成makefile 和 编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd mysql-5.7.11</span><br><span class="line">// 生成makefile</span><br><span class="line">cmake .</span><br><span class="line">// 编译</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br><span class="line"></span><br><span class="line">// mysql 将会安装到/usr/local/mysql路径</span><br></pre></td></tr></table></figure>
+<h3 id="添加mysql用户和组"><a href="#添加mysql用户和组" class="headerlink" title="添加mysql用户和组"></a>添加mysql用户和组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//创建mysql 组</span><br><span class="line">sudo groupadd mysql</span><br><span class="line">// 创建mysql用户 所属组为mysql</span><br><span class="line">sudo useradd -r -g mysql mysql</span><br></pre></td></tr></table></figure>
+<h3 id="修改目录和文件权限，安装默认数据库"><a href="#修改目录和文件权限，安装默认数据库" class="headerlink" title="修改目录和文件权限，安装默认数据库"></a>修改目录和文件权限，安装默认数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R mysql.</span><br><span class="line">sudo chgrp -R mysql.</span><br><span class="line">bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data</span><br><span class="line">bin/mysql_ssl_rsa_setup </span><br><span class="line">sudo chown -R root .</span><br><span class="line">sudo chown -R mysql data</span><br></pre></td></tr></table></figure>
+<h3 id="创建-etc-my-cnf文件"><a href="#创建-etc-my-cnf文件" class="headerlink" title="创建/etc/my.cnf文件"></a>创建/etc/my.cnf文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf</span><br><span class="line">vi /etc/my.cnf</span><br><span class="line">// 增加如下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server_id = 1</span><br><span class="line">#binary log</span><br><span class="line">log-bin = mysql-bin</span><br><span class="line">binlog_format = mixed</span><br><span class="line"># expire_logs_day = 30</span><br><span class="line">#slow query log</span><br><span class="line">slow_query_log = 1</span><br><span class="line">slow_query_log_file = /var/log/mysql/slow.log</span><br><span class="line">long_query_time = 3</span><br><span class="line">log-queries-not-using-indexes</span><br><span class="line">log-slow-admin-statements</span><br><span class="line"># 这里忽略密码了，重设密码后，应当删除</span><br><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
+<h3 id="复制mysql服务启动脚本并加入PATH路径"><a href="#复制mysql服务启动脚本并加入PATH路径" class="headerlink" title="复制mysql服务启动脚本并加入PATH路径"></a>复制mysql服务启动脚本并加入PATH路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld</span><br><span class="line">vim /etc/profile</span><br><span class="line">// 添加如下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH:.</span><br><span class="line">export PATH</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<h3 id="启动Mysql-并加入开机自动启动"><a href="#启动Mysql-并加入开机自动启动" class="headerlink" title="启动Mysql 并加入开机自动启动"></a>启动Mysql 并加入开机自动启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start </span><br><span class="line">chkconfig --level 35 mysqld on</span><br></pre></td></tr></table></figure>
+<h3 id="重设密码"><a href="#重设密码" class="headerlink" title="重设密码"></a>重设密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot</span><br><span class="line"></span><br><span class="line">//选择数据库</span><br><span class="line">use mysql</span><br><span class="line">// 设置密码。 5.7 相比5.5 user表中password字段改为authentication_string。如下</span><br><span class="line">update user set authentication_string=PASSWORD(&apos;123456&apos;) where user=&apos;root&apos; and host=&apos;localhost&apos;;</span><br><span class="line">//更新权限表</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/10/24/2014/验证码kaptcha的应用/" itemprop="url">
                   验证码kaptcha在Web项目中应用
                 </a>
@@ -1855,142 +2046,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/06/11/2014/Spring 集成druid数据源/" itemprop="url">
-                  Spring 集成druid数据源
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-06-11T00:53:00+08:00" content="2014-06-11">
-              2014-06-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaWeb</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaWeb/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/06/11/2014/Spring 集成druid数据源/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/11/2014/Spring 集成druid数据源/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Druid 是Alibaba的一个数据库连接池，相比Druid 相比C3p0 或 DBCP 更加高效，Druid的常规配置可参考如下。</p>
-<ul>
-<li><p>pom.xml 引入<code>druid</code></p>
-</li>
-<li><p>Spring Bean.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> &lt;bean name=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot; init-method=&quot;init&quot; destroy-method=&quot;close&quot;&gt;</span><br><span class="line">     &lt;property name=&quot;url&quot; value=&quot;$&#123;jdbc_url&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;username&quot; value=&quot;$&#123;jdbc_username&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc_password&#125;&quot; /&gt;</span><br><span class="line"> </span><br><span class="line">     &lt;property name=&quot;initialSize&quot; value=&quot;0&quot; /&gt;        </span><br><span class="line">     &lt;property name=&quot;maxActive&quot; value=&quot;20&quot; /&gt;    </span><br><span class="line">     &lt;property name=&quot;maxIdle&quot; value=&quot;20&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;minIdle&quot; value=&quot;0&quot; /&gt;        </span><br><span class="line">     &lt;property name=&quot;maxWait&quot; value=&quot;60000&quot; /&gt;</span><br><span class="line">     </span><br><span class="line">     &lt;property name=&quot;validationQuery&quot; value=&quot;$&#123;validationQuery&#125;&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testOnBorrow&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testOnReturn&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;testWhileIdle&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;timeBetweenEvictionRunsMillis&quot; value=&quot;60000&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;minEvictableIdleTimeMillis&quot; value=&quot;25200000&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;removeAbandoned&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;removeAbandonedTimeout&quot; value=&quot;1800&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;logAbandoned&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">     &lt;property name=&quot;filters&quot; value=&quot;mergeStat&quot; /&gt;</span><br><span class="line"> &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">     &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line"> &lt;/bean&gt;  </span><br><span class="line"></span><br><span class="line">&lt;context:property-placeholder location=&quot;classpath:config.properties&quot; /&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>config.properties</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jdbc_url=jdbc:oracle:druid_test:@localhost:1521:orcl</span><br><span class="line">jdbc_username=root</span><br><span class="line">jdbc_password=123456</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2036,7 +2091,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">74</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2053,7 +2108,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,0 +1,862 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Avro," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="I am cmp-cc" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="序尽可能的避免一些理论知识，以实例为主，快速的使用Avro。
+AvroAvro是一个独立于编程语言的数据序列化系统，当前可被（C、C++、Java、Pthon、Ruby）语言处理数据格式，允许与其他编程语言进行数据读写操作。Avro数据是用语言无关的模式定义的，且Avro的代码生成是可选的，这味着你可以对遵守指定模式的数据进行读写操作。
+Avro模式通常是使用JSON编写，数据文件通常是二进制编码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Avro 序列化使用指南">
+<meta property="og:url" content="http://cmp-cc.github.io/2015/01/17/Avro 序列化使用指南/index.html">
+<meta property="og:site_name" content="I am cmp-cc">
+<meta property="og:description" content="序尽可能的避免一些理论知识，以实例为主，快速的使用Avro。
+AvroAvro是一个独立于编程语言的数据序列化系统，当前可被（C、C++、Java、Pthon、Ruby）语言处理数据格式，允许与其他编程语言进行数据读写操作。Avro数据是用语言无关的模式定义的，且Avro的代码生成是可选的，这味着你可以对遵守指定模式的数据进行读写操作。
+Avro模式通常是使用JSON编写，数据文件通常是二进制编码">
+<meta property="og:updated_time" content="2016-08-27T03:16:15.832Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Avro 序列化使用指南">
+<meta name="twitter:description" content="序尽可能的避免一些理论知识，以实例为主，快速的使用Avro。
+AvroAvro是一个独立于编程语言的数据序列化系统，当前可被（C、C++、Java、Pthon、Ruby）语言处理数据格式，允许与其他编程语言进行数据读写操作。Avro数据是用语言无关的模式定义的，且Avro的代码生成是可选的，这味着你可以对遵守指定模式的数据进行读写操作。
+Avro模式通常是使用JSON编写，数据文件通常是二进制编码">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Avro 序列化使用指南 | I am cmp-cc </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0fb6f1a75a76726c10a144a8257465e3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">I am cmp-cc</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一直在打杂，从未被超越。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Avro 序列化使用指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-01-17T22:53:00+08:00" content="2015-01-17">
+              2015-01-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/17/Avro 序列化使用指南/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/17/Avro 序列化使用指南/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>尽可能的避免一些理论知识，以实例为主，快速的使用Avro。</p>
+<h3 id="Avro"><a href="#Avro" class="headerlink" title="Avro"></a>Avro</h3><p>Avro是一个独立于编程语言的数据序列化系统，当前可被（C、C++、Java、Pthon、Ruby）语言处理数据格式，允许与其他编程语言进行数据读写操作。<br>Avro数据是用语言无关的模式定义的，且Avro的代码生成是可选的，这味着你可以对遵守指定模式的数据进行读写操作。</p>
+<p>Avro模式通常是使用JSON编写，数据文件通常是二进制编码（可选）。</p>
+<p>###Avro基础知识： 数据类型和模式</p>
+<h4 id="基本数据类型与复杂数据类型"><a href="#基本数据类型与复杂数据类型" class="headerlink" title="基本数据类型与复杂数据类型"></a>基本数据类型与复杂数据类型</h4><p>Avro 定义了少数的数据类型。</p>
+<p><strong>  Avro 8种基本类型 </strong></p>
+<p><strong> 6种复杂数据类型 </strong></p>
+<h4 id="两种模式-我的个人认为"><a href="#两种模式-我的个人认为" class="headerlink" title="两种模式(我的个人认为)"></a>两种模式(我的个人认为)</h4><p>Avro 模式:<br>Avro的模式文件（映射文件），扩展名为.avsc ,通常使用JSON编写。<br>如下 Avro模式文件 StringPair.avsc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;StringPair&quot;,</span><br><span class="line">  &quot;doc&quot;: &quot;A pair of strings.&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123;&quot;name&quot;: &quot;left&quot;, &quot;type&quot;: &quot;string&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;: &quot;right&quot;, &quot;type&quot;: &quot;string&quot;&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>数据 模式 ，通常是二进制编码，用户存储对象数据。 扩展名为.avro  。 这个本身不能算做是一种模式，因为它是数据生成的一种结果文件。</p>
+<h4 id="三种映射"><a href="#三种映射" class="headerlink" title="三种映射"></a>三种映射</h4><p><strong> 一种语言可能有多种表示或映射，Avro 中一共有三种映射关系 </strong></p>
+<p>通用映射：<br> 所有的语言都支持动态映射。即使运行前不知道具体的模式，也可以使用通用模式 （将如上 avro的数据类型与对应特定语言类型的映射关系）<br>特定映射：<br> Java 和 C++ 实现可以自动生成代码来表示符合某一Avro模式的数据。 （也是说可以把Avro模式转换为实体对象）<br> 代码的生成能够优化数据处理，并能够提供相关领域的API。<br>自反映射：<br> 只有Java拥有自反映射，将Avro类型映射成事先已有的Java类型。 它的速度比通用映射 和 特定映射都要慢，在项目中不推荐使用。</p>
+<p><strong> 如下，例举了Java的三种类型映射 </strong></p>
+<p><strong> 提示 通用映射和特定映射string 的默认为UTF8。 源于Java中String类型，性能低下。 如果你想要使用java中的String类型，并不在乎这点性能，在写Avro模式时,设置如下属性 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;type&quot;: &quot;string&quot;, &quot;avro.java.string&quot;: &quot;String&quot; &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="实例演示"><a href="#实例演示" class="headerlink" title="实例演示"></a>实例演示</h3><h4 id="通用映射API实例"><a href="#通用映射API实例" class="headerlink" title="通用映射API实例"></a>通用映射API实例</h4><p>如上 3.2 我们StringPair.avsc 文件</p>
+<p>代码实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">public class GenericJavaMapping &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        /********************* 序列化 *********************************/</span><br><span class="line">        </span><br><span class="line">        /*加载Avro模式文件 StringPair.avsc*/</span><br><span class="line">        Schema.Parser parser = new Schema.Parser();</span><br><span class="line">        Schema schema = parser.parse(</span><br><span class="line">                CommonGenericJavaMapping.class.getResourceAsStream(&quot;StringPair.avsc&quot;));</span><br><span class="line">       </span><br><span class="line">        /*使用通用(Generic) API 创建多个Avro记录实例 */</span><br><span class="line">        GenericRecord record1 = new GenericData.Record(schema);</span><br><span class="line">        record1.put(&quot;left&quot;, &quot;Java&quot;);</span><br><span class="line">        record1.put(&quot;right&quot;, &quot;Python&quot;);</span><br><span class="line">        </span><br><span class="line">        GenericRecord record2 = new GenericData.Record(schema);</span><br><span class="line">        record2.put(&quot;left&quot;, &quot;Static&quot;);</span><br><span class="line">        record2.put(&quot;right&quot;, &quot;Dynamic &quot;);</span><br><span class="line">        </span><br><span class="line">        GenericRecord record3 = new GenericData.Record(schema);</span><br><span class="line">        record3.put(&quot;left&quot;, &quot;StrongType&quot;);</span><br><span class="line">        record3.put(&quot;right&quot;, &quot;WeakTyping &quot;);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        /*将记录序列化到输出流中*/</span><br><span class="line">//        ByteArrayOutputStream outFile = new ByteArrayOutputStream();</span><br><span class="line">        /*将记录序列化到输出到文件*/</span><br><span class="line">        File outFile = new File(&quot;StringPair.avro&quot;);</span><br><span class="line">        DatumWriter&lt;GenericRecord&gt; writer =</span><br><span class="line">            new GenericDatumWriter&lt;GenericRecord&gt;(schema);</span><br><span class="line">        DataFileWriter&lt;GenericRecord&gt; dataFileWriter = new DataFileWriter&lt;GenericRecord&gt;(writer);</span><br><span class="line">        dataFileWriter.create(schema, outFile);</span><br><span class="line">        dataFileWriter.append(record1);</span><br><span class="line">        dataFileWriter.append(record2);</span><br><span class="line">        dataFileWriter.append(record3);</span><br><span class="line">        </span><br><span class="line">        dataFileWriter.flush();</span><br><span class="line">        dataFileWriter.close();</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        /********************* 反序列化  ******************************************/</span><br><span class="line">        </span><br><span class="line">        DatumReader&lt;GenericRecord&gt; reader =</span><br><span class="line">                new GenericDatumReader&lt;GenericRecord&gt;(schema);</span><br><span class="line">        DataFileReader&lt;GenericRecord&gt; dataFileReader = new DataFileReader&lt;GenericRecord&gt;(new File(&quot;StringPair.avro&quot;), reader);</span><br><span class="line">        GenericRecord record = null;</span><br><span class="line">        while(dataFileReader.hasNext())&#123;</span><br><span class="line">            record = dataFileReader.next(record);</span><br><span class="line">            System.out.println(record);</span><br><span class="line">            System.out.println(record.get(&quot;left&quot;));</span><br><span class="line">            System.out.println(record.get(&quot;right&quot;));</span><br><span class="line">        &#125;  </span><br><span class="line">        dataFileReader.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以通过 EncoderFactory 工厂指定编码的形式，采用DecoderFactory工厂同样的方式解码。（这里没有传递任何编码方式，所以为null）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/********************* 序列化 *********************************/</span><br><span class="line">FileOutputStream outFile = new FileOutputStream(&quot;StringPair.avro&quot;);</span><br><span class="line">        DatumWriter&lt;GenericRecord&gt; writer =</span><br><span class="line">            new GenericDatumWriter&lt;GenericRecord&gt;(schema);</span><br><span class="line">        Encoder encoder = EncoderFactory.get().binaryEncoder(outFile, null);</span><br><span class="line">        writer.write(record1, encoder);</span><br><span class="line">        writer.write(record2, encoder);</span><br><span class="line">        writer.write(record3, encoder);</span><br><span class="line">        encoder.flush();</span><br><span class="line">        outFile.close();  </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">/********************* 反序列化  ******************************************/  </span><br><span class="line"></span><br><span class="line">    DatumReader&lt;GenericRecord&gt; reader =</span><br><span class="line">                new GenericDatumReader&lt;GenericRecord&gt;(schema);</span><br><span class="line">             </span><br><span class="line">         Decoder decoder =  DecoderFactory.get().binaryDecoder(new FileInputStream(&quot;StringPair.avro&quot;), null);</span><br><span class="line">        GenericRecord record = null;  </span><br><span class="line">        try &#123;</span><br><span class="line">            while((record=reader.read(record, decoder))!=null)&#123;</span><br><span class="line">                System.out.println(record);</span><br><span class="line">                System.out.println(record.get(&quot;left&quot;));</span><br><span class="line">                System.out.println(record.get(&quot;right&quot;));</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; catch (EOFException e) &#123;</span><br><span class="line">            //我没有找到一种很好的方式，遍历并解码序列化文件。这种遍历并不妥当</span><br><span class="line">            //因为这里一定会抛出EOF异常，他已经读到文件末尾，没有数据。所以这里不捕获异常</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>结果:</p>
+<pre>
+{"left": "Java", "right": "Python"}
+Java
+Python
+{"left": "Static", "right": "Dynamic"}
+Static
+Dynamic
+{"left": "StrongType", "right": "WeakTyping"}
+StrongType
+WeakTyping  
+</pre>
+
+<h4 id="特定映射-API-实例"><a href="#特定映射-API-实例" class="headerlink" title="特定映射 API 实例"></a>特定映射 API 实例</h4><p>使用特定映射完成如上等价代码，我们需要生成Shema（Avro模式）的Java映射代码：<br>我们通过Avro 的 Maven 插件编译Schema模式文件生成StringPair类，如下 POM：<br>先创建 src/main/avro/ 目录用于存储Shema（Avro模式文件）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">        &lt;avro.version&gt;1.7.7&lt;/avro.version&gt;</span><br><span class="line">    &lt;/properties&gt;</span><br><span class="line">    &lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.avro&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;avro-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;avro.version&#125;&lt;/version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;phase&gt;generate-sources&lt;/phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;schema&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;sourceDirectory&gt;$&#123;project.basedir&#125;/src/main/avro/&lt;/sourceDirectory&gt;</span><br><span class="line">                            &lt;outputDirectory&gt;$&#123;project.basedir&#125;/src/main/java/&lt;/outputDirectory&gt;</span><br><span class="line">                        &lt;/configuration&gt;</span><br><span class="line">                    &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">        &lt;pluginManagement&gt;</span><br><span class="line">            &lt;plugins&gt;</span><br><span class="line">                &lt;!--This plugin&apos;s configuration is used to store Eclipse m2e settings </span><br><span class="line">                    only. It has no influence on the Maven build itself. --&gt;</span><br><span class="line">                &lt;plugin&gt;</span><br><span class="line">                    &lt;groupId&gt;org.eclipse.m2e&lt;/groupId&gt;</span><br><span class="line">                    &lt;artifactId&gt;lifecycle-mapping&lt;/artifactId&gt;</span><br><span class="line">                    &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">                    &lt;configuration&gt;</span><br><span class="line">                        &lt;lifecycleMappingMetadata&gt;</span><br><span class="line">                            &lt;pluginExecutions&gt;</span><br><span class="line">                                &lt;pluginExecution&gt;</span><br><span class="line">                                    &lt;pluginExecutionFilter&gt;</span><br><span class="line">                                        &lt;groupId&gt;</span><br><span class="line">                                            org.apache.avro</span><br><span class="line">                                        &lt;/groupId&gt;</span><br><span class="line">                                        &lt;artifactId&gt;</span><br><span class="line">                                            avro-maven-plugin</span><br><span class="line">                                        &lt;/artifactId&gt;</span><br><span class="line">                                        &lt;versionRange&gt;</span><br><span class="line">                                            [1.7.7,)</span><br><span class="line">                                        &lt;/versionRange&gt;</span><br><span class="line">                                        &lt;goals&gt;</span><br><span class="line">                                            &lt;goal&gt;schema&lt;/goal&gt;</span><br><span class="line">                                        &lt;/goals&gt;</span><br><span class="line">                                    &lt;/pluginExecutionFilter&gt;</span><br><span class="line">                                    &lt;action&gt;</span><br><span class="line">                                        &lt;ignore&gt;&lt;/ignore&gt;</span><br><span class="line">                                    &lt;/action&gt;</span><br><span class="line">                                &lt;/pluginExecution&gt;</span><br><span class="line">                            &lt;/pluginExecutions&gt;</span><br><span class="line">                        &lt;/lifecycleMappingMetadata&gt;</span><br><span class="line">                    &lt;/configuration&gt;</span><br><span class="line">                &lt;/plugin&gt;</span><br><span class="line">            &lt;/plugins&gt;</span><br><span class="line">        &lt;/pluginManagement&gt;</span><br><span class="line">    &lt;/build&gt;</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用Ant构建或者使用基于命令行模式：<br>基于命令行：<br><a href="http://mirrors.cnnic.cn/apache/avro/" target="_blank" rel="external">http://mirrors.cnnic.cn/apache/avro/</a> 下载 avro及其avro-tools.jar 。 通过如下命令生成Java代码映射<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -jar avro-tools-*.jar compile schema \</span><br><span class="line">avro/src/main/resources/StringPair.avsc avro/src/main/java</span><br></pre></td></tr></table></figure></p>
+<p>代码实例：（已经生成StringPair.java文件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">public class SpecificJavaMapping &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        /********************* 序列化 *********************************/</span><br><span class="line">        </span><br><span class="line">        /**</span><br><span class="line">         * 有三种方式构建对象，如下:</span><br><span class="line">         */</span><br><span class="line">        StringPair record1 = new StringPair();</span><br><span class="line">        record1.setLeft(&quot;Java&quot;);</span><br><span class="line">        record1.setRight(&quot;Python&quot;);</span><br><span class="line">        </span><br><span class="line">        StringPair record2 = new StringPair(&quot;Static&quot;,&quot;Dynamic&quot;);</span><br><span class="line">        </span><br><span class="line">        StringPair record3 = StringPair.newBuilder()</span><br><span class="line">                                       .setLeft(&quot;StrongType&quot;)</span><br><span class="line">                                       .setRight(&quot;WeakTyping&quot;)</span><br><span class="line">                                       .build();</span><br><span class="line">        </span><br><span class="line">        DatumWriter&lt;StringPair&gt; writer =</span><br><span class="line">            new SpecificDatumWriter&lt;StringPair&gt;(StringPair.class);</span><br><span class="line">        DataFileWriter&lt;StringPair&gt; dataFileWriter = new DataFileWriter&lt;StringPair&gt; (writer);</span><br><span class="line">        dataFileWriter.create(StringPair.getClassSchema(), new File(&quot;StringPair.avro&quot;));</span><br><span class="line">        dataFileWriter.append(record1);</span><br><span class="line">        dataFileWriter.append(record2);</span><br><span class="line">        dataFileWriter.append(record3);</span><br><span class="line">        dataFileWriter.flush();</span><br><span class="line">        dataFileWriter.close();</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        /********************* 反序列化  ******************************************/</span><br><span class="line">        DatumReader&lt;StringPair&gt; reader =</span><br><span class="line">            new SpecificDatumReader&lt;StringPair&gt;(StringPair.class);</span><br><span class="line">        DataFileReader&lt;StringPair&gt; dataFileReader = new DataFileReader&lt;StringPair&gt;(new File(&quot;StringPair.avro&quot;), reader);</span><br><span class="line">        StringPair record = null;</span><br><span class="line">        </span><br><span class="line">        while(dataFileReader.hasNext())&#123;</span><br><span class="line">            record = dataFileReader.next(record);</span><br><span class="line">            System.out.println(record);</span><br><span class="line">            System.out.println(record.getLeft());</span><br><span class="line">            System.out.println(record.getRight());</span><br><span class="line">        &#125;</span><br><span class="line">        dataFileReader.close();</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样，可以通过 EncoderFactory 工厂指定编码的形式，采用DecoderFactory工厂同样的方式解码。（这么没有传递任何编码方式，所以为null）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">   /********************* 序列化 *********************************/  </span><br><span class="line">   FileOutputStream outFile = new FileOutputStream(&quot;StringPair.avro&quot;);</span><br><span class="line">         DatumWriter&lt;StringPair&gt; writer =</span><br><span class="line">                   new SpecificDatumWriter&lt;StringPair&gt;(StringPair.class);</span><br><span class="line">       Encoder encoder = EncoderFactory.get().binaryEncoder(outFile, null);</span><br><span class="line">       writer.write(record1, encoder);</span><br><span class="line">       writer.write(record2, encoder);</span><br><span class="line">       writer.write(record3, encoder);</span><br><span class="line">       encoder.flush();</span><br><span class="line">       outFile.flush();</span><br><span class="line">       outFile.close(); </span><br><span class="line">/********************* 反序列化  ******************************************/  </span><br><span class="line"> DatumReader&lt;StringPair&gt; reader =</span><br><span class="line">           new SpecificDatumReader&lt;StringPair&gt;(StringPair.class);</span><br><span class="line">       Decoder decoder = DecoderFactory.get().binaryDecoder(new FileInputStream(&quot;StringPair.avro&quot;),</span><br><span class="line">               null);</span><br><span class="line">       StringPair record = null;</span><br><span class="line">       </span><br><span class="line">       try &#123;</span><br><span class="line">           while((record=reader.read(record, decoder))!=null)&#123;</span><br><span class="line">               </span><br><span class="line">               System.out.println(record);</span><br><span class="line">               System.out.println(record.getLeft());</span><br><span class="line">               System.out.println(record.getRight());</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; catch (EOFException e) &#123;</span><br><span class="line">           //如上</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Avro中的模式演化"><a href="#Avro中的模式演化" class="headerlink" title="Avro中的模式演化"></a>Avro中的模式演化</h4><p>读取数据的模式可以与写入数据的模式不一样，从而做到从原始数据中过滤出想要的数据或增加新的字段。<br>例如： 写入时的模式为三个字段，读取模式只有两个相同字段。 这样就只取出两个字段，我们称这种方式为‘投影’，在大量记录字段中，读取其中一部分。</p>
+<p>如下’投影‘实例： 我使用上面使用过的Avro模式。 并且取出一个字段，也就意味着我们只取left字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;StringPair2&quot;,</span><br><span class="line">  &quot;doc&quot;: &quot;A pair of strings.&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123;&quot;name&quot;: &quot;left&quot;, &quot;type&quot;: &quot;string&quot;&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行如下反序列化数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">         DatumReader&lt;StringPair2&gt; reader =</span><br><span class="line">                    new SpecificDatumReader&lt;StringPair2&gt;(StringPair2.class);</span><br><span class="line">                DataFileReader&lt;StringPair2&gt; dataFileReader = new DataFileReader&lt;StringPair2&gt;(new File(&quot;StringPair.avro&quot;), reader);</span><br><span class="line">                StringPair2 record = null;</span><br><span class="line">                </span><br><span class="line">                while(dataFileReader.hasNext())&#123;</span><br><span class="line">                    record = dataFileReader.next(record);</span><br><span class="line">                    System.out.println(record);</span><br><span class="line">                    System.out.println(record.getLeft());</span><br><span class="line">//                    System.out.println(record.getRight()); // 读入模式StringPair2.avsc中并没有这个字段</span><br><span class="line">                &#125;</span><br><span class="line">                dataFileReader.close();</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就可以很方便的控制要取出的数据。<br>结果数据为：</p>
+<pre>
+{"left": "Java"}
+Java
+{"left": "Static"}
+Static
+{"left": "StrongType"}
+StrongType  
+</pre>
+
+<p>实例2   我们在原始avro模式中增加description字段。<br>这里description字段，通过default属性指定了一个默认值，avro在读取没有定义的记录时就会使用默认值，如果忽略default属性，读取原始数据就会报错。<br>也可以将默认值设置为null。 <code>{&quot;name&quot;: &quot;description&quot;, &quot;type&quot;: [&quot;null&quot;, &quot;string&quot;], &quot;default&quot;: null}</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;StringPair3&quot;,</span><br><span class="line">  &quot;doc&quot;: &quot;A pair of strings with an added field.&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123;&quot;name&quot;: &quot;left&quot;, &quot;type&quot;: &quot;string&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;: &quot;right&quot;, &quot;type&quot;: &quot;string&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;: &quot;description&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;&quot;&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们反序列化原始数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">DatumReader&lt;StringPair3&gt; reader =</span><br><span class="line">               new SpecificDatumReader&lt;StringPair3&gt;(StringPair3.class);</span><br><span class="line">           DataFileReader&lt;StringPair3&gt; dataFileReader = new DataFileReader&lt;StringPair3&gt;(new File(&quot;StringPair.avro&quot;), reader);</span><br><span class="line">           StringPair3 record = null;</span><br><span class="line">           </span><br><span class="line">           while(dataFileReader.hasNext())&#123;</span><br><span class="line">               record = dataFileReader.next(record);</span><br><span class="line">               System.out.println(record);</span><br><span class="line">               System.out.println(record.getLeft());</span><br><span class="line">               System.out.println(record.getRight()); </span><br><span class="line">               System.out.println(record.getDescription()); // 原始数据中并没有这个字段，所以默认为&quot;&quot;</span><br><span class="line">           &#125;</span><br><span class="line">           dataFileReader.close();</span><br></pre></td></tr></table></figure>
+<p>结果数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;left&quot;: &quot;Java&quot;, &quot;right&quot;: &quot;Python&quot;, &quot;description&quot;: &quot;&quot;&#125;</span><br><span class="line">Java</span><br><span class="line">Python</span><br><span class="line">&#123;&quot;left&quot;: &quot;Static&quot;, &quot;right&quot;: &quot;Dynamic&quot;, &quot;description&quot;: &quot;&quot;&#125;</span><br><span class="line">Static</span><br><span class="line">Dynamic</span><br><span class="line">&#123;&quot;left&quot;: &quot;StrongType&quot;, &quot;right&quot;: &quot;WeakTyping&quot;, &quot;description&quot;: &quot;&quot;&#125;</span><br><span class="line">StrongType</span><br><span class="line">WeakTyping</span><br></pre></td></tr></table></figure></p>
+<p>模式解析规则可以直接解决模式由一个版本演化为另一个版本时产生的问题,如下记录演化规则进行的总结。</p>
+<h5 id="Avro模式中的aliases属性（名称的别名）。"><a href="#Avro模式中的aliases属性（名称的别名）。" class="headerlink" title="Avro模式中的aliases属性（名称的别名）。"></a>Avro模式中的aliases属性（名称的别名）。</h5><p>别名允许您使用不同的名称在该架构用于读取 Avro 数据比在最初用来写入数据的模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;StringPair&quot;,</span><br><span class="line">  &quot;doc&quot;: &quot;A pair of strings with aliased field names.&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123;&quot;name&quot;: &quot;first&quot;, &quot;type&quot;: &quot;string&quot;, &quot;aliases&quot;: [&quot;left&quot;]&#125;,</span><br><span class="line">    &#123;&quot;name&quot;: &quot;second&quot;, &quot;type&quot;: &quot;string&quot;, &quot;aliases&quot;: [&quot;right&quot;]&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意的是： aliases 使用转换（在读取时），读取写入模式。但是不能够使用别名。<br>因为它已经转化为自定义的名称。</p>
+<h5 id="Avro-排序-实例是失败的！！！！！"><a href="#Avro-排序-实例是失败的！！！！！" class="headerlink" title="Avro 排序 (实例是失败的！！！！！)"></a>Avro 排序 (实例是失败的！！！！！)</h5><p>Avro定义了对象的排列顺序。 我们可以通过指定order属性来控制排序顺序。<br>它有三个值: ascending(默认值)、descending(反向顺序)后者ignore(可忽略字段)</p>
+<p>例如，下述模式（SortedStringPair.avsc）定义了<br>StringPair记录的顺序,right 字段order设置为 descending，。<br>为了排序的目的，出于排序的目的，忽略left字段，但依旧保留在投影中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;SortStringPair&quot;,</span><br><span class="line">  &quot;doc&quot;: &quot;A pair of strings, sorted by right field descending.&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">    &#123;&quot;name&quot;: &quot;left&quot;, &quot;type&quot;: &quot;string&quot;, &quot;order&quot;: &quot;ignore&quot;&#125;,</span><br><span class="line">    &#123;&quot;name&quot;: &quot;right&quot;, &quot;type&quot;: &quot;string&quot;, &quot;order&quot;: &quot;descending&quot;&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">SortStringPair record1 = new SortStringPair();</span><br><span class="line">    record1.setLeft(&quot;Java&quot;);</span><br><span class="line">    record1.setRight(&quot;Python&quot;);</span><br><span class="line">    </span><br><span class="line">    SortStringPair record2 = new SortStringPair(&quot;Static&quot;,&quot;Dynamic&quot;);</span><br><span class="line">    </span><br><span class="line">    SortStringPair record3 = SortStringPair.newBuilder()</span><br><span class="line">                                   .setLeft(&quot;StrongType&quot;)</span><br><span class="line">                                   .setRight(&quot;WeakTyping&quot;)</span><br><span class="line">                                   .build();</span><br><span class="line">    </span><br><span class="line">    DatumWriter&lt;SortStringPair&gt; writer =</span><br><span class="line">        new SpecificDatumWriter&lt;SortStringPair&gt;(SortStringPair.class);</span><br><span class="line">    DataFileWriter&lt;SortStringPair&gt; dataFileWriter = new DataFileWriter&lt;SortStringPair&gt; (writer);</span><br><span class="line">    /**</span><br><span class="line">     * 原始序列化文件。 我们只是修改了写入模式。</span><br><span class="line">     */</span><br><span class="line">    dataFileWriter.create(SortStringPair.getClassSchema(), new File(&quot;SortStringPair.avro&quot;));</span><br><span class="line">    dataFileWriter.append(record1);</span><br><span class="line">    dataFileWriter.append(record2);</span><br><span class="line">    dataFileWriter.append(record3);</span><br><span class="line">    dataFileWriter.flush();</span><br><span class="line">    dataFileWriter.close();</span><br></pre></td></tr></table></figure>
+<h4 id="Mapreduce-实例演示"><a href="#Mapreduce-实例演示" class="headerlink" title="Mapreduce 实例演示"></a>Mapreduce 实例演示</h4><p>Hadoop权威指南 寻找每年最高温度的天气数据集 实例</p>
+<h4 id="实例演示-1"><a href="#实例演示-1" class="headerlink" title="实例演示"></a>实例演示</h4><p>1、数据准备<br>1.1 编写 dex Avro 模式文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;namespace&quot;: &quot;org.avlyun&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;avro_dex_sstrings&quot;,</span><br><span class="line">  &quot;type&quot;: &quot;record&quot;,</span><br><span class="line">  &quot;fields&quot;: [</span><br><span class="line">     &#123;&quot;name&quot;: &quot;sample_md5&quot;, &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;]&#125;,</span><br><span class="line">     &#123;&quot;name&quot;: &quot;sample_crc32&quot;, &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;]&#125;,</span><br><span class="line">     &#123;&quot;name&quot;: &quot;dex_strings&quot;, &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;]&#125;,</span><br><span class="line">     &#123;&quot;name&quot;: &quot;avl_m&quot;, &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;]&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>1.2  通过类似4.2 处理原始数据，通过如上Shema文件生.avro的数据文件,并批量存储到HDFS中。<br>1.3  编写Avro Mapreduce程序对dex 数据进行查询操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 1、对dex中 avlm字段和string字段进行过滤操作。 </span><br><span class="line"> * 2、对结果数据排序取出最大词频</span><br><span class="line"> */</span><br><span class="line">public class dex_filter_search &#123;</span><br><span class="line">    public static class avro_Mapper extends</span><br><span class="line">            Mapper&lt;AvroKey&lt;avro_dex_sstrings&gt;, NullWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">         private final static IntWritable one = new IntWritable(1);</span><br><span class="line">        public void map(AvroKey&lt;avro_dex_sstrings&gt; key, NullWritable value, Context context)</span><br><span class="line">                throws IOException, InterruptedException &#123;</span><br><span class="line">            //&quot;-STRING&quot;,&quot;-NSTRING&quot;,&quot;-AVLM&quot;,&quot;-NAVLM&quot;</span><br><span class="line">            String filter_String = context.getConfiguration().get(&quot;-STRING&quot;);</span><br><span class="line">            String filter_Avlm = context.getConfiguration().get(&quot;-AVLM&quot;);</span><br><span class="line">            String filter_NString = context.getConfiguration().get(&quot;-NSTRING&quot;);</span><br><span class="line">            String filter_Navlm = context.getConfiguration().get(&quot;-NAVLM&quot;);</span><br><span class="line">            </span><br><span class="line">            CharSequence dexStrings =  key.datum().getDexStrings();</span><br><span class="line">            CharSequence avl_m = key.datum().getAvlM();</span><br><span class="line">            boolean flag_String = true;</span><br><span class="line">            boolean flag_Avlm = true;</span><br><span class="line">            boolean flag_NString = false;</span><br><span class="line">            boolean flag_Navlm = false;</span><br><span class="line">            </span><br><span class="line">            if(dexStrings!=null &amp;&amp; avl_m!=null)&#123;</span><br><span class="line">                if(filter_String!=null)&#123;</span><br><span class="line">                    String[] list_String = filter_String.split(&quot;&amp;&quot;);</span><br><span class="line">                    if(list_String!=null &amp;&amp; list_String.length&gt;0)&#123;</span><br><span class="line">                        for(int i=0;i&lt;list_String.length;i++)&#123;</span><br><span class="line">                            if(flag_String!=dexStrings.toString().contains(list_String[i]))&#123;</span><br><span class="line">                                flag_String = !flag_String;</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                if(filter_Avlm!=null)&#123;</span><br><span class="line">                    String[] list_Avlm = filter_Avlm.split(&quot;&amp;&quot;);</span><br><span class="line">                    if(list_Avlm!=null &amp;&amp; list_Avlm.length&gt;0)&#123;</span><br><span class="line">                        for(int i=0;i&lt;list_Avlm.length;i++)&#123;</span><br><span class="line">                            if(flag_Avlm!=avl_m.toString().contains(list_Avlm[i]))&#123;</span><br><span class="line">                                flag_Avlm = !flag_Avlm;</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                if(filter_NString!=null)&#123;</span><br><span class="line">                    String[] list_NString = filter_NString.split(&quot;&amp;&quot;);</span><br><span class="line">                    if(list_NString!=null &amp;&amp; list_NString.length&gt;0)&#123;</span><br><span class="line">                        for(int i=0;i&lt;list_NString.length;i++)&#123;</span><br><span class="line">                            if(flag_NString!=dexStrings.toString().contains(list_NString[i]))&#123;</span><br><span class="line">                                flag_NString = !flag_NString;</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;            </span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                if(filter_Navlm!=null)&#123;</span><br><span class="line">                    String[] list_Navlm = filter_Navlm.split(&quot;&amp;&quot;);</span><br><span class="line">                    if(list_Navlm!=null &amp;&amp; list_Navlm.length&gt;0)&#123;</span><br><span class="line">                        for(int i=0;i&lt;list_Navlm.length;i++)&#123;</span><br><span class="line">                            if(flag_Navlm!=dexStrings.toString().contains(list_Navlm[i]))&#123;</span><br><span class="line">                                flag_Navlm = !flag_Navlm;</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;            </span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                String temp = &quot;&quot;;</span><br><span class="line">                if(flag_String &amp;&amp; flag_Avlm &amp;&amp; !flag_Navlm &amp;&amp; !flag_NString)&#123;</span><br><span class="line">                    HashSet&lt;String&gt; set = new HashSet&lt;String&gt;();</span><br><span class="line">                    StringTokenizer tokenizer = new StringTokenizer(dexStrings.toString(),&quot;\n&quot;);</span><br><span class="line">                    while(tokenizer.hasMoreTokens())&#123;</span><br><span class="line">                        temp = tokenizer.nextToken();</span><br><span class="line">                        if (temp!=null &amp;&amp; !set.contains(temp)) &#123;</span><br><span class="line">                            set.add(temp);</span><br><span class="line">                            context.write(new Text(temp), one);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static class avro_Reduce extends</span><br><span class="line">            Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">        private IntWritable result = new IntWritable();</span><br><span class="line">        public void reduce(Text key, Iterable&lt;IntWritable&gt; values,</span><br><span class="line">                Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">        /*    int sum = 0;</span><br><span class="line">            Iterator&lt;IntWritable&gt; iterator = values.iterator();</span><br><span class="line">            while(iterator.hasNext())&#123;</span><br><span class="line">                sum+=iterator.next().get();</span><br><span class="line">            &#125;</span><br><span class="line">            context.write(key, new IntWritable(sum));*/</span><br><span class="line">            </span><br><span class="line">            int sum = 0;</span><br><span class="line">            for (IntWritable val : values) &#123;</span><br><span class="line">                sum += val.get();</span><br><span class="line">            &#125;</span><br><span class="line">            result.set(sum);</span><br><span class="line">            context.write(key, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     private static class IntWritableDecreasingComparator extends IntWritable.Comparator &#123;</span><br><span class="line">          public int compare(WritableComparable a, WritableComparable b) &#123;</span><br><span class="line">            return -super.compare(a, b);</span><br><span class="line">          &#125;</span><br><span class="line">          </span><br><span class="line">          public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2) &#123;</span><br><span class="line">              return -super.compare(b1, s1, l1, b2, s2, l2);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        Configuration conf = new Configuration();</span><br><span class="line">        String[] otherArgs = new GenericOptionsParser(conf, args)</span><br><span class="line">                .getRemainingArgs();</span><br><span class="line">/*        if (otherArgs.length != 4) &#123;</span><br><span class="line">            System.err.println(&quot;Usage: wordcount &lt;in&gt; &lt;out&gt;&quot;);</span><br><span class="line">            System.exit(2);</span><br><span class="line">        &#125;*/</span><br><span class="line">        // 定义容器对象。 存储过滤关键字 list_String list_Avlm list_NString list_NAvlm</span><br><span class="line">        StringBuffer[] list_Buffer = new StringBuffer[4];</span><br><span class="line">        for(int i=0;i&lt;list_Buffer.length;i++)&#123;</span><br><span class="line">            list_Buffer[i] = new StringBuffer();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        boolean flag_boolean = true;</span><br><span class="line">        //过滤的四种方式</span><br><span class="line">        String[] keyWord = new String[]&#123;</span><br><span class="line">                &quot;-STRING&quot;,&quot;-NSTRING&quot;,&quot;-AVLM&quot;,&quot;-NAVLM&quot;</span><br><span class="line">        &#125;;</span><br><span class="line">        int index = -1;</span><br><span class="line">        for(int i=2;i&lt;args.length;i++)&#123;</span><br><span class="line">            flag_boolean = true;</span><br><span class="line">            for(int j=0;j&lt;keyWord.length;j++)&#123;</span><br><span class="line">                if(keyWord[j].equalsIgnoreCase(args[i]))&#123;</span><br><span class="line">                    index = j;</span><br><span class="line">                    flag_boolean = false;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if(index&gt;-1 &amp;&amp; flag_boolean)&#123;</span><br><span class="line">                list_Buffer[index].append(args[i]).append(&quot;&amp;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i=0;i&lt;list_Buffer.length;i++)&#123;</span><br><span class="line">            conf.set(keyWord[i], list_Buffer[i].toString());</span><br><span class="line">        &#125;</span><br><span class="line">         Path tempDir = new Path(&quot;avro-test-temp-&quot; + Integer.toString(</span><br><span class="line">                    new Random().nextInt(Integer.MAX_VALUE)));</span><br><span class="line">        </span><br><span class="line">        Job job = new Job(conf, &quot;avro-test&quot;);</span><br><span class="line">        job.setJarByClass(dex_filter_search.class);</span><br><span class="line">        try&#123;</span><br><span class="line">            </span><br><span class="line">            job.setInputFormatClass(AvroKeyInputFormat.class);</span><br><span class="line">            job.setMapperClass(avro_Mapper.class);</span><br><span class="line">            AvroJob.setInputKeySchema(job, avro_dex_sstrings.getClassSchema());</span><br><span class="line">            </span><br><span class="line">            job.setCombinerClass(avro_Reduce.class);</span><br><span class="line">            job.setReducerClass(avro_Reduce.class);</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            job.setOutputKeyClass(Text.class);</span><br><span class="line">            job.setOutputValueClass(IntWritable.class);</span><br><span class="line">            </span><br><span class="line">            FileInputFormat.addInputPath(job, new Path(otherArgs[0]));</span><br><span class="line">            FileOutputFormat.setOutputPath(job, tempDir);</span><br><span class="line">                                                         </span><br><span class="line">            job.setOutputFormatClass(SequenceFileOutputFormat.class);</span><br><span class="line">            if(job.waitForCompletion(true))</span><br><span class="line">            &#123;</span><br><span class="line">                Job sortJob = new Job(conf, &quot;sort&quot;);</span><br><span class="line">                sortJob.setJarByClass(cat_avro.class);</span><br><span class="line">                </span><br><span class="line">                FileInputFormat.addInputPath(sortJob, tempDir);</span><br><span class="line">                sortJob.setInputFormatClass(SequenceFileInputFormat.class);</span><br><span class="line">                </span><br><span class="line">                sortJob.setMapperClass(InverseMapper.class);</span><br><span class="line">                sortJob.setNumReduceTasks(1); </span><br><span class="line">                FileOutputFormat.setOutputPath(sortJob, new Path(otherArgs[1]));</span><br><span class="line">                </span><br><span class="line">                sortJob.setOutputKeyClass(IntWritable.class);</span><br><span class="line">                sortJob.setOutputValueClass(Text.class);</span><br><span class="line">                sortJob.setSortComparatorClass(IntWritableDecreasingComparator.class);</span><br><span class="line">     </span><br><span class="line">                System.exit(sortJob.waitForCompletion(true) ? 0 : 1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;finally&#123;</span><br><span class="line">            FileSystem.get(conf).deleteOnExit(tempDir);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li>需要指定读入的是Avro数据<br>job.setInputFormatClass(AvroKeyInputFormat.class);</li>
+<li>Mapper 端的输入类型为AvroKey<avro_dex_sstrings>，Sehema生成的Java对象<br> 然后可以很方便的使用key.datum()提取对象的字段集。</avro_dex_sstrings></li>
+</ul>
+<h4 id="Avro-数据文件"><a href="#Avro-数据文件" class="headerlink" title="Avro 数据文件"></a>Avro 数据文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">job.setInputFormatClass(AvroKeyInputFormat.class);  </span><br><span class="line"> AvroJob.setInputKeySchema(job, student_marks.getClassSchema());  </span><br><span class="line">AvroJob.setOutputKeySchema(job, Schema.create(Schema.Type.INT));</span><br><span class="line">AvroJob.setOutputValueSchema(job, Schema.create(Schema.Type.FLOAT));</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Avro/" rel="tag">#Avro</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/17/2015/Postfix 邮件服务器/" rel="next" title="Postfix 邮件服务器">
+                <i class="fa fa-chevron-left"></i> Postfix 邮件服务器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/02/11/2015/Bower 学习笔记/" rel="prev" title="Webpack入门实例">
+                Webpack入门实例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/01/17/Avro 序列化使用指南/"
+           data-title="Avro 序列化使用指南" data-url="http://cmp-cc.github.io/2015/01/17/Avro 序列化使用指南/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="cmp-cc" />
+          <p class="site-author-name" itemprop="name">cmp-cc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/cmp-cc" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#序"><span class="nav-number">1.</span> <span class="nav-text">序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avro"><span class="nav-number">2.</span> <span class="nav-text">Avro</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本数据类型与复杂数据类型"><span class="nav-number">2.1.</span> <span class="nav-text">基本数据类型与复杂数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两种模式-我的个人认为"><span class="nav-number">2.2.</span> <span class="nav-text">两种模式(我的个人认为)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三种映射"><span class="nav-number">2.3.</span> <span class="nav-text">三种映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例演示"><span class="nav-number">3.</span> <span class="nav-text">实例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用映射API实例"><span class="nav-number">3.1.</span> <span class="nav-text">通用映射API实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特定映射-API-实例"><span class="nav-number">3.2.</span> <span class="nav-text">特定映射 API 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Avro中的模式演化"><span class="nav-number">3.3.</span> <span class="nav-text">Avro中的模式演化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Avro模式中的aliases属性（名称的别名）。"><span class="nav-number">3.3.1.</span> <span class="nav-text">Avro模式中的aliases属性（名称的别名）。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Avro-排序-实例是失败的！！！！！"><span class="nav-number">3.3.2.</span> <span class="nav-text">Avro 排序 (实例是失败的！！！！！)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mapreduce-实例演示"><span class="nav-number">3.4.</span> <span class="nav-text">Mapreduce 实例演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例演示-1"><span class="nav-number">3.5.</span> <span class="nav-text">实例演示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Avro-数据文件"><span class="nav-number">3.6.</span> <span class="nav-text">Avro 数据文件</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cmp-cc</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"cmp-cc"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+
+
+  </script>
+
+  
+    
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+ <script type="text/javascript">
+  window.onload = function(){setTimeout(function(){/*无登陆账户*/if(!document.getElementsByClassName("ds-account-control")[0]){var cmp_cc_blog_user=localStorage.getItem("cmp-cc_blog_user");var author_name_value = cmp_cc_blog_user?'value="'+cmp_cc_blog_user+'"':'';var i = '<div class="ds-control-group" style="float:right;padding:6px;"><input type="text" '+author_name_value+'id="author_name_proxy" id="ds-dialog-name"  class="custom_input" style="color:#777;width=80%;font-size:13px;border:1px solid #ccc;height:25px;box-shadow: inset 0 1px 1px;padding: 2px 0px 0px 8px;" placeholder="昵称 or 登陆" required></div>';/*展开一个回复，再关闭。 多说没有参数配置啊~ 让人觉得不优雅*/var $last_ds_post_reply = $(".ds-post-reply:last");$last_ds_post_reply.click().click();$(".ds-post-options.ds-gradient-bg").append(i);$(".ds-post-button").click(function(){$(this).submit();$("#ds-wrapper").hide();var author_name = $("#author_name_proxy").val();$("#ds-wrapper #ds-dialog-name").val(author_name);$("#ds-wrapper form").submit();/*www.cmp-cc.github.com*/localStorage.setItem("cmp-cc_blog_user",author_name);$(".custom_input").val(author_name);});}},300);} 
+ </script>
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
