@@ -228,6 +228,450 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/14/2016/模拟ORM/" itemprop="url">
+                  模拟ORM
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-14T18:34:00+08:00" content="2016-04-14">
+              2016-04-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/14/2016/模拟ORM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/2016/模拟ORM/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有时候做一些展示用的项目，或者是测试项目，可能并不会去引入Hibernate 等这类ORM框架，这显的小题大做。但是没有ORM框架方便的特性，又感觉一只手绑在背后，好把！ 实现一些简单的ORM特性。</p>
+<h2 id="SQL-Mapping-Java"><a href="#SQL-Mapping-Java" class="headerlink" title="SQL Mapping Java"></a>SQL Mapping Java</h2><h3 id="整体实体关系映射"><a href="#整体实体关系映射" class="headerlink" title="整体实体关系映射"></a>整体实体关系映射</h3><table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>显示长度</th>
+<th>数据库类型</th>
+<th>JAVA类型</th>
+<th>JDBC类型索引(int)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VARCHAR</td>
+<td>L+N</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+<td>12     </td>
+</tr>
+<tr>
+<td>CHAR</td>
+<td>N</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
+<td>1     </td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>L+N</td>
+<td>BLOB</td>
+<td>java.lang.byte[]</td>
+<td>-4     </td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>65535</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+<td>-1      </td>
+</tr>
+<tr>
+<td>INTEGER</td>
+<td>4</td>
+<td>INTEGER UNSIGNED</td>
+<td>java.lang.Long</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>TINYINT</td>
+<td>3</td>
+<td>TINYINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>-6     </td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>5</td>
+<td>SMALLINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>5     </td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>8</td>
+<td>MEDIUMINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>BIT</td>
+<td>1</td>
+<td>BIT</td>
+<td>java.lang.Boolean</td>
+<td>-7     </td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>20</td>
+<td>BIGINT UNSIGNED</td>
+<td>java.math.BigInteger</td>
+<td>-5     </td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>4+8</td>
+<td>FLOAT</td>
+<td>java.lang.Float</td>
+<td>7     </td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>22</td>
+<td>DOUBLE</td>
+<td>java.lang.Double</td>
+<td>8     </td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td>11</td>
+<td>DECIMAL</td>
+<td>java.math.BigDecimal</td>
+<td>3     </td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>1</td>
+<td>TINYINT UNSIGNED</td>
+<td>java.lang.Integer</td>
+<td>-6      </td>
+</tr>
+<tr>
+<td>ID</td>
+<td>11</td>
+<td>PK (INTEGER UNSIGNED)</td>
+<td>java.lang.Long</td>
+<td>4     </td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>10</td>
+<td>DATE</td>
+<td>java.sql.Date</td>
+<td>91     </td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>8</td>
+<td>TIME</td>
+<td>java.sql.Time</td>
+<td>92     </td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>19</td>
+<td>DATETIME</td>
+<td>java.sql.Timestamp</td>
+<td>93     </td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>19</td>
+<td>TIMESTAMP</td>
+<td>java.sql.Timestamp</td>
+<td>93     </td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>4</td>
+<td>YEAR</td>
+<td>java.sql.Date</td>
+<td>91</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MySQL-实体类型映射"><a href="#MySQL-实体类型映射" class="headerlink" title="MySQL 实体类型映射"></a>MySQL 实体类型映射</h3><table>
+<thead>
+<tr>
+<th>MySQL Type Name</th>
+<th>Return value of GetColumnClassName</th>
+<th>Returned as Java Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIT(1) (new in MySQL-5.0)</td>
+<td>BIT</td>
+<td>java.lang.Boolean</td>
+</tr>
+<tr>
+<td>BIT( &gt; 1) (new in MySQL-5.0)</td>
+<td>BIT</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TINYINT</td>
+<td>TINYINT</td>
+<td>java.lang.Boolean if the configuration property tinyInt1isBit is set to true (the default) and the storage size is 1, or java.lang.Integer if not.</td>
+</tr>
+<tr>
+<td>BOOL, BOOLEAN</td>
+<td>TINYINT</td>
+<td>See TINYINT, above as these are aliases for TINYINT(1), currently.</td>
+</tr>
+<tr>
+<td>SMALLINT[(M)] [UNSIGNED]</td>
+<td>SMALLINT [UNSIGNED]</td>
+<td>java.lang.Integer (regardless if UNSIGNED or not)</td>
+</tr>
+<tr>
+<td>MEDIUMINT[(M)] [UNSIGNED]</td>
+<td>MEDIUMINT [UNSIGNED]</td>
+<td>java.lang.Integer, if UNSIGNED java.lang.Long (C/J 3.1 and earlier), or java.lang.Integer for C/J 5.0 and later</td>
+</tr>
+<tr>
+<td>INT,INTEGER[(M)] [UNSlGNED]</td>
+<td>INTEGER [UNSIGNED]</td>
+<td>java.lang.Integer, if UNSIGNED java.lang.Long</td>
+</tr>
+<tr>
+<td>BIGINT[(M)] [UNSIGNED]</td>
+<td>BIGINT [UNSIGNED]</td>
+<td>java.lang.Long, if UNSIGNED java.math.BigInteger</td>
+</tr>
+<tr>
+<td>FLOAT[(M,D)]</td>
+<td>FLOAT</td>
+<td>java.lang.Float</td>
+</tr>
+<tr>
+<td>DOUBLE[(M,B)]</td>
+<td>DOUBLE</td>
+<td>java.lang.Double</td>
+</tr>
+<tr>
+<td>DECIMAL[(M[,D])]</td>
+<td>DECIMAL</td>
+<td>java.math.BigDecimal</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>DATE</td>
+<td>java.sql.Date</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>DATETIME</td>
+<td>java.sql.Timestamp</td>
+</tr>
+<tr>
+<td>TIMESTAMP[(M)]</td>
+<td>TIMESTAMP</td>
+<td>java.sql.Timestamp</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>TIME</td>
+<td>java.sql.Time</td>
+</tr>
+<tr>
+<td>YEAR[(2l4)]</td>
+<td>YEAR</td>
+<td>If yearIsDateType configuration property is set to false, then the returned object type is java.sql.Short. If set to true (the default), then the returned object is of type java.sql.Date with the date set to January 1st, at midnight.</td>
+</tr>
+<tr>
+<td>CHAR(M)</td>
+<td>CHAR</td>
+<td>java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
+</tr>
+<tr>
+<td>VARCHAR(M)</td>
+<td>[BINARY]</td>
+<td>VARCHAR    java.lang.String (unless the character set for the column is BINARY, then byte[] is returned.</td>
+</tr>
+<tr>
+<td>BINARY(M)</td>
+<td>BINARY</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>VARBINARY(M)</td>
+<td>VARBINARY</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TINYBLOB</td>
+<td>TINYBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>BLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>MEDIUMBLOB</td>
+<td>MEDIUMBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>LONGBLOB</td>
+<td>LONGBLOB</td>
+<td>byte[]</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>VARCHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>ENUM(‘value1’,’value2’,…)</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
+</tr>
+<tr>
+<td>SET(‘value1’,’value2’,…)</td>
+<td>CHAR</td>
+<td>java.lang.String</td>
+</tr>
+</tbody>
+</table>
+<p>参考： <a href="http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html" target="_blank" rel="external">http://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-type-conversions.html</a></p>
+<h2 id="模拟ORM"><a href="#模拟ORM" class="headerlink" title="模拟ORM"></a>模拟ORM</h2><h3 id="根据实体映射表"><a href="#根据实体映射表" class="headerlink" title="根据实体映射表"></a>根据实体映射表</h3><p><strong>如下只是一个基本实例，想要完成更多特性，还是要下点功夫的。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public class CreateTableORM &#123;</span><br><span class="line">    </span><br><span class="line">    private static Map&lt;String,String&gt; ormField = getJavaMapMysql();</span><br><span class="line">    </span><br><span class="line">    Class&lt;?&gt; clazz;</span><br><span class="line">    </span><br><span class="line">    Connection conn;</span><br><span class="line">    </span><br><span class="line">    // 表名</span><br><span class="line">    String tableName;</span><br><span class="line">    </span><br><span class="line">    public CreateTableORM(Class&lt;?&gt; clazz , Connection conn)&#123;</span><br><span class="line">        this.clazz = clazz;</span><br><span class="line">        this.conn = conn;</span><br><span class="line">        tableName = clazz.getName();</span><br><span class="line">        </span><br><span class="line">        createTable();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void createTable()&#123;</span><br><span class="line">        </span><br><span class="line">         StringBuffer sb = new StringBuffer();</span><br><span class="line">        </span><br><span class="line">         Arrays.asList(clazz.getDeclaredFields()).forEach(field -&gt;&#123;</span><br><span class="line">             </span><br><span class="line">            String fieldType = ormField.get(field.getType().getName());</span><br><span class="line">            String fieldName = field.getName();</span><br><span class="line">            </span><br><span class="line">            sb.append(String.format(&quot;%s %s,&quot;, fieldName,fieldType));</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        String sql = String.format(&quot;Create Table If Not Exists %s (%s)&quot;,this.tableName, sb.deleteCharAt(sb.length()-1).toString());</span><br><span class="line">        </span><br><span class="line">        excuteSQL(sql);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private void excuteSQL(String sql) &#123;</span><br><span class="line">        PreparedStatement statement;</span><br><span class="line">        </span><br><span class="line">        try &#123;</span><br><span class="line">            statement = conn.prepareStatement(sql);</span><br><span class="line">            statement.execute();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static Map&lt;String,String&gt; getJavaMapMysql()&#123;</span><br><span class="line">        </span><br><span class="line">        /**定义并不标准**/</span><br><span class="line">        Map&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();</span><br><span class="line">        map.put(&quot;java.lang.String&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Character&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;char&quot;, &quot;VARCHAR(255)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;double&quot;, &quot; DOUBLE(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;float&quot;, &quot;FLOAT(5,2)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Integer&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;int&quot;, &quot;INT(11)&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;long&quot;, &quot;INTEGER(16)&quot;);</span><br><span class="line">        map.put(&quot;java.util.Date&quot;, &quot;DATE&quot;);</span><br><span class="line">        map.put(&quot;java.lang.Boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        map.put(&quot;boolean&quot;, &quot;BIT(1)&quot;);</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //测试</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection conn = MysqlJDBCPoolUtil.getConnection();</span><br><span class="line">        new CreateTableORM(Admin.class, conn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="暂无需求。"><a href="#暂无需求。" class="headerlink" title="暂无需求。"></a>暂无需求。</h3><p><strong>日后，有需要再完善</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/12/2016/H2 DataBase 数据库/" itemprop="url">
                   H2 DataBase 数据库
                 </a>
@@ -1966,178 +2410,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/09/19/2015/Ruby工作环境配置/" itemprop="url">
-                  Ruby工作环境配置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-19T22:55:00+08:00" content="2015-09-19">
-              2015-09-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming Language</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/Ruby/" itemprop="url" rel="index">
-                    <span itemprop="name">Ruby</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/09/19/2015/Ruby工作环境配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/19/2015/Ruby工作环境配置/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Ruby安装"><a href="#Ruby安装" class="headerlink" title="Ruby安装"></a>Ruby安装</h2><p>Window 环境安装：<br>可以使用<a href="http://rubyinstaller.org/downloads/" title="Rubyinstaller安装" target="_blank" rel="external">Rubyinstaller</a>安装。<a href="https://www.ruby-lang.org/zh_cn/downloads/" title="ryby安装说明" target="_blank" rel="external">ruby安装说明</a>。<br>进入Rubyinstaller 下载页面。下载：如 : Ruby 2.2.3 (x64) zip版本，解压到适当的目录下面。</p>
-<p><strong>环境配置：</strong></p>
-<ul>
-<li>RUBY_HOME=ruby所在路径</li>
-</ul>
-<img src="/2015/09/19/2015/Ruby工作环境配置/456ecd1c-215a-4279-b513-ec2dde23268f.png" alt="环境变量" title="环境变量">
-<ul>
-<li>path中添加 <code>%RUBY_HOME%\bin</code></li>
-</ul>
-<img src="/2015/09/19/2015/Ruby工作环境配置/path.png" alt="环境变量" title="环境变量">
-<p>提示： 你也可以选择安装版(.exe)。安装过程中勾选 <code>Add Ruby executables to your PATH</code> 可避免手工配置环境变量。</p>
-<ul>
-<li>测试  <code>Win+R</code> -&gt; 输入：cmd  -&gt; 输入： <code>ruby --version</code>。   显示版本信息。</li>
-</ul>
-<img src="/2015/09/19/2015/Ruby工作环境配置/f9285134-ede7-4c40-b787-0567f4342f65.png" alt="环境变量" title="环境变量">
-<h2 id="RubyDevKit安装"><a href="#RubyDevKit安装" class="headerlink" title="RubyDevKit安装"></a>RubyDevKit安装</h2><p>DevKit可用于编译那些gem提供的c或c++的源代码。它本身被编译为了exe，安装的时候会找到ruby的目录，然后修改添加一些文件。这样，在安装那些需要编译的gem时，就直接搞定了<br>在<a href="http://rubyinstaller.org/downloads/" title="Rubyinstaller安装" target="_blank" rel="external">Rubyinstaller</a>下载同版本的RubyDevkit。</p>
-<img src="/2015/09/19/2015/Ruby工作环境配置/f9285134-ede7-4c40-b787-0567f4342f65.png" alt="环境变量" title="环境变量">
-<p>可将其安装到ruby目录下。<br>进入DevKit目录下<br>执行 <code>ruby dk.rb init</code> 生成<code>config.yml</code>文件。</p>
-<img src="/2015/09/19/2015/Ruby工作环境配置/ef2eebd2-82b5-4684-bf81-e89a2623582b.png" alt="环境变量" title="环境变量">
-<p>config.yml文件实际上是检测系统安装的ruby的位置并记录在这个文件中。<br>提示：如上面的命令只针对使用rubyinstall安装的ruby有效，如果是其他方式安装的话，需要手动修改config.yml</p>
-<p><strong>如果为手动配置</strong></p>
-<ul>
-<li>创建config.yml</li>
-<li>增加Ruby的安装目录位置即可。如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># This configuration file contains the absolute path locations of all # installed Rubies to be enhanced to work with the DevKit. This config # file is generated by the &apos;ruby dk.rb init&apos; step and may be modified # before running the &apos;ruby dk.rb install&apos; step. To include any installed # Rubies that were not automagically discovered, simply add a line below # the triple hyphens with the absolute path to the Ruby root directory. # # Example: # # --- # - C:/ruby19trunk # - C:/ruby192dev # --- - D:/Program-Software/Programming-Language/Ruby/Ruby</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>然后，执行如下命令，完成安装。 未找到dk.rb<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby dk.rb install</span><br></pre></td></tr></table></figure></p>
-<img src="/2015/09/19/2015/Ruby工作环境配置/05abe0c6-a0c5-4372-a2b5-41f4afd14ad9.png" alt="环境变量" title="环境变量">
-<h2 id="Rubygems-包管理框架"><a href="#Rubygems-包管理框架" class="headerlink" title="Rubygems 包管理框架"></a>Rubygems 包管理框架</h2><p>Rubygems是类似Radhat的RPM、centOS的Yum、Ubuntu的apt-get的应用程序打包部署解决方案。Rubygems本身基于Ruby开发，在Ruby命令行中执行,<a href="https://rubygems.org/pages/download" title="rubygems下载" target="_blank" rel="external">rubygemsk下载</a>。</p>
-<img src="/2015/09/19/2015/Ruby工作环境配置/9d5645a3-bfb3-4273-8d1b-3d1f10a2f87c.png" alt="环境变量" title="环境变量">
-<p>这里我们选择下载ZIP格式，并将其解压到适当的目录下，例如：ruby同级别的目录。<br>进入解压目录执行<code>ruby setup.rb</code></p>
-<img src="/2015/09/19/2015/Ruby工作环境配置/f940ced9-c088-4ec9-8b92-b9dcc4381656.png" alt="环境变量" title="环境变量">
-<p>ok，你已经安装成功了。</p>
-<p>测试gem： 打开一个新的Cmd。输入：gem –version 能够显示版本信息表示ok</p>
-<img src="/2015/09/19/2015/Ruby工作环境配置/b2e867ac-c9ca-49d2-a5e5-7f8506dfd27d.png" alt="环境变量" title="环境变量">
-<p>测试devkit: gem install rdiscount –platform=ruby 如果能够成功安装，表示devkit安装ok</p>
-<img src="/2015/09/19/2015/Ruby工作环境配置/414f6523-0591-4a3b-86c1-6b4fbb6c46a7.png" alt="环境变量" title="环境变量">
-<h2 id="修改Rubygems-中央仓库"><a href="#修改Rubygems-中央仓库" class="headerlink" title="修改Rubygems 中央仓库"></a>修改Rubygems 中央仓库</h2><p>由于使用国外中央仓库，可能部分第三方库被墙，导致无法下载，这里，我们使用淘宝的ruby 仓库</p>
-<ul>
-<li><p>添加淘宝<code>ruby</code>中央仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 添加taobao的源</span><br><span class="line">gem source -a http://ruby.taobao.org</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>移除官方中央仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 移除官方仓库</span><br><span class="line">gem source -r https://rubygems.org/</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2183,7 +2455,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2191,7 +2463,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2200,7 +2472,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

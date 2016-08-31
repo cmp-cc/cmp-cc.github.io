@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cmp-cc.github.io/"/>
-  <updated>2016-06-24T09:31:50.121Z</updated>
+  <updated>2016-08-31T01:44:06.122Z</updated>
   <id>http://cmp-cc.github.io/</id>
   
   <author>
@@ -14,6 +14,142 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Titan 数据库使用</title>
+    <link href="http://cmp-cc.github.io/2016/08/25/Titan%20%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%BF%E7%94%A8/"/>
+    <id>http://cmp-cc.github.io/2016/08/25/Titan 数据库使用/</id>
+    <published>2016-08-25T11:57:00.000Z</published>
+    <updated>2016-08-31T01:44:06.122Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;之前有小规模的使用Neo4j，Neo4j 需要商业授权，且对于大规模的分布式支持并不友好。 案例也不多。&lt;br&gt;Titan 作为分布式图数据，构建于Elasticsearch、Hbase、Hadoop 之上， 分布式支持较好，且有部分商业案例. 主要应用:&lt;code&gt;知识图谱&lt;/code&gt;、&lt;code&gt;情报分析&lt;/code&gt;等。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Titan-基本介绍&quot;&gt;&lt;a href=&quot;#Titan-基本介绍&quot; class=&quot;headerlink&quot; title=&quot;Titan 基本介绍&quot;&gt;&lt;/a&gt;Titan 基本介绍&lt;/h1&gt;&lt;p&gt;Titan是一个分布式的图数据库，支持横向扩展，可容纳数千亿个顶点和边。 Titan支持事务，并且可以支撑上千并发用户和 计算复杂图形遍历。&lt;/p&gt;
+&lt;p&gt;Titan包含下面这些特性:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;弹性与线性扩展&lt;/li&gt;
+&lt;li&gt;分布式架构，可容错&lt;/li&gt;
+&lt;li&gt;支持多数据中心的高可用和热备&lt;/li&gt;
+&lt;li&gt;支持 ACID and 和最终一致性.&lt;/li&gt;
+&lt;li&gt;支持多种存储后端:&lt;ul&gt;
+&lt;li&gt;Apache Cassandra&lt;/li&gt;
+&lt;li&gt;Apache HBase&lt;/li&gt;
+&lt;li&gt;Oracle BerkeleyDB&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;支持大数据平台集成，完成图数据 分析、报表、ETL 。&lt;ul&gt;
+&lt;li&gt;Apache Spark&lt;/li&gt;
+&lt;li&gt;Apache Giraph&lt;/li&gt;
+&lt;li&gt;Apache Hadoop&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;支持位置、数字范围和全文检索:&lt;ul&gt;
+&lt;li&gt;ElasticSearch&lt;/li&gt;
+&lt;li&gt;Solr&lt;/li&gt;
+&lt;li&gt;Apache Lucene&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;原生支持 TinkerPop 软件栈:&lt;ul&gt;
+&lt;li&gt;Gremlin graph query language&lt;/li&gt;
+&lt;li&gt;Frames object-to-graph mapper&lt;/li&gt;
+&lt;li&gt;Rexster graph server&lt;/li&gt;
+&lt;li&gt;Blueprints standard graph API&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;开源协议Apache 2 license&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;Titan-开发环境搭建&quot;&gt;&lt;a href=&quot;#Titan-开发环境搭建&quot; class=&quot;headerlink&quot; title=&quot;Titan 开发环境搭建:&quot;&gt;&lt;/a&gt;Titan 开发环境搭建:&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;数据存储层为：Hbase&lt;/li&gt;
+&lt;li&gt;数据索引：Elasticsearch&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Titan + Hbase + Elasticsearch + Hadoop = Titan 图数据库&lt;/p&gt;
+&lt;p&gt;这里使用 Titan + CDH5.7 + Elastcisearch集群  = Titan 图数据库&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这篇文章将详细的演示CDH + ES + Titan 构建分布式图数据库&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;前置条件&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;已经安装Java8 且配置完成环境变量&lt;/li&gt;
+&lt;li&gt;已经安装Elasticsearch1.5.z 或 Elasticsearch1.5.z 集群&lt;/li&gt;
+&lt;li&gt;已经安装Hadoop、Hbase 或 CDH 平台&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当前ES最高版本为2.3， 但是只能使用ES1.5 版本。  详情参看： &lt;a href=&quot;http://s3.thinkaurelius.com/docs/titan/1.0.0/version-compat.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Titan1.0 兼容表&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;下载Titan-hadoop1&quot;&gt;&lt;a href=&quot;#下载Titan-hadoop1&quot; class=&quot;headerlink&quot; title=&quot;下载Titan-hadoop1&quot;&gt;&lt;/a&gt;下载Titan-hadoop1&lt;/h2&gt;&lt;p&gt;现在地址：&lt;a href=&quot;https://github.com/thinkaurelius/titan/wiki/Downloads，并查看titan-hadoop1&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/thinkaurelius/titan/wiki/Downloads，并查看titan-hadoop1&lt;/a&gt; 和titan-hadoop2 日志，现在本质并没有太大区别。 &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;服务器（这里使用为Contos）中下载Titan-hadoop1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&quot;/2016/08/25/Titan%20数据库使用/d6b915a1-8d65-4714-9eee-addb84c19d5b.png&quot; alt=&quot;titan安装文件&quot; title=&quot;titan安装文件&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;解压&lt;code&gt;Titan&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;unzip titan-1.0.0-hadoop1.zip&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;运行&lt;code&gt;Gremlin 控制台&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;./bin/gremlin.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;提示如果使用&lt;code&gt;titan-hadoop2&lt;/code&gt; 需要引入&lt;code&gt;titan-hadoop.jar&lt;/code&gt;,如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd titan-1.0.0-hadoop2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd lib/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget http://search.maven.org/remotecontent?filepath=com/thinkaurelius/titan/titan-hadoop/1.0.0/titan-hadoop-1.0.0.jar&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果没有引入&lt;code&gt;titan-hadoop.jar&lt;/code&gt;,通过&lt;code&gt;./bin/gremlin.sh&lt;/code&gt;启动&lt;code&gt;Gremlin 控制台&lt;/code&gt;将会跑出如下异常:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Invalid import definition: &amp;apos;com.thinkaurelius.titan.hadoop.MapReduceIndexManagement&amp;apos;; reason: startup failed:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;script14719348643282042298222.groovy: 1: unable to resolve class com.thinkaurelius.titan.hadoop.MapReduceIndexManagement&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; @ line 1, column 1.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   import com.thinkaurelius.titan.hadoop.MapReduceIndexManagement&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   ^&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1 error&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Could not instantiate implementation: com.thinkaurelius.titan.diskstorage.hbase.HBaseStoreManager&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;Hbase-链接测试&quot;&gt;&lt;a href=&quot;#Hbase-链接测试&quot; class=&quot;headerlink&quot; title=&quot;Hbase 链接测试&quot;&gt;&lt;/a&gt;Hbase 链接测试&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;使用Hbase 作为数据存储层&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;进入&lt;code&gt;Gremlin 控制台&lt;/code&gt;./bin/gremlin.sh`&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;hBaseConf = new BaseConfiguration();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hBaseConf.setProperty(&amp;quot;storage.backend&amp;quot;,&amp;quot;hbase&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hBaseConf.setProperty(&amp;quot;storage.hostname&amp;quot;,&amp;quot;worker01.hadoop,worker02.hadoop,worker03.hadoop&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hBaseConf.setProperty(&amp;quot;storage.hbase.ext.hbase.zookeeper.property.clientPort&amp;quot;,&amp;quot;2181&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hBaseConf.setProperty(&amp;quot;storage.hbase.table&amp;quot;,&amp;quot;titan&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;titanGraph = TitanFactory.open(hBaseConf);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;我们需要配置&lt;code&gt;Hbase连接地址&lt;/code&gt;、&lt;code&gt;客户端端口&lt;/code&gt;、&lt;code&gt;存储表&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;如何确定&lt;code&gt;hbase hostname地址&lt;/code&gt;？  hbase 使用&lt;code&gt;zoopeeker&lt;/code&gt;作为分布式协调服务。找到&lt;code&gt;hbase-site.xml&lt;/code&gt;中&lt;code&gt;hbase.zookeeper.quorum&lt;/code&gt;值&lt;br&gt;进入&lt;code&gt;CDH Manage&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;img src=&quot;/2016/08/25/Titan%20数据库使用/7b7f63d9-a299-4d93-8b00-46671256a153.png&quot; alt=&quot;CDH Manager 页面&quot; title=&quot;CDH Manager 页面&quot;&gt;
+&lt;img src=&quot;/2016/08/25/Titan%20数据库使用/32641fe4-8946-4176-b9a7-3bc968ace9a1.png&quot; alt=&quot;Hbase 配置URL&quot; title=&quot;Hbase 配置URL&quot;&gt;
+&lt;img src=&quot;/2016/08/25/Titan%20数据库使用/380a7f69-ef58-4d3d-94ca-eee1fe0621e1.png&quot; alt=&quot;zk quorum&quot; title=&quot;zk quorum&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;链接成功&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;查看Hbase所有表，你将看到&lt;code&gt;titan&lt;/code&gt;表,表示&lt;code&gt;titan&lt;/code&gt;能够与hbase正常通信。&lt;/p&gt;
+&lt;img src=&quot;/2016/08/25/Titan%20数据库使用/86b1776f-c2e3-43e8-b7de-61e91c63118a.png&quot; alt=&quot;hbase 整合成功&quot; title=&quot;hbase 整合成功&quot;&gt;
+&lt;h2 id=&quot;配置titan-hbase-es-properties&quot;&gt;&lt;a href=&quot;#配置titan-hbase-es-properties&quot; class=&quot;headerlink&quot; title=&quot;配置titan-hbase-es.properties&quot;&gt;&lt;/a&gt;配置&lt;code&gt;titan-hbase-es.properties&lt;/code&gt;&lt;/h2&gt;&lt;p&gt;我们只需要加载配置即可完成链接：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;配置Hbase，作用于存储层&lt;/li&gt;
+&lt;li&gt;配置Elastichsearch 应用于索引层&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;storage.backend=hbase&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;storage.hostname=worker01.hadoop,worker02.hadoop,worker03.hadoop&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;index.search.backend=elasticsearch&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;index.search.hostname=192.168.8.14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;安装Elasticsearch，并测试ES&quot;&gt;&lt;a href=&quot;#安装Elasticsearch，并测试ES&quot; class=&quot;headerlink&quot; title=&quot;安装Elasticsearch，并测试ES&quot;&gt;&lt;/a&gt;安装Elasticsearch，并测试ES&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;下载 &lt;code&gt;ES1.5.1&lt;/code&gt;，并安装&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Elasticsearch-链接测试&quot;&gt;&lt;a href=&quot;#Elasticsearch-链接测试&quot; class=&quot;headerlink&quot; title=&quot;Elasticsearch 链接测试&quot;&gt;&lt;/a&gt;Elasticsearch 链接测试&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;如下是链接Elasticsearch 集群&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;conf = new BaseConfiguration()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf .setProperty(&amp;quot;storage.backend&amp;quot;,&amp;quot;hbase&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf .setProperty(&amp;quot;storage.hostname&amp;quot;,&amp;quot;worker01.hadoop,worker02.hadoop,worker03.hadoop&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf .setProperty(&amp;quot;storage.hbase.ext.hbase.zookeeper.property.clientPort&amp;quot;,&amp;quot;2181&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf .setProperty(&amp;quot;storage.hbase.table&amp;quot;,&amp;quot;titan&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setProperty(&amp;quot;index.search.backend&amp;quot;,&amp;quot;elasticsearch&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setProperty(&amp;quot;index.search.hostname&amp;quot;, &amp;quot;localhost&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setProperty(&amp;quot;index.search.elasticsearch.index-name&amp;quot;,&amp;quot;titan&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setProperty(&amp;quot;index.search.elasticsearch.cluster-name&amp;quot;,&amp;quot;blade_es&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setProperty(&amp;quot;index.search.directory&amp;quot;,&amp;quot;../db/es&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setProperty(&amp;quot;index.search.local-mode&amp;quot;,true)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;conf.setProperty(&amp;quot;index.search.client-only&amp;quot;,false)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;titanGraph = TitanFactory.open(conf );&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;链接本地址Elasticsearch&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;## 将测试成功配置参数，写在配置文件中&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;**编辑 `vi conf/titan-hbase-es.properties`**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;========== Titatn Config =======&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;storage.backend=hbase&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;storage.hostname=worker01.hadoop,worker02.hadoop,worker03.hadoop&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Must use for MapR Hadoop Distributions ( Tells Titan to contact Zookeeper on port 5181 instead of 2181 )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;storage.hbase.ext.hbase.zookeeper.property.clientPort=5181&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cache.db-cache = true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cache.db-cache-clean-wait = 20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cache.db-cache-time = 180000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cache.db-cache-size = 0.5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;index.search.backend=elasticsearch&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;index.search.elasticsearch.interface=NODE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;index.search.hostname=127.0.0.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;index.search.elasticsearch.client-only=true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;storage.index.search.backend=elasticsearch&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;storage.index.search.directory=/tmp/searchindex&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;storage.index.search.client-only=false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;storage.index.search.local-mode=false&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;控制台 中可以如下加载配置文件&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;g = TitanFactory.open(&amp;apos;conf/titan-hbase-es.properties&amp;apos;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;这里基本的环境已经搭建完毕，你可以创建点、边、属性 等等&lt;/strong&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;之前有小规模的使用Neo4j，Neo4j 需要商业授权，且对于大规模的分布式支持并不友好。 案例也不多。&lt;br&gt;Titan 作为分布式图数据，构建于Elasticsearch、Hbase、Hadoop 之上， 分布式支持较好，且有部分商业案例. 主
+    
+    </summary>
+    
+      <category term="Distributed Development" scheme="http://cmp-cc.github.io/categories/Distributed-Development/"/>
+    
+      <category term="Titan" scheme="http://cmp-cc.github.io/categories/Distributed-Development/Titan/"/>
+    
+    
+      <category term="Titan" scheme="http://cmp-cc.github.io/tags/Titan/"/>
+    
+  </entry>
   
   <entry>
     <title>Azkaban 短信预警插件开发</title>
@@ -1986,76 +2122,6 @@
     
     
       <category term="Javascript" scheme="http://cmp-cc.github.io/tags/Javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ruby工作环境配置</title>
-    <link href="http://cmp-cc.github.io/2015/09/19/2015/Ruby%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
-    <id>http://cmp-cc.github.io/2015/09/19/2015/Ruby工作环境配置/</id>
-    <published>2015-09-19T14:55:00.000Z</published>
-    <updated>2016-08-08T01:16:17.040Z</updated>
-    
-    <content type="html">&lt;h2 id=&quot;Ruby安装&quot;&gt;&lt;a href=&quot;#Ruby安装&quot; class=&quot;headerlink&quot; title=&quot;Ruby安装&quot;&gt;&lt;/a&gt;Ruby安装&lt;/h2&gt;&lt;p&gt;Window 环境安装：&lt;br&gt;可以使用&lt;a href=&quot;http://rubyinstaller.org/downloads/&quot; title=&quot;Rubyinstaller安装&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Rubyinstaller&lt;/a&gt;安装。&lt;a href=&quot;https://www.ruby-lang.org/zh_cn/downloads/&quot; title=&quot;ryby安装说明&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ruby安装说明&lt;/a&gt;。&lt;br&gt;进入Rubyinstaller 下载页面。下载：如 : Ruby 2.2.3 (x64) zip版本，解压到适当的目录下面。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;环境配置：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;RUBY_HOME=ruby所在路径&lt;/li&gt;
-&lt;/ul&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/456ecd1c-215a-4279-b513-ec2dde23268f.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;path中添加 &lt;code&gt;%RUBY_HOME%\bin&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/path.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;p&gt;提示： 你也可以选择安装版(.exe)。安装过程中勾选 &lt;code&gt;Add Ruby executables to your PATH&lt;/code&gt; 可避免手工配置环境变量。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;测试  &lt;code&gt;Win+R&lt;/code&gt; -&amp;gt; 输入：cmd  -&amp;gt; 输入： &lt;code&gt;ruby --version&lt;/code&gt;。   显示版本信息。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/f9285134-ede7-4c40-b787-0567f4342f65.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;h2 id=&quot;RubyDevKit安装&quot;&gt;&lt;a href=&quot;#RubyDevKit安装&quot; class=&quot;headerlink&quot; title=&quot;RubyDevKit安装&quot;&gt;&lt;/a&gt;RubyDevKit安装&lt;/h2&gt;&lt;p&gt;DevKit可用于编译那些gem提供的c或c++的源代码。它本身被编译为了exe，安装的时候会找到ruby的目录，然后修改添加一些文件。这样，在安装那些需要编译的gem时，就直接搞定了&lt;br&gt;在&lt;a href=&quot;http://rubyinstaller.org/downloads/&quot; title=&quot;Rubyinstaller安装&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Rubyinstaller&lt;/a&gt;下载同版本的RubyDevkit。&lt;/p&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/f9285134-ede7-4c40-b787-0567f4342f65.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;p&gt;可将其安装到ruby目录下。&lt;br&gt;进入DevKit目录下&lt;br&gt;执行 &lt;code&gt;ruby dk.rb init&lt;/code&gt; 生成&lt;code&gt;config.yml&lt;/code&gt;文件。&lt;/p&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/ef2eebd2-82b5-4684-bf81-e89a2623582b.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;p&gt;config.yml文件实际上是检测系统安装的ruby的位置并记录在这个文件中。&lt;br&gt;提示：如上面的命令只针对使用rubyinstall安装的ruby有效，如果是其他方式安装的话，需要手动修改config.yml&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;如果为手动配置&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;创建config.yml&lt;/li&gt;
-&lt;li&gt;增加Ruby的安装目录位置即可。如下&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# This configuration file contains the absolute path locations of all # installed Rubies to be enhanced to work with the DevKit. This config # file is generated by the &amp;apos;ruby dk.rb init&amp;apos; step and may be modified # before running the &amp;apos;ruby dk.rb install&amp;apos; step. To include any installed # Rubies that were not automagically discovered, simply add a line below # the triple hyphens with the absolute path to the Ruby root directory. # # Example: # # --- # - C:/ruby19trunk # - C:/ruby192dev # --- - D:/Program-Software/Programming-Language/Ruby/Ruby&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;然后，执行如下命令，完成安装。 未找到dk.rb&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ruby dk.rb install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/05abe0c6-a0c5-4372-a2b5-41f4afd14ad9.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;h2 id=&quot;Rubygems-包管理框架&quot;&gt;&lt;a href=&quot;#Rubygems-包管理框架&quot; class=&quot;headerlink&quot; title=&quot;Rubygems 包管理框架&quot;&gt;&lt;/a&gt;Rubygems 包管理框架&lt;/h2&gt;&lt;p&gt;Rubygems是类似Radhat的RPM、centOS的Yum、Ubuntu的apt-get的应用程序打包部署解决方案。Rubygems本身基于Ruby开发，在Ruby命令行中执行,&lt;a href=&quot;https://rubygems.org/pages/download&quot; title=&quot;rubygems下载&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;rubygemsk下载&lt;/a&gt;。&lt;/p&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/9d5645a3-bfb3-4273-8d1b-3d1f10a2f87c.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;p&gt;这里我们选择下载ZIP格式，并将其解压到适当的目录下，例如：ruby同级别的目录。&lt;br&gt;进入解压目录执行&lt;code&gt;ruby setup.rb&lt;/code&gt;&lt;/p&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/f940ced9-c088-4ec9-8b92-b9dcc4381656.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;p&gt;ok，你已经安装成功了。&lt;/p&gt;
-&lt;p&gt;测试gem： 打开一个新的Cmd。输入：gem –version 能够显示版本信息表示ok&lt;/p&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/b2e867ac-c9ca-49d2-a5e5-7f8506dfd27d.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;p&gt;测试devkit: gem install rdiscount –platform=ruby 如果能够成功安装，表示devkit安装ok&lt;/p&gt;
-&lt;img src=&quot;/2015/09/19/2015/Ruby工作环境配置/414f6523-0591-4a3b-86c1-6b4fbb6c46a7.png&quot; alt=&quot;环境变量&quot; title=&quot;环境变量&quot;&gt;
-&lt;h2 id=&quot;修改Rubygems-中央仓库&quot;&gt;&lt;a href=&quot;#修改Rubygems-中央仓库&quot; class=&quot;headerlink&quot; title=&quot;修改Rubygems 中央仓库&quot;&gt;&lt;/a&gt;修改Rubygems 中央仓库&lt;/h2&gt;&lt;p&gt;由于使用国外中央仓库，可能部分第三方库被墙，导致无法下载，这里，我们使用淘宝的ruby 仓库&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;添加淘宝&lt;code&gt;ruby&lt;/code&gt;中央仓库&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 添加taobao的源&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gem source -a http://ruby.taobao.org&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;移除官方中央仓库&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 移除官方仓库&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gem source -r https://rubygems.org/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Ruby安装&quot;&gt;&lt;a href=&quot;#Ruby安装&quot; class=&quot;headerlink&quot; title=&quot;Ruby安装&quot;&gt;&lt;/a&gt;Ruby安装&lt;/h2&gt;&lt;p&gt;Window 环境安装：&lt;br&gt;可以使用&lt;a href=&quot;http://rubyinstaller.org/
-    
-    </summary>
-    
-      <category term="Programming Language" scheme="http://cmp-cc.github.io/categories/Programming-Language/"/>
-    
-      <category term="Ruby" scheme="http://cmp-cc.github.io/categories/Programming-Language/Ruby/"/>
-    
-    
-      <category term="Ruby" scheme="http://cmp-cc.github.io/tags/Ruby/"/>
     
   </entry>
   

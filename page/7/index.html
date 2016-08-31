@@ -228,6 +228,164 @@
             
               
                 
+                <a class="post-title-link" href="/2014/03/11/2014/Git 遇到的异常/" itemprop="url">
+                  Git 遇到的异常
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-03-11T22:53:00+08:00" content="2014-03-11">
+              2014-03-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Version-Control/" itemprop="url" rel="index">
+                    <span itemprop="name">Version Control</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Version-Control/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/03/11/2014/Git 遇到的异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/11/2014/Git 遇到的异常/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>更新于 ：2015-12-14 17:50:00</strong></p>
+<p><strong>总结 在使用Git 进行版本控制遇到错误及其相关解决方案，并持续更新</strong></p>
+<h2 id="1-Everything-is-update"><a href="#1-Everything-is-update" class="headerlink" title="1.Everything is update"></a>1.Everything is update</h2><h3 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>git push origin master 的时候出现Everything is update</strong></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>使用git commit -am “xxxx”</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &quot;modify of part&quot;</span><br><span class="line">git origin master</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-Note-about-fast-forwards-rejected"><a href="#2-Note-about-fast-forwards-rejected" class="headerlink" title="2.Note about fast-forwards (! [rejected])"></a>2.Note about fast-forwards (! [rejected])</h2><h3 id="错误信息-1"><a href="#错误信息-1" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin hexo</span><br><span class="line">To git@github.com:cmp-cc/cmp-cc.github.io.git</span><br><span class="line"> ! [rejected]        hexo -&gt; hexo (fetch first)</span><br><span class="line">error: failed to push some refs to &apos;git@github.com:cmp-cc/cmp-cc.github.io.git&apos;</span><br><span class="line">hint: Updates were rejected because the remote contains work that you do</span><br><span class="line">hint: not have locally. This is usually caused by another repository pushing</span><br><span class="line">hint: to the same ref. You may want to first integrate the remote changes</span><br><span class="line">hint: (e.g., &apos;git pull ...&apos;) before pushing again.</span><br><span class="line">hint: See the &apos;Note about fast-forwards&apos; in &apos;git push --help&apos; for details.</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>一、使用强制push的方法 （不推荐）：</strong><br>这样会使远程修改丢失，一般是不可取的，尤其是多人协作开发的时候，单人协助无所谓。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master -f</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>二、老老实实的merge 分支。（推荐）</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>三、使用<code>git pull --rebase</code> 将本地与远程进行同步（等价于第二种）</strong><br><strong><code>git push --rebase</code> 的含义</strong></p>
+<ul>
+<li>把本地 repo. 从上次 pull 之后的变更暂存起來</li>
+<li>恢复到上次 pull 时的状态</li>
+<li>合并远端的变更到本地</li>
+<li>最后再合并刚刚暂存下來的本地变更</li>
+</ul>
+<h2 id="3-push之后不能访问文件-文件状态为灰色"><a href="#3-push之后不能访问文件-文件状态为灰色" class="headerlink" title="3.push之后不能访问文件(文件状态为灰色)"></a>3.push之后不能访问文件(文件状态为灰色)</h2><h3 id="错误信息-2"><a href="#错误信息-2" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>如下，处于不可打开状态，如果你把整个项目clone下来，你会发现文件为空</strong></p>
+<img src="/2014/03/11/2014/Git%20遇到的异常/4D44727A1CED48A6AF27443A6F1A36D7.png" alt="文件显示状态" title="文件显示状态">
+<h3 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h3><p>你可能需要了解一下<code>git submodule</code>的使用,就知道问题所在了。(git项目中的子目录存在一个git仓库)</p>
+<ul>
+<li>将子目录中的<code>.git</code>目录删掉</li>
+<li>删除子模块子目录</li>
+<li>再执行<code>git push</code> 操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached ./themes/next</span><br><span class="line">git add --all</span><br><span class="line">git commit -m &quot;delete child module&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可参考：<a href="http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean" target="_blank" rel="external">http://stackoverflow.com/questions/19584255/what-does-a-grey-icon-in-remote-github-mean</a></p>
+<h2 id="pull没有更新（-See-git-pull-1-for-details-）"><a href="#pull没有更新（-See-git-pull-1-for-details-）" class="headerlink" title="pull没有更新（ See git-pull(1) for details ）"></a>pull没有更新（ See git-pull(1) for details ）</h2><h3 id="错误信息-3"><a href="#错误信息-3" class="headerlink" title="错误信息"></a>错误信息</h3><p><strong>这个算不上错误，问题是这样的：你有两个分支A 和 B。当前分支为B，你执行git pull 操作，他却pull了A而不是B</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br><span class="line">remote: Counting objects: 174, done.</span><br><span class="line">remote: Compressing objects: 100% (95/95), done.</span><br><span class="line">remote: Total 174 (delta 61), reused 0 (delta 0), pack-reused 0</span><br><span class="line">Receiving objects: 100% (174/174), 251.93 KiB | 206.00 KiB/s, done.</span><br><span class="line">Resolving deltas: 100% (61/61), done.</span><br><span class="line">   69cc25b..1b24763  master     -&gt; origin/master</span><br><span class="line">There is no tracking information for the current branch.</span><br><span class="line">Please specify which branch you want to merge with.</span><br><span class="line">See git-pull(1) for details</span><br><span class="line"></span><br><span class="line">    git pull &lt;remote&gt; &lt;branch&gt;</span><br><span class="line"></span><br><span class="line">If you wish to set tracking information for this branch you can do so with:</span><br><span class="line"></span><br><span class="line">    git branch --set-upstream-to=origin/&lt;branch&gt; stream</span><br></pre></td></tr></table></figure></p>
+<h3 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>进行本地分支和远程分支关联</strong><br><code>git branch --set-upstream-to=origin/&lt;branch&gt; master</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/stream stream</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://www.tbdazhe.com/archives/238" target="_blank" rel="external">http://www.tbdazhe.com/archives/238</a></p>
+<h2 id="Unlink-of-file-‘xxx’-failed-Should-I-try-again"><a href="#Unlink-of-file-‘xxx’-failed-Should-I-try-again" class="headerlink" title="Unlink of file ‘xxx’ failed. Should I try again?"></a>Unlink of file ‘xxx’ failed. Should I try again?</h2><h3 id="错误信息-4"><a href="#错误信息-4" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">error: refusing to lose untracked file at &apos;stream/next/bower.json&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/_config.yml&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/README.md&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.jshintrc&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.javascript_ignore&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.hound.yml&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.gitignore&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.editorconfig&apos;</span><br><span class="line">error: refusing to lose untracked file at &apos;stream/next/.bowerrc&apos;</span><br><span class="line">Unlink of file &apos;stream/next&apos; failed. Should I try again? (y/n)</span><br></pre></td></tr></table></figure>
+<h3 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案"></a>解决方案</h3><p>出现这种问题，通常意味这有一个进程仍在使用特定的文件，急需要关闭其它程序，然后在尝试执行<code>git pull</code></p>
+<p>参考：<a href="http://stackoverflow.com/questions/10181057/unlink-of-file-failed" target="_blank" rel="external">http://stackoverflow.com/questions/10181057/unlink-of-file-failed</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2014/01/12/2014/Spring 实例教程/" itemprop="url">
                   Spring 实例教程
                 </a>
@@ -2189,228 +2347,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2013/03/14/2013/常见系统缩写/" itemprop="url">
-                  常见系统缩写
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2013-03-14T17:53:00+08:00" content="2013-03-14">
-              2013-03-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Software-Engineering/" itemprop="url" rel="index">
-                    <span itemprop="name">Software Engineering</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2013/03/14/2013/常见系统缩写/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/14/2013/常见系统缩写/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>老是看到一些系统专有名词，还有部分不认识~ 很尴尬，总结一下，便于以后区分。</p>
-<table>
-<thead>
-<tr>
-<th>缩写名称</th>
-<th>全称</th>
-<th>中文名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CMS</td>
-<td>Content Management System</td>
-<td>内容管理系统</td>
-</tr>
-<tr>
-<td>DRP</td>
-<td>Distribution Resource Planning</td>
-<td>分销资源计划</td>
-</tr>
-<tr>
-<td>OA</td>
-<td>Office Automation</td>
-<td>办公自动化</td>
-</tr>
-<tr>
-<td>CRM</td>
-<td>Customer Relationship Management</td>
-<td>客户关系管理系统</td>
-</tr>
-<tr>
-<td>ERP</td>
-<td>Enterprise Resource Planning</td>
-<td>企业资源计划</td>
-</tr>
-<tr>
-<td>EAM</td>
-<td>Enterprise Asset Management</td>
-<td>企业资产管理</td>
-</tr>
-<tr>
-<td>PLM</td>
-<td>Product Lift Cycle management</td>
-<td>产品生命周期管理</td>
-</tr>
-<tr>
-<td>PDM</td>
-<td>Product Data Management</td>
-<td>产品数据管理</td>
-</tr>
-<tr>
-<td>HRS</td>
-<td>Human Resource Suite</td>
-<td>人力资源平台</td>
-</tr>
-<tr>
-<td>KM</td>
-<td>Knowledge Management</td>
-<td>知识管理</td>
-</tr>
-<tr>
-<td>MES</td>
-<td>Manufacturing Execution System</td>
-<td>制造执行系统</td>
-</tr>
-<tr>
-<td>SCM</td>
-<td>Supply Chain Management</td>
-<td>供应链管理</td>
-</tr>
-<tr>
-<td>BPM</td>
-<td>Business Process Management</td>
-<td>业务流程管理</td>
-</tr>
-<tr>
-<td>BI</td>
-<td>Business Intelligence</td>
-<td>商业智能</td>
-</tr>
-<tr>
-<td>MDM</td>
-<td>Mobile Device Management</td>
-<td>移动设备管理</td>
-</tr>
-<tr>
-<td>MIS</td>
-<td>Management Information System</td>
-<td>管理信息系统</td>
-</tr>
-<tr>
-<td>DSS</td>
-<td>Decision Support System</td>
-<td>决策支持系统</td>
-</tr>
-<tr>
-<td>GIS</td>
-<td>Geographic Information System</td>
-<td>地理信息系统</td>
-</tr>
-<tr>
-<td>SOA</td>
-<td>Service-Oriented Architecture</td>
-<td>面向服务的体系结构 </td>
-</tr>
-</tbody>
-</table>
-<p><strong>SOA并不属于系统，而是一种架构设计</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2456,7 +2392,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2464,7 +2400,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2473,7 +2409,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
