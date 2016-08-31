@@ -228,7 +228,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/25/Titan 数据库使用/" itemprop="url">
+                <a class="post-title-link" href="/2016/08/25/Titan 图数据库使用/" itemprop="url">
                   Titan 数据库使用
                 </a>
               
@@ -284,8 +284,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/25/Titan 数据库使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/Titan 数据库使用/" itemprop="commentsCount"></span>
+                <a href="/2016/08/25/Titan 图数据库使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/Titan 图数据库使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -368,7 +368,7 @@
 <ul>
 <li>服务器（这里使用为Contos）中下载Titan-hadoop1</li>
 </ul>
-<img src="/2016/08/25/Titan%20数据库使用/d6b915a1-8d65-4714-9eee-addb84c19d5b.png" alt="titan安装文件" title="titan安装文件">
+<img src="/2016/08/25/Titan%20图数据库使用/d6b915a1-8d65-4714-9eee-addb84c19d5b.png" alt="titan安装文件" title="titan安装文件">
 <ul>
 <li><p>解压<code>Titan</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip titan-1.0.0-hadoop1.zip</span><br></pre></td></tr></table></figure>
@@ -394,14 +394,14 @@
 <li>如何确定<code>hbase hostname地址</code>？  hbase 使用<code>zoopeeker</code>作为分布式协调服务。找到<code>hbase-site.xml</code>中<code>hbase.zookeeper.quorum</code>值<br>进入<code>CDH Manage</code></li>
 </ul>
 </blockquote>
-<img src="/2016/08/25/Titan%20数据库使用/7b7f63d9-a299-4d93-8b00-46671256a153.png" alt="CDH Manager 页面" title="CDH Manager 页面">
-<img src="/2016/08/25/Titan%20数据库使用/32641fe4-8946-4176-b9a7-3bc968ace9a1.png" alt="Hbase 配置URL" title="Hbase 配置URL">
-<img src="/2016/08/25/Titan%20数据库使用/380a7f69-ef58-4d3d-94ca-eee1fe0621e1.png" alt="zk quorum" title="zk quorum">
+<img src="/2016/08/25/Titan%20图数据库使用/7b7f63d9-a299-4d93-8b00-46671256a153.png" alt="CDH Manager 页面" title="CDH Manager 页面">
+<img src="/2016/08/25/Titan%20图数据库使用/32641fe4-8946-4176-b9a7-3bc968ace9a1.png" alt="Hbase 配置URL" title="Hbase 配置URL">
+<img src="/2016/08/25/Titan%20图数据库使用/380a7f69-ef58-4d3d-94ca-eee1fe0621e1.png" alt="zk quorum" title="zk quorum">
 <ul>
 <li>链接成功</li>
 </ul>
 <p>查看Hbase所有表，你将看到<code>titan</code>表,表示<code>titan</code>能够与hbase正常通信。</p>
-<img src="/2016/08/25/Titan%20数据库使用/86b1776f-c2e3-43e8-b7de-61e91c63118a.png" alt="hbase 整合成功" title="hbase 整合成功">
+<img src="/2016/08/25/Titan%20图数据库使用/86b1776f-c2e3-43e8-b7de-61e91c63118a.png" alt="hbase 整合成功" title="hbase 整合成功">
 <h2 id="配置titan-hbase-es-properties"><a href="#配置titan-hbase-es-properties" class="headerlink" title="配置titan-hbase-es.properties"></a>配置<code>titan-hbase-es.properties</code></h2><p>我们只需要加载配置即可完成链接：</p>
 <ul>
 <li>配置Hbase，作用于存储层</li>
