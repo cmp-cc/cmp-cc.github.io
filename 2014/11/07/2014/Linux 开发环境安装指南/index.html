@@ -59,8 +59,7 @@
 
 
 
-<meta name="description" content="我的Linux (Centos)开发、应用部署环境，持续更新更新：2016-04-27 
-安装JDK如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）详细安装步骤参考：tar.gz 格式安装 
+<meta name="description" content="安装JDK如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）详细安装步骤参考：tar.gz 格式安装 
 tar.gz 格式安装
 查看Linux 自带的JDK是否安装1java -version
 
@@ -68,13 +67,19 @@ tar.gz 格式安装
 
 
 卸载自带JDK
-查看相关依赖12345rpm -qa | grep java或则rmp -qa |">
+查看相关依赖12345rpm -qa | grep java或则rmp -qa |grep jdk
+
+
+
+
+ 
+
+卸载12rpm -e --nodeps java-1.7.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 开发环境安装指南">
 <meta property="og:url" content="http://cmp-cc.github.io/2014/11/07/2014/Linux 开发环境安装指南/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description" content="我的Linux (Centos)开发、应用部署环境，持续更新更新：2016-04-27 
-安装JDK如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）详细安装步骤参考：tar.gz 格式安装 
+<meta property="og:description" content="安装JDK如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）详细安装步骤参考：tar.gz 格式安装 
 tar.gz 格式安装
 查看Linux 自带的JDK是否安装1java -version
 
@@ -82,14 +87,20 @@ tar.gz 格式安装
 
 
 卸载自带JDK
-查看相关依赖12345rpm -qa | grep java或则rmp -qa |">
+查看相关依赖12345rpm -qa | grep java或则rmp -qa |grep jdk
+
+
+
+
+ 
+
+卸载12rpm -e --nodeps java-1.7.">
 <meta property="og:image" content="http://cmp-cc.github.io/2014/11/07/2014/Linux%20开发环境安装指南/596f24a9-b58f-40e3-b02c-6cfdf4c58dab.png">
 <meta property="og:image" content="http://cmp-cc.github.io/2014/11/07/2014/Linux%20开发环境安装指南/2310dfba-98e6-478a-890e-11291c66f2d1.png">
 <meta property="og:updated_time" content="2015-12-14T09:50:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 开发环境安装指南">
-<meta name="twitter:description" content="我的Linux (Centos)开发、应用部署环境，持续更新更新：2016-04-27 
-安装JDK如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）详细安装步骤参考：tar.gz 格式安装 
+<meta name="twitter:description" content="安装JDK如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）详细安装步骤参考：tar.gz 格式安装 
 tar.gz 格式安装
 查看Linux 自带的JDK是否安装1java -version
 
@@ -97,7 +108,14 @@ tar.gz 格式安装
 
 
 卸载自带JDK
-查看相关依赖12345rpm -qa | grep java或则rmp -qa |">
+查看相关依赖12345rpm -qa | grep java或则rmp -qa |grep jdk
+
+
+
+
+ 
+
+卸载12rpm -e --nodeps java-1.7.">
 <meta name="twitter:image" content="http://cmp-cc.github.io/2014/11/07/2014/Linux%20开发环境安装指南/596f24a9-b58f-40e3-b02c-6cfdf4c58dab.png">
 
 
@@ -333,8 +351,7 @@ tar.gz 格式安装
       
 
       
-        <p><strong>我的Linux (Centos)开发、应用部署环境，持续更新</strong><br><strong>更新：2016-04-27 </strong></p>
-<h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><p><strong>如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）</strong><br><strong>详细安装步骤参考：<code>tar.gz 格式</code>安装 </strong></p>
+        <h2 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h2><p><strong>如下有几种安装JDK 环境的方式，推荐使用rpm安装（简单）</strong><br><strong>详细安装步骤参考：<code>tar.gz 格式</code>安装 </strong></p>
 <h3 id="tar-gz-格式安装"><a href="#tar-gz-格式安装" class="headerlink" title="tar.gz 格式安装"></a><code>tar.gz 格式</code>安装</h3><ul>
 <li>查看Linux 自带的JDK是否安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
 </li>
