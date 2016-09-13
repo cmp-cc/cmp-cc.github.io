@@ -8,6 +8,11 @@ categories:
 
 tags:
 - Titan
+
+
+
+
+
 ----
 > 之前有小规模的使用Neo4j，Neo4j 需要商业授权，且对于大规模的分布式支持并不友好。 案例也不多。
 > Titan 作为分布式图数据，构建于Elasticsearch、Hbase、Hadoop 之上， 分布式支持较好，且有部分商业案例. 主要应用:`知识图谱`、`情报分析`等。
