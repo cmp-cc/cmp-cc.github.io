@@ -59,15 +59,12 @@
 
 
 
-<meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="I am cmp-cc">
 <meta property="og:url" content="http://cmp-cc.github.io/page/4/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="I am cmp-cc">
-<meta name="twitter:description">
 
 
 
@@ -206,6 +203,142 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/03/27/2015/MRUnit 单元测试/" itemprop="url">
+                  MRUnit 单元测试
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-03-27T23:44:00+08:00" content="2015-03-27">
+              2015-03-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed Development</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Distributed-Development/Hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">Hadoop</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/03/27/2015/MRUnit 单元测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/27/2015/MRUnit 单元测试/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>MRUnit 单元测试</strong><br>MapReduce的map和reduce函数很容易测试,这是由于其功能的风格。MRUnit是一个测试库，便于通过已知的输入到Map或Reudce检测其输出结果符合预期。<br>MRUnit结合使用一个标准的测试执行框架，如：JUnit，所以你可以运行MapReduce测试作业作为一个正常的开发环境的一部分。</p>
+<p><strong>权威指南  单元测试实例 </strong></p>
+<p>通过天气数据集输入（input）到mapper，检测输出（output）年和温度 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import java.io.IOException;</span><br><span class="line">import org.apache.hadoop.io.*;</span><br><span class="line">import org.apache.hadoop.mrunit.mapreduce.MapDriver;</span><br><span class="line">import org.junit.*;</span><br><span class="line"></span><br><span class="line">public class MaxTemperatureMapperTest &#123;</span><br><span class="line"></span><br><span class="line">  @Test</span><br><span class="line">  public void processesValidRecord() throws IOException, InterruptedException &#123;</span><br><span class="line">    Text value = new Text(&quot;0043011990999991950051518004+68750+023550FM-12+0382&quot; +</span><br><span class="line">                                  // Year ^^^^</span><br><span class="line">        &quot;99999V0203201N00261220001CN9999999N9-00111+99999999999&quot;);</span><br><span class="line">                              // Temperature ^^^^^</span><br><span class="line">    /**</span><br><span class="line">     *    因为我们正在测试Mapper,所以使用MRUnit的MapDriver,</span><br><span class="line">     *    1、设置Mapper的受检对象</span><br><span class="line">     *    2、设置input key和value</span><br><span class="line">     *    3、设置预期的output key(这里是是Text代表年,1950) 和value(IntWritable 代表温度,-1.1℃)</span><br><span class="line">     *    4、最后调用runTest()方法执行测试。</span><br><span class="line">     */ </span><br><span class="line">    new MapDriver&lt;LongWritable, Text, Text, IntWritable&gt;()</span><br><span class="line">      .withMapper(new MaxTemperatureMapper())</span><br><span class="line">      .withInput(new LongWritable(0), value)</span><br><span class="line">      .withOutput(new Text(&quot;1950&quot;), new IntWritable(-11))</span><br><span class="line">      .runTest();</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如下将是一个fail的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 这将是一个失败的例子：</span><br><span class="line"> * 从行中抽取年份和气温，在Context输出，由于我们添加一个缺失值的测试，该值在原始的数据中表示气温+9999；</span><br><span class="line"> *  </span><br><span class="line"> *  MapDriver 可以依据withOutput()的次数检查有零个、 一个或更多的输出记录，</span><br><span class="line"> *  在这个例子中，由于缺少气温记录已经被过滤掉。</span><br><span class="line"> *  parseInt 不能正常解析，所以抛出NumberFormatException异常</span><br><span class="line"> * </span><br><span class="line"> */</span><br><span class="line">@Test</span><br><span class="line">public void ignoresMissingTemperatureRecord() throws IOException,</span><br><span class="line">    InterruptedException &#123;</span><br><span class="line">  Text value = new Text(&quot;0043011990999991950051518004+68750+023550FM-12+0382&quot; +</span><br><span class="line">                                // Year ^^^^</span><br><span class="line">      &quot;99999V0203201N00261220001CN9999999N9+99991+99999999999&quot;);</span><br><span class="line">                            // Temperature ^^^^^</span><br><span class="line">  new MapDriver&lt;LongWritable, Text, Text, IntWritable&gt;()</span><br><span class="line">    .withMapper(new MaxTemperatureMapper())</span><br><span class="line">    .withInput(new LongWritable(0), value)</span><br><span class="line">    .runTest();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述测试是失败的，因为+9999是一个特例，所以不应该把更多的逻辑代码放到Mapper，更有意义的是使用一个解析器来封装解析逻辑。<br>优点：<br>    1、重复使用，很容易编写与Mapper相似的工作<br>    2、提高针对测试，我们可以为解析器编写单元测试，从而更好的测试MR。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class NcdcRecordParser &#123;</span><br><span class="line">      </span><br><span class="line">      private static final int MISSING_TEMPERATURE = 9999;</span><br><span class="line">      </span><br><span class="line">      private String year;</span><br><span class="line">      private int airTemperature;</span><br><span class="line">      private String quality;</span><br><span class="line">      </span><br><span class="line">      public void parse(String record) &#123;</span><br><span class="line">        year = record.substring(15, 19);</span><br><span class="line">        String airTemperatureString;</span><br><span class="line">        // Remove leading plus sign as parseInt doesn&apos;t like them (pre-Java 7)</span><br><span class="line">        if (record.charAt(87) == &apos;+&apos;) &#123; </span><br><span class="line">          airTemperatureString = record.substring(88, 92);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          airTemperatureString = record.substring(87, 92);</span><br><span class="line">        &#125;</span><br><span class="line">        airTemperature = Integer.parseInt(airTemperatureString);</span><br><span class="line">        quality = record.substring(92, 93);</span><br><span class="line">      &#125;</span><br><span class="line">      /*</span><br><span class="line">       * 直接解析字段</span><br><span class="line">       */</span><br><span class="line">      public void parse(Text record) &#123;</span><br><span class="line">        parse(record.toString());</span><br><span class="line">      &#125;</span><br><span class="line">      /*</span><br><span class="line">       * 检查温度是否有效</span><br><span class="line">       */</span><br><span class="line">      public boolean isValidTemperature() &#123;</span><br><span class="line">        return airTemperature != MISSING_TEMPERATURE &amp;&amp; quality.matches(&quot;[01459]&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      public String getYear() &#123;</span><br><span class="line">        return year;</span><br><span class="line">      &#125;</span><br><span class="line">      public int getAirTemperature() &#123;</span><br><span class="line">        return airTemperature;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>MaxTemperatureMapper使用解析器对字段进行解析,然后重写执行之前fail的测试，它将是成功的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class MaxTemperatureMapper</span><br><span class="line">    extends Mapper&lt;LongWritable, Text, Text, IntWritable&gt; &#123;</span><br><span class="line"></span><br><span class="line">  private NcdcRecordParser parser = new NcdcRecordParser();</span><br><span class="line"></span><br><span class="line">  @Override</span><br><span class="line">  public void map(LongWritable key, Text value, Context context)</span><br><span class="line">      throws IOException, InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">    parser.parse(value);</span><br><span class="line">    if (parser.isValidTemperature()) &#123;</span><br><span class="line">      context.write(new Text(parser.getYear()),</span><br><span class="line">          new IntWritable(parser.getAirTemperature()));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Reducer 测试<br>使用ReduceDriver，Reducer 输出一个最大值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line"> public void returnsMaximumIntegerInValues() throws IOException,</span><br><span class="line">     InterruptedException &#123;</span><br><span class="line">   new ReduceDriver&lt;Text, IntWritable, Text, IntWritable&gt;()</span><br><span class="line">     .withReducer(new MaxTemperatureReducer())</span><br><span class="line">     .withInput(new Text(&quot;1950&quot;), Arrays.asList(new IntWritable(10), new IntWritable(5)))</span><br><span class="line">     .withOutput(new Text(&quot;1950&quot;), new IntWritable(10))</span><br><span class="line">     .runTest();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1694,185 +1827,6 @@ StrongType
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/12/10/2014/iFrame/" itemprop="url">
-                  iFrame
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-12-10T11:51:00+08:00" content="2014-12-10">
-              2014-12-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Web/HTML/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/12/10/2014/iFrame/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/10/2014/iFrame/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="iFrame标记"><a href="#iFrame标记" class="headerlink" title="iFrame标记"></a>iFrame标记</h1><hr>
-<p>iFrame标记（浮动帧标记）是框架的一种形式。 </p>
-<h3 id="iframe-作用："><a href="#iframe-作用：" class="headerlink" title="iframe 作用："></a>iframe 作用：</h3><ul>
-<li>组件化开发的一种方式</li>
-<li>解决重复代码问题</li>
-</ul>
-<h3 id="iFrame-及其属性："><a href="#iFrame-及其属性：" class="headerlink" title="iFrame 及其属性："></a>iFrame 及其属性：</h3><p>iFrame 使用格式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=&quot;URL&quot; width=&quot;x&quot; height=&quot;x&quot; scrolling=&quot;[OPTION]&quot; frameborder=&quot;x&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure></p>
-<p>iframe 设置文本或图形的浮动图文框或容器</p>
-<ul>
-<li>scrolling=no (YES,NO,AUTO) 是否有滚动条</li>
-<li>src 指定iFrame调用的类型（HTML,GIF,JPEG,Text,JSP等等）</li>
-<li>width、height 。iframe整体宽高。</li>
-<li>frameborder：宽度<br>示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe frameborder=0 width=500 height=500 marginheight=0 marginwidth=0 scrolling=no src=&quot;content/codeSnippet.html&quot;&gt; &lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>可以重复引用</li>
-<li>引入内容，父窗体显示页面为HTML包裹。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//被引入片段 codeSnippet.html</span><br><span class="line">&lt;h1&gt;Hello World&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//引入代码片段还是其它，默认HTML包裹。</span><br><span class="line">&lt;iframe border=2 frameborder=0 width=500 height=500 marginheight=0 marginwidth=0 scrolling=no src=&quot;content/SCNKQ%609XS4Z4$%5B2XLLH(1%7BW.png&quot;&gt; &lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="父窗体与子窗体通信"><a href="#父窗体与子窗体通信" class="headerlink" title="父窗体与子窗体通信"></a>父窗体与子窗体通信</h3><p>父窗体： 包含iframe的窗体<br>子窗体： iframe本身。<br>通信：使用程序访问控制父窗体与子窗体交互，父窗体中访问子窗体或相反。</p>
-<p><strong>子窗体（嵌入代码片）</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head lang=&quot;en&quot;&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function helloChild()&#123;</span><br><span class="line">       console.log(&quot;Hello child Object&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">// 如果如果下一行,嵌入父窗体，默认增加html、、head、body标签</span><br><span class="line">&lt;h1 id=&quot;h1&quot;&gt;Hello World&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    // 访问控制父类对象</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>父窗体</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	function helloParent()&#123;</span><br><span class="line">	    console.log(&quot;Hello parent Object&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;iframe name=&quot;snippet&quot; id=&quot;snippet&quot;  frameborder=0 width=500 height=500 marginheight=0 marginwidth=0 scrolling=no src=&quot;content/codeSnippet.html&quot;&gt;</span><br><span class="line">&lt;/iframe&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="父窗体访问控制子窗体对象"><a href="#父窗体访问控制子窗体对象" class="headerlink" title="父窗体访问控制子窗体对象"></a>父窗体访问控制子窗体对象</h4><ul>
-<li><p>iframe 设置id或class 属性<br>父窗体中，iframe窗体为document对象的一个子对象，可以直接在脚本中访问子窗体中对象，这样只能访问控制当前iframe对象的属性信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var snippet = document.getElementById(&apos;snippet&apos;)</span><br><span class="line">console.log(snippet.src)</span><br><span class="line">console.log(snippet.frameBorder)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>iframe 设置name属性<br>设置name属性，将iframe视为window对象，可以访问控制iframe内部JS、HTML。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 调用iframe内部JS代码和iframe DOM操作</span><br><span class="line">window.onload = function()&#123;</span><br><span class="line">    snippet.helloChild();//访问内部方法。 完整写法:  document.snippet.helloChild()</span><br><span class="line">    snippet.document.getElementById(&apos;h1&apos;).innerHTML = &quot;Me too!!!&quot;</span><br><span class="line">// frames[&apos;snippet&apos;] 等价于snippet 。frames为window元素.</span><br><span class="line">// frames[&apos;snippet&apos;].document.getElementById(&apos;h1s&apos;).innerHTML = &quot;Me too!!!&quot;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>提示，注意全局命名冲突。</p>
-</blockquote>
-<h4 id="子窗体访问控制父窗体对象"><a href="#子窗体访问控制父窗体对象" class="headerlink" title="子窗体访问控制父窗体对象"></a>子窗体访问控制父窗体对象</h4><p>在代码片中定义JS脚本，通过parent对象访问上一级window对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parent.helloParent();  //访问父窗体对象。  完整写法:   window.parent.helloParent();</span><br><span class="line">parent.document.getElementById(&apos;p&apos;).innerHTML = &quot;你有良民证吗?&quot;</span><br></pre></td></tr></table></figure></p>
-<h3 id="iFrame-组件化"><a href="#iFrame-组件化" class="headerlink" title="iFrame 组件化"></a>iFrame 组件化</h3><p>将不变内容组件化，相对独立，避免重复编码，使得修改页面更加方法。</p>
-<p>###用途</p>
-<ul>
-<li>载入外来资源。<br>结合a标签或者Script脚本,点击或输入链接，访问显示外来页面或其它资源</li>
-<li>复用。<br>相同代码连续使用。</li>
-<li>窃取显示。<br>外来链接。通过设置 marginwidth、marginheight、vspace、scrolling=no 、width、height 。将别人部分内容显示在自己页面。<br>全屏显示页面中某一部分。</li>
-</ul>
-<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>iFrame 标签,现在越来越不受人待见，由于它的缺点，很多原使用MVVM或JS模板引擎、Ajax取代。<br>缺点：</p>
-<ul>
-<li>不利于seo<br>不利于搜索引擎的爬虫访问,例如：Google 不读取iFrame标签信息。</li>
-<li>增加页面交互的复杂度</li>
-<li>共享链接池<br>iframe和主页面共享链接池，浏览器对相同域的链接有限制，所以会影响页面并行加载。</li>
-<li>移动端展示问题</li>
-<li>重复加载问题（可避免）。<br>iframe等同于一个新的页面，JS/CSS 重复加载。</li>
-</ul>
-<p>优点：</p>
-<p>iframe 跨域通信<br>iframe WebSocket 长连接</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1918,7 +1872,7 @@ StrongType
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-count">76</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1926,7 +1880,7 @@ StrongType
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1935,7 +1889,7 @@ StrongType
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -59,15 +59,12 @@
 
 
 
-<meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="I am cmp-cc">
 <meta property="og:url" content="http://cmp-cc.github.io/index.html">
 <meta property="og:site_name" content="I am cmp-cc">
-<meta property="og:description">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="I am cmp-cc">
-<meta name="twitter:description">
 
 
 
@@ -206,6 +203,191 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/2016/win 10 下php 环境搭建异常/" itemprop="url">
+                  win10 下php 环境搭建异常处理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T15:30:00+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Php/" itemprop="url" rel="index">
+                    <span itemprop="name">Php</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/21/2016/win 10 下php 环境搭建异常/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/2016/win 10 下php 环境搭建异常/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近要看php的一个CMS系统，简单学习了一下php，零接触Php，遇到一些问题，简单总结一下。</p>
+<ul>
+<li><p>在win10 上安装php，提示缺少 <code>msvcr110.dll</code>文件</p>
+<ul>
+<li>解决方案：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://download.microsoft.com/download/9/C/D/9CD480DC-0301-41B0-AAAB-FE9AC1F60237/VSU4/vcredist_x64.exe</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>运行apache httpd  出现缺少 vcruntime140.dll</p>
+<ul>
+<li>解决方案：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>运行apache ,Cannot load modules/mod_access_compat.so into server:</p>
+<ul>
+<li><p>异常详情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">httpd: Syntax error on line 72 of D:/Program-Software/Server-Tools/apache/httpd-2.4.23-win64-VC14/Apache24/conf/httpd.conf: Cannot load modules/mod_access_compat.so into server: \xd5\xd2\xb2\xbb\xb5\xbd\xd6\xb8\xb6\xa8\xb5\xc4\xc4\xa3\xbf\xe9\xa1\xa3</div></pre></td></tr></table></figure>
+</li>
+<li><p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">由于没有安装到默认目录，httpd.conf 中 ServerRoot默认指定地址为：C\Apache24 路径。</div><div class="line">修改此路径为真实安装目录，打开httpd.conf 修改即可（control+h 修改所有地址）</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>httpd: Could not reliably determine the server’s fully qualified domain name</p>
+<ul>
+<li><p>异常详情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   D:\Program-Software\Server-Tools\apache\httpd-2.4.23-win64-VC14\Apache24\bin&gt;httpd</div><div class="line">AH00558: httpd: Could not reliably determine the server&apos;s fully qualified domain name, using fe80::a174:5e03:3852:dadd. Set the &apos;ServerName&apos; directive globally to suppress this message</div></pre></td></tr></table></figure>
+</li>
+<li><p>解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">编辑 httpd.conf   加入一句  ServerName  localhost:80</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>apache 无法解析php文件</p>
+<blockquote>
+<p>需要让 apache 识别 php 模块并且用 php模块去处理 *.php 文件 ,linux 下，安装完就支持了，win 下需要自己折腾 - -</p>
+<ul>
+<li>解决方案<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 切记下载完整版php (php 下载一般有两个版本)，不然没有php5apache2_4.dll文件。 (httpd.conf 配置如下即可)</div><div class="line">LoadFile &quot;D:\Program-Software\Programming-Language\Php\php\php-5.5.38-Win32-VC11-x64/libeay32.dll&quot;</div><div class="line">LoadFile &quot;D:\Program-Software\Programming-Language\Php\php\php-5.5.38-Win32-VC11-x64/ssleay32.dll&quot;</div><div class="line">LoadFile &quot;D:\Program-Software\Programming-Language\Php\php\php-5.5.38-Win32-VC11-x64/libpq.dll&quot;</div><div class="line">LoadModule php5_module &quot;D:\Program-Software\Programming-Language\Php\php\php-5.5.38-Win32-VC11-x64\php5apache2_4.dll&quot;</div><div class="line">PHPIniDir &quot;D:\Program-Software\Programming-Language\Php\php\php-5.5.38-Win32-VC11-x64&quot;</div><div class="line">AddType application/x-httpd-php .php</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>mysql 链接异常</p>
+<ul>
+<li>解决方案<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">在php目录下 打开php.ini</div><div class="line">打开：window on extension_dir</div><div class="line">打开: extension=php_mysqli.dll</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>时间格式化异常</p>
+<ul>
+<li><p>异常详情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Warning: date(): It is not safe to rely on the system&apos;s timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone &apos;UTC&apos; for now, but please set date.timezone to select your timezone</div></pre></td></tr></table></figure>
+</li>
+<li><p>解决方案</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php.ini 增加 `date.timezone = Asia/Shanghai`</div></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1954,152 +2136,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/26/2016/Python + OpenCV 环境配置/" itemprop="url">
-                  Python + OpenCV 环境配置
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-26T19:12:00+08:00" content="2016-04-26">
-              2016-04-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming Language</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Programming-Language/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/26/2016/Python + OpenCV 环境配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/2016/Python + OpenCV 环境配置/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>OpenCV的全称是：Open Source Computer Vision Library。OpenCV是一个基于（开源）发行的跨平台计算机视觉库，可以运行在Linux、Windows和Mac OS操作系统上。它轻量级而且高效——由一系列 C 函数和少量 C++ 类构成，同时提供了Python、Ruby、MATLAB等语言的接口，实现了图像处理和计算机视觉方面的很多通用算法。</p>
-<p>CV2是OpenCV官方的一个扩展库，属于一个Python模块，处理图像函数主要还是和CV2打交道。</p>
-<p>安装详情参考:<br><a href="http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_setup/py_setup_in_windows/py_setup_in_windows.html" target="_blank" rel="external">http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_setup/py_setup_in_windows/py_setup_in_windows.html</a></p>
-<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="安装Python-2-7"><a href="#安装Python-2-7" class="headerlink" title="安装Python 2.7"></a>安装Python 2.7</h3><p>当前最新版OpenCV 支持Python2.7 （64bit or 32 bit）<br><strong>这里确定你已经安装了</strong></p>
-<h3 id="安装OpenCV"><a href="#安装OpenCV" class="headerlink" title="安装OpenCV"></a>安装OpenCV</h3><p>下载地址：<a href="https://sourceforge.net/projects/opencvlibrary/files/" target="_blank" rel="external">https://sourceforge.net/projects/opencvlibrary/files/</a></p>
-<ul>
-<li>选择合适的系统版本，这里选择Window，版本为opencv-3.1.0.exe。</li>
-<li>安装opencv-3.1.0.exe ，选择解压目录<code>D:\Program-Software\Programming-Language\Python\Image\opencv</code></li>
-<li><p>配置环境变量，Path添加类似如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program-Software\Programming-Language\Python\Image\opencv\build\x64\vc14\bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>将opencv\build\python\2.7\x64添加到Python27\Lib\site-packages目录（选择不同位数的版本）</p>
-</li>
-</ul>
-<h3 id="安装Numpy"><a href="#安装Numpy" class="headerlink" title="安装Numpy"></a>安装Numpy</h3><p><strong>opencv 依赖</strong></p>
-<p>Pip安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U numpy</span><br></pre></td></tr></table></figure></p>
-<p>下载安装Numpy与Window<br><a href="https://sourceforge.net/projects/numpy/files/NumPy/1.8.1/numpy-1.8.1-win32-superpack-python2.7.exe/download" target="_blank" rel="external">https://sourceforge.net/projects/numpy/files/NumPy/1.8.1/numpy-1.8.1-win32-superpack-python2.7.exe/download</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy</span><br></pre></td></tr></table></figure></p>
-<h2 id="安装SciPy"><a href="#安装SciPy" class="headerlink" title="安装SciPy"></a>安装SciPy</h2><p><strong>opencv 依赖</strong><br>下载SciPy<br><a href="https://sourceforge.net/projects/scipy/files/scipy/0.16.1/scipy-0.16.1-win32-superpack-python2.7.exe/download" target="_blank" rel="external">https://sourceforge.net/projects/scipy/files/scipy/0.16.1/scipy-0.16.1-win32-superpack-python2.7.exe/download</a></p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import cv2</span><br><span class="line">&gt;&gt;&gt; image = cv2.imread(&quot;F:\image.png&quot;)</span><br><span class="line">&gt;&gt;&gt; cv2.imshow(&quot;Image&quot;,image)</span><br><span class="line">&gt;&gt;&gt; cv2.waitKey(0)</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-<p><strong>它将显示图片</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2145,7 +2181,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-count">76</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2153,7 +2189,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2162,7 +2198,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
